@@ -66,6 +66,7 @@
     background-color: var(--theme-color);
     color: var(--font-color);
     max-height: 800px;
+    resize: vertical;
     overflow-y: auto;
 
     ul,

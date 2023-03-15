@@ -1,0 +1,81 @@
+[data-theme='auto'] {
+  @import 'github-markdown-css/github-markdown.css';
+  @media screen and (prefers-color-scheme: dark) {
+    @import 'highlight.js/scss/github-dark.scss';
+    --font-color: #c9d1d9;
+    --theme-color: #202124;
+    --active-color: #3c4043;
+  }
+  @media screen and (prefers-color-scheme: light) {
+    @import 'highlight.js/scss/github.scss';
+    --font-color: #24292f;
+    --theme-color: #ffffff;
+    --active-color: #eaecf0;
+  }
+}
+
+[data-theme='dark'] {
+  @import 'highlight.js/scss/github-dark.scss';
+  @import 'github-markdown-css/github-markdown-dark.css';
+
+  --font-color: #c9d1d9;
+  --theme-color: #202124;
+  --active-color: #3c4043;
+}
+
+[data-theme='light'] {
+  @import 'highlight.js/scss/github.scss';
+  @import 'github-markdown-css/github-markdown-light.css';
+
+  --font-color: #24292f;
+  --theme-color: #ffffff;
+  --active-color: #eaecf0;
+}
+
+.container {
+  width: 440px;
+  height: 560px;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.container legend {
+  font-weight: bold;
+}
+
+.container form {
+  margin-bottom: 0;
+}
+
+.container fieldset {
+  margin-bottom: 0;
+}
+
+.footer {
+  width: 90%;
+  position: absolute;
+  bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--active-color);
+  border-radius: 5px;
+  padding: 6px;
+}
+
+.popup-tab {
+  display: inline-block;
+  position: relative;
+  list-style: none;
+  padding: 6px 12px 0;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-right: 2px;
+  background-color: var(--theme-color);
+  color: var(--font-color);
+
+  &--selected {
+    background: var(--active-color);
+  }
+}

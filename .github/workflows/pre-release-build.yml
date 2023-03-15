@@ -1,0 +1,61 @@
+name: pre-release
+on:
+  workflow_dispatch:
+#  push:
+#    branches:
+#      - main
+#    paths:
+#      - "src/**"
+#      - "!src/**/*.json"
+#      - "build.mjs"
+#    tags-ignore:
+#      - "v*"
+
+jobs:
+  build_and_release:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npm run build
+
+      - uses: josStorer/get-current-time@v2
+        id: current-time
+        with:
+          format: YYYY_MMDD_HHmm
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Chromium_Build_${{ steps.current-time.outputs.formattedTime }}
+          path: build/chromium/*
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Firefox_Build_${{ steps.current-time.outputs.formattedTime }}
+          path: build/firefox/*
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Chromium_Build_WithoutKatex_${{ steps.current-time.outputs.formattedTime }}
+          path: build/chromium-without-katex/*
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Firefox_Build_WithoutKatex_${{ steps.current-time.outputs.formattedTime }}
+          path: build/firefox-without-katex/*
+
+      - uses: marvinpinto/action-automatic-releases@v1.2.1
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            build/chromium.zip
+            build/firefox.zip
+            build/chromium-without-katex.zip
+            build/firefox-without-katex.zip

@@ -1,0 +1,236 @@
+[data-theme='auto'] {
+  @import 'github-markdown-css/github-markdown.css';
+  @media screen and (prefers-color-scheme: dark) {
+    @import 'highlight.js/scss/github-dark.scss';
+    --font-color: #c9d1d9;
+    --theme-color: #202124;
+    --theme-border-color: #3c4043;
+    --dragbar-color: #3c4043;
+  }
+  @media screen and (prefers-color-scheme: light) {
+    @import 'highlight.js/scss/github.scss';
+    --font-color: #24292f;
+    --theme-color: #eaecf0;
+    --theme-border-color: #aeafb2;
+    --dragbar-color: #dfe0e1;
+  }
+}
+
+[data-theme='dark'] {
+  @import 'highlight.js/scss/github-dark.scss';
+  @import 'github-markdown-css/github-markdown-dark.css';
+
+  --font-color: #c9d1d9;
+  --theme-color: #202124;
+  --theme-border-color: #3c4043;
+  --dragbar-color: #3c4043;
+}
+
+[data-theme='light'] {
+  @import 'highlight.js/scss/github.scss';
+  @import 'github-markdown-css/github-markdown-light.css';
+
+  --font-color: #24292f;
+  --theme-color: #eaecf0;
+  --theme-border-color: #aeafb2;
+  --dragbar-color: #ccced0;
+}
+
+.sidebar-free {
+  margin-left: 60px;
+}
+
+.chat-gpt-container {
+  width: 100%;
+  flex-basis: 0;
+  flex-grow: 1;
+  margin-bottom: 20px;
+
+  .gpt-inner {
+    border-radius: 8px;
+    border: 1px solid;
+    overflow: hidden;
+    border-color: var(--theme-border-color);
+    background-color: var(--theme-color);
+    margin: 0;
+
+    hr {
+      height: 1px;
+      background-color: var(--theme-border-color);
+      border: none;
+    }
+  }
+
+  .markdown-body {
+    padding: 5px 15px 10px;
+    background-color: var(--theme-color);
+    color: var(--font-color);
+    max-height: 800px;
+    overflow-y: auto;
+
+    ul,
+    ol {
+      padding-left: 1.5em;
+    }
+
+    ol {
+      list-style: none;
+      counter-reset: item;
+
+      li {
+        counter-increment: item;
+
+        &:before {
+          content: counter(item) '. ';
+          margin-left: -0.75em;
+        }
+      }
+    }
+  }
+
+  .icon-and-text {
+    color: var(--font-color);
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    gap: 6px;
+  }
+
+  .manual-btn {
+    cursor: pointer;
+  }
+
+  .gpt-loading {
+    color: var(--font-color);
+    animation: gpt-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .code-copy-btn {
+    color: inherit;
+    position: absolute;
+    right: 10px;
+    top: 3px;
+    cursor: pointer;
+  }
+
+  :is(.answer, .question, .error) {
+    font-size: 15px;
+    line-height: 1.6;
+    border-radius: 8px;
+    word-break: break-all;
+
+    pre {
+      margin-top: 10px;
+    }
+
+    & > p {
+      margin-bottom: 10px;
+    }
+
+    code {
+      white-space: pre-wrap;
+      word-break: break-word;
+      border-radius: 8px;
+
+      .hljs {
+        padding: 0;
+      }
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .gpt-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    color: var(--font-color);
+
+    p {
+      font-weight: bold;
+    }
+
+    .gpt-feedback {
+      display: flex;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .gpt-feedback-selected {
+      color: #f08080;
+    }
+
+    .gpt-util-icon {
+      cursor: pointer;
+    }
+  }
+
+  .error {
+    color: #ec4336;
+  }
+
+  .interact-input {
+    box-sizing: border-box;
+    padding: 5px 15px;
+    border: 0;
+    border-top: 1px solid var(--theme-border-color);
+    width: 100%;
+    background-color: var(--theme-color);
+    color: var(--font-color);
+    resize: none;
+    max-height: 240px;
+  }
+
+  .dragbar {
+    cursor: move;
+    width: 250px;
+    height: 12px;
+    border-radius: 10px;
+    background-color: var(--dragbar-color);
+  }
+}
+
+@keyframes gpt-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.gpt-selection-toolbar {
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  padding: 2px;
+  background-color: #ffffff;
+  box-shadow: 4px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.gpt-selection-toolbar-button {
+  margin-left: 2px;
+  padding: 2px;
+  border-radius: 30px;
+  background-color: #ffffff;
+  color: #24292f;
+  cursor: pointer;
+}
+
+.gpt-selection-toolbar-button:hover {
+  background-color: #d4d5da;
+}
+
+.gpt-selection-window {
+  width: 600px;
+  height: auto;
+  border-radius: 8px;
+  background-color: var(--theme-color);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+}

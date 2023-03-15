@@ -1,0 +1,39 @@
+--- a/build/safari/chatGPT-for-Search-Engine/chatGPT-for-Search-Engine.xcodeproj/project.pbxproj
++++ b/build/safari/chatGPT-for-Search-Engine/chatGPT-for-Search-Engine.xcodeproj/project.pbxproj
+@@ -825,7 +825,7 @@
+ 					"@executable_path/../../../../Frameworks",
+ 				);
+ 				MACOSX_DEPLOYMENT_TARGET = 10.14;
+-				MARKETING_VERSION = 1.0;
++				MARKETING_VERSION = 0.0.0;
+ 				OTHER_LDFLAGS = (
+ 					"-framework",
+ 					SafariServices,
+@@ -878,6 +878,10 @@
+ 			isa = XCBuildConfiguration;
+ 			buildSettings = {
+ 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
++				ARCHS = (
++					arm64,
++					x86_64,
++				);
+ 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+ 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+ 				CODE_SIGN_ENTITLEMENTS = "macOS (App)/chatGPT-for-Search-Engine.entitlements";
+@@ -887,6 +891,7 @@
+ 				GENERATE_INFOPLIST_FILE = YES;
+ 				INFOPLIST_FILE = "macOS (App)/Info.plist";
+ 				INFOPLIST_KEY_CFBundleDisplayName = "chatGPT-for-Search-Engine";
++				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+ 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+ 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+ 				LD_RUNPATH_SEARCH_PATHS = (
+@@ -894,7 +899,7 @@
+ 					"@executable_path/../Frameworks",
+ 				);
+ 				MACOSX_DEPLOYMENT_TARGET = 10.14;
+-				MARKETING_VERSION = 1.0;
++				MARKETING_VERSION = 0.0.0;
+ 				OTHER_LDFLAGS = (
+ 					"-framework",
+ 					SafariServices,

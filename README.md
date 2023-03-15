@@ -90,14 +90,23 @@ Integrating ChatGPT into your browser deeply, everything you need is here.
 <div align="center">
 
 **Search Engine Adaptation, Floating Window, Conversation Branch**
+
 ![preview_google_floatingwindow_conversationbranch](screenshots/preview_google_floatingwindow_conversationbranch.jpg)
+
 **Integration with Commonly Used Websites, Selection Tools**
+
 ![preview_reddit_selectiontools](screenshots/preview_reddit_selectiontools.jpg)
+
 **Git Analysis, Right Click Menu**
+
 ![preview_github_rightclickmenu](screenshots/preview_github_rightclickmenu.jpg)
+
 **Video Summary**
+
 ![preview_youtube](screenshots/preview_youtube.jpg)
+
 **Settings**
+
 ![preview_settings](screenshots/preview_settings.jpg)
 
 </div>

@@ -3,13 +3,17 @@ on:
   workflow_dispatch:
 #  push:
 #    branches:
-#      - main
+#      - master
 #    paths:
 #      - "src/**"
 #      - "!src/**/*.json"
 #      - "build.mjs"
 #    tags-ignore:
 #      - "v*"
+
+permissions:
+  id-token: "write"
+  contents: "write"
 
 jobs:
   build_and_release:

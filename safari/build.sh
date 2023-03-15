@@ -1,10 +1,10 @@
 xcrun safari-web-extension-converter ./build/firefox \
- --project-location ./build/safari --app-name chatGPT-for-Search-Engine \
- --bundle-identifier dev.josStorer.chatGPT-for-Search-Engine --force --no-prompt --no-open
+ --project-location ./build/safari --app-name chatGPTBox \
+ --bundle-identifier dev.josStorer.chatGPTBox --force --no-prompt --no-open
 git apply safari/project.patch
-xcodebuild archive -project ./build/safari/chatGPT-for-Search-Engine/chatGPT-for-Search-Engine.xcodeproj \
- -scheme "chatGPT-for-Search-Engine (macOS)" -configuration Release -archivePath ./build/safari/chatGPT-for-Search-Engine.xcarchive
-xcodebuild -exportArchive -archivePath ./build/safari/chatGPT-for-Search-Engine.xcarchive \
+xcodebuild archive -project ./build/safari/chatGPTBox/chatGPTBox.xcodeproj \
+ -scheme "chatGPTBox (macOS)" -configuration Release -archivePath ./build/safari/chatGPTBox.xcarchive
+xcodebuild -exportArchive -archivePath ./build/safari/chatGPTBox.xcarchive \
  -exportOptionsPlist ./safari/export-options.plist -exportPath ./build
 npm install -D appdmg
 rm ./build/safari.dmg

@@ -4,6 +4,10 @@ on:
     tags:
       - "v*"
 
+permissions:
+  id-token: "write"
+  contents: "write"
+
 jobs:
   build_and_release:
     runs-on: macos-12
@@ -12,7 +16,7 @@ jobs:
       - run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
       - uses: actions/checkout@v3
         with:
-          ref: main
+          ref: master
 
       - name: Update manifest.json version
         uses: jossef/action-set-json-field@v2.1
@@ -29,6 +33,7 @@ jobs:
           value: ${{ env.VERSION }}
 
       - name: Push files
+        continue-on-error: true
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"

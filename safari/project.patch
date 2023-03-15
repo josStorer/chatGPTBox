@@ -1,5 +1,5 @@
---- a/build/safari/chatGPT-for-Search-Engine/chatGPT-for-Search-Engine.xcodeproj/project.pbxproj
-+++ b/build/safari/chatGPT-for-Search-Engine/chatGPT-for-Search-Engine.xcodeproj/project.pbxproj
+--- a/build/safari/chatGPTBox/chatGPTBox.xcodeproj/project.pbxproj
++++ b/build/safari/chatGPTBox/chatGPTBox.xcodeproj/project.pbxproj
 @@ -825,7 +825,7 @@
  					"@executable_path/../../../../Frameworks",
  				);
@@ -19,11 +19,11 @@
 +				);
  				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
  				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
- 				CODE_SIGN_ENTITLEMENTS = "macOS (App)/chatGPT-for-Search-Engine.entitlements";
+ 				CODE_SIGN_ENTITLEMENTS = "macOS (App)/chatGPTBox.entitlements";
 @@ -887,6 +891,7 @@
  				GENERATE_INFOPLIST_FILE = YES;
  				INFOPLIST_FILE = "macOS (App)/Info.plist";
- 				INFOPLIST_KEY_CFBundleDisplayName = "chatGPT-for-Search-Engine";
+ 				INFOPLIST_KEY_CFBundleDisplayName = "chatGPTBox";
 +				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
  				INFOPLIST_KEY_NSMainStoryboardFile = Main;
  				INFOPLIST_KEY_NSPrincipalClass = NSApplication;

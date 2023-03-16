@@ -76,7 +76,7 @@ Integrating ChatGPT into your browser deeply, everything you need is here.
 - 📦 Integration adaptation for various commonly used websites (reddit, quora, youtube, github, gitlab, zhihu, bilibili).
 - 🔍 Adaptation to all mainstream search engines, and custom queries to support additional sites.
 - 🧰 Selection tool and right-click menu to perform various tasks, such as translation, summarization, polishing,
-  sentiment analysis, paragraph division, and queries.
+  sentiment analysis, paragraph division, code explain and queries.
 - 🗂️ Static cards support floating chat boxes for multi-branch conversations.
 - 🖨️ Easily save your complete chat records or copy them partially.
 - 🎨 Powerful rendering support, whether for code highlighting or complex mathematical formulas.

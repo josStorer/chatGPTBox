@@ -48,7 +48,7 @@ export default {
 
       return cropText(
         `Provide a brief summary of the video using concise language and incorporating the video title.` +
-        `The video title is:"${title}".The subtitle content is as follows:\n${subtitleContent}`,
+          `The video title is:"${title}".The subtitle content is as follows:\n${subtitleContent}`,
       )
     } catch (e) {
       console.log(e)

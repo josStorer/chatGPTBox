@@ -9,6 +9,7 @@ import { WindowDesktop, XLg } from 'react-bootstrap-icons'
 import FileSaver from 'file-saver'
 import { render } from 'preact'
 import FloatingToolbar from '../FloatingToolbar'
+import { useClampWindowSize } from '../../hooks/use-clamp-window-size'
 
 const logo = Browser.runtime.getURL('logo.png')
 
@@ -32,6 +33,7 @@ function ConversationCard(props) {
   const [isReady, setIsReady] = useState(!props.question)
   const [port, setPort] = useState(() => Browser.runtime.connect())
   const [session, setSession] = useState(props.session)
+  const windowSize = useClampWindowSize([0, Infinity], [250, 1100])
   /**
    * @type {[ConversationItemData[], (conversationItemData: ConversationItemData[]) => void]}
    */
@@ -213,7 +215,7 @@ function ConversationCard(props) {
         </span>
       </div>
       <hr />
-      <div className="markdown-body">
+      <div className="markdown-body" style={{ maxHeight: windowSize[1] * 0.75 + 'px' }}>
         {conversationItemData.map((data, idx) => (
           <ConversationItem
             content={data.content}

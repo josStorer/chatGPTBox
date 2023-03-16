@@ -5,6 +5,7 @@ import {
   Palette,
   QuestionCircle,
   Translate,
+  Braces,
 } from 'react-bootstrap-icons'
 import { getPreferredLanguage } from '../../config.mjs'
 
@@ -48,6 +49,14 @@ export const config = {
     label: 'Divide Paragraphs',
     genPrompt: async (selection) =>
       `Divide the following into paragraphs that are easy to read and understand:\n"${selection}"`,
+  },
+  code: {
+    icon: <Braces />,
+    label: 'Code Explain',
+    genPrompt: async (selection) => {
+      const preferredLanguage = await getPreferredLanguage()
+      return `Reply in ${preferredLanguage}.Explain the following code:\n"${selection}"`
+    },
   },
   ask: {
     icon: <QuestionCircle />,

@@ -10,6 +10,7 @@ import FileSaver from 'file-saver'
 import { render } from 'preact'
 import FloatingToolbar from '../FloatingToolbar'
 import { useClampWindowSize } from '../../hooks/use-clamp-window-size'
+import { defaultConfig, getUserConfig } from '../../config'
 
 const logo = Browser.runtime.getURL('logo.png')
 
@@ -63,6 +64,11 @@ function ConversationCard(props) {
       }
     })(),
   )
+  const [config, setConfig] = useState(defaultConfig)
+
+  useEffect(() => {
+    getUserConfig().then(setConfig)
+  }, [])
 
   useEffect(() => {
     if (props.onUpdate) props.onUpdate()
@@ -71,6 +77,10 @@ function ConversationCard(props) {
   useEffect(() => {
     bodyRef.current.scrollTop = bodyRef.current.scrollHeight
   }, [session])
+
+  useEffect(() => {
+    if (config.lockWhenAnswer) bodyRef.current.scrollTop = bodyRef.current.scrollHeight
+  }, [conversationItemData])
 
   useEffect(() => {
     // when the page is responsive, session may accumulate redundant data and needs to be cleared after remounting and before making a new request

@@ -42,6 +42,8 @@ export const maxResponseTokenLength = 1000
  * @typedef {typeof defaultConfig} UserConfig
  */
 export const defaultConfig = {
+  // general
+
   /** @type {keyof TriggerMode}*/
   triggerMode: 'manually',
   /** @type {keyof ThemeMode}*/
@@ -49,24 +51,34 @@ export const defaultConfig = {
   /** @type {keyof Models}*/
   modelName: 'chatgptFree',
   apiKey: '',
+  preferredLanguage: navigator.language.substring(0, 2),
   insertAtTop: isMobile(),
+  lockWhenAnswer: false,
+
+  // advanced
+
+  customChatGptWebApiUrl: 'https://chat.openai.com',
+  customChatGptWebApiPath: '/backend-api/conversation',
+  customOpenAiApiUrl: 'https://api.openai.com',
   siteRegex: 'match nothing',
   userSiteRegexOnly: false,
   inputQuery: '',
   appendQuery: '',
   prependQuery: '',
+
+  // others
+
+  activeSelectionTools: Object.keys(toolsConfig),
+  activeSiteAdapters: ['bilibili', 'github', 'gitlab', 'quora', 'reddit', 'youtube', 'zhihu'],
   accessToken: '',
   tokenSavedOn: 0,
-  preferredLanguage: navigator.language.substring(0, 2),
-  userLanguage: navigator.language.substring(0, 2), // unchangeable
-  customChatGptWebApiUrl: 'https://chat.openai.com',
-  customChatGptWebApiPath: '/backend-api/conversation',
-  customOpenAiApiUrl: 'https://api.openai.com',
+
+  // unchangeable
+
+  userLanguage: navigator.language.substring(0, 2),
   selectionTools: Object.keys(toolsConfig),
-  activeSelectionTools: Object.keys(toolsConfig),
   // importing configuration will result in gpt-3-encoder being packaged into the output file
   siteAdapters: ['bilibili', 'github', 'gitlab', 'quora', 'reddit', 'youtube', 'zhihu'],
-  activeSiteAdapters: ['bilibili', 'github', 'gitlab', 'quora', 'reddit', 'youtube', 'zhihu'],
 }
 
 export async function getUserLanguage() {

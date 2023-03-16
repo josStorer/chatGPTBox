@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import Browser from 'webextension-polyfill'
 import InputBox from '../InputBox'
@@ -34,6 +34,7 @@ function ConversationCard(props) {
   const [port, setPort] = useState(() => Browser.runtime.connect())
   const [session, setSession] = useState(props.session)
   const windowSize = useClampWindowSize([0, Infinity], [250, 1100])
+  const bodyRef = useRef(null)
   /**
    * @type {[ConversationItemData[], (conversationItemData: ConversationItemData[]) => void]}
    */
@@ -66,6 +67,10 @@ function ConversationCard(props) {
   useEffect(() => {
     if (props.onUpdate) props.onUpdate()
   })
+
+  useEffect(() => {
+    bodyRef.current.scrollTop = bodyRef.current.scrollHeight
+  }, [session])
 
   useEffect(() => {
     // when the page is responsive, session may accumulate redundant data and needs to be cleared after remounting and before making a new request
@@ -215,7 +220,11 @@ function ConversationCard(props) {
         </span>
       </div>
       <hr />
-      <div className="markdown-body" style={{ maxHeight: windowSize[1] * 0.75 + 'px' }}>
+      <div
+        ref={bodyRef}
+        className="markdown-body"
+        style={{ maxHeight: windowSize[1] * 0.75 + 'px' }}
+      >
         {conversationItemData.map((data, idx) => (
           <ConversationItem
             content={data.content}

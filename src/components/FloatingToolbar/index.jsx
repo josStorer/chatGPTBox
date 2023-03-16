@@ -6,6 +6,7 @@ import { defaultConfig, getUserConfig } from '../../config.mjs'
 import { config as toolsConfig } from '../../content-script/selection-tools'
 import { setElementPositionInViewport } from '../../utils'
 import Draggable from 'react-draggable'
+import { useClampWindowSize } from '../../hooks/use-clamp-window-size'
 
 const logo = Browser.runtime.getURL('logo.png')
 
@@ -16,6 +17,7 @@ function FloatingToolbar(props) {
   const [render, setRender] = useState(false)
   const [position, setPosition] = useState(props.position)
   const [virtualPosition, setVirtualPosition] = useState({ x: 0, y: 0 })
+  const windowSize = useClampWindowSize([750, 1500], [0, Infinity])
 
   useEffect(() => {
     getUserConfig()
@@ -68,7 +70,7 @@ function FloatingToolbar(props) {
           onStop={dragEvent.onStop}
           position={virtualPosition}
         >
-          <div className="gpt-selection-window">
+          <div className="gpt-selection-window" style={{ width: windowSize[0] * 0.4 + 'px' }}>
             <div className="chat-gpt-container">
               <ConversationCard
                 session={props.session}

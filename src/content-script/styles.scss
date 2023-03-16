@@ -65,7 +65,6 @@
     padding: 5px 15px 10px;
     background-color: var(--theme-color);
     color: var(--font-color);
-    max-height: 800px;
     resize: vertical;
     overflow-y: auto;
 
@@ -188,7 +187,7 @@
 
   .dragbar {
     cursor: move;
-    width: 250px;
+    width: 42%;
     height: 12px;
     border-radius: 10px;
     background-color: var(--dragbar-color);
@@ -229,7 +228,6 @@
 }
 
 .gpt-selection-window {
-  width: 600px;
   height: auto;
   border-radius: 8px;
   background-color: var(--theme-color);

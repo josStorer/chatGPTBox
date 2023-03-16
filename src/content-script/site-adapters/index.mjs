@@ -113,7 +113,7 @@ export const config = {
     inputQuery: bilibili.inputQuery,
     sidebarContainerQuery: ['#danmukuBox'],
     appendContainerQuery: [],
-    resultsContainerQuery: [],
+    resultsContainerQuery: ['#danmukuBox'],
     action: {
       init: bilibili.init,
     },
@@ -122,7 +122,7 @@ export const config = {
     inputQuery: youtube.inputQuery,
     sidebarContainerQuery: ['#secondary'],
     appendContainerQuery: [],
-    resultsContainerQuery: [],
+    resultsContainerQuery: ['#secondary'],
     action: {
       init: youtube.init,
     },
@@ -131,7 +131,7 @@ export const config = {
     inputQuery: github.inputQuery,
     sidebarContainerQuery: ['#diff', '.commit'],
     appendContainerQuery: [],
-    resultsContainerQuery: [],
+    resultsContainerQuery: ['#diff', '.commit'],
     action: {
       init: github.init,
     },
@@ -140,24 +140,24 @@ export const config = {
     inputQuery: gitlab.inputQuery,
     sidebarContainerQuery: ['.js-commit-box-info'],
     appendContainerQuery: [],
-    resultsContainerQuery: [],
+    resultsContainerQuery: ['.js-commit-box-info'],
   },
   zhihu: {
     inputQuery: zhihu.inputQuery,
     sidebarContainerQuery: ['.Question-sideColumn', '.Post-Header'],
     appendContainerQuery: [],
-    resultsContainerQuery: [],
+    resultsContainerQuery: ['.Question-sideColumn', '.Post-Header'],
   },
   reddit: {
     inputQuery: reddit.inputQuery,
     sidebarContainerQuery: ['.side .spacer .linkinfo'],
     appendContainerQuery: [],
-    resultsContainerQuery: [],
+    resultsContainerQuery: ['.side .spacer .linkinfo'],
   },
   quora: {
     inputQuery: quora.inputQuery,
     sidebarContainerQuery: ['.q-box.PageContentsLayout___StyledBox-d2uxks-0'],
     appendContainerQuery: [],
-    resultsContainerQuery: [],
+    resultsContainerQuery: ['.q-box.PageContentsLayout___StyledBox-d2uxks-0'],
   },
 }

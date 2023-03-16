@@ -21,7 +21,7 @@ Integrating ChatGPT into your browser deeply, everything you need is here.
 [![Android][Android-image]][Android-url]
 [![Github][Github-image]][Github-url]
 
-(Waiting for store review)
+(Waiting for store review, [Firefox version][Firefox-url] is now available)
 
 [Guide](https://github.com/josStorer/chatGPTBox/wiki/Guide) |
 [Preview](https://github.com/josStorer/chatGPTBox#Preview) |
@@ -53,7 +53,7 @@ Integrating ChatGPT into your browser deeply, everything you need is here.
 
 [Firefox-image]: https://img.shields.io/badge/-Firefox-orange?logo=firefox-browser&logoColor=white
 
-[Firefox-url]: https://github.com/josStorer/chatGPTBox/wiki/Install
+[Firefox-url]: https://addons.mozilla.org/zh-CN/firefox/addon/chatgptbox/
 
 [Safari-image]: https://img.shields.io/badge/-Safari-blue?logo=safari&logoColor=white
 

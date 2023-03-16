@@ -105,6 +105,10 @@ Integrating ChatGPT into your browser deeply, everything you need is here.
 
 ![preview_youtube](screenshots/preview_youtube.jpg)
 
+**Mobile Effect**
+
+![image](https://user-images.githubusercontent.com/13366013/225529110-9221c8ce-ad41-423e-b6ec-097981e74b66.png)
+
 **Settings**
 
 ![preview_settings](screenshots/preview_settings.jpg)

@@ -138,6 +138,45 @@ async function prepareForSelectionTools() {
   })
 }
 
+async function prepareForSelectionToolsTouch() {
+  document.addEventListener('touchend', (e) => {
+    if (toolbarContainer && toolbarContainer.contains(e.target)) return
+    if (
+      toolbarContainer &&
+      window.getSelection()?.rangeCount > 0 &&
+      toolbarContainer.contains(window.getSelection()?.getRangeAt(0).endContainer.parentElement)
+    )
+      return
+
+    if (toolbarContainer) toolbarContainer.remove()
+    setTimeout(() => {
+      const selection = window.getSelection()?.toString()
+      if (selection) {
+        const position = {
+          x: e.changedTouches[0].clientX + 15,
+          y: e.changedTouches[0].clientY - 15,
+        }
+        toolbarContainer = createElementAtPosition(position.x, position.y)
+        toolbarContainer.className = 'toolbar-container'
+        render(
+          <FloatingToolbar
+            session={initSession()}
+            selection={selection}
+            position={position}
+            container={toolbarContainer}
+          />,
+          toolbarContainer,
+        )
+      }
+    })
+  })
+  document.addEventListener('touchstart', (e) => {
+    if (toolbarContainer && toolbarContainer.contains(e.target)) return
+
+    document.querySelectorAll('.toolbar-container').forEach((e) => e.remove())
+  })
+}
+
 let menuX, menuY
 
 async function prepareForRightClickMenu() {
@@ -220,6 +259,7 @@ async function run() {
   userConfig = await getUserConfig()
   if (isSafari()) await prepareForSafari()
   prepareForSelectionTools()
+  prepareForSelectionToolsTouch()
   prepareForStaticCard()
   prepareForRightClickMenu()
 }

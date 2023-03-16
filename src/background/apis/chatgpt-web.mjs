@@ -53,13 +53,24 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
   }
 
   const controller = new AbortController()
+  const stopListener = (msg) => {
+    if (msg.stop) {
+      console.debug('stop generating')
+      port.postMessage({ done: true })
+      controller.abort()
+      port.onMessage.removeListener(stopListener)
+    }
+  }
+  port.onMessage.addListener(stopListener)
   port.onDisconnect.addListener(() => {
     console.debug('port disconnected')
     controller.abort()
     deleteConversation()
   })
 
-  const models = await getModels(accessToken).catch(() => {})
+  const models = await getModels(accessToken).catch(() => {
+    port.onMessage.removeListener(stopListener)
+  })
   const config = await getUserConfig()
 
   let answer = ''
@@ -112,8 +123,12 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
     async onStart() {
       // sendModerations(accessToken, question, session.conversationId, session.messageId)
     },
-    async onEnd() {},
+    async onEnd() {
+      port.onMessage.removeListener(stopListener)
+    },
     async onError(resp) {
+      if (resp instanceof Error) throw resp
+      port.onMessage.removeListener(stopListener)
       if (resp.status === 403) {
         throw new Error('CLOUDFLARE')
       }

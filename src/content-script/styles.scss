@@ -167,6 +167,15 @@
     .gpt-util-icon {
       cursor: pointer;
     }
+
+    .normal-button {
+      border: 1px solid;
+      border-color: var(--theme-border-color);
+      background-color: var(--theme-color);
+      color: var(--font-color);
+      border-radius: 5px;
+      cursor: pointer;
+    }
   }
 
   .error {

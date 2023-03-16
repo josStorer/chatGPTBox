@@ -51,8 +51,9 @@ Browser.runtime.onConnect.addListener((port) => {
   console.debug('connected')
   port.onMessage.addListener(async (msg) => {
     console.debug('received msg', msg)
-    const config = await getUserConfig()
     const session = msg.session
+    if (!session) return
+    const config = await getUserConfig()
     if (session.useApiKey == null) {
       session.useApiKey = isUsingApiKey(config)
     }
@@ -84,8 +85,10 @@ Browser.runtime.onConnect.addListener((port) => {
       }
     } catch (err) {
       console.error(err)
-      port.postMessage({ error: err.message })
-      cache.delete(KEY_ACCESS_TOKEN)
+      if (!err.message.includes('aborted')) {
+        port.postMessage({ error: err.message })
+        cache.delete(KEY_ACCESS_TOKEN)
+      }
     }
   })
 })

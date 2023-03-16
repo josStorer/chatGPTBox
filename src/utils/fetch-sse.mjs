@@ -3,9 +3,13 @@ import { streamAsyncIterable } from './stream-async-iterable'
 
 export async function fetchSSE(resource, options) {
   const { onMessage, onStart, onEnd, onError, ...fetchOptions } = options
-  const resp = await fetch(resource, fetchOptions)
+  const resp = await fetch(resource, fetchOptions).catch(async (err) => {
+    await onError(err)
+  })
+  if (!resp) return
   if (!resp.ok) {
     await onError(resp)
+    return
   }
   const parser = createParser((event) => {
     if (event.type === 'event') {

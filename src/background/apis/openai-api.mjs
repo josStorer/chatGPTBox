@@ -35,6 +35,15 @@ export async function generateAnswersWithGptCompletionApi(
   modelName,
 ) {
   const controller = new AbortController()
+  const stopListener = (msg) => {
+    if (msg.stop) {
+      console.debug('stop generating')
+      port.postMessage({ done: true })
+      controller.abort()
+      port.onMessage.removeListener(stopListener)
+    }
+  }
+  port.onMessage.addListener(stopListener)
   port.onDisconnect.addListener(() => {
     console.debug('port disconnected')
     controller.abort()
@@ -79,8 +88,12 @@ export async function generateAnswersWithGptCompletionApi(
       port.postMessage({ answer: answer, done: false, session: null })
     },
     async onStart() {},
-    async onEnd() {},
+    async onEnd() {
+      port.onMessage.removeListener(stopListener)
+    },
     async onError(resp) {
+      if (resp instanceof Error) throw resp
+      port.onMessage.removeListener(stopListener)
       if (resp.status === 403) {
         throw new Error('CLOUDFLARE')
       }
@@ -99,6 +112,15 @@ export async function generateAnswersWithGptCompletionApi(
  */
 export async function generateAnswersWithChatgptApi(port, question, session, apiKey, modelName) {
   const controller = new AbortController()
+  const stopListener = (msg) => {
+    if (msg.stop) {
+      console.debug('stop generating')
+      port.postMessage({ done: true })
+      controller.abort()
+      port.onMessage.removeListener(stopListener)
+    }
+  }
+  port.onMessage.addListener(stopListener)
   port.onDisconnect.addListener(() => {
     console.debug('port disconnected')
     controller.abort()
@@ -142,8 +164,12 @@ export async function generateAnswersWithChatgptApi(port, question, session, api
       port.postMessage({ answer: answer, done: false, session: null })
     },
     async onStart() {},
-    async onEnd() {},
+    async onEnd() {
+      port.onMessage.removeListener(stopListener)
+    },
     async onError(resp) {
+      if (resp instanceof Error) throw resp
+      port.onMessage.removeListener(stopListener)
       if (resp.status === 403) {
         throw new Error('CLOUDFLARE')
       }

@@ -223,6 +223,7 @@ function ConversationCard(props) {
             type={data.type}
             session={data.session}
             done={data.done}
+            port={port}
           />
         ))}
       </div>

@@ -5,7 +5,7 @@ import CopyButton from '../CopyButton'
 import PropTypes from 'prop-types'
 import MarkdownRender from '../MarkdownRender/markdown.jsx'
 
-export function ConversationItem({ type, content, session, done }) {
+export function ConversationItem({ type, content, session, done, port }) {
   const [collapsed, setCollapsed] = useState(false)
 
   switch (type) {
@@ -36,6 +36,17 @@ export function ConversationItem({ type, content, session, done }) {
           <div className="gpt-header">
             <p>{session ? 'ChatGPT:' : 'Loading...'}</p>
             <div style="display: flex; gap: 15px;">
+              {!done && (
+                <button
+                  type="button"
+                  className="normal-button"
+                  onClick={() => {
+                    port.postMessage({ stop: true })
+                  }}
+                >
+                  Stop
+                </button>
+              )}
               {done && session && session.conversationId && (
                 <FeedbackForChatGPTWeb
                   messageId={session.messageId}
@@ -97,6 +108,7 @@ ConversationItem.propTypes = {
   content: PropTypes.string.isRequired,
   session: PropTypes.object.isRequired,
   done: PropTypes.bool.isRequired,
+  port: PropTypes.object.isRequired,
 }
 
 export default ConversationItem

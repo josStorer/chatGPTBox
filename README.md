@@ -21,6 +21,8 @@ Integrating ChatGPT into your browser deeply, everything you need is here.
 [![Android][Android-image]][Android-url]
 [![Github][Github-image]][Github-url]
 
+(Waiting for store review)
+
 [Guide](https://github.com/josStorer/chatGPTBox/wiki/Guide) |
 [Preview](https://github.com/josStorer/chatGPTBox#Preview) |
 [Development&Contributing][dev-url] |

@@ -152,6 +152,18 @@ function GeneralPart({ config, updateConfig }) {
         />
         Insert chatGPT at the top of search results
       </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={config.lockWhenAnswer}
+          onChange={(e) => {
+            const checked = e.target.checked
+            updateConfig({ lockWhenAnswer: checked })
+          }}
+        />
+        Lock Scrollbar while Answering
+      </label>
+      <br />
     </>
   )
 }

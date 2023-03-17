@@ -1,6 +1,6 @@
 // https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
 
-export async function isMobile() {
+export function isMobile() {
   if (navigator.userAgentData) return navigator.userAgentData.mobile
   let check = false
   ;(function (a) {

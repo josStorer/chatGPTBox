@@ -18,6 +18,7 @@ import Browser from 'webextension-polyfill'
 import PropTypes from 'prop-types'
 import { config as toolsConfig } from '../content-script/selection-tools'
 import wechatpay from './donation/wechatpay.jpg'
+import bugmeacoffee from './donation/bugmeacoffee.svg'
 
 function GeneralPart({ config, updateConfig }) {
   const [balance, setBalance] = useState(null)
@@ -336,11 +337,7 @@ function Donation() {
         target="_blank"
         rel="nofollow noopener noreferrer"
       >
-        <img
-          align="center"
-          alt="buymeacoffee"
-          src="https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-1.svg"
-        />
+        <img alt="buymeacoffee" src={bugmeacoffee} />
       </a>
       <hr />
       <>

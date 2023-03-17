@@ -4,13 +4,14 @@ import ConversationCard from '../ConversationCard'
 import PropTypes from 'prop-types'
 import { defaultConfig, getUserConfig } from '../../config.mjs'
 import { config as toolsConfig } from '../../content-script/selection-tools'
-import { setElementPositionInViewport } from '../../utils'
+import { isMobile, setElementPositionInViewport } from '../../utils'
 import Draggable from 'react-draggable'
 import { useClampWindowSize } from '../../hooks/use-clamp-window-size'
 
 const logo = Browser.runtime.getURL('logo.png')
 
 function FloatingToolbar(props) {
+  const [selection, setSelection] = useState(props.selection)
   const [prompt, setPrompt] = useState(props.prompt)
   const [triggered, setTriggered] = useState(props.triggered)
   const [config, setConfig] = useState(defaultConfig)
@@ -39,6 +40,19 @@ function FloatingToolbar(props) {
       Browser.storage.local.onChanged.removeListener(listener)
     }
   }, [config])
+
+  useEffect(() => {
+    if (isMobile()) {
+      const selectionListener = () => {
+        const currentSelection = window.getSelection()?.toString()
+        if (currentSelection) setSelection(currentSelection)
+      }
+      document.addEventListener('selectionchange', selectionListener)
+      return () => {
+        document.removeEventListener('selectionchange', selectionListener)
+      }
+    }
+  }, [])
 
   if (!render) return <div />
 
@@ -101,7 +115,7 @@ function FloatingToolbar(props) {
             className: 'gpt-selection-toolbar-button',
             title: toolConfig.label,
             onClick: async () => {
-              setPrompt(await toolConfig.genPrompt(props.selection))
+              setPrompt(await toolConfig.genPrompt(selection))
               setTriggered(true)
             },
           }),

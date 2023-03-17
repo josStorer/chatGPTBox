@@ -150,9 +150,9 @@ export const config = {
   },
   reddit: {
     inputQuery: reddit.inputQuery,
-    sidebarContainerQuery: ['.side .spacer .linkinfo'],
+    sidebarContainerQuery: ['.side'],
     appendContainerQuery: [],
-    resultsContainerQuery: ['.side .spacer .linkinfo'],
+    resultsContainerQuery: ['.side'],
   },
   quora: {
     inputQuery: quora.inputQuery,

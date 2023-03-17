@@ -120,9 +120,13 @@ export const config = {
   },
   youtube: {
     inputQuery: youtube.inputQuery,
-    sidebarContainerQuery: ['#secondary:not([style*="display: none"])'],
+    sidebarContainerQuery: [
+      '#secondary:not([style*="display: none"]):not(.ytd-two-column-browse-results-renderer)',
+    ],
     appendContainerQuery: [],
-    resultsContainerQuery: ['#secondary:not([style*="display: none"])'],
+    resultsContainerQuery: [
+      '#secondary:not([style*="display: none"]):not(.ytd-two-column-browse-results-renderer)',
+    ],
     action: {
       init: youtube.init,
     },

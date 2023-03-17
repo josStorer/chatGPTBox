@@ -120,9 +120,9 @@ export const config = {
   },
   youtube: {
     inputQuery: youtube.inputQuery,
-    sidebarContainerQuery: ['#secondary'],
+    sidebarContainerQuery: ['#secondary:not([style*="display: none"])'],
     appendContainerQuery: [],
-    resultsContainerQuery: ['#secondary'],
+    resultsContainerQuery: ['#secondary:not([style*="display: none"])'],
     action: {
       init: youtube.init,
     },

@@ -169,7 +169,7 @@ async function runWebpack(isWithoutKatex, callback) {
           type: 'asset/inline',
         },
         {
-          test: /\.jpg$/,
+          test: /\.(jpg|svg)$/,
           type: 'asset/inline',
         },
       ],

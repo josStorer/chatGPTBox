@@ -29,6 +29,8 @@ Integrating ChatGPT into your browser deeply, everything you need is here.
 [Donation](https://www.buymeacoffee.com/josStorer) |
 [Credit](https://github.com/josStorer/chatGPTBox#Credit)
 
+[Video Demonstration](https://www.youtube.com/watch?v=E1smDxJvTRs)
+
 [dev-url]: https://github.com/josStorer/chatGPTBox/wiki/Development&Contributing
 
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg

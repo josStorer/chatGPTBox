@@ -80,9 +80,8 @@
       li {
         counter-increment: item;
 
-        &:before {
+        &::marker {
           content: counter(item) '. ';
-          margin-left: -0.75em;
         }
       }
     }

@@ -241,12 +241,13 @@ function generateWebpackCallback(finishOutputFunc) {
 
 async function build() {
   await deleteOldDir()
-  if (isProduction && !isAnalyzing)
+  if (isProduction && !isAnalyzing) {
     await runWebpack(
       true,
       generateWebpackCallback(() => finishOutput('-without-katex')),
     )
-  await new Promise((r) => setTimeout(r, 2000))
+    await new Promise((r) => setTimeout(r, 2000))
+  }
   await runWebpack(
     false,
     generateWebpackCallback(() => finishOutput('')),

@@ -132,7 +132,8 @@ fork自 [wong2/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-goog
 
 ### 额外声明
 
-#### 这个声明主要针对可能的道德问题指责
+<details>
+<summary>谨慎展开该声明! 这个声明主要针对可能的道德问题指责, 因为我收到了一些攻击性言论, 因而我在此进行解释</summary>
 
 该项目最终可追溯至chatGPT刚刚爆火时出现的一个明星项目 [wong2/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension),
 一开始我为其添加了各种市面上主流搜索引擎的支持, 后续我也进一步改进了兼容性, 并提交了自动化构建支持等.
@@ -158,3 +159,5 @@ fork自 [wong2/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-goog
 
 我仍想特别强调, 我只是对事不对人, 原作者是行业的前辈了, 而我只是个初出茅庐的菜鸡, 我不希望任何人因此对原作者进行任何攻击, 做开源的, 没有谁的时间是免费的,
 原作者并没有做错任何事, 并且他的项目启发了大量的社区独立项目, 我也从中学到了很多, 而原作者的成功变现, 及运营过程也是非常值得学习的, 我仍然对其贡献表示尊敬.
+
+</details>

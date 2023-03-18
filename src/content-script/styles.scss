@@ -36,11 +36,11 @@
   --dragbar-color: #ccced0;
 }
 
-.sidebar-free {
+.chatgptbox-sidebar-free {
   margin-left: 60px;
 }
 
-.chat-gpt-container {
+.chatgptbox-container {
   width: 100%;
   flex-basis: 0;
   flex-grow: 1;
@@ -101,7 +101,7 @@
 
   .gpt-loading {
     color: var(--font-color);
-    animation: gpt-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: chatgptbox-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   .code-copy-btn {
@@ -202,7 +202,7 @@
   }
 }
 
-@keyframes gpt-pulse {
+@keyframes chatgptbox-pulse {
   0%,
   100% {
     opacity: 1;
@@ -213,7 +213,7 @@
   }
 }
 
-.gpt-selection-toolbar {
+.chatgptbox-selection-toolbar {
   display: flex;
   align-items: center;
   border-radius: 15px;
@@ -222,7 +222,7 @@
   box-shadow: 4px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.gpt-selection-toolbar-button {
+.chatgptbox-selection-toolbar-button {
   margin-left: 2px;
   padding: 2px;
   border-radius: 30px;
@@ -231,11 +231,11 @@
   cursor: pointer;
 }
 
-.gpt-selection-toolbar-button:hover {
+.chatgptbox-selection-toolbar-button:hover {
   background-color: #d4d5da;
 }
 
-.gpt-selection-window {
+.chatgptbox-selection-window {
   height: auto;
   border-radius: 8px;
   background-color: var(--theme-color);

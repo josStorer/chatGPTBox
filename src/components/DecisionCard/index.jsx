@@ -39,7 +39,7 @@ function DecisionCard(props) {
 
     const container = props.container
     const siteConfig = props.siteConfig
-    container.classList.remove('sidebar-free')
+    container.classList.remove('chatgptbox-sidebar-free')
 
     if (config.appendQuery) {
       const appendContainer = getPossibleElementByQuerySelector([config.appendQuery])
@@ -71,7 +71,7 @@ function DecisionCard(props) {
       } else {
         const appendContainer = getPossibleElementByQuerySelector(siteConfig.appendContainerQuery)
         if (appendContainer) {
-          container.classList.add('sidebar-free')
+          container.classList.add('chatgptbox-sidebar-free')
           appendContainer.appendChild(container)
         } else {
           const resultsContainerQuery = getPossibleElementByQuerySelector(

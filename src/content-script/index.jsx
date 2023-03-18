@@ -28,7 +28,7 @@ async function mountComponent(siteConfig, userConfig) {
   )
     return
 
-  document.querySelectorAll('.chat-gpt-container').forEach((e) => {
+  document.querySelectorAll('.chatgptbox-container').forEach((e) => {
     unmountComponentAtNode(e)
     e.remove()
   })
@@ -37,12 +37,12 @@ async function mountComponent(siteConfig, userConfig) {
   if (userConfig.inputQuery) question = await getInput([userConfig.inputQuery])
   if (!question && siteConfig) question = await getInput(siteConfig.inputQuery)
 
-  document.querySelectorAll('.chat-gpt-container').forEach((e) => {
+  document.querySelectorAll('.chatgptbox-container').forEach((e) => {
     unmountComponentAtNode(e)
     e.remove()
   })
   const container = document.createElement('div')
-  container.className = 'chat-gpt-container'
+  container.className = 'chatgptbox-container'
   render(
     <DecisionCard
       session={initSession()}
@@ -107,7 +107,7 @@ async function prepareForSelectionTools() {
       if (selection) {
         const position = { x: e.clientX + 15, y: e.clientY - 15 }
         toolbarContainer = createElementAtPosition(position.x, position.y)
-        toolbarContainer.className = 'toolbar-container'
+        toolbarContainer.className = 'chatgptbox-toolbar-container'
         render(
           <FloatingToolbar
             session={initSession()}
@@ -123,7 +123,7 @@ async function prepareForSelectionTools() {
   document.addEventListener('mousedown', (e) => {
     if (toolbarContainer && toolbarContainer.contains(e.target)) return
 
-    document.querySelectorAll('.toolbar-container').forEach((e) => e.remove())
+    document.querySelectorAll('.chatgptbox-toolbar-container').forEach((e) => e.remove())
   })
   document.addEventListener('keydown', (e) => {
     if (
@@ -157,7 +157,7 @@ async function prepareForSelectionToolsTouch() {
           y: e.changedTouches[0].clientY - 15,
         }
         toolbarContainer = createElementAtPosition(position.x, position.y)
-        toolbarContainer.className = 'toolbar-container'
+        toolbarContainer.className = 'chatgptbox-toolbar-container'
         render(
           <FloatingToolbar
             session={initSession()}
@@ -173,7 +173,7 @@ async function prepareForSelectionToolsTouch() {
   document.addEventListener('touchstart', (e) => {
     if (toolbarContainer && toolbarContainer.contains(e.target)) return
 
-    document.querySelectorAll('.toolbar-container').forEach((e) => e.remove())
+    document.querySelectorAll('.chatgptbox-toolbar-container').forEach((e) => e.remove())
   })
 }
 
@@ -191,7 +191,7 @@ async function prepareForRightClickMenu() {
       if (data.itemId === 'new') {
         const position = { x: menuX, y: menuY }
         const container = createElementAtPosition(position.x, position.y)
-        container.className = 'toolbar-container-not-queryable'
+        container.className = 'chatgptbox-toolbar-container-not-queryable'
         render(
           <FloatingToolbar
             session={initSession()}
@@ -207,7 +207,7 @@ async function prepareForRightClickMenu() {
       } else {
         const position = { x: menuX, y: menuY }
         const container = createElementAtPosition(position.x, position.y)
-        container.className = 'toolbar-container-not-queryable'
+        container.className = 'chatgptbox-toolbar-container-not-queryable'
         render(
           <FloatingToolbar
             session={initSession()}

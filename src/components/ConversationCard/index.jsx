@@ -197,7 +197,7 @@ function ConversationCard(props) {
             onClick={() => {
               const position = { x: window.innerWidth / 2 - 300, y: window.innerHeight / 2 - 200 }
               const toolbarContainer = createElementAtPosition(position.x, position.y)
-              toolbarContainer.className = 'toolbar-container-not-queryable'
+              toolbarContainer.className = 'chatgptbox-toolbar-container-not-queryable'
               render(
                 <FloatingToolbar
                   session={session}

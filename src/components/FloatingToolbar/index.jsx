@@ -84,8 +84,11 @@ function FloatingToolbar(props) {
           onStop={dragEvent.onStop}
           position={virtualPosition}
         >
-          <div className="gpt-selection-window" style={{ width: windowSize[0] * 0.4 + 'px' }}>
-            <div className="chat-gpt-container">
+          <div
+            className="chatgptbox-selection-window"
+            style={{ width: windowSize[0] * 0.4 + 'px' }}
+          >
+            <div className="chatgptbox-container">
               <ConversationCard
                 session={props.session}
                 question={prompt}
@@ -112,7 +115,7 @@ function FloatingToolbar(props) {
         tools.push(
           cloneElement(toolConfig.icon, {
             size: 20,
-            className: 'gpt-selection-toolbar-button',
+            className: 'chatgptbox-selection-toolbar-button',
             title: toolConfig.label,
             onClick: async () => {
               setPrompt(await toolConfig.genPrompt(selection))
@@ -125,7 +128,7 @@ function FloatingToolbar(props) {
 
     return (
       <div data-theme={config.themeMode}>
-        <div className="gpt-selection-toolbar">
+        <div className="chatgptbox-selection-toolbar">
           <img src={logo} width="24" height="24" style="user-select:none;" />
           {tools}
         </div>

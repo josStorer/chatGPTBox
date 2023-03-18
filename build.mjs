@@ -246,6 +246,7 @@ async function build() {
       true,
       generateWebpackCallback(() => finishOutput('-without-katex')),
     )
+  await new Promise((r) => setTimeout(r, 2000))
   await runWebpack(
     false,
     generateWebpackCallback(() => finishOutput('')),

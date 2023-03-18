@@ -32,30 +32,32 @@ export function MarkdownRender(props) {
     rel: 'nofollow noopener noreferrer',
   }
   return (
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
-      rehypePlugins={[
-        rehypeRaw,
-        [
-          rehypeHighlight,
-          {
-            detect: true,
-            ignoreMissing: true,
-          },
-        ],
-      ]}
-      components={{
-        a: (props) => (
-          <a href={props.href} {...linkProperties}>
-            {props.children}
-          </a>
-        ),
-        pre: Pre,
-      }}
-      {...props}
-    >
-      {props.children}
-    </ReactMarkdown>
+    <div dir="auto">
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[
+          rehypeRaw,
+          [
+            rehypeHighlight,
+            {
+              detect: true,
+              ignoreMissing: true,
+            },
+          ],
+        ]}
+        components={{
+          a: (props) => (
+            <a href={props.href} {...linkProperties}>
+              {props.children}
+            </a>
+          ),
+          pre: Pre,
+        }}
+        {...props}
+      >
+        {props.children}
+      </ReactMarkdown>
+    </div>
   )
 }
 

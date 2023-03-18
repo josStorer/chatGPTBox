@@ -21,6 +21,7 @@ export function InputBox({ onSubmit, enabled }) {
 
   return (
     <textarea
+      dir="auto"
       ref={inputRef}
       disabled={!enabled}
       className="interact-input"

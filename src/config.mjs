@@ -13,16 +13,16 @@ import { languages } from 'countries-list'
  * @type {Object.<string,Model>}
  */
 export const Models = {
-  chatgptFree: { value: 'text-davinci-002-render-sha', desc: 'ChatGPT (Web)' },
-  chatgptPlus: { value: 'gpt-4', desc: 'ChatGPT (Web, GPT-4)' },
+  chatgptFree35: { value: 'text-davinci-002-render-sha', desc: 'ChatGPT (Web)' },
+  chatgptPlus4: { value: 'gpt-4', desc: 'ChatGPT (Web, GPT-4)' },
   chatgptApi35: { value: 'gpt-3.5-turbo', desc: 'ChatGPT (GPT-3.5-turbo)' },
   chatgptApi4_8k: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k)' },
   chatgptApi4_32k: { value: 'gpt-4-32k', desc: 'ChatGPT (GPT-4-32k)' },
   gptApiDavinci: { value: 'text-davinci-003', desc: 'GPT-3.5' },
 }
 
-export const chatgptWebModelKeys = ['chatgptFree', 'chatgptPlus']
-export const gptApiModelKeys = ['gptDavinci']
+export const chatgptWebModelKeys = ['chatgptFree35', 'chatgptPlus4']
+export const gptApiModelKeys = ['gptApiDavinci']
 export const chatgptApiModelKeys = ['chatgptApi35', 'chatgptApi4_8k', 'chatgptApi4_32k']
 
 export const TriggerMode = {
@@ -52,7 +52,7 @@ export const defaultConfig = {
   /** @type {keyof ThemeMode}*/
   themeMode: 'auto',
   /** @type {keyof Models}*/
-  modelName: 'chatgptFree',
+  modelName: 'chatgptFree35',
   apiKey: '',
   preferredLanguage: navigator.language.substring(0, 2),
   insertAtTop: isMobile(),
@@ -116,6 +116,12 @@ export function isUsingApiKey(config) {
  */
 export async function getUserConfig() {
   const options = await Browser.storage.local.get(Object.keys(defaultConfig))
+
+  // version compatibility
+  if (options.modelName === 'chatgptFree') options.modelName = 'chatgptFree35'
+  else if (options.modelName === 'chatgptApi') options.modelName = 'chatgptApi35'
+  else if (options.modelName === 'gptDavinci') options.modelName = 'gptApiDavinci'
+
   return defaults(options, defaultConfig)
 }
 

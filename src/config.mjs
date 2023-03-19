@@ -14,13 +14,16 @@ import { languages } from 'countries-list'
  */
 export const Models = {
   chatgptFree: { value: 'text-davinci-002-render-sha', desc: 'ChatGPT (Web)' },
-  chatgptApi: { value: 'gpt-3.5-turbo', desc: 'ChatGPT (GPT-3.5)' },
-  gptDavinci: { value: 'text-davinci-003', desc: 'GPT3' },
+  chatgptPlus: { value: 'gpt-4', desc: 'ChatGPT (Web, GPT-4)' },
+  chatgptApi35: { value: 'gpt-3.5-turbo', desc: 'ChatGPT (GPT-3.5-turbo)' },
+  chatgptApi4_8k: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k)' },
+  chatgptApi4_32k: { value: 'gpt-4-32k', desc: 'ChatGPT (GPT-4-32k)' },
+  gptApiDavinci: { value: 'text-davinci-003', desc: 'GPT-3.5' },
 }
 
-export const chatgptWebModelKeys = ['chatgptFree']
+export const chatgptWebModelKeys = ['chatgptFree', 'chatgptPlus']
 export const gptApiModelKeys = ['gptDavinci']
-export const chatgptApiModelKeys = ['chatgptApi']
+export const chatgptApiModelKeys = ['chatgptApi35', 'chatgptApi4_8k', 'chatgptApi4_32k']
 
 export const TriggerMode = {
   always: 'Always',

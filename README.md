@@ -23,7 +23,7 @@ English | [简体中文](README_ZH.md)
 [![Android][Android-image]][Android-url]
 [![Github][Github-image]][Github-url]
 
-(Waiting for store review, [Firefox version][Firefox-url] is now available)
+(Waiting for store review, [Chrome][Chrome-url] and [Firefox][Firefox-url] version is now available)
 
 [Guide](https://github.com/josStorer/chatGPTBox/wiki/Guide) |
 [Preview](#Preview) |
@@ -49,7 +49,7 @@ English | [简体中文](README_ZH.md)
 
 [Chrome-image]: https://img.shields.io/badge/-Chrome-brightgreen?logo=google-chrome&logoColor=white
 
-[Chrome-url]: https://github.com/josStorer/chatGPTBox/wiki/Install
+[Chrome-url]: https://chrome.google.com/webstore/detail/chatgptbox/eobbhoofkanlmddnplfhnmkfbnlhpbbo
 
 [Edge-image]: https://img.shields.io/badge/-Edge-blue?logo=microsoft-edge&logoColor=white
 

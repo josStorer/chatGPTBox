@@ -72,7 +72,16 @@ export const defaultConfig = {
   // others
 
   activeSelectionTools: Object.keys(toolsConfig),
-  activeSiteAdapters: ['bilibili', 'github', 'gitlab', 'quora', 'reddit', 'youtube', 'zhihu'],
+  activeSiteAdapters: [
+    'bilibili',
+    'github',
+    'gitlab',
+    'quora',
+    'reddit',
+    'youtube',
+    'zhihu',
+    'stackoverflow',
+  ],
   accessToken: '',
   tokenSavedOn: 0,
 
@@ -81,7 +90,16 @@ export const defaultConfig = {
   userLanguage: navigator.language.substring(0, 2),
   selectionTools: Object.keys(toolsConfig),
   // importing configuration will result in gpt-3-encoder being packaged into the output file
-  siteAdapters: ['bilibili', 'github', 'gitlab', 'quora', 'reddit', 'youtube', 'zhihu'],
+  siteAdapters: [
+    'bilibili',
+    'github',
+    'gitlab',
+    'quora',
+    'reddit',
+    'youtube',
+    'zhihu',
+    'stackoverflow',
+  ],
 }
 
 export async function getUserLanguage() {

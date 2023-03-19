@@ -38,7 +38,7 @@ export async function sendModerations(token, question, conversationId, messageId
 
 export async function getModels(token) {
   const response = JSON.parse((await request(token, 'GET', '/models')).responseText)
-  return response.models
+  if (response.models) return response.models.map((m) => m.slug)
 }
 
 /**
@@ -71,7 +71,12 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
   const models = await getModels(accessToken).catch(() => {
     port.onMessage.removeListener(stopListener)
   })
+  console.debug('models', models)
   const config = await getUserConfig()
+  const selectedModel = Models[config.modelName].value
+  const usedModel =
+    models && models.includes(selectedModel) ? selectedModel : Models[chatgptWebModelKeys[0]].value
+  console.debug('usedModel', usedModel)
 
   let answer = ''
   await fetchSSE(`${config.customChatGptWebApiUrl}${config.customChatGptWebApiPath}`, {
@@ -94,7 +99,7 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
           },
         },
       ],
-      model: models ? models[0].slug : Models[chatgptWebModelKeys[0]].value,
+      model: usedModel,
       parent_message_id: session.parentMessageId,
     }),
     onMessage(message) {

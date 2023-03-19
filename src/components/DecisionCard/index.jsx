@@ -14,9 +14,10 @@ function DecisionCard(props) {
   const question = props.question
 
   useEffect(() => {
-    getUserConfig()
-      .then(setConfig)
-      .then(() => setRender(true))
+    getUserConfig().then((config) => {
+      setConfig(config)
+      setRender(true)
+    })
   }, [])
 
   useEffect(() => {

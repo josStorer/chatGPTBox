@@ -115,6 +115,7 @@ function ConversationCard(props) {
   useEffect(() => {
     const listener = () => {
       setPort(Browser.runtime.connect())
+      setIsReady(true)
     }
     port.onDisconnect.addListener(listener)
     return () => {

@@ -1,6 +1,6 @@
 // api version
 
-import { maxResponseTokenLength, Models, getUserConfig } from '../../config'
+import { maxResponseTokenLength, Models, getUserConfig } from '../../config/index.mjs'
 import { fetchSSE } from '../../utils/fetch-sse'
 import { getConversationPairs } from '../../utils/get-conversation-pairs'
 import { isEmpty } from 'lodash-es'

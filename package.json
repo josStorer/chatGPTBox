@@ -73,6 +73,7 @@
     "run-script-os": "^1.1.6",
     "sass": "^1.59.3",
     "sass-loader": "^13.2.1",
+    "string-replace-loader": "^3.1.0",
     "terser-webpack-plugin": "^5.3.7",
     "webpack": "^5.76.2",
     "webpack-bundle-analyzer": "^4.8.0"

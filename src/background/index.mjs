@@ -9,12 +9,12 @@ import {
 import {
   chatgptApiModelKeys,
   chatgptWebModelKeys,
+  defaultConfig,
   getUserConfig,
   gptApiModelKeys,
   isUsingApiKey,
-} from '../config'
+} from '../config/index.mjs'
 import { isSafari } from '../utils/is-safari'
-import { config as toolsConfig } from '../content-script/selection-tools'
 
 const KEY_ACCESS_TOKEN = 'accessToken'
 const cache = new ExpiryMap(10 * 1000)
@@ -114,12 +114,13 @@ Browser.contextMenus.removeAll().then(() => {
     title: 'New Chat',
     contexts: ['selection'],
   })
-  for (const key in toolsConfig) {
-    const toolConfig = toolsConfig[key]
+  for (const index in defaultConfig.selectionTools) {
+    const key = defaultConfig.selectionTools[index]
+    const desc = defaultConfig.selectionToolsDesc[index]
     Browser.contextMenus.create({
       id: menuId + key,
       parentId: menuId,
-      title: toolConfig.label,
+      title: desc,
       contexts: ['selection'],
     })
   }

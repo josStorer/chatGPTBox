@@ -8,7 +8,7 @@ import {
   Braces,
   Globe,
 } from 'react-bootstrap-icons'
-import { getPreferredLanguage } from '../../config.mjs'
+import { getPreferredLanguage } from '../../config/language.mjs'
 
 export const config = {
   translate: {

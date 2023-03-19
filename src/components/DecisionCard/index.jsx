@@ -2,7 +2,7 @@ import { LightBulbIcon, SearchIcon } from '@primer/octicons-react'
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ConversationCard from '../ConversationCard'
-import { defaultConfig, getUserConfig } from '../../config'
+import { defaultConfig, getUserConfig } from '../../config/index.mjs'
 import Browser from 'webextension-polyfill'
 import { getPossibleElementByQuerySelector, endsWithQuestionMark } from '../../utils'
 

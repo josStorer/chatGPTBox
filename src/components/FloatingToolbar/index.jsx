@@ -21,9 +21,10 @@ function FloatingToolbar(props) {
   const windowSize = useClampWindowSize([750, 1500], [0, Infinity])
 
   useEffect(() => {
-    getUserConfig()
-      .then(setConfig)
-      .then(() => setRender(true))
+    getUserConfig().then((config) => {
+      setConfig(config)
+      setRender(true)
+    })
   }, [])
 
   useEffect(() => {

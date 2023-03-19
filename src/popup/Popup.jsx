@@ -19,6 +19,7 @@ import PropTypes from 'prop-types'
 import { config as toolsConfig } from '../content-script/selection-tools'
 import wechatpay from './donation/wechatpay.jpg'
 import bugmeacoffee from './donation/bugmeacoffee.svg'
+import { useWindowTheme } from '../hooks/use-window-theme.mjs'
 
 function GeneralPart({ config, updateConfig }) {
   const [balance, setBalance] = useState(null)
@@ -388,6 +389,7 @@ function Popup() {
   const [config, setConfig] = useState(defaultConfig)
   const [currentVersion, setCurrentVersion] = useState('')
   const [latestVersion, setLatestVersion] = useState('')
+  const theme = useWindowTheme()
 
   const updateConfig = (value) => {
     setConfig({ ...config, ...value })
@@ -407,8 +409,8 @@ function Popup() {
   }, [])
 
   useEffect(() => {
-    document.documentElement.dataset.theme = config.themeMode
-  }, [config.themeMode])
+    document.documentElement.dataset.theme = config.themeMode === 'auto' ? theme : config.themeMode
+  }, [config.themeMode, theme])
 
   return (
     <div className="container">

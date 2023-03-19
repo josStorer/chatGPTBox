@@ -71,7 +71,7 @@ export const defaultConfig = {
 
   // others
 
-  activeSelectionTools: Object.keys(toolsConfig),
+  activeSelectionTools: Object.keys(toolsConfig).filter((i) => i !== 'translateBidi'),
   activeSiteAdapters: [
     'bilibili',
     'github',

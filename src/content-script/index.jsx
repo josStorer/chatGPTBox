@@ -19,15 +19,24 @@ import Browser from 'webextension-polyfill'
  * @param {UserConfig} userConfig
  */
 async function mountComponent(siteConfig, userConfig) {
-  if (
-    !getPossibleElementByQuerySelector(siteConfig.sidebarContainerQuery) &&
-    !getPossibleElementByQuerySelector(siteConfig.appendContainerQuery) &&
-    !getPossibleElementByQuerySelector(siteConfig.sidebarContainerQuery) &&
-    !getPossibleElementByQuerySelector([userConfig.prependQuery]) &&
-    !getPossibleElementByQuerySelector([userConfig.appendQuery])
-  )
-    return
-
+  const retry = 10
+  for (let i = 1; i <= retry; i++) {
+    const e =
+      getPossibleElementByQuerySelector(siteConfig.sidebarContainerQuery) ||
+      getPossibleElementByQuerySelector(siteConfig.appendContainerQuery) ||
+      getPossibleElementByQuerySelector(siteConfig.resultsContainerQuery) ||
+      getPossibleElementByQuerySelector([userConfig.prependQuery]) ||
+      getPossibleElementByQuerySelector([userConfig.appendQuery])
+    if (e) {
+      console.log(`SiteAdapters Retry ${i}/${retry}: found`)
+      console.log(e)
+      break
+    } else {
+      console.log(`SiteAdapters Retry ${i}/${retry}: not found`)
+      if (i === retry) return
+      else await new Promise((r) => setTimeout(r, 500))
+    }
+  }
   document.querySelectorAll('.chatgptbox-container').forEach((e) => {
     unmountComponentAtNode(e)
     e.remove()

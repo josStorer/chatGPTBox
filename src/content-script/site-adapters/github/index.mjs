@@ -19,22 +19,17 @@ const getPatchData = async (patchUrl) => {
 export default {
   init: async (hostname, userConfig, getInput, mountComponent) => {
     try {
-      const targetNode = document.querySelector('body')
-      const observer = new MutationObserver(async (records) => {
-        if (
-          records.some(
-            (record) =>
-              record.type === 'childList' &&
-              [...record.addedNodes].some((node) => node.classList.contains('page-responsive')),
-          )
-        ) {
+      let oldUrl = location.href
+      const checkUrlChange = async () => {
+        if (location.href !== oldUrl) {
+          oldUrl = location.href
           const patchUrl = await getPatchUrl()
           if (patchUrl) {
             mountComponent(config.github, userConfig)
           }
         }
-      })
-      observer.observe(targetNode, { childList: true })
+      }
+      window.setInterval(checkUrlChange, 500)
     } catch (e) {
       /* empty */
     }

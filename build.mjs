@@ -18,7 +18,7 @@ async function deleteOldDir() {
   await fs.rm(outdir, { recursive: true, force: true })
 }
 
-async function runWebpack(isWithoutKatex, callback) {
+async function runWebpack(isWithoutKatex, isWithoutTiktoken, callback) {
   const compiler = webpack({
     entry: {
       'content-script': {
@@ -37,6 +37,7 @@ async function runWebpack(isWithoutKatex, callback) {
         'webextension-polyfill',
         '@primer/octicons-react',
         'react-bootstrap-icons',
+        'countries-list',
         './src/utils',
       ],
     },
@@ -169,9 +170,27 @@ async function runWebpack(isWithoutKatex, callback) {
           type: 'asset/inline',
         },
         {
-          test: /\.(jpg|svg)$/,
+          test: /\.(jpg|png|svg)$/,
           type: 'asset/inline',
         },
+        isWithoutTiktoken
+          ? {
+              test: /crop-text\.mjs$/,
+              loader: 'string-replace-loader',
+              options: {
+                multiple: [
+                  {
+                    search: "import { encode } from '@nem035/gpt-3-encoder'",
+                    replace: '',
+                  },
+                  {
+                    search: 'encode(',
+                    replace: 'String(',
+                  },
+                ],
+              },
+            }
+          : {},
       ],
     },
   })
@@ -244,11 +263,19 @@ async function build() {
   if (isProduction && !isAnalyzing) {
     await runWebpack(
       true,
+      false,
       generateWebpackCallback(() => finishOutput('-without-katex')),
     )
-    await new Promise((r) => setTimeout(r, 2000))
+    await new Promise((r) => setTimeout(r, 5000))
+    await runWebpack(
+      true,
+      true,
+      generateWebpackCallback(() => finishOutput('-without-katex-and-tiktoken')),
+    )
+    await new Promise((r) => setTimeout(r, 5000))
   }
   await runWebpack(
+    false,
     false,
     generateWebpackCallback(() => finishOutput('')),
   )

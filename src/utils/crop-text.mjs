@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import { maxResponseTokenLength } from '../config.mjs'
+import { maxResponseTokenLength } from '../config/index.mjs'
 import { encode } from '@nem035/gpt-3-encoder'
 
 // TODO add model support

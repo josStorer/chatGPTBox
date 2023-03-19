@@ -10,7 +10,7 @@ import FileSaver from 'file-saver'
 import { render } from 'preact'
 import FloatingToolbar from '../FloatingToolbar'
 import { useClampWindowSize } from '../../hooks/use-clamp-window-size'
-import { defaultConfig, getUserConfig } from '../../config'
+import { defaultConfig, getUserConfig } from '../../config/index.mjs'
 
 const logo = Browser.runtime.getURL('logo.png')
 

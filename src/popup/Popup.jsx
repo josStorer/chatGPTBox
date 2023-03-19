@@ -8,8 +8,7 @@ import {
   defaultConfig,
   Models,
   isUsingApiKey,
-  languageList,
-} from '../config'
+} from '../config/index.mjs'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import './styles.scss'
@@ -18,8 +17,9 @@ import Browser from 'webextension-polyfill'
 import PropTypes from 'prop-types'
 import { config as toolsConfig } from '../content-script/selection-tools'
 import wechatpay from './donation/wechatpay.jpg'
-import bugmeacoffee from './donation/bugmeacoffee.svg'
+import bugmeacoffee from './donation/bugmeacoffee.png'
 import { useWindowTheme } from '../hooks/use-window-theme.mjs'
+import { languageList } from '../config/language.mjs'
 
 function GeneralPart({ config, updateConfig }) {
   const [balance, setBalance] = useState(null)

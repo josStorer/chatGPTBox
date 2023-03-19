@@ -2,7 +2,7 @@
 
 import { fetchSSE } from '../../utils/fetch-sse'
 import { isEmpty } from 'lodash-es'
-import { chatgptWebModelKeys, getUserConfig, Models } from '../../config'
+import { chatgptWebModelKeys, getUserConfig, Models } from '../../config/index.mjs'
 
 async function request(token, method, path, data) {
   const apiUrl = (await getUserConfig()).customChatGptWebApiUrl

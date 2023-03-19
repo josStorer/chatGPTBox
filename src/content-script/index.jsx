@@ -4,7 +4,7 @@ import { render } from 'preact'
 import DecisionCard from '../components/DecisionCard'
 import { config as siteConfig } from './site-adapters'
 import { config as toolsConfig } from './selection-tools'
-import { clearOldAccessToken, getUserConfig, setAccessToken, getPreferredLanguage } from '../config'
+import { clearOldAccessToken, getUserConfig, setAccessToken } from '../config/index.mjs'
 import {
   createElementAtPosition,
   getPossibleElementByQuerySelector,
@@ -13,6 +13,7 @@ import {
 } from '../utils'
 import FloatingToolbar from '../components/FloatingToolbar'
 import Browser from 'webextension-polyfill'
+import { getPreferredLanguage } from '../config/language.mjs'
 
 /**
  * @param {SiteConfig} siteConfig

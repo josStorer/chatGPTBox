@@ -1,8 +1,6 @@
 import { defaults } from 'lodash-es'
 import Browser from 'webextension-polyfill'
-import { isMobile } from './utils/is-mobile'
-import { config as toolsConfig } from './content-script/selection-tools'
-import { languages } from 'countries-list'
+import { isMobile } from '../utils/is-mobile.mjs'
 
 /**
  * @typedef {object} Model
@@ -37,8 +35,6 @@ export const ThemeMode = {
   auto: 'Auto',
 }
 
-export const languageList = { auto: { name: 'Auto', native: 'Auto' }, ...languages }
-
 export const maxResponseTokenLength = 1000
 
 /**
@@ -71,7 +67,7 @@ export const defaultConfig = {
 
   // others
 
-  activeSelectionTools: Object.keys(toolsConfig).filter((i) => i !== 'translateBidi'),
+  activeSelectionTools: ['translate', 'summary', 'polish', 'sentiment', 'divide', 'code', 'ask'],
   activeSiteAdapters: [
     'bilibili',
     'github',
@@ -88,7 +84,26 @@ export const defaultConfig = {
   // unchangeable
 
   userLanguage: navigator.language.substring(0, 2),
-  selectionTools: Object.keys(toolsConfig),
+  selectionTools: [
+    'translate',
+    'translateBidi',
+    'summary',
+    'polish',
+    'sentiment',
+    'divide',
+    'code',
+    'ask',
+  ],
+  selectionToolsDesc: [
+    'Translate',
+    'Translate (Bidirectional)',
+    'Summary',
+    'Polish',
+    'Sentiment Analysis',
+    'Divide Paragraphs',
+    'Code Explain',
+    'Ask',
+  ],
   // importing configuration will result in gpt-3-encoder being packaged into the output file
   siteAdapters: [
     'bilibili',
@@ -100,26 +115,6 @@ export const defaultConfig = {
     'zhihu',
     'stackoverflow',
   ],
-}
-
-export async function getUserLanguage() {
-  return languageList[defaultConfig.userLanguage].name
-}
-
-export async function getUserLanguageNative() {
-  return languageList[defaultConfig.userLanguage].native
-}
-
-export async function getPreferredLanguage() {
-  const config = await getUserConfig()
-  if (config.preferredLanguage === 'auto') return await getUserLanguage()
-  return languageList[config.preferredLanguage].name
-}
-
-export async function getPreferredLanguageNative() {
-  const config = await getUserConfig()
-  if (config.preferredLanguage === 'auto') return await getUserLanguageNative()
-  return languageList[config.preferredLanguage].native
 }
 
 export function isUsingApiKey(config) {

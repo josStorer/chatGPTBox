@@ -6,6 +6,7 @@ import {
   QuestionCircle,
   Translate,
   Braces,
+  Globe,
 } from 'react-bootstrap-icons'
 import { getPreferredLanguage } from '../../config.mjs'
 
@@ -13,6 +14,14 @@ export const config = {
   translate: {
     icon: <Translate />,
     label: 'Translate',
+    genPrompt: async (selection) => {
+      const preferredLanguage = await getPreferredLanguage()
+      return `Translate the following into ${preferredLanguage} and only show me the translated content:\n"${selection}"`
+    },
+  },
+  translateBidi: {
+    icon: <Globe />,
+    label: 'Translate (Bidirectional)',
     genPrompt: async (selection) => {
       const preferredLanguage = await getPreferredLanguage()
       return (

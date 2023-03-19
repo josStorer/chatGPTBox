@@ -74,7 +74,7 @@
     "sass": "^1.58.1",
     "sass-loader": "^13.2.0",
     "terser-webpack-plugin": "^5.3.6",
-    "webpack": "^5.75.0",
+    "webpack": "^5.76.0",
     "webpack-bundle-analyzer": "^4.8.0"
   }
 }

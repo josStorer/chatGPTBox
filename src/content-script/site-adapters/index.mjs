@@ -6,6 +6,7 @@ import gitlab from './gitlab'
 import zhihu from './zhihu'
 import reddit from './reddit'
 import quora from './quora'
+import stackoverflow from './stackoverflow'
 
 /**
  * @typedef {object} SiteConfigAction
@@ -163,5 +164,11 @@ export const config = {
     sidebarContainerQuery: ['.q-box.PageContentsLayout___StyledBox-d2uxks-0'],
     appendContainerQuery: [],
     resultsContainerQuery: ['.q-box.PageContentsLayout___StyledBox-d2uxks-0'],
+  },
+  stackoverflow: {
+    inputQuery: stackoverflow.inputQuery,
+    sidebarContainerQuery: ['#sidebar'],
+    appendContainerQuery: [],
+    resultsContainerQuery: ['#sidebar'],
   },
 }

@@ -44,8 +44,6 @@ export default {
         subtitleContent += subtitleData.substring(0, subtitleData.indexOf('<')) + ','
       }
 
-      await new Promise((r) => setTimeout(r, 1000))
-
       return cropText(
         `Provide a brief summary of the video using concise language and incorporating the video title.` +
           `The video title is:"${title}".The subtitle content is as follows:\n${subtitleContent}`,

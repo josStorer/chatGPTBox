@@ -25,7 +25,7 @@ import stackoverflow from './stackoverflow'
  */
 export const config = {
   google: {
-    inputQuery: ["input[name='q']"],
+    inputQuery: ["input[name='q']", "textarea[name='q']"],
     sidebarContainerQuery: ['#rhs'],
     appendContainerQuery: ['#rcnt'],
     resultsContainerQuery: ['#rso'],

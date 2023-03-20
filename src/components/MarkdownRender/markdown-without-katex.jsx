@@ -2,6 +2,7 @@ import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import rehypeHighlight from 'rehype-highlight'
 import remarkGfm from 'remark-gfm'
+import remarkBreaks from 'remark-breaks'
 import CopyButton from '../CopyButton'
 import { useRef } from 'react'
 import PropTypes from 'prop-types'
@@ -34,7 +35,7 @@ export function MarkdownRender(props) {
   return (
     <div dir="auto">
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
+        remarkPlugins={[remarkGfm, remarkBreaks]}
         rehypePlugins={[
           rehypeRaw,
           [

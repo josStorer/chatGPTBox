@@ -5,6 +5,7 @@ import rehypeHighlight from 'rehype-highlight'
 import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
 import remarkGfm from 'remark-gfm'
+import remarkBreaks from 'remark-breaks'
 import CopyButton from '../CopyButton'
 import { useRef } from 'react'
 import PropTypes from 'prop-types'
@@ -37,7 +38,7 @@ export function MarkdownRender(props) {
   return (
     <div dir="auto">
       <ReactMarkdown
-        remarkPlugins={[remarkMath, remarkGfm]}
+        remarkPlugins={[remarkMath, remarkGfm, remarkBreaks]}
         rehypePlugins={[
           rehypeKatex,
           rehypeRaw,

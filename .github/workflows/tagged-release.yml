@@ -60,7 +60,5 @@ jobs:
             build/chromium.zip
             build/firefox.zip
             build/safari.dmg
-            build/chromium-without-katex.zip
-            build/firefox-without-katex.zip
             build/chromium-without-katex-and-tiktoken.zip
             build/firefox-without-katex-and-tiktoken.zip

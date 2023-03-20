@@ -17,6 +17,7 @@ function FloatingToolbar(props) {
   const [config, setConfig] = useState(defaultConfig)
   const [render, setRender] = useState(false)
   const [position, setPosition] = useState(props.position)
+  const [closeable, setCloseable] = useState(props.closeable)
   const [virtualPosition, setVirtualPosition] = useState({ x: 0, y: 0 })
   const windowSize = useClampWindowSize([750, 1500], [0, Infinity])
 
@@ -94,8 +95,15 @@ function FloatingToolbar(props) {
                 session={props.session}
                 question={prompt}
                 draggable={true}
-                closeable={props.closeable}
-                onClose={props.onClose}
+                closeable={closeable}
+                onClose={() => {
+                  props.container.remove()
+                }}
+                dockable={props.dockable}
+                onDock={() => {
+                  props.container.className = 'chatgptbox-toolbar-container-not-queryable'
+                  setCloseable(true)
+                }}
                 onUpdate={() => {
                   updatePosition()
                 }}
@@ -145,7 +153,7 @@ FloatingToolbar.propTypes = {
   container: PropTypes.object.isRequired,
   triggered: PropTypes.bool,
   closeable: PropTypes.bool,
-  onClose: PropTypes.func,
+  dockable: PropTypes.bool,
   prompt: PropTypes.string,
 }
 

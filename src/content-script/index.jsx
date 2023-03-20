@@ -102,6 +102,10 @@ async function prepareForSafari() {
 }
 
 let toolbarContainer
+const deleteToolbar = () => {
+  if (toolbarContainer && toolbarContainer.className === 'chatgptbox-toolbar-container')
+    toolbarContainer.remove()
+}
 
 async function prepareForSelectionTools() {
   document.addEventListener('mouseup', (e) => {
@@ -113,7 +117,7 @@ async function prepareForSelectionTools() {
     )
       return
 
-    if (toolbarContainer) toolbarContainer.remove()
+    deleteToolbar()
     setTimeout(() => {
       const selection = window.getSelection()?.toString()
       if (selection) {
@@ -126,6 +130,7 @@ async function prepareForSelectionTools() {
             selection={selection}
             position={position}
             container={toolbarContainer}
+            dockable={true}
           />,
           toolbarContainer,
         )
@@ -144,7 +149,7 @@ async function prepareForSelectionTools() {
       (e.target.nodeName === 'INPUT' || e.target.nodeName === 'TEXTAREA')
     ) {
       setTimeout(() => {
-        if (!window.getSelection()?.toString()) toolbarContainer.remove()
+        if (!window.getSelection()?.toString()) deleteToolbar()
       })
     }
   })
@@ -160,7 +165,7 @@ async function prepareForSelectionToolsTouch() {
     )
       return
 
-    if (toolbarContainer) toolbarContainer.remove()
+    deleteToolbar()
     setTimeout(() => {
       const selection = window.getSelection()?.toString()
       if (selection) {
@@ -176,6 +181,7 @@ async function prepareForSelectionToolsTouch() {
             selection={selection}
             position={position}
             container={toolbarContainer}
+            dockable={true}
           />,
           toolbarContainer,
         )
@@ -212,7 +218,6 @@ async function prepareForRightClickMenu() {
             container={container}
             triggered={true}
             closeable={true}
-            onClose={() => container.remove()}
           />,
           container,
         )
@@ -228,7 +233,6 @@ async function prepareForRightClickMenu() {
             container={container}
             triggered={true}
             closeable={true}
-            onClose={() => container.remove()}
             prompt={await toolsConfig[data.itemId].genPrompt(data.selectionText)}
           />,
           container,

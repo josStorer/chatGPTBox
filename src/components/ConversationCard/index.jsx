@@ -5,7 +5,7 @@ import InputBox from '../InputBox'
 import ConversationItem from '../ConversationItem'
 import { createElementAtPosition, initSession, isSafari } from '../../utils'
 import { DownloadIcon } from '@primer/octicons-react'
-import { WindowDesktop, XLg } from 'react-bootstrap-icons'
+import { WindowDesktop, XLg, Pin } from 'react-bootstrap-icons'
 import FileSaver from 'file-saver'
 import { render } from 'preact'
 import FloatingToolbar from '../FloatingToolbar'
@@ -175,9 +175,7 @@ function ConversationCard(props) {
   return (
     <div className="gpt-inner">
       <div className="gpt-header">
-        {!props.closeable ? (
-          <img src={logo} width="20" height="20" style="margin:5px 15px 0px;user-select:none;" />
-        ) : (
+        {props.closeable ? (
           <XLg
             className="gpt-util-icon"
             style="margin:5px 15px 0px;"
@@ -187,6 +185,18 @@ function ConversationCard(props) {
               if (props.onClose) props.onClose()
             }}
           />
+        ) : props.dockable ? (
+          <Pin
+            className="gpt-util-icon"
+            style="margin:5px 15px 0px;"
+            title="Pin the Window"
+            size={16}
+            onClick={() => {
+              if (props.onDock) props.onDock()
+            }}
+          />
+        ) : (
+          <img src={logo} width="20" height="20" style="margin:5px 15px 0px;user-select:none;" />
         )}
         {props.draggable ? (
           <div className="dragbar" />
@@ -207,7 +217,6 @@ function ConversationCard(props) {
                   container={toolbarContainer}
                   closeable={true}
                   triggered={true}
-                  onClose={() => toolbarContainer.remove()}
                 />,
                 toolbarContainer,
               )
@@ -278,6 +287,8 @@ ConversationCard.propTypes = {
   draggable: PropTypes.bool,
   closeable: PropTypes.bool,
   onClose: PropTypes.func,
+  dockable: PropTypes.bool,
+  onDock: PropTypes.func,
 }
 
 export default memo(ConversationCard)

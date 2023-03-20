@@ -129,35 +129,3 @@ fork自 [wong2/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-goog
 
 [wong2/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension) 的想法源于
 [ZohaibAhmed/ChatGPT-Google](https://github.com/ZohaibAhmed/ChatGPT-Google) ([upstream-c54528b](https://github.com/wong2/chatgpt-google-extension/commit/c54528b0e13058ab78bfb433c92603db017d1b6b))
-
-### 额外声明
-
-<details>
-<summary>谨慎展开该声明! 这个声明主要针对可能的道德问题指责, 因为我收到了一些攻击性言论, 因而我在此进行解释</summary>
-
-该项目最终可追溯至chatGPT刚刚爆火时出现的一个明星项目 [wong2/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension),
-一开始我为其添加了各种市面上主流搜索引擎的支持, 后续我也进一步改进了兼容性, 并提交了自动化构建支持等.
-起初我更倾向于贡献到原始项目, 你可以查看我的[PR记录](https://github.com/wong2/chatgpt-google-extension/pulls?q=is%3Apr+author%3AjosStorer+).
-我也在原始项目中的许多Issue中参与解决问题, 例如[该问题](https://github.com/wong2/chatgpt-google-extension/issues/110#issuecomment-1399831569)中,
-我提及了我解决Safari构建的方式, 在[该PR中](https://github.com/wong2/chatgpt-google-extension/pull/187), 我尝试解决挂载点的检测问题,
-又比如对于一些赤裸裸的[抄袭现象](https://github.com/wong2/chatgpt-google-extension/issues/197#issuecomment-1399824044), 我也深感不满.
-
-但是, 在一些问题上, 我与原作者的理念不合, 例如像[Katex渲染](https://github.com/wong2/chatgpt-google-extension/pull/75)的支持, 原作者在持续要求发起者改进后,
-却又以体积问题为由拒绝了, 又比如[交互模式](https://github.com/wong2/chatgpt-google-extension/pull/103)的支持, 原作者同样拒绝了, 但是同时却一直把连续对话的Issue, Pin在顶部,
-又一直不提供任何支持, 直至被其他团队收购后, 由其他团队进行了实现,
-实际上早期我在贡献多搜索引擎支持时, 我认为这是个优先级比较高的功能, 但我觉得原作者推进有些缓慢, 而在执行一些我觉得优先级不高的事情, 并且其在合并搜索引擎支持后,
-又刻意删除了几个引擎的支持, 并发起了一个请求的[讨论](https://github.com/wong2/chatgpt-google-extension/issues/109), 导致用户重新前去提出, 而直至项目被收购, 讨论被关闭的几个月时间里, 原项目接收到大量的请求, 却全部被忽视了,
-这意味着这个讨论一开始就是没有意义的, 我对诸如此类的做事风格深感不满.
-
-而原项目中也有一些有创意的想法, 许多都早于现在的一些独立项目, 例如[视频总结](https://github.com/wong2/chatgpt-google-extension/issues/140)请求,
-很早就有人提出了, 但原作者同样拒绝了.
-
-出于种种原因, 我决定与上游分离, 并独立维护各种功能更新, 一直以来, 我维护的分支都始终覆盖了原项目所有功能, 并一直提供大量的额外功能支持, 也就是这个项目的[前身](https://github.com/josStorer/chatGPT-search-engine-extension).
-但是, 我一直不愿意上架应用商店, 因为我认为这有违道德, 我不希望与原项目构成竞争.
-
-直至2023年2月份, 原作者宣布项目被收购, 代码将闭源, 我最终决定将一些比较好的社区提出的Issue, 但是被原作者拒绝的, 进行整合, 并上架商店, 最终诞生了这个项目.
-
-我仍想特别强调, 我只是对事不对人, 原作者是行业的前辈了, 而我只是个初出茅庐的菜鸡, 我不希望任何人因此对原作者进行任何攻击, 做开源的, 没有谁的时间是免费的,
-原作者并没有做错任何事, 并且他的项目启发了大量的社区独立项目, 我也从中学到了很多, 而原作者的成功变现, 及运营过程也是非常值得学习的, 我仍然对其贡献表示尊敬.
-
-</details>

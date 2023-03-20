@@ -15,6 +15,7 @@ import {
   isUsingApiKey,
 } from '../config/index.mjs'
 import { isSafari } from '../utils/is-safari'
+import { isFirefox } from '../utils/is-firefox'
 
 const KEY_ACCESS_TOKEN = 'accessToken'
 const cache = new ExpiryMap(10 * 1000)
@@ -112,7 +113,7 @@ Browser.contextMenus.removeAll().then(() => {
     id: menuId + 'new',
     parentId: menuId,
     title: 'New Chat',
-    contexts: ['selection'],
+    contexts: [isFirefox() ? 'all' : 'selection'],
   })
   for (const index in defaultConfig.selectionTools) {
     const key = defaultConfig.selectionTools[index]

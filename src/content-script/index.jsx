@@ -23,9 +23,10 @@ async function mountComponent(siteConfig, userConfig) {
   const retry = 10
   for (let i = 1; i <= retry; i++) {
     const e =
-      getPossibleElementByQuerySelector(siteConfig.sidebarContainerQuery) ||
-      getPossibleElementByQuerySelector(siteConfig.appendContainerQuery) ||
-      getPossibleElementByQuerySelector(siteConfig.resultsContainerQuery) ||
+      (siteConfig &&
+        (getPossibleElementByQuerySelector(siteConfig.sidebarContainerQuery) ||
+          getPossibleElementByQuerySelector(siteConfig.appendContainerQuery) ||
+          getPossibleElementByQuerySelector(siteConfig.resultsContainerQuery))) ||
       getPossibleElementByQuerySelector([userConfig.prependQuery]) ||
       getPossibleElementByQuerySelector([userConfig.appendQuery])
     if (e) {
@@ -75,8 +76,9 @@ async function getInput(inputQuery) {
     return input
   }
   const searchInput = getPossibleElementByQuerySelector(inputQuery)
-  if (searchInput && searchInput.value) {
-    return searchInput.value
+  if (searchInput) {
+    if (searchInput.value) return searchInput.value
+    else if (searchInput.textContent) return searchInput.textContent
   }
 }
 

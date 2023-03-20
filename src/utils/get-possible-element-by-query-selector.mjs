@@ -1,4 +1,5 @@
 export function getPossibleElementByQuerySelector(queryArray) {
+  if (!queryArray) return
   for (const query of queryArray) {
     if (query) {
       try {

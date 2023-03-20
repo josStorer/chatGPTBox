@@ -6,12 +6,25 @@ export default {
       const title = document.querySelector('.QuestionHeader-title')?.textContent
       if (title) {
         const description = document.querySelector('.QuestionRichText')?.textContent
-        const answer = document.querySelector('.AnswerItem .RichText')?.textContent
+        const answerQuery = '.AnswerItem .RichText'
 
-        return cropText(
-          `以下是一个问答平台的提问与回答内容,给出相应的摘要,以及你对此的看法.问题是:"${title}",问题的进一步描述是:"${description}".` +
-            `其中一个回答如下:\n${answer}`,
-        )
+        let answer = ''
+        if (location.pathname.includes('answer')) {
+          answer = document.querySelector(answerQuery)?.textContent
+          return cropText(
+            `以下是一个问答平台的提问与回答内容,给出相应的摘要,以及你对此的看法.问题是:"${title}",问题的进一步描述是:"${description}".` +
+              `其中一个回答如下:\n${answer}`,
+          )
+        } else {
+          const answers = document.querySelectorAll(answerQuery)
+          for (let i = 1; i <= answers.length && i <= 4; i++) {
+            answer += `answer${i}: ${answers[i - 1].textContent}|`
+          }
+          return cropText(
+            `以下是一个问答平台的提问与回答内容,给出相应的摘要,以及你对此的看法.问题是:"${title}",问题的进一步描述是:"${description}".` +
+              `各个回答如下:\n${answer}`,
+          )
+        }
       } else {
         const title = document.querySelector('.Post-Title')?.textContent
         const description = document.querySelector('.Post-RichText')?.textContent

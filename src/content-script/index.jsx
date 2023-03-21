@@ -121,14 +121,12 @@ async function prepareForSelectionTools() {
     setTimeout(() => {
       const selection = window.getSelection()?.toString()
       if (selection) {
-        const position = { x: e.clientX + 15, y: e.clientY - 15 }
-        toolbarContainer = createElementAtPosition(position.x, position.y)
+        toolbarContainer = createElementAtPosition(e.pageX + 15, e.pageY - 15)
         toolbarContainer.className = 'chatgptbox-toolbar-container'
         render(
           <FloatingToolbar
             session={initSession()}
             selection={selection}
-            position={position}
             container={toolbarContainer}
             dockable={true}
           />,
@@ -169,17 +167,15 @@ async function prepareForSelectionToolsTouch() {
     setTimeout(() => {
       const selection = window.getSelection()?.toString()
       if (selection) {
-        const position = {
-          x: e.changedTouches[0].clientX + 15,
-          y: e.changedTouches[0].clientY - 15,
-        }
-        toolbarContainer = createElementAtPosition(position.x, position.y)
+        toolbarContainer = createElementAtPosition(
+          e.changedTouches[0].pageX + 15,
+          e.changedTouches[0].pageY - 15,
+        )
         toolbarContainer.className = 'chatgptbox-toolbar-container'
         render(
           <FloatingToolbar
             session={initSession()}
             selection={selection}
-            position={position}
             container={toolbarContainer}
             dockable={true}
           />,
@@ -214,7 +210,6 @@ async function prepareForRightClickMenu() {
           <FloatingToolbar
             session={initSession()}
             selection=""
-            position={position}
             container={container}
             triggered={true}
             closeable={true}
@@ -229,7 +224,6 @@ async function prepareForRightClickMenu() {
           <FloatingToolbar
             session={initSession()}
             selection={data.selectionText}
-            position={position}
             container={container}
             triggered={true}
             closeable={true}

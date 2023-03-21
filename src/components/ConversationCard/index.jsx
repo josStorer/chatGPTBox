@@ -213,7 +213,6 @@ function ConversationCard(props) {
                 <FloatingToolbar
                   session={session}
                   selection=""
-                  position={position}
                   container={toolbarContainer}
                   closeable={true}
                   triggered={true}

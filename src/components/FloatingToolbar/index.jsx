@@ -4,7 +4,7 @@ import ConversationCard from '../ConversationCard'
 import PropTypes from 'prop-types'
 import { defaultConfig, getUserConfig } from '../../config/index.mjs'
 import { config as toolsConfig } from '../../content-script/selection-tools'
-import { isMobile, setElementPositionInViewport } from '../../utils'
+import { getClientPosition, isMobile, setElementPositionInViewport } from '../../utils'
 import Draggable from 'react-draggable'
 import { useClampWindowSize } from '../../hooks/use-clamp-window-size'
 
@@ -16,8 +16,8 @@ function FloatingToolbar(props) {
   const [triggered, setTriggered] = useState(props.triggered)
   const [config, setConfig] = useState(defaultConfig)
   const [render, setRender] = useState(false)
-  const [position, setPosition] = useState(props.position)
   const [closeable, setCloseable] = useState(props.closeable)
+  const [position, setPosition] = useState(getClientPosition(props.container))
   const [virtualPosition, setVirtualPosition] = useState({ x: 0, y: 0 })
   const windowSize = useClampWindowSize([750, 1500], [0, Infinity])
 
@@ -25,6 +25,8 @@ function FloatingToolbar(props) {
     getUserConfig().then((config) => {
       setConfig(config)
       setRender(true)
+
+      if (!triggered) props.container.style.position = 'absolute'
     })
   }, [])
 
@@ -127,6 +129,9 @@ function FloatingToolbar(props) {
             className: 'chatgptbox-selection-toolbar-button',
             title: toolConfig.label,
             onClick: async () => {
+              const p = getClientPosition(props.container)
+              props.container.style.position = 'fixed'
+              setPosition(p)
               setPrompt(await toolConfig.genPrompt(selection))
               setTriggered(true)
             },
@@ -149,7 +154,6 @@ function FloatingToolbar(props) {
 FloatingToolbar.propTypes = {
   session: PropTypes.object.isRequired,
   selection: PropTypes.string.isRequired,
-  position: PropTypes.object.isRequired,
   container: PropTypes.object.isRequired,
   triggered: PropTypes.bool,
   closeable: PropTypes.bool,

@@ -17,11 +17,13 @@ export const Models = {
   chatgptApi4_8k: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k)' },
   chatgptApi4_32k: { value: 'gpt-4-32k', desc: 'ChatGPT (GPT-4-32k)' },
   gptApiDavinci: { value: 'text-davinci-003', desc: 'GPT-3.5' },
+  chatglm6bInt4: { value: 'chatglm-6b-int4', desc: 'ChatGLM-6B-Int4' },
 }
 
 export const chatgptWebModelKeys = ['chatgptFree35', 'chatgptPlus4']
 export const gptApiModelKeys = ['gptApiDavinci']
 export const chatgptApiModelKeys = ['chatgptApi35', 'chatgptApi4_8k', 'chatgptApi4_32k']
+export const customApiModelKeys = ['chatglm6bInt4']
 
 export const TriggerMode = {
   always: 'Always',
@@ -59,6 +61,7 @@ export const defaultConfig = {
   customChatGptWebApiUrl: 'https://chat.openai.com',
   customChatGptWebApiPath: '/backend-api/conversation',
   customOpenAiApiUrl: 'https://api.openai.com',
+  customModelApiUrl: 'http://localhost:8000/chat/completions',
   siteRegex: 'match nothing',
   userSiteRegexOnly: false,
   inputQuery: '',
@@ -121,6 +124,10 @@ export function isUsingApiKey(config) {
   return (
     gptApiModelKeys.includes(config.modelName) || chatgptApiModelKeys.includes(config.modelName)
   )
+}
+
+export function isUsingCustomModel(config) {
+  return customApiModelKeys.includes(config.modelName)
 }
 
 /**

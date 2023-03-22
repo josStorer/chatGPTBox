@@ -5,7 +5,6 @@
  * @property {string|null} messageId - chatGPT web mode
  * @property {string|null} parentMessageId - chatGPT web mode
  * @property {Object[]|null} conversationRecords
- * @property {bool|null} useApiKey
  */
 /**
  * @param {Session} session
@@ -17,7 +16,6 @@ export function initSession({
   messageId = null,
   parentMessageId = null,
   conversationRecords = [],
-  useApiKey = null,
 } = {}) {
   return {
     question,
@@ -25,6 +23,5 @@ export function initSession({
     messageId,
     parentMessageId,
     conversationRecords,
-    useApiKey,
   }
 }

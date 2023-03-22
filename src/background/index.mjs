@@ -6,13 +6,14 @@ import {
   generateAnswersWithChatgptApi,
   generateAnswersWithGptCompletionApi,
 } from './apis/openai-api'
+import { generateAnswersWithCustomApi } from './apis/custom-api.mjs'
 import {
   chatgptApiModelKeys,
   chatgptWebModelKeys,
+  customApiModelKeys,
   defaultConfig,
   getUserConfig,
   gptApiModelKeys,
-  isUsingApiKey,
 } from '../config/index.mjs'
 import { isSafari } from '../utils/is-safari'
 import { isFirefox } from '../utils/is-firefox'
@@ -55,9 +56,6 @@ Browser.runtime.onConnect.addListener((port) => {
     const session = msg.session
     if (!session) return
     const config = await getUserConfig()
-    if (session.useApiKey == null) {
-      session.useApiKey = isUsingApiKey(config)
-    }
 
     try {
       if (chatgptWebModelKeys.includes(config.modelName)) {
@@ -77,6 +75,14 @@ Browser.runtime.onConnect.addListener((port) => {
         )
       } else if (chatgptApiModelKeys.includes(config.modelName)) {
         await generateAnswersWithChatgptApi(
+          port,
+          session.question,
+          session,
+          config.apiKey,
+          config.modelName,
+        )
+      } else if (customApiModelKeys.includes(config.modelName)) {
+        await generateAnswersWithCustomApi(
           port,
           session.question,
           session,

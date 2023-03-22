@@ -8,6 +8,7 @@ import {
   defaultConfig,
   Models,
   isUsingApiKey,
+  isUsingCustomModel,
 } from '../config/index.mjs'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
@@ -122,6 +123,17 @@ function GeneralPart({ config, updateConfig }) {
             </span>
           )}
         </span>
+        {isUsingCustomModel(config) && (
+          <input
+            type="text"
+            value={config.customModelApiUrl}
+            placeholder="Custom Model API Url"
+            onChange={(e) => {
+              const value = e.target.value
+              updateConfig({ customModelApiUrl: value })
+            }}
+          />
+        )}
       </label>
       <label>
         <legend>Preferred Language</legend>

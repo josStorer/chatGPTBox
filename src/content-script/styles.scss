@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
 [data-theme='auto'] {
   @import 'github-markdown-css/github-markdown.css';
   @media screen and (prefers-color-scheme: dark) {
@@ -46,6 +48,9 @@
   flex-grow: 1;
   margin-bottom: 20px;
 
+  .chatgptbox-container * {
+    font-family: 'Cairo', sans-serif;
+  }
   .gpt-inner {
     border-radius: 8px;
     border: 1px solid;
@@ -117,7 +122,7 @@
     line-height: 1.6;
     border-radius: 8px;
     word-break: break-word;
-
+    font-family: 'Cairo', sans-serif;
     pre {
       margin-top: 10px;
     }

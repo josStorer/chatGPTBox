@@ -4,8 +4,7 @@ import Browser from 'webextension-polyfill'
 import InputBox from '../InputBox'
 import ConversationItem from '../ConversationItem'
 import { createElementAtPosition, initSession, isSafari } from '../../utils'
-import { DownloadIcon } from '@primer/octicons-react'
-import { WindowDesktop, XLg, Pin } from 'react-bootstrap-icons'
+import { WindowDesktop, XLg, Pin, Download } from 'react-bootstrap-icons'
 import FileSaver from 'file-saver'
 import { render } from 'preact'
 import FloatingToolbar from '../FloatingToolbar'
@@ -217,9 +216,8 @@ function ConversationCard(props) {
             }}
           />
         )}
-        <span
+        <Download
           title="Save Conversation"
-          className="gpt-util-icon"
           onClick={() => {
             let output = ''
             session.conversationRecords.forEach((data) => {
@@ -228,9 +226,7 @@ function ConversationCard(props) {
             const blob = new Blob([output], { type: 'text/plain;charset=utf-8' })
             FileSaver.saveAs(blob, 'conversation.md')
           }}
-        >
-          <DownloadIcon size={16} />
-        </span>
+        />
       </div>
       <hr />
       <div

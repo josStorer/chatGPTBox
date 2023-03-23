@@ -73,6 +73,10 @@
 
 </div>
 
+## 离线/自托管模型现已支持
+
+  仓库地址 https://github.com/josStorer/selfhostedAI
+
 ## ✨ Features
 
 - 🌈 在任何页面随时呼出聊天对话框

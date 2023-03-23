@@ -73,6 +73,10 @@ English | [简体中文](README_ZH.md)
 
 </div>
 
+## Offline/Self-hosted model is now supported
+
+  See https://github.com/josStorer/selfhostedAI
+
 ## ✨ Features
 
 - 🌈 Call up the chat dialog box on any page at any time.

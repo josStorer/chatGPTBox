@@ -154,6 +154,11 @@
     margin-bottom: 5px;
     color: var(--font-color);
 
+    .gpt-header-items {
+      display: flex;
+      gap: 15px;
+    }
+
     p {
       font-weight: bold;
     }

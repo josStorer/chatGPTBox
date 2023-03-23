@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import FeedbackForChatGPTWeb from '../FeedbackForChatGPTWeb'
-import { ChevronDownIcon, LinkExternalIcon, XCircleIcon } from '@primer/octicons-react'
+import { ChevronDownIcon, ChevronUpIcon, LinkExternalIcon } from '@primer/octicons-react'
 import CopyButton from '../CopyButton'
 import PropTypes from 'prop-types'
 import MarkdownRender from '../MarkdownRender/markdown.jsx'
@@ -14,16 +14,22 @@ export function ConversationItem({ type, content, session, done, port }) {
         <div className={type} dir="auto">
           <div className="gpt-header">
             <p>You:</p>
-            <div style="display: flex; gap: 15px;">
+            <div className="gpt-header-icons">
               <CopyButton contentFn={() => content} size={14} />
               {!collapsed ? (
-                <span title="Collapse" className="gpt-util-icon" onClick={() => setCollapsed(true)}>
-                  <XCircleIcon size={14} />
-                </span>
+                <ChevronUpIcon
+                  title="Collapse"
+                  className="gpt-util-icon"
+                  onClick={() => setCollapsed(true)}
+                  size={14}
+                />
               ) : (
-                <span title="Expand" className="gpt-util-icon" onClick={() => setCollapsed(false)}>
-                  <ChevronDownIcon size={14} />
-                </span>
+                <ChevronDownIcon
+                  title="Expand"
+                  className="gpt-util-icon"
+                  onClick={() => setCollapsed(false)}
+                  size={14}
+                />
               )}
             </div>
           </div>
@@ -35,7 +41,7 @@ export function ConversationItem({ type, content, session, done, port }) {
         <div className={type} dir="auto">
           <div className="gpt-header">
             <p>{session ? 'ChatGPT:' : 'Loading...'}</p>
-            <div style="display: flex; gap: 15px;">
+            <div className="gpt-header-items">
               {!done && (
                 <button
                   type="button"
@@ -66,13 +72,19 @@ export function ConversationItem({ type, content, session, done, port }) {
               )}
               {session && <CopyButton contentFn={() => content} size={14} />}
               {!collapsed ? (
-                <span title="Collapse" className="gpt-util-icon" onClick={() => setCollapsed(true)}>
-                  <XCircleIcon size={14} />
-                </span>
+                <ChevronUpIcon
+                  title="Collapse"
+                  className="gpt-util-icon"
+                  onClick={() => setCollapsed(true)}
+                  size={14}
+                />
               ) : (
-                <span title="Expand" className="gpt-util-icon" onClick={() => setCollapsed(false)}>
-                  <ChevronDownIcon size={14} />
-                </span>
+                <ChevronDownIcon
+                  title="Expand"
+                  className="gpt-util-icon"
+                  onClick={() => setCollapsed(false)}
+                  size={14}
+                />
               )}
             </div>
           </div>
@@ -84,16 +96,22 @@ export function ConversationItem({ type, content, session, done, port }) {
         <div className={type} dir="auto">
           <div className="gpt-header">
             <p>Error:</p>
-            <div style="display: flex; gap: 15px;">
+            <div className="gpt-header-items">
               <CopyButton contentFn={() => content} size={14} />
               {!collapsed ? (
-                <span title="Collapse" className="gpt-util-icon" onClick={() => setCollapsed(true)}>
-                  <XCircleIcon size={14} />
-                </span>
+                <ChevronUpIcon
+                  title="Collapse"
+                  className="gpt-util-icon"
+                  onClick={() => setCollapsed(true)}
+                  size={14}
+                />
               ) : (
-                <span title="Expand" className="gpt-util-icon" onClick={() => setCollapsed(false)}>
-                  <ChevronDownIcon size={14} />
-                </span>
+                <ChevronDownIcon
+                  title="Expand"
+                  className="gpt-util-icon"
+                  onClick={() => setCollapsed(false)}
+                  size={14}
+                />
               )}
             </div>
           </div>

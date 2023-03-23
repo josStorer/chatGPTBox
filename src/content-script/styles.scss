@@ -222,22 +222,23 @@
   display: flex;
   align-items: center;
   border-radius: 15px;
-  padding: 2px;
   background-color: #ffffff;
   box-shadow: 4px 2px 4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
 .chatgptbox-selection-toolbar-button {
   margin-left: 2px;
-  padding: 2px;
+  padding: 4px;
   border-radius: 30px;
   background-color: #ffffff;
-  color: #24292f;
+  color: #646464;
+  box-sizing: content-box;
   cursor: pointer;
 }
 
 .chatgptbox-selection-toolbar-button:hover {
-  background-color: #d4d5da;
+  background-color: #ddd;
 }
 
 .chatgptbox-selection-window {

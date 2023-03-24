@@ -7,6 +7,7 @@ import { config as toolsConfig } from './selection-tools'
 import { clearOldAccessToken, getUserConfig, setAccessToken } from '../config/index.mjs'
 import {
   createElementAtPosition,
+  getClientPosition,
   getPossibleElementByQuerySelector,
   initSession,
   isSafari,
@@ -110,18 +111,27 @@ const deleteToolbar = () => {
 async function prepareForSelectionTools() {
   document.addEventListener('mouseup', (e) => {
     if (toolbarContainer && toolbarContainer.contains(e.target)) return
-    if (
-      toolbarContainer &&
+    const selectionElement =
       window.getSelection()?.rangeCount > 0 &&
-      toolbarContainer.contains(window.getSelection()?.getRangeAt(0).endContainer.parentElement)
-    )
-      return
+      window.getSelection()?.getRangeAt(0).endContainer.parentElement
+    if (toolbarContainer && selectionElement && toolbarContainer.contains(selectionElement)) return
 
     deleteToolbar()
     setTimeout(() => {
       const selection = window.getSelection()?.toString()
       if (selection) {
-        toolbarContainer = createElementAtPosition(e.pageX + 15, e.pageY - 15)
+        const inputElement = selectionElement.querySelector('input, textarea')
+        let position
+        if (inputElement) {
+          position = getClientPosition(inputElement)
+          position = {
+            x: position.x + window.scrollX + inputElement.offsetWidth + 50,
+            y: e.pageY + 30,
+          }
+        } else {
+          position = { x: e.pageX + 20, y: e.pageY + 20 }
+        }
+        toolbarContainer = createElementAtPosition(position.x, position.y)
         toolbarContainer.className = 'chatgptbox-toolbar-container'
         render(
           <FloatingToolbar
@@ -168,8 +178,8 @@ async function prepareForSelectionToolsTouch() {
       const selection = window.getSelection()?.toString()
       if (selection) {
         toolbarContainer = createElementAtPosition(
-          e.changedTouches[0].pageX + 15,
-          e.changedTouches[0].pageY - 15,
+          e.changedTouches[0].pageX + 20,
+          e.changedTouches[0].pageY + 20,
         )
         toolbarContainer.className = 'chatgptbox-toolbar-container'
         render(

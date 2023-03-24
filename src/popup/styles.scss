@@ -1,13 +1,10 @@
 [data-theme='auto'] {
-  @import 'github-markdown-css/github-markdown.css';
   @media screen and (prefers-color-scheme: dark) {
-    @import 'highlight.js/scss/github-dark.scss';
     --font-color: #c9d1d9;
     --theme-color: #202124;
     --active-color: #3c4043;
   }
   @media screen and (prefers-color-scheme: light) {
-    @import 'highlight.js/scss/github.scss';
     --font-color: #24292f;
     --theme-color: #ffffff;
     --active-color: #eaecf0;
@@ -15,18 +12,12 @@
 }
 
 [data-theme='dark'] {
-  @import 'highlight.js/scss/github-dark.scss';
-  @import 'github-markdown-css/github-markdown-dark.css';
-
   --font-color: #c9d1d9;
   --theme-color: #202124;
   --active-color: #3c4043;
 }
 
 [data-theme='light'] {
-  @import 'highlight.js/scss/github.scss';
-  @import 'github-markdown-css/github-markdown-light.css';
-
   --font-color: #24292f;
   --theme-color: #ffffff;
   --active-color: #eaecf0;

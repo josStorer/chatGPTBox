@@ -1,16 +1,16 @@
 import '@picocss/pico'
 import { useEffect, useState } from 'react'
 import {
-  setUserConfig,
-  getUserConfig,
-  TriggerMode,
-  ThemeMode,
   defaultConfig,
-  Models,
+  getUserConfig,
   isUsingApiKey,
   isUsingCustomModel,
+  Models,
+  setUserConfig,
+  ThemeMode,
+  TriggerMode,
 } from '../config/index.mjs'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import './styles.scss'
 import { MarkGithubIcon } from '@primer/octicons-react'
@@ -21,6 +21,7 @@ import wechatpay from './donation/wechatpay.jpg'
 import bugmeacoffee from './donation/bugmeacoffee.png'
 import { useWindowTheme } from '../hooks/use-window-theme.mjs'
 import { languageList } from '../config/language.mjs'
+import { isSafari } from '../utils/index.mjs'
 
 function GeneralPart({ config, updateConfig }) {
   const [balance, setBalance] = useState(null)
@@ -433,7 +434,7 @@ function Popup() {
             <Tab className="popup-tab">SelectionTools</Tab>
             <Tab className="popup-tab">SiteAdapters</Tab>
             <Tab className="popup-tab">Advanced</Tab>
-            <Tab className="popup-tab">Donation</Tab>
+            {isSafari() ? null : <Tab className="popup-tab">Donation</Tab>}
           </TabList>
 
           <TabPanel>
@@ -448,9 +449,11 @@ function Popup() {
           <TabPanel>
             <AdvancedPart config={config} updateConfig={updateConfig} />
           </TabPanel>
-          <TabPanel>
-            <Donation />
-          </TabPanel>
+          {isSafari() ? null : (
+            <TabPanel>
+              <Donation />
+            </TabPanel>
+          )}
         </Tabs>
       </form>
       <hr />

@@ -80,6 +80,8 @@ English | [简体中文](README_ZH.md)
 ## ✨ Features
 
 - 🌈 Call up the chat dialog box on any page at any time.
+- 📱 Also support for mobile devices.
+- 📓 Summarize any page by right-click menu.
 - 🔗 Multiple API support (Web API for Free and Plus users, GPT-3.5, GPT-4).
 - 📦 Integration adaptation for various commonly used websites (reddit, quora, youtube, github, gitlab, stackoverflow, zhihu, bilibili). (Inspired by [wimdenherder](https://github.com/wimdenherder))
 - 🔍 Adaptation to all mainstream search engines, and custom queries to support additional sites.

@@ -4,8 +4,7 @@ import Browser from 'webextension-polyfill'
 import InputBox from '../InputBox'
 import ConversationItem from '../ConversationItem'
 import { createElementAtPosition, initSession, isSafari } from '../../utils'
-import { DownloadIcon } from '@primer/octicons-react'
-import { WindowDesktop, XLg, Pin } from 'react-bootstrap-icons'
+import { WindowDesktop, XLg, Pin, Download } from 'react-bootstrap-icons'
 import FileSaver from 'file-saver'
 import { render } from 'preact'
 import FloatingToolbar from '../FloatingToolbar'
@@ -178,9 +177,7 @@ function ConversationCard(props) {
         {props.closeable ? (
           <XLg
             className="gpt-util-icon"
-            style="margin:5px 15px 0px;"
             title="Close the Window"
-            size={16}
             onClick={() => {
               if (props.onClose) props.onClose()
             }}
@@ -188,9 +185,7 @@ function ConversationCard(props) {
         ) : props.dockable ? (
           <Pin
             className="gpt-util-icon"
-            style="margin:5px 15px 0px;"
             title="Pin the Window"
-            size={16}
             onClick={() => {
               if (props.onDock) props.onDock()
             }}
@@ -204,7 +199,6 @@ function ConversationCard(props) {
           <WindowDesktop
             className="gpt-util-icon"
             title="Float the Window"
-            size={16}
             onClick={() => {
               const position = { x: window.innerWidth / 2 - 300, y: window.innerHeight / 2 - 200 }
               const toolbarContainer = createElementAtPosition(position.x, position.y)
@@ -222,10 +216,8 @@ function ConversationCard(props) {
             }}
           />
         )}
-        <span
+        <Download
           title="Save Conversation"
-          className="gpt-util-icon"
-          style="margin:15px 15px 10px;"
           onClick={() => {
             let output = ''
             session.conversationRecords.forEach((data) => {
@@ -234,9 +226,7 @@ function ConversationCard(props) {
             const blob = new Blob([output], { type: 'text/plain;charset=utf-8' })
             FileSaver.saveAs(blob, 'conversation.md')
           }}
-        >
-          <DownloadIcon size={16} />
-        </span>
+        />
       </div>
       <hr />
       <div

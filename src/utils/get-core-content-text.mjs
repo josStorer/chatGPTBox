@@ -35,10 +35,10 @@ export function getCoreContentText() {
 
   let ret
   if (secondLargestElement && getArea(secondLargestElement) > 0.5 * getArea(largestElement)) {
-    ret = secondLargestElement.textContent
+    ret = secondLargestElement.innerText || secondLargestElement.textContent
     console.log('use second')
   } else {
-    ret = largestElement.textContent
+    ret = largestElement.innerText || largestElement.textContent
     console.log('use first')
   }
   return ret.trim().replaceAll('  ', '').replaceAll('\n\n', '').replaceAll(',,', '')

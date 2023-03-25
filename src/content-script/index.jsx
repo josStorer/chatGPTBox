@@ -4,9 +4,11 @@ import { render } from 'preact'
 import DecisionCard from '../components/DecisionCard'
 import { config as siteConfig } from './site-adapters'
 import { config as toolsConfig } from './selection-tools'
+import { config as menuConfig } from './menu-tools'
 import { clearOldAccessToken, getUserConfig, setAccessToken } from '../config/index.mjs'
 import {
   createElementAtPosition,
+  cropText,
   getClientPosition,
   getPossibleElementByQuerySelector,
   initSession,
@@ -210,38 +212,31 @@ async function prepareForRightClickMenu() {
   })
 
   Browser.runtime.onMessage.addListener(async (message) => {
-    if (message.type === 'MENU') {
+    if (message.type === 'CREATE_MENU') {
       const data = message.data
-      if (data.itemId === 'new') {
-        const position = { x: menuX, y: menuY }
-        const container = createElementAtPosition(position.x, position.y)
-        container.className = 'chatgptbox-toolbar-container-not-queryable'
-        render(
-          <FloatingToolbar
-            session={initSession()}
-            selection=""
-            container={container}
-            triggered={true}
-            closeable={true}
-          />,
-          container,
+      let prompt = ''
+      if (data.itemId in toolsConfig)
+        prompt = await toolsConfig[data.itemId].genPrompt(data.selectionText)
+      else if (data.itemId in menuConfig)
+        prompt = cropText(
+          `Reply in ${await getPreferredLanguage()}.\n` +
+            (await menuConfig[data.itemId].genPrompt()),
         )
-      } else {
-        const position = { x: menuX, y: menuY }
-        const container = createElementAtPosition(position.x, position.y)
-        container.className = 'chatgptbox-toolbar-container-not-queryable'
-        render(
-          <FloatingToolbar
-            session={initSession()}
-            selection={data.selectionText}
-            container={container}
-            triggered={true}
-            closeable={true}
-            prompt={await toolsConfig[data.itemId].genPrompt(data.selectionText)}
-          />,
-          container,
-        )
-      }
+
+      const position = { x: menuX, y: menuY }
+      const container = createElementAtPosition(position.x, position.y)
+      container.className = 'chatgptbox-toolbar-container-not-queryable'
+      render(
+        <FloatingToolbar
+          session={initSession()}
+          selection={data.selectionText}
+          container={container}
+          triggered={true}
+          closeable={true}
+          prompt={prompt}
+        />,
+        container,
+      )
     }
   })
 }

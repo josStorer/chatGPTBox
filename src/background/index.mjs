@@ -16,7 +16,7 @@ import {
   gptApiModelKeys,
 } from '../config/index.mjs'
 import { isSafari } from '../utils/is-safari'
-import { isFirefox } from '../utils/is-firefox'
+import { config as menuConfig } from '../content-script/menu-tools'
 
 const KEY_ACCESS_TOKEN = 'accessToken'
 const cache = new ExpiryMap(10 * 1000)
@@ -107,41 +107,58 @@ Browser.runtime.onMessage.addListener(async (message) => {
   }
 })
 
-Browser.contextMenus.removeAll().then(() => {
-  const menuId = 'ChatGPTBox-Menu'
-  Browser.contextMenus.create({
-    id: menuId,
-    title: 'ChatGPTBox',
-    contexts: ['all'],
-  })
-
-  Browser.contextMenus.create({
-    id: menuId + 'new',
-    parentId: menuId,
-    title: 'New Chat',
-    contexts: [isFirefox() ? 'all' : 'selection'],
-  })
-  for (const index in defaultConfig.selectionTools) {
-    const key = defaultConfig.selectionTools[index]
-    const desc = defaultConfig.selectionToolsDesc[index]
+function refreshMenu() {
+  Browser.contextMenus.removeAll().then(() => {
+    const menuId = 'ChatGPTBox-Menu'
     Browser.contextMenus.create({
-      id: menuId + key,
-      parentId: menuId,
-      title: desc,
-      contexts: ['selection'],
+      id: menuId,
+      title: 'ChatGPTBox',
+      contexts: ['all'],
     })
-  }
 
-  Browser.contextMenus.onClicked.addListener((info, tab) => {
-    const itemId = info.menuItemId === menuId ? 'new' : info.menuItemId.replace(menuId, '')
-    const message = {
-      itemId: itemId,
-      selectionText: info.selectionText,
+    for (const [k, v] of Object.entries(menuConfig)) {
+      Browser.contextMenus.create({
+        id: menuId + k,
+        parentId: menuId,
+        title: v.label,
+        contexts: ['all'],
+      })
     }
-    console.debug('menu clicked', message)
-    Browser.tabs.sendMessage(tab.id, {
-      type: 'MENU',
-      data: message,
+    Browser.contextMenus.create({
+      id: menuId + 'separator1',
+      parentId: menuId,
+      contexts: ['selection'],
+      type: 'separator',
+    })
+    for (const index in defaultConfig.selectionTools) {
+      const key = defaultConfig.selectionTools[index]
+      const desc = defaultConfig.selectionToolsDesc[index]
+      Browser.contextMenus.create({
+        id: menuId + key,
+        parentId: menuId,
+        title: desc,
+        contexts: ['selection'],
+      })
+    }
+
+    Browser.contextMenus.onClicked.addListener((info, tab) => {
+      const message = {
+        itemId: info.menuItemId.replace(menuId, ''),
+        selectionText: info.selectionText,
+      }
+      console.debug('menu clicked', message)
+      Browser.tabs.sendMessage(tab.id, {
+        type: 'CREATE_MENU',
+        data: message,
+      })
     })
   })
+}
+
+Browser.runtime.onMessage.addListener(async (message) => {
+  if (message.type === 'REFRESH_MENU') {
+    refreshMenu()
+  }
 })
+
+refreshMenu()

@@ -73,15 +73,21 @@ async function mountComponent(siteConfig, userConfig) {
  * @returns {Promise<string>}
  */
 async function getInput(inputQuery) {
+  let input
   if (typeof inputQuery === 'function') {
-    const input = await inputQuery()
+    input = await inputQuery()
     if (input) return `Reply in ${await getPreferredLanguage()}.\n` + input
     return input
   }
   const searchInput = getPossibleElementByQuerySelector(inputQuery)
   if (searchInput) {
-    if (searchInput.value) return searchInput.value
-    else if (searchInput.textContent) return searchInput.textContent
+    if (searchInput.value) input = searchInput.value
+    else if (searchInput.textContent) input = searchInput.textContent
+    if (input)
+      return (
+        `Reply in ${await getPreferredLanguage()}.\nThe following is a search input in a search engine, giving useful content or solutions related to it:\n` +
+        input
+      )
   }
 }
 
@@ -215,13 +221,12 @@ async function prepareForRightClickMenu() {
     if (message.type === 'CREATE_MENU') {
       const data = message.data
       let prompt = ''
-      if (data.itemId in toolsConfig)
+      if (data.itemId in toolsConfig) {
         prompt = await toolsConfig[data.itemId].genPrompt(data.selectionText)
-      else if (data.itemId in menuConfig)
-        prompt = cropText(
-          `Reply in ${await getPreferredLanguage()}.\n` +
-            (await menuConfig[data.itemId].genPrompt()),
-        )
+      } else if (data.itemId in menuConfig) {
+        prompt = await menuConfig[data.itemId].genPrompt()
+        if (prompt) prompt = cropText(`Reply in ${await getPreferredLanguage()}.\n` + prompt)
+      }
 
       const position = { x: menuX, y: menuY }
       const container = createElementAtPosition(position.x, position.y)

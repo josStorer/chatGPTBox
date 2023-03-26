@@ -132,8 +132,8 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
       port.onMessage.removeListener(stopListener)
     },
     async onError(resp) {
-      if (resp instanceof Error) throw resp
       port.onMessage.removeListener(stopListener)
+      if (resp instanceof Error) throw resp
       if (resp.status === 403) {
         throw new Error('CLOUDFLARE')
       }

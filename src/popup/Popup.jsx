@@ -39,7 +39,7 @@ function GeneralPart({ config, updateConfig }) {
   return (
     <>
       <label>
-        <legend>Trigger Mode</legend>
+        <legend>Triggers</legend>
         <select
           required
           onChange={(e) => {
@@ -57,7 +57,7 @@ function GeneralPart({ config, updateConfig }) {
         </select>
       </label>
       <label>
-        <legend>Theme Mode</legend>
+        <legend>Theme</legend>
         <select
           required
           onChange={(e) => {
@@ -165,7 +165,7 @@ function GeneralPart({ config, updateConfig }) {
             updateConfig({ insertAtTop: checked })
           }}
         />
-        Insert chatGPT at the top of search results
+        Insert ChatGPT at the top of search results
       </label>
       <label>
         <input
@@ -176,7 +176,7 @@ function GeneralPart({ config, updateConfig }) {
             updateConfig({ lockWhenAnswer: checked })
           }}
         />
-        Lock Scrollbar while Answering
+        Lock scrollbar while answering
       </label>
       <br />
     </>
@@ -244,7 +244,7 @@ function AdvancedPart({ config, updateConfig }) {
             updateConfig({ userSiteRegexOnly: checked })
           }}
         />
-        Only use Custom Site Regex for website matching, ignore built-in rules
+        Exclusively use Custom Site Regex for website matching, ignoring built-in rules
       </label>
       <br />
       <label>
@@ -431,10 +431,10 @@ function Popup() {
         <Tabs selectedTabClassName="popup-tab--selected">
           <TabList>
             <Tab className="popup-tab">General</Tab>
-            <Tab className="popup-tab">SelectionTools</Tab>
-            <Tab className="popup-tab">SiteAdapters</Tab>
+            <Tab className="popup-tab">Selection Tools</Tab>
+            <Tab className="popup-tab">Sites</Tab>
             <Tab className="popup-tab">Advanced</Tab>
-            {isSafari() ? null : <Tab className="popup-tab">Donation</Tab>}
+            {isSafari() ? null : <Tab className="popup-tab">Donate</Tab>}
           </TabList>
 
           <TabPanel>

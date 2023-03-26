@@ -196,7 +196,7 @@ function ConversationCard(props) {
             }}
           />
         ) : (
-          <img src={logo} width="20" height="20" style="margin:5px 15px 0px;user-select:none;" />
+          <img src={logo} style="margin:5px 15px 0px;user-select:none;width:20px;height:20px;" />
         )}
         {props.draggable ? (
           <div className="dragbar" />
@@ -225,7 +225,7 @@ function ConversationCard(props) {
         <span
           title="Save Conversation"
           className="gpt-util-icon"
-          style="margin:15px 15px 10px;"
+          style="margin:15px;"
           onClick={() => {
             let output = ''
             session.conversationRecords.forEach((data) => {

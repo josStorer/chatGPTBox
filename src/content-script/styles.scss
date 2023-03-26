@@ -44,6 +44,7 @@
 
 .chatgptbox-container * {
   font-family: 'Cairo', sans-serif;
+  font-size: 14px;
 }
 
 .chatgptbox-container {
@@ -153,6 +154,7 @@
     align-items: center;
     margin-bottom: 5px;
     color: var(--font-color);
+    height: 50px;
 
     p {
       font-weight: bold;

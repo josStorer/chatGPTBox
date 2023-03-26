@@ -10,9 +10,11 @@
     "128": "logo.png"
   },
   "permissions": [
+    "cookies",
     "storage",
     "contextMenus",
-    "https://*.openai.com/"
+    "https://*.openai.com/",
+    "https://*.bing.com/"
   ],
   "background": {
     "scripts": [

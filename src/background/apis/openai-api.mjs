@@ -92,8 +92,8 @@ export async function generateAnswersWithGptCompletionApi(
       port.onMessage.removeListener(stopListener)
     },
     async onError(resp) {
-      if (resp instanceof Error) throw resp
       port.onMessage.removeListener(stopListener)
+      if (resp instanceof Error) throw resp
       if (resp.status === 403) {
         throw new Error('CLOUDFLARE')
       }
@@ -168,8 +168,8 @@ export async function generateAnswersWithChatgptApi(port, question, session, api
       port.onMessage.removeListener(stopListener)
     },
     async onError(resp) {
-      if (resp instanceof Error) throw resp
       port.onMessage.removeListener(stopListener)
+      if (resp instanceof Error) throw resp
       if (resp.status === 403) {
         throw new Error('CLOUDFLARE')
       }

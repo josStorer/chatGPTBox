@@ -79,8 +79,8 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
       port.onMessage.removeListener(stopListener)
     },
     async onError(resp) {
-      if (resp instanceof Error) throw resp
       port.onMessage.removeListener(stopListener)
+      if (resp instanceof Error) throw resp
       if (resp.status === 403) {
         throw new Error('CLOUDFLARE')
       }

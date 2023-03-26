@@ -1,13 +1,14 @@
-import { v4 as uuidv4 } from 'uuid'
 import Browser from 'webextension-polyfill'
 import ExpiryMap from 'expiry-map'
 import { generateAnswersWithChatgptWebApi, sendMessageFeedback } from './apis/chatgpt-web'
+import { generateAnswersWithBingWebApi } from './apis/bing-web.mjs'
 import {
   generateAnswersWithChatgptApi,
   generateAnswersWithGptCompletionApi,
 } from './apis/openai-api'
 import { generateAnswersWithCustomApi } from './apis/custom-api.mjs'
 import {
+  bingWebModelKeys,
   chatgptApiModelKeys,
   chatgptWebModelKeys,
   customApiModelKeys,
@@ -21,10 +22,7 @@ import { config as menuConfig } from '../content-script/menu-tools'
 const KEY_ACCESS_TOKEN = 'accessToken'
 const cache = new ExpiryMap(10 * 1000)
 
-/**
- * @returns {Promise<string>}
- */
-async function getAccessToken() {
+async function getChatGptAccessToken() {
   if (cache.get(KEY_ACCESS_TOKEN)) {
     return cache.get(KEY_ACCESS_TOKEN)
   }
@@ -49,6 +47,10 @@ async function getAccessToken() {
   return cache.get(KEY_ACCESS_TOKEN)
 }
 
+async function getBingAccessToken() {
+  return (await Browser.cookies.get({ url: 'https://bing.com/', name: '_U' }))?.value
+}
+
 Browser.runtime.onConnect.addListener((port) => {
   console.debug('connected')
   port.onMessage.addListener(async (msg) => {
@@ -59,12 +61,21 @@ Browser.runtime.onConnect.addListener((port) => {
 
     try {
       if (chatgptWebModelKeys.includes(config.modelName)) {
-        const accessToken = await getAccessToken()
-        session.messageId = uuidv4()
+        const accessToken = await getChatGptAccessToken()
+        session.messageId = crypto.randomUUID()
         if (session.parentMessageId == null) {
-          session.parentMessageId = uuidv4()
+          session.parentMessageId = crypto.randomUUID()
         }
         await generateAnswersWithChatgptWebApi(port, session.question, session, accessToken)
+      } else if (bingWebModelKeys.includes(config.modelName)) {
+        const accessToken = await getBingAccessToken()
+        await generateAnswersWithBingWebApi(
+          port,
+          session.question,
+          session,
+          accessToken,
+          config.modelName,
+        )
       } else if (gptApiModelKeys.includes(config.modelName)) {
         await generateAnswersWithGptCompletionApi(
           port,
@@ -102,7 +113,7 @@ Browser.runtime.onConnect.addListener((port) => {
 
 Browser.runtime.onMessage.addListener(async (message) => {
   if (message.type === 'FEEDBACK') {
-    const token = await getAccessToken()
+    const token = await getChatGptAccessToken()
     await sendMessageFeedback(token, message.data)
   }
 })

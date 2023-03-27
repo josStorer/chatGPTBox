@@ -126,6 +126,19 @@ Browser.runtime.onMessage.addListener(async (message) => {
   }
 })
 
+Browser.commands.onCommand.addListener(async (command) => {
+  const currentTab = (await Browser.tabs.query({ active: true, currentWindow: true }))[0]
+  const message = {
+    itemId: command,
+    selectionText: '',
+    useMenuPosition: false,
+  }
+  Browser.tabs.sendMessage(currentTab.id, {
+    type: 'CREATE_CHAT',
+    data: message,
+  })
+})
+
 function refreshMenu() {
   Browser.contextMenus.removeAll().then(() => {
     const menuId = 'ChatGPTBox-Menu'
@@ -164,10 +177,11 @@ function refreshMenu() {
       const message = {
         itemId: info.menuItemId.replace(menuId, ''),
         selectionText: info.selectionText,
+        useMenuPosition: true,
       }
       console.debug('menu clicked', message)
       Browser.tabs.sendMessage(tab.id, {
-        type: 'CREATE_MENU',
+        type: 'CREATE_CHAT',
         data: message,
       })
     })

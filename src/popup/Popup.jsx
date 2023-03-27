@@ -81,7 +81,9 @@ function GeneralPart({ config, updateConfig }) {
         <span style="display: flex; gap: 15px;">
           <select
             style={
-              isUsingApiKey(config) || isUsingMultiModeModel(config) ? 'width: 50%;' : undefined
+              isUsingApiKey(config) || isUsingMultiModeModel(config) || isUsingCustomModel(config)
+                ? 'width: 50%;'
+                : undefined
             }
             required
             onChange={(e) => {
@@ -144,6 +146,19 @@ function GeneralPart({ config, updateConfig }) {
                   Balance
                 </button>
               )}
+            </span>
+          )}
+          {isUsingCustomModel(config) && (
+            <span style="width: 50%; display: flex; gap: 5px;">
+              <input
+                type="text"
+                value={config.customModelName}
+                placeholder="Model Name"
+                onChange={(e) => {
+                  const customModelName = e.target.value
+                  updateConfig({ customModelName: customModelName })
+                }}
+              />
             </span>
           )}
         </span>

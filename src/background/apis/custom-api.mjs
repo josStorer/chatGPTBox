@@ -5,7 +5,7 @@
 // and it has not yet had a negative impact on maintenance.
 // If necessary, I will refactor.
 
-import { getUserConfig, maxResponseTokenLength, Models } from '../../config/index.mjs'
+import { getUserConfig, maxResponseTokenLength } from '../../config/index.mjs'
 import { fetchSSE } from '../../utils/fetch-sse'
 import { getConversationPairs } from '../../utils/get-conversation-pairs'
 import { isEmpty } from 'lodash-es'
@@ -52,7 +52,7 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
     },
     body: JSON.stringify({
       messages: prompt,
-      model: Models[modelName].value,
+      model: modelName,
       stream: true,
       max_tokens: maxResponseTokenLength,
     }),

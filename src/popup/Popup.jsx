@@ -391,7 +391,7 @@ function Donation() {
       >
         <img alt="buymeacoffee" src={bugmeacoffee} />
       </a>
-      <hr />
+      <br />
       <>
         Wechat Pay
         <img alt="wechatpay" src={wechatpay} />
@@ -465,7 +465,7 @@ function Popup() {
 
   return (
     <div className="container">
-      <form>
+      <form style="width:100%;">
         <Tabs selectedTabClassName="popup-tab--selected">
           <TabList>
             <Tab className="popup-tab">General</Tab>
@@ -494,7 +494,7 @@ function Popup() {
           )}
         </Tabs>
       </form>
-      <hr />
+      <br />
       <Footer currentVersion={currentVersion} latestVersion={latestVersion} />
     </div>
   )

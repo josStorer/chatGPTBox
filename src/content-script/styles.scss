@@ -65,6 +65,7 @@
       height: 1px;
       background-color: var(--theme-border-color);
       border: none;
+      margin: 5px 0;
     }
   }
 
@@ -154,7 +155,6 @@
     align-items: center;
     margin-bottom: 5px;
     color: var(--font-color);
-    height: 50px;
 
     p {
       font-weight: bold;

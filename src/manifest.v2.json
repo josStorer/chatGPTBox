@@ -10,6 +10,7 @@
     "128": "logo.png"
   },
   "permissions": [
+    "commands",
     "cookies",
     "storage",
     "contextMenus",
@@ -40,5 +41,21 @@
   ],
   "web_accessible_resources": [
     "*.png"
-  ]
+  ],
+  "commands": {
+    "newChat": {
+      "suggested_key": {
+        "default": "Ctrl+B",
+        "mac": "MacCtrl+B"
+      },
+      "description": "Create a new chat"
+    },
+    "summarizePage": {
+      "suggested_key": {
+        "default": "Alt+B",
+        "mac": "Alt+B"
+      },
+      "description": "Summarize this page"
+    }
+  }
 }

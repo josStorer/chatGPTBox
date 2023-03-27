@@ -218,7 +218,7 @@ async function prepareForRightClickMenu() {
   })
 
   Browser.runtime.onMessage.addListener(async (message) => {
-    if (message.type === 'CREATE_MENU') {
+    if (message.type === 'CREATE_CHAT') {
       const data = message.data
       let prompt = ''
       if (data.itemId in toolsConfig) {
@@ -228,7 +228,9 @@ async function prepareForRightClickMenu() {
         if (prompt) prompt = cropText(`Reply in ${await getPreferredLanguage()}.\n` + prompt)
       }
 
-      const position = { x: menuX, y: menuY }
+      const position = data.useMenuPosition
+        ? { x: menuX, y: menuY }
+        : { x: window.innerWidth / 2 - 300, y: window.innerHeight / 2 - 200 }
       const container = createElementAtPosition(position.x, position.y)
       container.className = 'chatgptbox-toolbar-container-not-queryable'
       render(

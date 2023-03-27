@@ -61,6 +61,7 @@ export function ConversationItem({ type, content, session, done, port }) {
                   href={'https://chat.openai.com/chat/' + session.conversationId}
                   target="_blank"
                   rel="nofollow noopener noreferrer"
+                  className="gpt-util-icon"
                   style="color: inherit;"
                 >
                   <LinkExternalIcon size={14} />

@@ -34,7 +34,7 @@ export function ConversationItem({ type, content, session, done, port }) {
       return (
         <div className={type} dir="auto">
           <div className="gpt-header">
-            <p>{session && session.aiName ? session.aiName : 'Loading...'}</p>
+            <p>{session && session.aiName ? `${session.aiName}:` : 'Loading...'}</p>
             <div style="display: flex; gap: 15px;">
               {!done && (
                 <button

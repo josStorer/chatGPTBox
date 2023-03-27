@@ -24,8 +24,13 @@
 }
 
 .container {
-  width: 440px;
-  height: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 440px;
+  min-height: 560px;
+  width: 100%;
+  height: 100%;
   padding: 20px;
   overflow-y: auto;
 }
@@ -44,7 +49,7 @@
 
 .footer {
   width: 90%;
-  position: absolute;
+  position: fixed;
   bottom: 10px;
   display: flex;
   flex-direction: row;
@@ -54,6 +59,7 @@
   border-radius: 5px;
   padding: 6px;
   z-index: 2147483647;
+  font-size: 12px;
 }
 
 .popup-tab {

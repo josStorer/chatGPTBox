@@ -25,6 +25,10 @@
   "browser_action": {
     "default_popup": "popup.html"
   },
+  "options_ui": {
+    "page": "popup.html",
+    "open_in_tab": true
+  },
   "content_scripts": [
     {
       "matches": [

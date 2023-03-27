@@ -171,10 +171,13 @@
     }
 
     .gpt-util-icon {
+      display: flex;
       cursor: pointer;
+      align-items: center;
     }
 
     .normal-button {
+      padding: 1px 6px;
       border: 1px solid;
       border-color: var(--theme-border-color);
       background-color: var(--theme-color);

@@ -58,6 +58,8 @@ export async function generateAnswersWithBingWebApi(
   session.bingWeb.clientId = response.clientId
   session.bingWeb.invocationId = response.invocationId
 
+  session.conversationRecords.push({ question: question, answer: answer })
+  console.debug('conversation history', { content: session.conversationRecords })
   port.onMessage.removeListener(stopListener)
-  port.postMessage({ answer: response.response, done: true, session: session })
+  port.postMessage({ answer: answer, done: true, session: session })
 }

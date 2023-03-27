@@ -39,6 +39,13 @@ export const ThemeMode = {
   auto: 'Auto',
 }
 
+export const ModelMode = {
+  balanced: 'Balanced',
+  creative: 'Creative',
+  precise: 'Precise',
+  fast: 'Fast',
+}
+
 export const maxResponseTokenLength = 1000
 
 /**
@@ -54,6 +61,8 @@ export const defaultConfig = {
   /** @type {keyof Models}*/
   modelName: 'chatgptFree35',
   apiKey: '',
+  /** @type {keyof ModelMode}*/
+  modelMode: 'balanced',
   preferredLanguage: navigator.language.substring(0, 2),
   insertAtTop: isMobile(),
   lockWhenAnswer: false,
@@ -126,6 +135,10 @@ export function isUsingApiKey(config) {
   return (
     gptApiModelKeys.includes(config.modelName) || chatgptApiModelKeys.includes(config.modelName)
   )
+}
+
+export function isUsingMultiModeModel(config) {
+  return bingWebModelKeys.includes(config.modelName)
 }
 
 export function isUsingCustomModel(config) {

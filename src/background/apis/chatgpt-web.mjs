@@ -122,7 +122,7 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
 
       answer = data.message?.content?.parts?.[0]
       if (answer) {
-        port.postMessage({ answer: answer, done: false, session: session })
+        port.postMessage({ answer: answer, done: false, session: null })
       }
     },
     async onStart() {

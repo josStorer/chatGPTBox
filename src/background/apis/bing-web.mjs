@@ -47,7 +47,7 @@ export async function generateAnswersWithBingWebApi(
         answer += token
         // remove reference markers [^number^]
         answer = answer.replaceAll(/\[\^\d+\^\]/g, '')
-        port.postMessage({ answer: answer, done: false, session: session })
+        port.postMessage({ answer: answer, done: false, session: null })
       },
     })
     .catch((err) => {

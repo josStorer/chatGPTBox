@@ -6,7 +6,7 @@
 
 <div align="center">
 
-Integrating ChatGPT into your browser deeply, everything you need is here.
+Deep ChatGPT integrations in your browser, completely for free.
 
 [![license][license-image]][license-url]
 [![release][release-image]][release-url]
@@ -80,11 +80,11 @@ English | [简体中文](README_ZH.md)
 ## ✨ Features
 
 - 🌈 Call up the chat dialog box on any page at any time.
-- 📱 Also support for mobile devices.
-- 📓 Summarize any page by right-click menu.
+- 📱 Support for mobile devices.
+- 📓 Summarize any page with right-click menu.
 - 🔗 Multiple API support (Web API for Free and Plus users, GPT-3.5, GPT-4, New Bing, Self-Hosted).
-- 📦 Integration adaptation for various commonly used websites (reddit, quora, youtube, github, gitlab, stackoverflow, zhihu, bilibili). (Inspired by [wimdenherder](https://github.com/wimdenherder))
-- 🔍 Adaptation to all mainstream search engines, and custom queries to support additional sites.
+- 📦 Integration for various commonly used websites (reddit, quora, youtube, github, gitlab, stackoverflow, zhihu, bilibili). (Inspired by [wimdenherder](https://github.com/wimdenherder))
+- 🔍 Integration to all mainstream search engines, and custom queries to support additional sites.
 - 🧰 Selection tool and right-click menu to perform various tasks, such as translation, summarization, polishing,
   sentiment analysis, paragraph division, code explain and queries.
 - 🗂️ Static cards support floating chat boxes for multi-branch conversations.
@@ -95,13 +95,13 @@ English | [简体中文](README_ZH.md)
 - ⚙️ All site adaptations and selection tools(bubble) can be freely switched on or off, disable modules you don't need.
 - 💡 Selection tools and site adaptation are easy to develop and extend, see the [Development&Contributing][dev-url]
   section.
-- 😉 In addition, if there are any deficiencies in answers, just chat to correct.
+- 😉 Chat to improve the answer quality.
 
 ## Preview
 
 <div align="center">
 
-**Search Engine Adaptation, Floating Window, Conversation Branch**
+**Search Engine Integration, Floating Windows, Conversation Branches**
 
 ![preview_google_floatingwindow_conversationbranch](screenshots/preview_google_floatingwindow_conversationbranch.jpg)
 
@@ -117,7 +117,7 @@ English | [简体中文](README_ZH.md)
 
 ![preview_youtube](screenshots/preview_youtube.jpg)
 
-**Mobile Effect**
+**Mobile Support**
 
 ![image](https://user-images.githubusercontent.com/13366013/225529110-9221c8ce-ad41-423e-b6ec-097981e74b66.png)
 
@@ -129,11 +129,10 @@ English | [简体中文](README_ZH.md)
 
 ## Credit
 
-This project is based on my another
-repository [josStorer/chatGPT-search-engine-extension](https://github.com/josStorer/chatGPT-search-engine-extension)
+This project is based on one of my other repositories, [josStorer/chatGPT-search-engine-extension](https://github.com/josStorer/chatGPT-search-engine-extension)
 
 [josStorer/chatGPT-search-engine-extension](https://github.com/josStorer/chatGPT-search-engine-extension) is forked
-from [wong2/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension)(I learned a lot from that)
+from [wong2/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension) (I learned a lot from that)
 and detached since 14 December of 2022
 
 [wong2/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension) is inspired

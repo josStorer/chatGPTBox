@@ -5,6 +5,8 @@ import {
   getUserConfig,
   isUsingApiKey,
   isUsingCustomModel,
+  isUsingMultiModeModel,
+  ModelMode,
   Models,
   setUserConfig,
   ThemeMode,
@@ -78,7 +80,9 @@ function GeneralPart({ config, updateConfig }) {
         <legend>API Mode</legend>
         <span style="display: flex; gap: 15px;">
           <select
-            style={isUsingApiKey(config) ? 'width: 50%;' : undefined}
+            style={
+              isUsingApiKey(config) || isUsingMultiModeModel(config) ? 'width: 50%;' : undefined
+            }
             required
             onChange={(e) => {
               const modelName = e.target.value
@@ -93,6 +97,25 @@ function GeneralPart({ config, updateConfig }) {
               )
             })}
           </select>
+          {isUsingMultiModeModel(config) && (
+            <span style="width: 50%; display: flex; gap: 5px;">
+              <select
+                required
+                onChange={(e) => {
+                  const modelMode = e.target.value
+                  updateConfig({ modelMode: modelMode })
+                }}
+              >
+                {Object.entries(ModelMode).map(([key, desc]) => {
+                  return (
+                    <option value={key} key={key} selected={key === config.modelMode}>
+                      {desc}
+                    </option>
+                  )
+                })}
+              </select>
+            </span>
+          )}
           {isUsingApiKey(config) && (
             <span style="width: 50%; display: flex; gap: 5px;">
               <input

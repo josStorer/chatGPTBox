@@ -1,4 +1,5 @@
 import BingAIClient from '../clients/BingAIClient'
+import { getUserConfig } from '../../config/index.mjs'
 
 /**
  * @param {Runtime.Port} port
@@ -49,6 +50,7 @@ export async function generateAnswersWithBingWebApi(
         answer = answer.replaceAll(/\[\^\d+\^\]/g, '')
         port.postMessage({ answer: answer, done: false, session: null })
       },
+      toneStyle: (await getUserConfig()).modelMode,
     })
     .catch((err) => {
       port.onMessage.removeListener(stopListener)

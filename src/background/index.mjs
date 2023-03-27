@@ -15,6 +15,7 @@ import {
   defaultConfig,
   getUserConfig,
   gptApiModelKeys,
+  Models,
 } from '../config/index.mjs'
 import { isSafari } from '../utils/is-safari'
 import { config as menuConfig } from '../content-script/menu-tools'
@@ -58,47 +59,50 @@ Browser.runtime.onConnect.addListener((port) => {
     const session = msg.session
     if (!session) return
     const config = await getUserConfig()
+    if (!session.modelName) session.modelName = config.modelName
+    if (!session.aiName) session.aiName = Models[session.modelName].desc
+    port.postMessage({ session })
 
     try {
-      if (chatgptWebModelKeys.includes(config.modelName)) {
+      if (chatgptWebModelKeys.includes(session.modelName)) {
         const accessToken = await getChatGptAccessToken()
         session.messageId = crypto.randomUUID()
         if (session.parentMessageId == null) {
           session.parentMessageId = crypto.randomUUID()
         }
         await generateAnswersWithChatgptWebApi(port, session.question, session, accessToken)
-      } else if (bingWebModelKeys.includes(config.modelName)) {
+      } else if (bingWebModelKeys.includes(session.modelName)) {
         const accessToken = await getBingAccessToken()
         await generateAnswersWithBingWebApi(
           port,
           session.question,
           session,
           accessToken,
-          config.modelName,
+          session.modelName,
         )
-      } else if (gptApiModelKeys.includes(config.modelName)) {
+      } else if (gptApiModelKeys.includes(session.modelName)) {
         await generateAnswersWithGptCompletionApi(
           port,
           session.question,
           session,
           config.apiKey,
-          config.modelName,
+          session.modelName,
         )
-      } else if (chatgptApiModelKeys.includes(config.modelName)) {
+      } else if (chatgptApiModelKeys.includes(session.modelName)) {
         await generateAnswersWithChatgptApi(
           port,
           session.question,
           session,
           config.apiKey,
-          config.modelName,
+          session.modelName,
         )
-      } else if (customApiModelKeys.includes(config.modelName)) {
+      } else if (customApiModelKeys.includes(session.modelName)) {
         await generateAnswersWithCustomApi(
           port,
           session.question,
           session,
           config.apiKey,
-          config.modelName,
+          session.modelName,
         )
       }
     } catch (err) {

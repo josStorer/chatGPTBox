@@ -18,14 +18,12 @@ class ConversationItemData extends Object {
   /**
    * @param {'question'|'answer'|'error'} type
    * @param {string} content
-   * @param {object} session
    * @param {bool} done
    */
-  constructor(type, content, session = null, done = false) {
+  constructor(type, content, done = false) {
     super()
     this.type = type
     this.content = content
-    this.session = session
     this.done = done
   }
 }
@@ -41,7 +39,7 @@ function ConversationCard(props) {
    */
   const [conversationItemData, setConversationItemData] = useState(
     (() => {
-      if (props.session.conversationRecords.length === 0)
+      if (session.conversationRecords.length === 0)
         if (props.question)
           return [
             new ConversationItemData(
@@ -52,13 +50,9 @@ function ConversationCard(props) {
         else return []
       else {
         const ret = []
-        for (const record of props.session.conversationRecords) {
-          ret.push(
-            new ConversationItemData('question', record.question + '\n<hr/>', props.session, true),
-          )
-          ret.push(
-            new ConversationItemData('answer', record.answer + '\n<hr/>', props.session, true),
-          )
+        for (const record of session.conversationRecords) {
+          ret.push(new ConversationItemData('question', record.question + '\n<hr/>', true))
+          ret.push(new ConversationItemData('answer', record.answer + '\n<hr/>', true))
         }
         return ret
       }
@@ -106,7 +100,6 @@ function ConversationCard(props) {
         newType,
         appended ? copy[index].content + value : value,
       )
-      copy[index].session = { ...session }
       copy[index].done = done
       return copy
     })
@@ -249,7 +242,7 @@ function ConversationCard(props) {
             content={data.content}
             key={idx}
             type={data.type}
-            session={data.session}
+            session={session}
             done={data.done}
             port={port}
           />

@@ -126,7 +126,7 @@ async function prepareForSelectionTools() {
 
     deleteToolbar()
     setTimeout(() => {
-      const selection = window.getSelection()?.toString()
+      const selection = window.getSelection()?.toString().trim()
       if (selection) {
         const inputElement = selectionElement.querySelector('input, textarea')
         let position
@@ -165,7 +165,7 @@ async function prepareForSelectionTools() {
       (e.target.nodeName === 'INPUT' || e.target.nodeName === 'TEXTAREA')
     ) {
       setTimeout(() => {
-        if (!window.getSelection()?.toString()) deleteToolbar()
+        if (!window.getSelection()?.toString().trim()) deleteToolbar()
       })
     }
   })
@@ -183,7 +183,7 @@ async function prepareForSelectionToolsTouch() {
 
     deleteToolbar()
     setTimeout(() => {
-      const selection = window.getSelection()?.toString()
+      const selection = window.getSelection()?.toString().trim()
       if (selection) {
         toolbarContainer = createElementAtPosition(
           e.changedTouches[0].pageX + 20,

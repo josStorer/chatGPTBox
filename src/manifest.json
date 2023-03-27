@@ -28,7 +28,8 @@
   "content_scripts": [
     {
       "matches": [
-        "https://*/*"
+        "https://*/*",
+        "http://*/*"
       ],
       "js": [
         "shared.js",

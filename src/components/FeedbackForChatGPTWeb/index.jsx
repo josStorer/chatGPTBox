@@ -42,13 +42,15 @@ const FeedbackForChatGPTWeb = (props) => {
     <div title="Feedback" className="gpt-feedback">
       <span
         onClick={clickThumbsUp}
-        className={action === 'thumbsUp' ? 'gpt-feedback-selected' : undefined}
+        className={action === 'thumbsUp' ? 'gpt-feedback-selected gpt-util-icon' : 'gpt-util-icon'}
       >
         <ThumbsupIcon size={14} />
       </span>
       <span
         onClick={clickThumbsDown}
-        className={action === 'thumbsDown' ? 'gpt-feedback-selected' : undefined}
+        className={
+          action === 'thumbsDown' ? 'gpt-feedback-selected gpt-util-icon' : 'gpt-util-icon'
+        }
       >
         <ThumbsdownIcon size={14} />
       </span>

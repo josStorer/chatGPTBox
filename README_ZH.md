@@ -79,9 +79,9 @@
 
 ## ✨ Features
 
-- 🌈 在任何页面随时呼出聊天对话框
+- 🌈 在任何页面随时呼出聊天对话框 (Ctrl+B)
 - 📱 支持手机等移动设备
-- 📓 通过右键菜单总结任意页面
+- 📓 通过右键菜单总结任意页面 (Alt+B)
 - 🔗 多种API支持 (免费用户和Plus用户可用Web API, 此外还有GPT-3.5, GPT-4, NewBing, 自托管支持等)
 - 📦 对各种常用网站的集成适配 (reddit, quora, youtube, github, gitlab, stackoverflow, zhihu, bilibili) (受到[wimdenherder](https://github.com/wimdenherder)启发)
 - 🔍 对所有主流搜索引擎的适配, 并支持自定义查询以支持额外的站点

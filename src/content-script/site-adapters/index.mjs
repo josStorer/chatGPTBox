@@ -2,7 +2,9 @@ import baidu from './baidu'
 import bilibili from './bilibili'
 import youtube from './youtube'
 import github from './github'
+
 import gitlab from './gitlab'
+import gitlabee from './gitlabee'
 import zhihu from './zhihu'
 import reddit from './reddit'
 import quora from './quora'
@@ -143,6 +145,12 @@ export const config = {
   },
   gitlab: {
     inputQuery: gitlab.inputQuery,
+    sidebarContainerQuery: ['.js-commit-box-info'],
+    appendContainerQuery: [],
+    resultsContainerQuery: ['.js-commit-box-info'],
+  },
+  gitlabee: {
+    inputQuery: gitlabee.inputQuery,
     sidebarContainerQuery: ['.js-commit-box-info'],
     appendContainerQuery: [],
     resultsContainerQuery: ['.js-commit-box-info'],

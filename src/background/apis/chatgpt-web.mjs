@@ -57,8 +57,8 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
     if (msg.stop) {
       console.debug('stop generating')
       port.postMessage({ done: true })
-      controller.abort()
       port.onMessage.removeListener(stopListener)
+      controller.abort()
     }
   }
   port.onMessage.addListener(stopListener)

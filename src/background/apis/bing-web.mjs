@@ -21,8 +21,8 @@ export async function generateAnswersWithBingWebApi(
     if (msg.stop) {
       console.debug('stop generating')
       port.postMessage({ done: true })
-      controller.abort()
       port.onMessage.removeListener(stopListener)
+      controller.abort()
     }
   }
   port.onMessage.addListener(stopListener)
@@ -36,6 +36,14 @@ export async function generateAnswersWithBingWebApi(
   let answer = ''
   const response = await bingAIClient
     .sendMessage(question, {
+      abortController: controller,
+      toneStyle: (await getUserConfig()).modelMode,
+      onProgress: (token) => {
+        answer += token
+        // remove reference markers [^number^]
+        answer = answer.replaceAll(/\[\^\d+\^\]/g, '')
+        port.postMessage({ answer: answer, done: false, session: null })
+      },
       ...(session.bingWeb.conversationId
         ? {
             conversationId: session.bingWeb.conversationId,
@@ -44,13 +52,6 @@ export async function generateAnswersWithBingWebApi(
             invocationId: session.bingWeb.invocationId,
           }
         : {}),
-      onProgress: (token) => {
-        answer += token
-        // remove reference markers [^number^]
-        answer = answer.replaceAll(/\[\^\d+\^\]/g, '')
-        port.postMessage({ answer: answer, done: false, session: null })
-      },
-      toneStyle: (await getUserConfig()).modelMode,
     })
     .catch((err) => {
       port.onMessage.removeListener(stopListener)

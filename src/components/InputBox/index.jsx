@@ -11,6 +11,7 @@ export function InputBox({ onSubmit, enabled }) {
   })
 
   const onKeyDown = (e) => {
+    e.stopPropagation()
     if (e.keyCode === 13 && e.shiftKey === false) {
       e.preventDefault()
       if (!value) return

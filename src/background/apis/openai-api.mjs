@@ -39,8 +39,8 @@ export async function generateAnswersWithGptCompletionApi(
     if (msg.stop) {
       console.debug('stop generating')
       port.postMessage({ done: true })
-      controller.abort()
       port.onMessage.removeListener(stopListener)
+      controller.abort()
     }
   }
   port.onMessage.addListener(stopListener)
@@ -116,8 +116,8 @@ export async function generateAnswersWithChatgptApi(port, question, session, api
     if (msg.stop) {
       console.debug('stop generating')
       port.postMessage({ done: true })
-      controller.abort()
       port.onMessage.removeListener(stopListener)
+      controller.abort()
     }
   }
   port.onMessage.addListener(stopListener)

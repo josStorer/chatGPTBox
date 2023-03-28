@@ -23,7 +23,7 @@ import wechatpay from './donation/wechatpay.jpg'
 import bugmeacoffee from './donation/bugmeacoffee.png'
 import { useWindowTheme } from '../hooks/use-window-theme.mjs'
 import { languageList } from '../config/language.mjs'
-import { isSafari } from '../utils/index.mjs'
+import { isFirefox, isSafari } from '../utils/index.mjs'
 
 function GeneralPart({ config, updateConfig }) {
   const [balance, setBalance] = useState(null)
@@ -282,7 +282,8 @@ function AdvancedPart({ config, updateConfig }) {
             updateConfig({ userSiteRegexOnly: checked })
           }}
         />
-        Exclusively use Custom Site Regex for website matching, ignoring built-in rules
+        Exclusively use Custom Site Regex for website matching,{isFirefox() ? <br /> : ' '}ignoring
+        built-in rules
       </label>
       <br />
       <label>

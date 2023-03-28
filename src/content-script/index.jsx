@@ -126,7 +126,11 @@ async function prepareForSelectionTools() {
 
     deleteToolbar()
     setTimeout(() => {
-      const selection = window.getSelection()?.toString().trim()
+      const selection = window
+        .getSelection()
+        ?.toString()
+        .trim()
+        .replace(/^-+|-+$/g, '')
       if (selection) {
         const inputElement = selectionElement.querySelector('input, textarea')
         let position
@@ -183,7 +187,11 @@ async function prepareForSelectionToolsTouch() {
 
     deleteToolbar()
     setTimeout(() => {
-      const selection = window.getSelection()?.toString().trim()
+      const selection = window
+        .getSelection()
+        ?.toString()
+        .trim()
+        .replace(/^-+|-+$/g, '')
       if (selection) {
         toolbarContainer = createElementAtPosition(
           e.changedTouches[0].pageX + 20,

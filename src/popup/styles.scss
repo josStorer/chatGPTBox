@@ -23,7 +23,7 @@
   --active-color: #eaecf0;
 }
 
-.container {
+.container-page-mode {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,6 +31,16 @@
   min-height: 560px;
   width: 100%;
   height: 100%;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.container-popup-mode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 440px;
+  height: 560px;
   padding: 20px;
   overflow-y: auto;
 }

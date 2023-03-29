@@ -24,7 +24,7 @@ import wechatpay from './donation/wechatpay.jpg'
 import bugmeacoffee from './donation/bugmeacoffee.png'
 import { useWindowTheme } from '../hooks/use-window-theme.mjs'
 import { languageList } from '../config/language.mjs'
-import { isFirefox, isSafari } from '../utils/index.mjs'
+import { isSafari } from '../utils/index.mjs'
 import { useTranslation } from 'react-i18next'
 
 function GeneralPart({ config, updateConfig }) {
@@ -307,9 +307,7 @@ function AdvancedPart({ config, updateConfig }) {
             updateConfig({ userSiteRegexOnly: checked })
           }}
         />
-        {`${t('Exclusively use Custom Site Regex for website matching,')}${
-          isFirefox() ? <br /> : ' '
-        }${t('ignoring built-in rules')}`}
+        {t('Exclusively use Custom Site Regex for website matching, ignoring built-in rules')}
       </label>
       <br />
       <label>
@@ -500,8 +498,11 @@ function Popup() {
     document.documentElement.dataset.theme = config.themeMode === 'auto' ? theme : config.themeMode
   }, [config.themeMode, theme])
 
+  const search = new URLSearchParams(window.location.search)
+  const popup = search.get('popup') // manifest v2
+
   return (
-    <div className="container">
+    <div className={popup === 'true' ? 'container-popup-mode' : 'container-page-mode'}>
       <form style="width:100%;">
         <Tabs selectedTabClassName="popup-tab--selected">
           <TabList>

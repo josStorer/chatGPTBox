@@ -230,7 +230,9 @@ function ConversationCard(props) {
           onClick={() => {
             let output = ''
             session.conversationRecords.forEach((data) => {
-              output += `Question:\n\n${data.question}\n\nAnswer:\n\n${data.answer}\n\n<hr/>\n\n`
+              output += `${t('Question')}:\n\n${data.question}\n\n${t('Answer')}:\n\n${
+                data.answer
+              }\n\n<hr/>\n\n`
             })
             const blob = new Blob([output], { type: 'text/plain;charset=utf-8' })
             FileSaver.saveAs(blob, 'conversation.md')

@@ -15,7 +15,7 @@ export function ConversationItem({ type, content, session, done, port }) {
       return (
         <div className={type} dir="auto">
           <div className="gpt-header">
-            <p>{t('You:')}</p>
+            <p>{t('You')}:</p>
             <div style="display: flex; gap: 15px;">
               <CopyButton contentFn={() => content} size={14} />
               {!collapsed ? (
@@ -104,7 +104,7 @@ export function ConversationItem({ type, content, session, done, port }) {
       return (
         <div className={type} dir="auto">
           <div className="gpt-header">
-            <p>{t('Error:')}</p>
+            <p>{t('Error')}:</p>
             <div style="display: flex; gap: 15px;">
               <CopyButton contentFn={() => content} size={14} />
               {!collapsed ? (

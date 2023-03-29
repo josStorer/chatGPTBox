@@ -288,7 +288,7 @@ function AdvancedPart({ config, updateConfig }) {
         />
       </label>
       <label>
-        {t('Custom Site Regex:')}
+        {t('Custom Site Regex')}
         <input
           type="text"
           value={config.siteRegex}
@@ -311,7 +311,7 @@ function AdvancedPart({ config, updateConfig }) {
       </label>
       <br />
       <label>
-        {t('Input Query:')}
+        {t('Input Query')}
         <input
           type="text"
           value={config.inputQuery}
@@ -322,7 +322,7 @@ function AdvancedPart({ config, updateConfig }) {
         />
       </label>
       <label>
-        {t('Append Query:')}
+        {t('Append Query')}
         <input
           type="text"
           value={config.appendQuery}
@@ -333,7 +333,7 @@ function AdvancedPart({ config, updateConfig }) {
         />
       </label>
       <label>
-        {t('Prepend Query:')}
+        {t('Prepend Query')}
         <input
           type="text"
           value={config.prependQuery}

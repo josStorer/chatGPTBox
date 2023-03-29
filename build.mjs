@@ -41,7 +41,7 @@ async function runWebpack(isWithoutKatex, isWithoutTiktoken, callback) {
         'i18next',
         'react-i18next',
         './src/utils',
-        './src/_locales/i18n',
+        './src/_locales/i18n-react',
       ],
     },
     output: {

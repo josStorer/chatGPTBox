@@ -22,7 +22,7 @@ import {
 import FloatingToolbar from '../components/FloatingToolbar'
 import Browser from 'webextension-polyfill'
 import { getPreferredLanguage } from '../config/language.mjs'
-import '../_locales/i18n'
+import '../_locales/i18n-react'
 import { changeLanguage } from 'i18next'
 
 /**

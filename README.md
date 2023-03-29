@@ -23,7 +23,7 @@ English | [简体中文](README_ZH.md)
 [![Android][Android-image]][Android-url]
 [![Github][Github-image]][Github-url]
 
-(Waiting for store review, [Chrome][Chrome-url] and [Firefox][Firefox-url] version is now available)
+(Waiting for store review, [Chrome][Chrome-url], [Edge][Edge-url], [Safari(macOS)][Safari-url] and [Firefox][Firefox-url] version is now available)
 
 [Guide](https://github.com/josStorer/chatGPTBox/wiki/Guide) |
 [Preview](#Preview) |
@@ -53,7 +53,7 @@ English | [简体中文](README_ZH.md)
 
 [Edge-image]: https://img.shields.io/badge/-Edge-blue?logo=microsoft-edge&logoColor=white
 
-[Edge-url]: https://github.com/josStorer/chatGPTBox/wiki/Install
+[Edge-url]: https://microsoftedge.microsoft.com/addons/detail/fission-chatbox-best/enjmfilpkbbabhgeoadmdpjjpnahkogf
 
 [Firefox-image]: https://img.shields.io/badge/-Firefox-orange?logo=firefox-browser&logoColor=white
 
@@ -61,7 +61,7 @@ English | [简体中文](README_ZH.md)
 
 [Safari-image]: https://img.shields.io/badge/-Safari-blue?logo=safari&logoColor=white
 
-[Safari-url]: https://github.com/josStorer/chatGPTBox/wiki/Install
+[Safari-url]: https://apps.apple.com/app/fission-chatbox/id6446611121
 
 [Android-image]: https://img.shields.io/badge/-Android-brightgreen?logo=android&logoColor=white
 
@@ -69,7 +69,7 @@ English | [简体中文](README_ZH.md)
 
 [Github-image]: https://img.shields.io/badge/-Github-black?logo=github&logoColor=white
 
-[Github-url]: https://github.com/josStorer/chatGPTBox/releases/latest
+[Github-url]: https://github.com/josStorer/chatGPTBox/wiki/Install
 
 </div>
 

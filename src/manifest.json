@@ -33,7 +33,8 @@
     {
       "matches": [
         "https://*/*",
-        "http://*/*"
+        "http://*/*",
+        "file://*/*"
       ],
       "js": [
         "shared.js",
@@ -47,7 +48,7 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "*.png"
+        "logo.png"
       ],
       "matches": [
         "<all_urls>"

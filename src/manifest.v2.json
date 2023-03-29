@@ -33,7 +33,8 @@
     {
       "matches": [
         "https://*/*",
-        "http://*/*"
+        "http://*/*",
+        "file://*/*"
       ],
       "js": [
         "shared.js",
@@ -45,7 +46,7 @@
     }
   ],
   "web_accessible_resources": [
-    "*.png"
+    "logo.png"
   ],
   "commands": {
     "newChat": {

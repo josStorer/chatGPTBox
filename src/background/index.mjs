@@ -180,15 +180,18 @@ function refreshMenu() {
     }
 
     Browser.contextMenus.onClicked.addListener((info, tab) => {
-      const message = {
-        itemId: info.menuItemId.replace(menuId, ''),
-        selectionText: info.selectionText,
-        useMenuPosition: true,
-      }
-      console.debug('menu clicked', message)
-      Browser.tabs.sendMessage(tab.id, {
-        type: 'CREATE_CHAT',
-        data: message,
+      Browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+        const currentTab = tabs[0]
+        const message = {
+          itemId: info.menuItemId.replace(menuId, ''),
+          selectionText: info.selectionText,
+          useMenuPosition: tab.id === currentTab.id,
+        }
+        console.debug('menu clicked', message)
+        Browser.tabs.sendMessage(currentTab.id, {
+          type: 'CREATE_CHAT',
+          data: message,
+        })
       })
     })
   })

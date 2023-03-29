@@ -11,6 +11,7 @@ import { render } from 'preact'
 import FloatingToolbar from '../FloatingToolbar'
 import { useClampWindowSize } from '../../hooks/use-clamp-window-size'
 import { defaultConfig, getUserConfig } from '../../config/index.mjs'
+import { useTranslation } from 'react-i18next'
 
 const logo = Browser.runtime.getURL('logo.png')
 
@@ -29,6 +30,7 @@ class ConversationItemData extends Object {
 }
 
 function ConversationCard(props) {
+  const { t } = useTranslation()
   const [isReady, setIsReady] = useState(!props.question)
   const [port, setPort] = useState(() => Browser.runtime.connect())
   const [session, setSession] = useState(props.session)
@@ -44,7 +46,7 @@ function ConversationCard(props) {
           return [
             new ConversationItemData(
               'answer',
-              '<p class="gpt-loading">Waiting for response...</p>',
+              `<p class="gpt-loading">${t(`Waiting for response...`)}</p>`,
             ),
           ]
         else return []
@@ -131,20 +133,26 @@ function ConversationCard(props) {
         switch (msg.error) {
           case 'UNAUTHORIZED':
             UpdateAnswer(
-              `UNAUTHORIZED<br>Please login at https://chat.openai.com first${
-                isSafari() ? '<br>Then open https://chat.openai.com/api/auth/session' : ''
-              }<br>And refresh this page or type you question again` +
-                `<br><br>Consider creating an api key at https://platform.openai.com/account/api-keys<hr>`,
+              `${t('UNAUTHORIZED')}<br>${t('Please login at https://chat.openai.com first')}${
+                isSafari() ? `<br>${t('Then open https://chat.openai.com/api/auth/session')}` : ''
+              }<br>${t('And refresh this page or type you question again')}` +
+                `<br><br>${t(
+                  'Consider creating an api key at https://platform.openai.com/account/api-keys',
+                )}<hr>`,
               false,
               'error',
             )
             break
           case 'CLOUDFLARE':
             UpdateAnswer(
-              `OpenAI Security Check Required<br>Please open ${
-                isSafari() ? 'https://chat.openai.com/api/auth/session' : 'https://chat.openai.com'
-              }<br>And refresh this page or type you question again` +
-                `<br><br>Consider creating an api key at https://platform.openai.com/account/api-keys<hr>`,
+              `${t('OpenAI Security Check Required')}<br>${
+                isSafari()
+                  ? t('Please open https://chat.openai.com/api/auth/session')
+                  : t('Please open https://chat.openai.com')
+              }<br>${t('And refresh this page or type you question again')}` +
+                `<br><br>${t(
+                  'Consider creating an api key at https://platform.openai.com/account/api-keys',
+                )}<hr>`,
               false,
               'error',
             )
@@ -172,7 +180,7 @@ function ConversationCard(props) {
           <XLg
             className="gpt-util-icon"
             style="margin:5px 15px 0px;"
-            title="Close the Window"
+            title={t('Close the Window')}
             size={16}
             onClick={() => {
               if (props.onClose) props.onClose()
@@ -182,7 +190,7 @@ function ConversationCard(props) {
           <Pin
             className="gpt-util-icon"
             style="margin:5px 15px 0px;"
-            title="Pin the Window"
+            title={t('Pin the Window')}
             size={16}
             onClick={() => {
               if (props.onDock) props.onDock()
@@ -196,7 +204,7 @@ function ConversationCard(props) {
         ) : (
           <WindowDesktop
             className="gpt-util-icon"
-            title="Float the Window"
+            title={t('Float the Window')}
             size={16}
             onClick={() => {
               const position = { x: window.innerWidth / 2 - 300, y: window.innerHeight / 2 - 200 }
@@ -216,7 +224,7 @@ function ConversationCard(props) {
           />
         )}
         <span
-          title="Save Conversation"
+          title={t('Save Conversation')}
           className="gpt-util-icon"
           style="margin:15px;"
           onClick={() => {
@@ -254,7 +262,7 @@ function ConversationCard(props) {
           const newQuestion = new ConversationItemData('question', question + '\n<hr/>')
           const newAnswer = new ConversationItemData(
             'answer',
-            '<p class="gpt-loading">Waiting for response...</p>',
+            `<p class="gpt-loading">${t('Waiting for response...')}</p>`,
           )
           setConversationItemData([...conversationItemData, newQuestion, newAnswer])
           setIsReady(false)

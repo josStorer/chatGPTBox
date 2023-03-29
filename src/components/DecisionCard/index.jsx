@@ -5,8 +5,10 @@ import ConversationCard from '../ConversationCard'
 import { defaultConfig, getUserConfig } from '../../config/index.mjs'
 import Browser from 'webextension-polyfill'
 import { getPossibleElementByQuerySelector, endsWithQuestionMark } from '../../utils'
+import { useTranslation } from 'react-i18next'
 
 function DecisionCard(props) {
+  const { t } = useTranslation()
   const [triggered, setTriggered] = useState(false)
   const [config, setConfig] = useState(defaultConfig)
   const [render, setRender] = useState(false)
@@ -103,7 +105,7 @@ function DecisionCard(props) {
                     className="gpt-inner manual-btn icon-and-text"
                     onClick={() => setTriggered(true)}
                   >
-                    <SearchIcon size="small" /> Ask ChatGPT
+                    <SearchIcon size="small" /> {t('Ask ChatGPT')}
                   </p>
                 )
               case 'questionMark':
@@ -118,14 +120,14 @@ function DecisionCard(props) {
                     className="gpt-inner manual-btn icon-and-text"
                     onClick={() => setTriggered(true)}
                   >
-                    <SearchIcon size="small" /> Ask ChatGPT
+                    <SearchIcon size="small" /> {t('Ask ChatGPT')}
                   </p>
                 )
             }
           else
             return (
               <p className="gpt-inner icon-and-text">
-                <LightBulbIcon size="small" /> No Input Found
+                <LightBulbIcon size="small" /> {t('No Input Found')}
               </p>
             )
         })()}

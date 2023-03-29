@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { CheckIcon, CopyIcon } from '@primer/octicons-react'
 import PropTypes from 'prop-types'
+import { useTranslation } from 'react-i18next'
 
 CopyButton.propTypes = {
   contentFn: PropTypes.func.isRequired,
@@ -9,6 +10,7 @@ CopyButton.propTypes = {
 }
 
 function CopyButton({ className, contentFn, size }) {
+  const { t } = useTranslation()
   const [copied, setCopied] = useState(false)
 
   const onClick = () => {
@@ -23,7 +25,11 @@ function CopyButton({ className, contentFn, size }) {
   }
 
   return (
-    <span title="Copy" className={`gpt-util-icon ${className ? className : ''}`} onClick={onClick}>
+    <span
+      title={t('Copy')}
+      className={`gpt-util-icon ${className ? className : ''}`}
+      onClick={onClick}
+    >
       {copied ? <CheckIcon size={size} /> : <CopyIcon size={size} />}
     </span>
   )

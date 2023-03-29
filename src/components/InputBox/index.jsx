@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { updateRefHeight } from '../../utils'
+import { useTranslation } from 'react-i18next'
 
 export function InputBox({ onSubmit, enabled }) {
+  const { t } = useTranslation()
   const [value, setValue] = useState('')
   const inputRef = useRef(null)
 
@@ -28,8 +30,8 @@ export function InputBox({ onSubmit, enabled }) {
       className="interact-input"
       placeholder={
         enabled
-          ? 'Type your question here\nEnter to send, shift + enter to break line'
-          : 'Wait for the answer to finish and then continue here'
+          ? t('Type your question here\nEnter to send, shift + enter to break line')
+          : t('Wait for the answer to finish and then continue here')
       }
       value={value}
       onChange={(e) => setValue(e.target.value)}

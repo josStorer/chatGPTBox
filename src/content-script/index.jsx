@@ -5,7 +5,12 @@ import DecisionCard from '../components/DecisionCard'
 import { config as siteConfig } from './site-adapters'
 import { config as toolsConfig } from './selection-tools'
 import { config as menuConfig } from './menu-tools'
-import { clearOldAccessToken, getUserConfig, setAccessToken } from '../config/index.mjs'
+import {
+  clearOldAccessToken,
+  getPreferredLanguageKey,
+  getUserConfig,
+  setAccessToken,
+} from '../config/index.mjs'
 import {
   createElementAtPosition,
   cropText,
@@ -17,6 +22,8 @@ import {
 import FloatingToolbar from '../components/FloatingToolbar'
 import Browser from 'webextension-polyfill'
 import { getPreferredLanguage } from '../config/language.mjs'
+import '../_locales/i18n'
+import { changeLanguage } from 'i18next'
 
 /**
  * @param {SiteConfig} siteConfig
@@ -287,6 +294,17 @@ let userConfig
 
 async function run() {
   userConfig = await getUserConfig()
+  await getPreferredLanguageKey().then((lang) => {
+    changeLanguage(lang)
+  })
+  Browser.runtime.onMessage.addListener(async (message) => {
+    console.log(message)
+    if (message.type === 'CHANGE_LANG') {
+      const data = message.data
+      changeLanguage(data.lang)
+    }
+  })
+
   if (isSafari()) await prepareForSafari()
   prepareForSelectionTools()
   prepareForSelectionToolsTouch()

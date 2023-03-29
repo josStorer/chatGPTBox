@@ -13,6 +13,7 @@ import {
   chatgptWebModelKeys,
   customApiModelKeys,
   defaultConfig,
+  getPreferredLanguageKey,
   getUserConfig,
   gptApiModelKeys,
   isUsingCustomModel,
@@ -20,6 +21,8 @@ import {
 } from '../config/index.mjs'
 import { isSafari } from '../utils/is-safari'
 import { config as menuConfig } from '../content-script/menu-tools'
+import { t, changeLanguage } from 'i18next'
+import '../_locales/i18n'
 
 const KEY_ACCESS_TOKEN = 'accessToken'
 const cache = new ExpiryMap(10 * 1000)
@@ -140,7 +143,10 @@ Browser.commands.onCommand.addListener(async (command) => {
 })
 
 function refreshMenu() {
-  Browser.contextMenus.removeAll().then(() => {
+  Browser.contextMenus.removeAll().then(async () => {
+    await getPreferredLanguageKey().then((lang) => {
+      changeLanguage(lang)
+    })
     const menuId = 'ChatGPTBox-Menu'
     Browser.contextMenus.create({
       id: menuId,
@@ -152,7 +158,7 @@ function refreshMenu() {
       Browser.contextMenus.create({
         id: menuId + k,
         parentId: menuId,
-        title: v.label,
+        title: t(v.label),
         contexts: ['all'],
       })
     }
@@ -168,7 +174,7 @@ function refreshMenu() {
       Browser.contextMenus.create({
         id: menuId + key,
         parentId: menuId,
-        title: desc,
+        title: t(desc),
         contexts: ['selection'],
       })
     }

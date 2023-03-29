@@ -7,10 +7,12 @@ import { config as toolsConfig } from '../../content-script/selection-tools'
 import { getClientPosition, isMobile, setElementPositionInViewport } from '../../utils'
 import Draggable from 'react-draggable'
 import { useClampWindowSize } from '../../hooks/use-clamp-window-size'
+import { useTranslation } from 'react-i18next'
 
 const logo = Browser.runtime.getURL('logo.png')
 
 function FloatingToolbar(props) {
+  const { t } = useTranslation()
   const [selection, setSelection] = useState(props.selection)
   const [prompt, setPrompt] = useState(props.prompt)
   const [triggered, setTriggered] = useState(props.triggered)
@@ -127,7 +129,7 @@ function FloatingToolbar(props) {
           cloneElement(toolConfig.icon, {
             size: 20,
             className: 'chatgptbox-selection-toolbar-button',
-            title: toolConfig.label,
+            title: t(toolConfig.label),
             onClick: async () => {
               const p = getClientPosition(props.container)
               props.container.style.position = 'fixed'

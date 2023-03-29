@@ -2,6 +2,7 @@ import '@picocss/pico'
 import { useEffect, useState } from 'react'
 import {
   defaultConfig,
+  getPreferredLanguageKey,
   getUserConfig,
   isUsingApiKey,
   isUsingCustomModel,
@@ -24,8 +25,10 @@ import bugmeacoffee from './donation/bugmeacoffee.png'
 import { useWindowTheme } from '../hooks/use-window-theme.mjs'
 import { languageList } from '../config/language.mjs'
 import { isFirefox, isSafari } from '../utils/index.mjs'
+import { useTranslation } from 'react-i18next'
 
 function GeneralPart({ config, updateConfig }) {
+  const { t, i18n } = useTranslation()
   const [balance, setBalance] = useState(null)
 
   const getBalance = async () => {
@@ -41,7 +44,7 @@ function GeneralPart({ config, updateConfig }) {
   return (
     <>
       <label>
-        <legend>Triggers</legend>
+        <legend>{t('Triggers')}</legend>
         <select
           required
           onChange={(e) => {
@@ -52,14 +55,14 @@ function GeneralPart({ config, updateConfig }) {
           {Object.entries(TriggerMode).map(([key, desc]) => {
             return (
               <option value={key} key={key} selected={key === config.triggerMode}>
-                {desc}
+                {t(desc)}
               </option>
             )
           })}
         </select>
       </label>
       <label>
-        <legend>Theme</legend>
+        <legend>{t('Theme')}</legend>
         <select
           required
           onChange={(e) => {
@@ -70,14 +73,14 @@ function GeneralPart({ config, updateConfig }) {
           {Object.entries(ThemeMode).map(([key, desc]) => {
             return (
               <option value={key} key={key} selected={key === config.themeMode}>
-                {desc}
+                {t(desc)}
               </option>
             )
           })}
         </select>
       </label>
       <label>
-        <legend>API Mode</legend>
+        <legend>{t('API Mode')}</legend>
         <span style="display: flex; gap: 15px;">
           <select
             style={
@@ -94,7 +97,7 @@ function GeneralPart({ config, updateConfig }) {
             {Object.entries(Models).map(([key, model]) => {
               return (
                 <option value={key} key={key} selected={key === config.modelName}>
-                  {model.desc}
+                  {t(model.desc)}
                 </option>
               )
             })}
@@ -111,7 +114,7 @@ function GeneralPart({ config, updateConfig }) {
                 {Object.entries(ModelMode).map(([key, desc]) => {
                   return (
                     <option value={key} key={key} selected={key === config.modelMode}>
-                      {desc}
+                      {t(desc)}
                     </option>
                   )
                 })}
@@ -123,7 +126,7 @@ function GeneralPart({ config, updateConfig }) {
               <input
                 type="password"
                 value={config.apiKey}
-                placeholder="API Key"
+                placeholder={t('API Key')}
                 onChange={(e) => {
                   const apiKey = e.target.value
                   updateConfig({ apiKey: apiKey })
@@ -135,7 +138,9 @@ function GeneralPart({ config, updateConfig }) {
                   target="_blank"
                   rel="nofollow noopener noreferrer"
                 >
-                  <button type="button">Get</button>
+                  <button style="white-space: nowrap;" type="button">
+                    {t('Get')}
+                  </button>
                 </a>
               ) : balance ? (
                 <button type="button" onClick={getBalance}>
@@ -143,7 +148,7 @@ function GeneralPart({ config, updateConfig }) {
                 </button>
               ) : (
                 <button type="button" onClick={getBalance}>
-                  Balance
+                  {t('Balance')}
                 </button>
               )}
             </span>
@@ -153,7 +158,7 @@ function GeneralPart({ config, updateConfig }) {
               <input
                 type="text"
                 value={config.customModelName}
-                placeholder="Model Name"
+                placeholder={t('Model Name')}
                 onChange={(e) => {
                   const customModelName = e.target.value
                   updateConfig({ customModelName: customModelName })
@@ -166,7 +171,7 @@ function GeneralPart({ config, updateConfig }) {
           <input
             type="text"
             value={config.customModelApiUrl}
-            placeholder="Custom Model API Url"
+            placeholder={t('Custom Model API Url')}
             onChange={(e) => {
               const value = e.target.value
               updateConfig({ customModelApiUrl: value })
@@ -175,13 +180,31 @@ function GeneralPart({ config, updateConfig }) {
         )}
       </label>
       <label>
-        <legend>Preferred Language</legend>
+        <legend>{t('Preferred Language')}</legend>
         <span style="display: flex; gap: 15px;">
           <select
             required
             onChange={(e) => {
               const preferredLanguageKey = e.target.value
               updateConfig({ preferredLanguage: preferredLanguageKey })
+
+              let lang
+              if (preferredLanguageKey === 'auto') lang = config.userLanguage
+              else lang = preferredLanguageKey
+              i18n.changeLanguage(lang)
+
+              Browser.tabs.query({}).then((tabs) => {
+                tabs.forEach((tab) => {
+                  Browser.tabs
+                    .sendMessage(tab.id, {
+                      type: 'CHANGE_LANG',
+                      data: {
+                        lang,
+                      },
+                    })
+                    .catch(() => ({}))
+                })
+              })
             }}
           >
             {Object.entries(languageList).map(([k, v]) => {
@@ -203,7 +226,7 @@ function GeneralPart({ config, updateConfig }) {
             updateConfig({ insertAtTop: checked })
           }}
         />
-        Insert ChatGPT at the top of search results
+        {t('Insert ChatGPT at the top of search results')}
       </label>
       <label>
         <input
@@ -214,7 +237,7 @@ function GeneralPart({ config, updateConfig }) {
             updateConfig({ lockWhenAnswer: checked })
           }}
         />
-        Lock scrollbar while answering
+        {t('Lock scrollbar while answering')}
       </label>
       <br />
     </>
@@ -227,10 +250,12 @@ GeneralPart.propTypes = {
 }
 
 function AdvancedPart({ config, updateConfig }) {
+  const { t } = useTranslation()
+
   return (
     <>
       <label>
-        Custom ChatGPT Web API Url
+        {t('Custom ChatGPT Web API Url')}
         <input
           type="text"
           value={config.customChatGptWebApiUrl}
@@ -241,7 +266,7 @@ function AdvancedPart({ config, updateConfig }) {
         />
       </label>
       <label>
-        Custom ChatGPT Web API Path
+        {t('Custom ChatGPT Web API Path')}
         <input
           type="text"
           value={config.customChatGptWebApiPath}
@@ -252,7 +277,7 @@ function AdvancedPart({ config, updateConfig }) {
         />
       </label>
       <label>
-        Custom OpenAI API Url
+        {t('Custom OpenAI API Url')}
         <input
           type="text"
           value={config.customOpenAiApiUrl}
@@ -263,7 +288,7 @@ function AdvancedPart({ config, updateConfig }) {
         />
       </label>
       <label>
-        Custom Site Regex:
+        {t('Custom Site Regex:')}
         <input
           type="text"
           value={config.siteRegex}
@@ -282,12 +307,13 @@ function AdvancedPart({ config, updateConfig }) {
             updateConfig({ userSiteRegexOnly: checked })
           }}
         />
-        Exclusively use Custom Site Regex for website matching,{isFirefox() ? <br /> : ' '}ignoring
-        built-in rules
+        {`${t('Exclusively use Custom Site Regex for website matching,')}${
+          isFirefox() ? <br /> : ' '
+        }${t('ignoring built-in rules')}`}
       </label>
       <br />
       <label>
-        Input Query:
+        {t('Input Query:')}
         <input
           type="text"
           value={config.inputQuery}
@@ -298,7 +324,7 @@ function AdvancedPart({ config, updateConfig }) {
         />
       </label>
       <label>
-        Append Query:
+        {t('Append Query:')}
         <input
           type="text"
           value={config.appendQuery}
@@ -309,7 +335,7 @@ function AdvancedPart({ config, updateConfig }) {
         />
       </label>
       <label>
-        Prepend Query:
+        {t('Prepend Query:')}
         <input
           type="text"
           value={config.prependQuery}
@@ -329,6 +355,8 @@ AdvancedPart.propTypes = {
 }
 
 function SelectionTools({ config, updateConfig }) {
+  const { t } = useTranslation()
+
   return (
     <>
       {config.selectionTools.map((key) => (
@@ -343,7 +371,7 @@ function SelectionTools({ config, updateConfig }) {
               updateConfig({ activeSelectionTools })
             }}
           />
-          {toolsConfig[key].label}
+          {t(toolsConfig[key].label)}
         </label>
       ))}
     </>
@@ -383,6 +411,8 @@ SiteAdapters.propTypes = {
 }
 
 function Donation() {
+  const { t } = useTranslation()
+
   return (
     <div style="display:flex;flex-direction:column;align-items:center;">
       <a
@@ -394,7 +424,7 @@ function Donation() {
       </a>
       <br />
       <>
-        Wechat Pay
+        {t('Wechat Pay')}
         <img alt="wechatpay" src={wechatpay} />
       </>
     </div>
@@ -403,15 +433,17 @@ function Donation() {
 
 // eslint-disable-next-line react/prop-types
 function Footer({ currentVersion, latestVersion }) {
+  const { t } = useTranslation()
+
   return (
     <div className="footer">
       <div>
-        Current Version: {currentVersion}{' '}
+        {`${t('Current Version')}: ${currentVersion} `}
         {currentVersion === latestVersion ? (
-          '(Latest)'
+          `(${t('Latest')})`
         ) : (
           <>
-            (Latest:{' '}
+            ({`${t('Latest')}: `}
             <a
               href={'https://github.com/josStorer/chatGPTBox/releases/tag/v' + latestVersion}
               target="_blank"
@@ -429,7 +461,7 @@ function Footer({ currentVersion, latestVersion }) {
           target="_blank"
           rel="nofollow noopener noreferrer"
         >
-          <span>Help | Changelog </span>
+          <span>{t('Help | Changelog ')}</span>
           <MarkGithubIcon />
         </a>
       </div>
@@ -438,6 +470,7 @@ function Footer({ currentVersion, latestVersion }) {
 }
 
 function Popup() {
+  const { t, i18n } = useTranslation()
   const [config, setConfig] = useState(defaultConfig)
   const [currentVersion, setCurrentVersion] = useState('')
   const [latestVersion, setLatestVersion] = useState('')
@@ -449,6 +482,9 @@ function Popup() {
   }
 
   useEffect(() => {
+    getPreferredLanguageKey().then((lang) => {
+      i18n.changeLanguage(lang)
+    })
     getUserConfig().then((config) => {
       setConfig(config)
       setCurrentVersion(Browser.runtime.getManifest().version.replace('v', ''))
@@ -469,11 +505,11 @@ function Popup() {
       <form style="width:100%;">
         <Tabs selectedTabClassName="popup-tab--selected">
           <TabList>
-            <Tab className="popup-tab">General</Tab>
-            <Tab className="popup-tab">Selection Tools</Tab>
-            <Tab className="popup-tab">Sites</Tab>
-            <Tab className="popup-tab">Advanced</Tab>
-            {isSafari() ? null : <Tab className="popup-tab">Donate</Tab>}
+            <Tab className="popup-tab">{t('General')}</Tab>
+            <Tab className="popup-tab">{t('Selection Tools')}</Tab>
+            <Tab className="popup-tab">{t('Sites')}</Tab>
+            <Tab className="popup-tab">{t('Advanced')}</Tab>
+            {isSafari() ? null : <Tab className="popup-tab">{t('Donate')}</Tab>}
           </TabList>
 
           <TabPanel>

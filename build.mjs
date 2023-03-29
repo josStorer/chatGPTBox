@@ -38,7 +38,10 @@ async function runWebpack(isWithoutKatex, isWithoutTiktoken, callback) {
         '@primer/octicons-react',
         'react-bootstrap-icons',
         'countries-list',
+        'i18next',
+        'react-i18next',
         './src/utils',
+        './src/_locales/i18n',
       ],
     },
     output: {

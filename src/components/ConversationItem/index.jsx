@@ -4,8 +4,10 @@ import { ChevronDownIcon, LinkExternalIcon, XCircleIcon } from '@primer/octicons
 import CopyButton from '../CopyButton'
 import PropTypes from 'prop-types'
 import MarkdownRender from '../MarkdownRender/markdown.jsx'
+import { useTranslation } from 'react-i18next'
 
 export function ConversationItem({ type, content, session, done, port }) {
+  const { t } = useTranslation()
   const [collapsed, setCollapsed] = useState(false)
 
   switch (type) {
@@ -13,15 +15,23 @@ export function ConversationItem({ type, content, session, done, port }) {
       return (
         <div className={type} dir="auto">
           <div className="gpt-header">
-            <p>You:</p>
+            <p>{t('You:')}</p>
             <div style="display: flex; gap: 15px;">
               <CopyButton contentFn={() => content} size={14} />
               {!collapsed ? (
-                <span title="Collapse" className="gpt-util-icon" onClick={() => setCollapsed(true)}>
+                <span
+                  title={t('Collapse')}
+                  className="gpt-util-icon"
+                  onClick={() => setCollapsed(true)}
+                >
                   <XCircleIcon size={14} />
                 </span>
               ) : (
-                <span title="Expand" className="gpt-util-icon" onClick={() => setCollapsed(false)}>
+                <span
+                  title={t('Expand')}
+                  className="gpt-util-icon"
+                  onClick={() => setCollapsed(false)}
+                >
                   <ChevronDownIcon size={14} />
                 </span>
               )}
@@ -35,7 +45,7 @@ export function ConversationItem({ type, content, session, done, port }) {
         <div className={type} dir="auto">
           <div className="gpt-header">
             <p style="white-space: nowrap;">
-              {session && session.aiName ? `${session.aiName}:` : 'Loading...'}
+              {session && session.aiName ? `${t(session.aiName)}:` : t('Loading...')}
             </p>
             <div style="display: flex; gap: 15px; align-items: center; white-space: nowrap;">
               {!done && (
@@ -46,7 +56,7 @@ export function ConversationItem({ type, content, session, done, port }) {
                     port.postMessage({ stop: true })
                   }}
                 >
-                  Stop
+                  {t('Stop')}
                 </button>
               )}
               {done && session && session.conversationId && (
@@ -57,7 +67,7 @@ export function ConversationItem({ type, content, session, done, port }) {
               )}
               {session && session.conversationId && (
                 <a
-                  title="Continue on official website"
+                  title={t('Continue on official website')}
                   href={'https://chat.openai.com/chat/' + session.conversationId}
                   target="_blank"
                   rel="nofollow noopener noreferrer"
@@ -69,11 +79,19 @@ export function ConversationItem({ type, content, session, done, port }) {
               )}
               {session && <CopyButton contentFn={() => content} size={14} />}
               {!collapsed ? (
-                <span title="Collapse" className="gpt-util-icon" onClick={() => setCollapsed(true)}>
+                <span
+                  title={t('Collapse')}
+                  className="gpt-util-icon"
+                  onClick={() => setCollapsed(true)}
+                >
                   <XCircleIcon size={14} />
                 </span>
               ) : (
-                <span title="Expand" className="gpt-util-icon" onClick={() => setCollapsed(false)}>
+                <span
+                  title={t('Expand')}
+                  className="gpt-util-icon"
+                  onClick={() => setCollapsed(false)}
+                >
                   <ChevronDownIcon size={14} />
                 </span>
               )}
@@ -86,15 +104,23 @@ export function ConversationItem({ type, content, session, done, port }) {
       return (
         <div className={type} dir="auto">
           <div className="gpt-header">
-            <p>Error:</p>
+            <p>{t('Error:')}</p>
             <div style="display: flex; gap: 15px;">
               <CopyButton contentFn={() => content} size={14} />
               {!collapsed ? (
-                <span title="Collapse" className="gpt-util-icon" onClick={() => setCollapsed(true)}>
+                <span
+                  title={t('Collapse')}
+                  className="gpt-util-icon"
+                  onClick={() => setCollapsed(true)}
+                >
                   <XCircleIcon size={14} />
                 </span>
               ) : (
-                <span title="Expand" className="gpt-util-icon" onClick={() => setCollapsed(false)}>
+                <span
+                  title={t('Expand')}
+                  className="gpt-util-icon"
+                  onClick={() => setCollapsed(false)}
+                >
                   <ChevronDownIcon size={14} />
                 </span>
               )}

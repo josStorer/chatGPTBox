@@ -2,8 +2,10 @@ import PropTypes from 'prop-types'
 import { memo, useCallback, useState } from 'react'
 import { ThumbsupIcon, ThumbsdownIcon } from '@primer/octicons-react'
 import Browser from 'webextension-polyfill'
+import { useTranslation } from 'react-i18next'
 
 const FeedbackForChatGPTWeb = (props) => {
+  const { t } = useTranslation()
   const [action, setAction] = useState(null)
 
   const clickThumbsUp = useCallback(async () => {
@@ -39,7 +41,7 @@ const FeedbackForChatGPTWeb = (props) => {
   }, [props, action])
 
   return (
-    <div title="Feedback" className="gpt-feedback">
+    <div title={t('Feedback')} className="gpt-feedback">
       <span
         onClick={clickThumbsUp}
         className={action === 'thumbsUp' ? 'gpt-feedback-selected gpt-util-icon' : 'gpt-util-icon'}

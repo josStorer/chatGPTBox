@@ -63,7 +63,7 @@ export const defaultConfig = {
   apiKey: '',
   /** @type {keyof ModelMode}*/
   modelMode: 'balanced',
-  preferredLanguage: navigator.language.substring(0, 2),
+  preferredLanguage: getNavigatorLanguage(),
   insertAtTop: isMobile(),
   lockWhenAnswer: false,
   customModelApiUrl: 'http://localhost:8000/chat/completions',
@@ -98,7 +98,7 @@ export const defaultConfig = {
 
   // unchangeable
 
-  userLanguage: navigator.language.substring(0, 2),
+  userLanguage: getNavigatorLanguage(),
   selectionTools: [
     'translate',
     'translateBidi',
@@ -132,6 +132,12 @@ export const defaultConfig = {
   ],
 }
 
+export function getNavigatorLanguage() {
+  const l = navigator.language.toLowerCase()
+  if (['zh-hk', 'zh-mo', 'zh-tw', 'zh-cht', 'zh-hant'].includes(l)) return 'zhHant'
+  return navigator.language.substring(0, 2)
+}
+
 export function isUsingApiKey(config) {
   return (
     gptApiModelKeys.includes(config.modelName) || chatgptApiModelKeys.includes(config.modelName)
@@ -144,6 +150,12 @@ export function isUsingMultiModeModel(config) {
 
 export function isUsingCustomModel(config) {
   return customApiModelKeys.includes(config.modelName)
+}
+
+export async function getPreferredLanguageKey() {
+  const config = await getUserConfig()
+  if (config.preferredLanguage === 'auto') return config.userLanguage
+  return config.preferredLanguage
 }
 
 /**

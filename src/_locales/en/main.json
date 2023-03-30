@@ -82,5 +82,7 @@
   "Model Name": "Model Name",
   "Custom Model API Url": "Custom Model API Url",
   "Loading...": "Loading...",
-  "Feedback": "Feedback"
+  "Feedback": "Feedback",
+  "Confirm": "Confirm",
+  "Clear Conversation": "Clear Conversation"
 }

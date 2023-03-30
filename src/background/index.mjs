@@ -1,6 +1,10 @@
 import Browser from 'webextension-polyfill'
 import ExpiryMap from 'expiry-map'
-import { generateAnswersWithChatgptWebApi, sendMessageFeedback } from './apis/chatgpt-web'
+import {
+  deleteConversation,
+  generateAnswersWithChatgptWebApi,
+  sendMessageFeedback,
+} from './apis/chatgpt-web'
 import { generateAnswersWithBingWebApi } from './apis/bing-web.mjs'
 import {
   generateAnswersWithChatgptApi,
@@ -126,6 +130,10 @@ Browser.runtime.onMessage.addListener(async (message) => {
   if (message.type === 'FEEDBACK') {
     const token = await getChatGptAccessToken()
     await sendMessageFeedback(token, message.data)
+  } else if (message.type === 'DELETE_CONVERSATION') {
+    const token = await getChatGptAccessToken()
+    const data = message.data
+    await deleteConversation(token, data.conversationId)
   }
 })
 

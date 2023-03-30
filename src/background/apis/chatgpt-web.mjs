@@ -27,6 +27,10 @@ export async function setConversationProperty(token, conversationId, propertyObj
   await request(token, 'PATCH', `/conversation/${conversationId}`, propertyObject)
 }
 
+export async function deleteConversation(token, conversationId) {
+  if (conversationId) await setConversationProperty(token, conversationId, { is_visible: false })
+}
+
 export async function sendModerations(token, question, conversationId, messageId) {
   await request(token, 'POST', `/moderations`, {
     conversation_id: conversationId,
@@ -48,10 +52,6 @@ export async function getModels(token) {
  * @param {string} accessToken
  */
 export async function generateAnswersWithChatgptWebApi(port, question, session, accessToken) {
-  const deleteConversation = () => {
-    setConversationProperty(accessToken, session.conversationId, { is_visible: false })
-  }
-
   const controller = new AbortController()
   const stopListener = (msg) => {
     if (msg.stop) {
@@ -65,7 +65,7 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
   port.onDisconnect.addListener(() => {
     console.debug('port disconnected')
     controller.abort()
-    deleteConversation()
+    deleteConversation(accessToken, session.conversationId)
   })
 
   const models = await getModels(accessToken).catch(() => {

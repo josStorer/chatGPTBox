@@ -16,7 +16,7 @@ export function ConversationItem({ type, content, session, done, port }) {
         <div className={type} dir="auto">
           <div className="gpt-header">
             <p>{t('You')}:</p>
-            <div style="display: flex; gap: 15px;">
+            <div className="gpt-util-group">
               <CopyButton contentFn={() => content} size={14} />
               {!collapsed ? (
                 <span
@@ -47,7 +47,7 @@ export function ConversationItem({ type, content, session, done, port }) {
             <p style="white-space: nowrap;">
               {session && session.aiName ? `${t(session.aiName)}:` : t('Loading...')}
             </p>
-            <div style="display: flex; gap: 15px; align-items: center; white-space: nowrap;">
+            <div className="gpt-util-group">
               {!done && (
                 <button
                   type="button"
@@ -105,7 +105,7 @@ export function ConversationItem({ type, content, session, done, port }) {
         <div className={type} dir="auto">
           <div className="gpt-header">
             <p>{t('Error')}:</p>
-            <div style="display: flex; gap: 15px;">
+            <div className="gpt-util-group">
               <CopyButton contentFn={() => content} size={14} />
               {!collapsed ? (
                 <span

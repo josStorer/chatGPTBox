@@ -12,6 +12,7 @@ import FloatingToolbar from '../FloatingToolbar'
 import { useClampWindowSize } from '../../hooks/use-clamp-window-size'
 import { defaultConfig, getUserConfig } from '../../config/index.mjs'
 import { useTranslation } from 'react-i18next'
+import DeleteButton from '../DeleteButton'
 
 const logo = Browser.runtime.getURL('logo.png')
 
@@ -221,22 +222,37 @@ function ConversationCard(props) {
             }}
           />
         )}
-        <span
-          title={t('Save Conversation')}
-          className="gpt-util-icon"
-          style="margin:15px;"
-          onClick={() => {
-            let output = ''
-            session.conversationRecords.forEach((data) => {
-              output += `${t('Question')}:\n\n${data.question}\n\n${t('Answer')}:\n\n${
-                data.answer
-              }\n\n<hr/>\n\n`
-            })
-            const blob = new Blob([output], { type: 'text/plain;charset=utf-8' })
-            FileSaver.saveAs(blob, 'conversation.md')
-          }}
-        >
-          <DownloadIcon size={16} />
+        <span className="gpt-util-group">
+          <DeleteButton
+            size={16}
+            onConfirm={() => {
+              port.postMessage({ stop: true })
+              Browser.runtime.sendMessage({
+                type: 'DELETE_CONVERSATION',
+                data: {
+                  conversationId: session.conversationId,
+                },
+              })
+              setConversationItemData([])
+              setSession(initSession())
+            }}
+          />
+          <span
+            title={t('Save Conversation')}
+            className="gpt-util-icon"
+            onClick={() => {
+              let output = ''
+              session.conversationRecords.forEach((data) => {
+                output += `${t('Question')}:\n\n${data.question}\n\n${t('Answer')}:\n\n${
+                  data.answer
+                }\n\n<hr/>\n\n`
+              })
+              const blob = new Blob([output], { type: 'text/plain;charset=utf-8' })
+              FileSaver.saveAs(blob, 'conversation.md')
+            }}
+          >
+            <DownloadIcon size={16} />
+          </span>
         </span>
       </div>
       <hr />

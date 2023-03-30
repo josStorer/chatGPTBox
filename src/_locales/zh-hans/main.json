@@ -82,5 +82,7 @@
   "Model Name": "模型名",
   "Custom Model API Url": "自定义模型的API地址",
   "Loading...": "正在读取...",
-  "Feedback": "反馈"
+  "Feedback": "反馈",
+  "Confirm": "确认",
+  "Clear Conversation": "清理对话"
 }

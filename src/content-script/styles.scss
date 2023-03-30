@@ -169,6 +169,12 @@
       color: #f08080;
     }
 
+    .gpt-util-group {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
     .gpt-util-icon {
       display: flex;
       cursor: pointer;

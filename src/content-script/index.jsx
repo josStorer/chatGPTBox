@@ -92,7 +92,9 @@ async function getInput(inputQuery) {
     else if (searchInput.textContent) input = searchInput.textContent
     if (input)
       return (
-        `Reply in ${await getPreferredLanguage()}.\nThe following is a search input in a search engine, giving useful content or solutions related to it:\n` +
+        `Reply in ${await getPreferredLanguage()}.\nThe following is a search input in a search engine, ` +
+        `giving useful content or solutions and as much information as you can related to it, ` +
+        `use markdown syntax to make your answer more readable, such as code blocks, bold, list:\n` +
         input
       )
   }

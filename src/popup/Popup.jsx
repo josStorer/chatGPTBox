@@ -103,23 +103,22 @@ function GeneralPart({ config, updateConfig }) {
             })}
           </select>
           {isUsingMultiModeModel(config) && (
-            <span style="width: 50%; display: flex; gap: 5px;">
-              <select
-                required
-                onChange={(e) => {
-                  const modelMode = e.target.value
-                  updateConfig({ modelMode: modelMode })
-                }}
-              >
-                {Object.entries(ModelMode).map(([key, desc]) => {
-                  return (
-                    <option value={key} key={key} selected={key === config.modelMode}>
-                      {t(desc)}
-                    </option>
-                  )
-                })}
-              </select>
-            </span>
+            <select
+              style="width: 50%;"
+              required
+              onChange={(e) => {
+                const modelMode = e.target.value
+                updateConfig({ modelMode: modelMode })
+              }}
+            >
+              {Object.entries(ModelMode).map(([key, desc]) => {
+                return (
+                  <option value={key} key={key} selected={key === config.modelMode}>
+                    {t(desc)}
+                  </option>
+                )
+              })}
+            </select>
           )}
           {isUsingApiKey(config) && (
             <span style="width: 50%; display: flex; gap: 5px;">
@@ -154,17 +153,16 @@ function GeneralPart({ config, updateConfig }) {
             </span>
           )}
           {isUsingCustomModel(config) && (
-            <span style="width: 50%; display: flex; gap: 5px;">
-              <input
-                type="text"
-                value={config.customModelName}
-                placeholder={t('Model Name')}
-                onChange={(e) => {
-                  const customModelName = e.target.value
-                  updateConfig({ customModelName: customModelName })
-                }}
-              />
-            </span>
+            <input
+              style="width: 50%;"
+              type="text"
+              value={config.customModelName}
+              placeholder={t('Model Name')}
+              onChange={(e) => {
+                const customModelName = e.target.value
+                updateConfig({ customModelName: customModelName })
+              }}
+            />
           )}
         </span>
         {isUsingCustomModel(config) && (
@@ -181,41 +179,39 @@ function GeneralPart({ config, updateConfig }) {
       </label>
       <label>
         <legend>{t('Preferred Language')}</legend>
-        <span style="display: flex; gap: 15px;">
-          <select
-            required
-            onChange={(e) => {
-              const preferredLanguageKey = e.target.value
-              updateConfig({ preferredLanguage: preferredLanguageKey })
+        <select
+          required
+          onChange={(e) => {
+            const preferredLanguageKey = e.target.value
+            updateConfig({ preferredLanguage: preferredLanguageKey })
 
-              let lang
-              if (preferredLanguageKey === 'auto') lang = config.userLanguage
-              else lang = preferredLanguageKey
-              i18n.changeLanguage(lang)
+            let lang
+            if (preferredLanguageKey === 'auto') lang = config.userLanguage
+            else lang = preferredLanguageKey
+            i18n.changeLanguage(lang)
 
-              Browser.tabs.query({}).then((tabs) => {
-                tabs.forEach((tab) => {
-                  Browser.tabs
-                    .sendMessage(tab.id, {
-                      type: 'CHANGE_LANG',
-                      data: {
-                        lang,
-                      },
-                    })
-                    .catch(() => ({}))
-                })
+            Browser.tabs.query({}).then((tabs) => {
+              tabs.forEach((tab) => {
+                Browser.tabs
+                  .sendMessage(tab.id, {
+                    type: 'CHANGE_LANG',
+                    data: {
+                      lang,
+                    },
+                  })
+                  .catch(() => ({}))
               })
-            }}
-          >
-            {Object.entries(languageList).map(([k, v]) => {
-              return (
-                <option value={k} key={k} selected={k === config.preferredLanguage}>
-                  {v.native}
-                </option>
-              )
-            })}
-          </select>
-        </span>
+            })
+          }}
+        >
+          {Object.entries(languageList).map(([k, v]) => {
+            return (
+              <option value={k} key={k} selected={k === config.preferredLanguage}>
+                {v.native}
+              </option>
+            )
+          })}
+        </select>
       </label>
       <label>
         <input

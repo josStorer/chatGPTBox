@@ -175,11 +175,10 @@ function ConversationCard(props) {
 
   return (
     <div className="gpt-inner">
-      <div className="gpt-header">
+      <div className="gpt-header" style="margin: 15px;">
         {props.closeable ? (
           <XLg
             className="gpt-util-icon"
-            style="margin:5px 15px 0px;"
             title={t('Close the Window')}
             size={16}
             onClick={() => {
@@ -189,7 +188,6 @@ function ConversationCard(props) {
         ) : props.dockable ? (
           <Pin
             className="gpt-util-icon"
-            style="margin:5px 15px 0px;"
             title={t('Pin the Window')}
             size={16}
             onClick={() => {
@@ -197,7 +195,7 @@ function ConversationCard(props) {
             }}
           />
         ) : (
-          <img src={logo} style="margin:5px 15px 0px;user-select:none;width:20px;height:20px;" />
+          <img src={logo} style="user-select:none;width:20px;height:20px;" />
         )}
         {props.draggable ? (
           <div className="dragbar" />

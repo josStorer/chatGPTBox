@@ -1,12 +1,11 @@
 import { useState } from 'react'
-import FeedbackForChatGPTWeb from '../FeedbackForChatGPTWeb'
-import { ChevronDownIcon, LinkExternalIcon, XCircleIcon } from '@primer/octicons-react'
+import { ChevronDownIcon, XCircleIcon, SyncIcon } from '@primer/octicons-react'
 import CopyButton from '../CopyButton'
 import PropTypes from 'prop-types'
 import MarkdownRender from '../MarkdownRender/markdown.jsx'
 import { useTranslation } from 'react-i18next'
 
-export function ConversationItem({ type, content, session, done, port }) {
+export function ConversationItem({ type, content, session, done, port, onRetry }) {
   const { t } = useTranslation()
   const [collapsed, setCollapsed] = useState(false)
 
@@ -59,23 +58,10 @@ export function ConversationItem({ type, content, session, done, port }) {
                   {t('Stop')}
                 </button>
               )}
-              {done && session && session.conversationId && (
-                <FeedbackForChatGPTWeb
-                  messageId={session.messageId}
-                  conversationId={session.conversationId}
-                />
-              )}
-              {session && session.conversationId && (
-                <a
-                  title={t('Continue on official website')}
-                  href={'https://chat.openai.com/chat/' + session.conversationId}
-                  target="_blank"
-                  rel="nofollow noopener noreferrer"
-                  className="gpt-util-icon"
-                  style="color: inherit;"
-                >
-                  <LinkExternalIcon size={14} />
-                </a>
+              {onRetry && (
+                <span title={t('Retry')} className="gpt-util-icon" onClick={onRetry}>
+                  <SyncIcon size={14} />
+                </span>
               )}
               {session && <CopyButton contentFn={() => content} size={14} />}
               {!collapsed ? (
@@ -106,6 +92,11 @@ export function ConversationItem({ type, content, session, done, port }) {
           <div className="gpt-header">
             <p>{t('Error')}:</p>
             <div className="gpt-util-group">
+              {onRetry && (
+                <span title={t('Retry')} className="gpt-util-icon" onClick={onRetry}>
+                  <SyncIcon size={14} />
+                </span>
+              )}
               <CopyButton contentFn={() => content} size={14} />
               {!collapsed ? (
                 <span
@@ -138,6 +129,7 @@ ConversationItem.propTypes = {
   session: PropTypes.object.isRequired,
   done: PropTypes.bool.isRequired,
   port: PropTypes.object.isRequired,
+  onRetry: PropTypes.func,
 }
 
 export default ConversationItem

@@ -3,6 +3,7 @@
 import { fetchSSE } from '../../utils/fetch-sse'
 import { isEmpty } from 'lodash-es'
 import { chatgptWebModelKeys, getUserConfig, Models } from '../../config/index.mjs'
+import { pushRecord } from './shared.mjs'
 
 async function request(token, method, path, data) {
   const apiUrl = (await getUserConfig()).customChatGptWebApiUrl
@@ -105,7 +106,7 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
     onMessage(message) {
       console.debug('sse message', message)
       if (message === '[DONE]') {
-        session.conversationRecords.push({ question: question, answer: answer })
+        pushRecord(session, question, answer)
         console.debug('conversation history', { content: session.conversationRecords })
         port.postMessage({ answer: null, done: true, session: session })
         return

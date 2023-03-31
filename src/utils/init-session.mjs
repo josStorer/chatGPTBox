@@ -9,6 +9,7 @@
  * @typedef {object} Session
  * @property {string|null} question
  * @property {Object[]|null} conversationRecords
+ * @property {boolean} isRetry
  * @property {string|null} aiName
  * @property {string|null} modelName
  * @property {string|null} conversationId - chatGPT web mode
@@ -26,6 +27,7 @@ export function initSession({ question = null, conversationRecords = [] } = {}) 
     // common
     question,
     conversationRecords,
+    isRetry: false,
     aiName: null,
     modelName: null,
 

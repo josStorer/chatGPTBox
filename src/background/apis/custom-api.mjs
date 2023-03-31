@@ -9,6 +9,7 @@ import { getUserConfig, maxResponseTokenLength } from '../../config/index.mjs'
 import { fetchSSE } from '../../utils/fetch-sse'
 import { getConversationPairs } from '../../utils/get-conversation-pairs'
 import { isEmpty } from 'lodash-es'
+import { pushRecord } from './shared.mjs'
 
 const getCustomApiPromptBase = async () => {
   return `I am a helpful, creative, clever, and very friendly assistant. I am familiar with various languages in the world.`
@@ -59,7 +60,7 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
     onMessage(message) {
       console.debug('sse message', message)
       if (message === '[DONE]') {
-        session.conversationRecords.push({ question: question, answer: answer })
+        pushRecord(session, question, answer)
         console.debug('conversation history', { content: session.conversationRecords })
         port.postMessage({ answer: null, done: true, session: session })
         return

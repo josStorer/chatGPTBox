@@ -1,5 +1,6 @@
 import BingAIClient from '../clients/BingAIClient'
 import { getUserConfig } from '../../config/index.mjs'
+import { pushRecord } from './shared.mjs'
 
 /**
  * @param {Runtime.Port} port
@@ -63,7 +64,7 @@ export async function generateAnswersWithBingWebApi(
   session.bingWeb.clientId = response.clientId
   session.bingWeb.invocationId = response.invocationId
 
-  session.conversationRecords.push({ question: question, answer: answer })
+  pushRecord(session, question, answer)
   console.debug('conversation history', { content: session.conversationRecords })
   port.onMessage.removeListener(stopListener)
   port.postMessage({ answer: answer, done: true, session: session })

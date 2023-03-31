@@ -4,6 +4,7 @@ import { maxResponseTokenLength, Models, getUserConfig } from '../../config/inde
 import { fetchSSE } from '../../utils/fetch-sse'
 import { getConversationPairs } from '../../utils/get-conversation-pairs'
 import { isEmpty } from 'lodash-es'
+import { pushRecord } from './shared.mjs'
 
 const getChatgptPromptBase = async () => {
   return `You are a helpful, creative, clever, and very friendly assistant. You are familiar with various languages in the world.`
@@ -72,7 +73,7 @@ export async function generateAnswersWithGptCompletionApi(
     onMessage(message) {
       console.debug('sse message', message)
       if (message === '[DONE]') {
-        session.conversationRecords.push({ question: question, answer: answer })
+        pushRecord(session, question, answer)
         console.debug('conversation history', { content: session.conversationRecords })
         port.postMessage({ answer: null, done: true, session: session })
         return
@@ -148,7 +149,7 @@ export async function generateAnswersWithChatgptApi(port, question, session, api
     onMessage(message) {
       console.debug('sse message', message)
       if (message === '[DONE]') {
-        session.conversationRecords.push({ question: question, answer: answer })
+        pushRecord(session, question, answer)
         console.debug('conversation history', { content: session.conversationRecords })
         port.postMessage({ answer: null, done: true, session: session })
         return

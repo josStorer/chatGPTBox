@@ -119,8 +119,15 @@ Browser.runtime.onConnect.addListener((port) => {
     } catch (err) {
       console.error(err)
       if (!err.message.includes('aborted')) {
-        port.postMessage({ error: err.message })
         cache.delete(KEY_ACCESS_TOKEN)
+
+        if (
+          ['message you submitted was too long', 'maximum context length'].some((m) =>
+            err.message.includes(m),
+          )
+        )
+          port.postMessage({ error: t('Exceeded maximum context length') })
+        else port.postMessage({ error: err.message })
       }
     }
   })

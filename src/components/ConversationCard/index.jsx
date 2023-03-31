@@ -137,7 +137,7 @@ function ConversationCard(props) {
               }<br>${t('And refresh this page or type you question again')}` +
                 `<br><br>${t(
                   'Consider creating an api key at https://platform.openai.com/account/api-keys',
-                )}<hr>`,
+                )}\n<hr/>`,
               false,
               'error',
             )
@@ -151,7 +151,7 @@ function ConversationCard(props) {
               }<br>${t('And refresh this page or type you question again')}` +
                 `<br><br>${t(
                   'Consider creating an api key at https://platform.openai.com/account/api-keys',
-                )}<hr>`,
+                )}\n<hr/>`,
               false,
               'error',
             )

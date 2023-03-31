@@ -214,8 +214,9 @@ function ConversationCard(props) {
             required
             onChange={(e) => {
               const modelName = e.target.value
-              if (config.autoRegenAfterSwitchModel)
-                getRetryFn({ ...session, modelName, aiName: t(Models[modelName].desc) })()
+              const newSession = { ...session, modelName, aiName: t(Models[modelName].desc) }
+              if (config.autoRegenAfterSwitchModel) getRetryFn(newSession)()
+              else setSession(newSession)
             }}
           >
             {Object.entries(Models).map(([key, model]) => {

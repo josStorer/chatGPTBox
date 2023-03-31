@@ -1,3 +1,4 @@
+export * from './change-children-font-size'
 export * from './create-element-at-position'
 export * from './crop-text'
 export * from './ends-with-question-mark'

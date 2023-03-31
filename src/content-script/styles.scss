@@ -112,11 +112,32 @@
     animation: chatgptbox-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
-  .code-copy-btn {
+  .code-corner-util {
     color: inherit;
     position: absolute;
     right: 10px;
     top: 3px;
+  }
+
+  .gpt-util-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .gpt-util-icon {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+  }
+
+  .normal-button {
+    padding: 1px 6px;
+    border: 1px solid;
+    border-color: var(--theme-border-color);
+    background-color: var(--theme-color);
+    color: var(--font-color);
+    border-radius: 5px;
     cursor: pointer;
   }
 
@@ -127,6 +148,7 @@
     word-break: break-word;
     pre {
       margin-top: 10px;
+      padding: 0;
     }
 
     & > p {
@@ -167,28 +189,6 @@
 
     .gpt-feedback-selected {
       color: #f08080;
-    }
-
-    .gpt-util-group {
-      display: flex;
-      gap: 15px;
-      align-items: center;
-    }
-
-    .gpt-util-icon {
-      display: flex;
-      cursor: pointer;
-      align-items: center;
-    }
-
-    .normal-button {
-      padding: 1px 6px;
-      border: 1px solid;
-      border-color: var(--theme-border-color);
-      background-color: var(--theme-color);
-      color: var(--font-color);
-      border-radius: 5px;
-      cursor: pointer;
     }
   }
 

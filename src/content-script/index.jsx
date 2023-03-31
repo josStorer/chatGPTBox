@@ -267,7 +267,7 @@ async function prepareForRightClickMenu() {
 
 async function prepareForStaticCard() {
   let siteRegex
-  if (userConfig.userSiteRegexOnly) siteRegex = userConfig.siteRegex
+  if (userConfig.useSiteRegexOnly) siteRegex = userConfig.siteRegex
   else
     siteRegex = new RegExp(
       (userConfig.siteRegex && userConfig.siteRegex + '|') + Object.keys(siteConfig).join('|'),

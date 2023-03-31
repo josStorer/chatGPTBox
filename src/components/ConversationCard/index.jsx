@@ -97,7 +97,7 @@ function ConversationCard(props) {
   const updateAnswer = (value, appended, newType, done = false) => {
     setConversationItemData((old) => {
       const copy = [...old]
-      const index = copy.findLastIndex((v) => v.type === 'answer')
+      const index = copy.findLastIndex((v) => v.type === 'answer' || v.type === 'error')
       if (index === -1) return copy
       copy[index] = new ConversationItemData(
         newType,

@@ -10,7 +10,7 @@ import FileSaver from 'file-saver'
 import { render } from 'preact'
 import FloatingToolbar from '../FloatingToolbar'
 import { useClampWindowSize } from '../../hooks/use-clamp-window-size'
-import { defaultConfig, getUserConfig } from '../../config/index.mjs'
+import { defaultConfig, getUserConfig, Models } from '../../config/index.mjs'
 import { useTranslation } from 'react-i18next'
 import DeleteButton from '../DeleteButton'
 
@@ -35,7 +35,7 @@ function ConversationCard(props) {
   const [isReady, setIsReady] = useState(!props.question)
   const [port, setPort] = useState(() => Browser.runtime.connect())
   const [session, setSession] = useState(props.session)
-  const windowSize = useClampWindowSize([0, Infinity], [250, 1100])
+  const windowSize = useClampWindowSize([750, 1500], [250, 1100])
   const bodyRef = useRef(null)
   /**
    * @type {[ConversationItemData[], (conversationItemData: ConversationItemData[]) => void]}
@@ -175,27 +175,46 @@ function ConversationCard(props) {
   return (
     <div className="gpt-inner">
       <div className="gpt-header" style="margin: 15px;">
-        {props.closeable ? (
-          <XLg
-            className="gpt-util-icon"
-            title={t('Close the Window')}
-            size={16}
-            onClick={() => {
-              if (props.onClose) props.onClose()
+        <span className="gpt-util-group">
+          {props.closeable ? (
+            <XLg
+              className="gpt-util-icon"
+              title={t('Close the Window')}
+              size={16}
+              onClick={() => {
+                if (props.onClose) props.onClose()
+              }}
+            />
+          ) : props.dockable ? (
+            <Pin
+              className="gpt-util-icon"
+              title={t('Pin the Window')}
+              size={16}
+              onClick={() => {
+                if (props.onDock) props.onDock()
+              }}
+            />
+          ) : (
+            <img src={logo} style="user-select:none;width:20px;height:20px;" />
+          )}
+          <select
+            style={{ width: windowSize[0] * 0.05 + 'px' }}
+            className="normal-button"
+            required
+            onChange={(e) => {
+              const modelName = e.target.value
+              setSession({ ...session, modelName, aiName: t(Models[modelName].desc) })
             }}
-          />
-        ) : props.dockable ? (
-          <Pin
-            className="gpt-util-icon"
-            title={t('Pin the Window')}
-            size={16}
-            onClick={() => {
-              if (props.onDock) props.onDock()
-            }}
-          />
-        ) : (
-          <img src={logo} style="user-select:none;width:20px;height:20px;" />
-        )}
+          >
+            {Object.entries(Models).map(([key, model]) => {
+              return (
+                <option value={key} key={key} selected={key === session.modelName}>
+                  {t(model.desc)}
+                </option>
+              )
+            })}
+          </select>
+        </span>
         {props.draggable ? (
           <div className="dragbar" />
         ) : (

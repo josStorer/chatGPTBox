@@ -235,6 +235,17 @@ function GeneralPart({ config, updateConfig }) {
         />
         {t('Lock scrollbar while answering')}
       </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={config.autoRegenAfterSwitchModel}
+          onChange={(e) => {
+            const checked = e.target.checked
+            updateConfig({ autoRegenAfterSwitchModel: checked })
+          }}
+        />
+        {t('Regenerate the answer after switching model')}
+      </label>
       <br />
     </>
   )

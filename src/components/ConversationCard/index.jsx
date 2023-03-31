@@ -10,9 +10,10 @@ import FileSaver from 'file-saver'
 import { render } from 'preact'
 import FloatingToolbar from '../FloatingToolbar'
 import { useClampWindowSize } from '../../hooks/use-clamp-window-size'
-import { defaultConfig, getUserConfig, Models } from '../../config/index.mjs'
+import { Models } from '../../config/index.mjs'
 import { useTranslation } from 'react-i18next'
 import DeleteButton from '../DeleteButton'
+import { useConfig } from '../../hooks/use-config.mjs'
 
 const logo = Browser.runtime.getURL('logo.png')
 
@@ -61,11 +62,7 @@ function ConversationCard(props) {
       }
     })(),
   )
-  const [config, setConfig] = useState(defaultConfig)
-
-  useEffect(() => {
-    getUserConfig().then(setConfig)
-  }, [])
+  const config = useConfig()
 
   useEffect(() => {
     if (props.onUpdate) props.onUpdate()
@@ -172,6 +169,20 @@ function ConversationCard(props) {
     }
   }, [conversationItemData])
 
+  const getRetryFn = (session) => () => {
+    updateAnswer(`<p class="gpt-loading">${t('Waiting for response...')}</p>`, false, 'answer')
+    setIsReady(false)
+
+    const newSession = { ...session, isRetry: true }
+    setSession(newSession)
+    try {
+      port.postMessage({ stop: true })
+      port.postMessage({ session: newSession })
+    } catch (e) {
+      updateAnswer(e, false, 'error')
+    }
+  }
+
   return (
     <div className="gpt-inner">
       <div className="gpt-header" style="margin: 15px;">
@@ -203,7 +214,8 @@ function ConversationCard(props) {
             required
             onChange={(e) => {
               const modelName = e.target.value
-              setSession({ ...session, modelName, aiName: t(Models[modelName].desc) })
+              if (config.autoRegenAfterSwitchModel)
+                getRetryFn({ ...session, modelName, aiName: t(Models[modelName].desc) })()
             }}
           >
             {Object.entries(Models).map(([key, model]) => {
@@ -298,27 +310,7 @@ function ConversationCard(props) {
             session={session}
             done={data.done}
             port={port}
-            onRetry={
-              idx === conversationItemData.length - 1
-                ? () => {
-                    updateAnswer(
-                      `<p class="gpt-loading">${t('Waiting for response...')}</p>`,
-                      false,
-                      'answer',
-                    )
-                    setIsReady(false)
-
-                    const newSession = { ...session, isRetry: true }
-                    setSession(newSession)
-                    try {
-                      port.postMessage({ stop: true })
-                      port.postMessage({ session: newSession })
-                    } catch (e) {
-                      updateAnswer(e, false, 'error')
-                    }
-                  }
-                : null
-            }
+            onRetry={idx === conversationItemData.length - 1 ? getRetryFn(session) : null}
           />
         ))}
       </div>

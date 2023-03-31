@@ -86,5 +86,6 @@
   "Confirm": "確認",
   "Clear Conversation": "清理對話",
   "Retry": "重試",
-  "Exceeded maximum context length": "超出最大上下文長度, 請清理對話並重試"
+  "Exceeded maximum context length": "超出最大上下文長度, 請清理對話並重試",
+  "Regenerate the answer after switching model": "快捷切換模型時自動重新生成回答"
 }

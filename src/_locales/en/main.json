@@ -86,5 +86,6 @@
   "Confirm": "Confirm",
   "Clear Conversation": "Clear Conversation",
   "Retry": "Retry",
-  "Exceeded maximum context length": "Exceeded maximum context length, please clear the conversation and try again"
+  "Exceeded maximum context length": "Exceeded maximum context length, please clear the conversation and try again",
+  "Regenerate the answer after switching model": "Regenerate the answer after switching model"
 }

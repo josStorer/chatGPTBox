@@ -2,40 +2,19 @@ import { LightBulbIcon, SearchIcon } from '@primer/octicons-react'
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ConversationCard from '../ConversationCard'
-import { defaultConfig, getUserConfig } from '../../config/index.mjs'
-import Browser from 'webextension-polyfill'
 import { getPossibleElementByQuerySelector, endsWithQuestionMark } from '../../utils'
 import { useTranslation } from 'react-i18next'
+import { useConfig } from '../../hooks/use-config.mjs'
 
 function DecisionCard(props) {
   const { t } = useTranslation()
   const [triggered, setTriggered] = useState(false)
-  const [config, setConfig] = useState(defaultConfig)
   const [render, setRender] = useState(false)
+  const config = useConfig(() => {
+    setRender(true)
+  })
 
   const question = props.question
-
-  useEffect(() => {
-    getUserConfig().then((config) => {
-      setConfig(config)
-      setRender(true)
-    })
-  }, [])
-
-  useEffect(() => {
-    const listener = (changes) => {
-      const changedItems = Object.keys(changes)
-      let newConfig = {}
-      for (const key of changedItems) {
-        newConfig[key] = changes[key].newValue
-      }
-      setConfig({ ...config, ...newConfig })
-    }
-    Browser.storage.local.onChanged.addListener(listener)
-    return () => {
-      Browser.storage.local.onChanged.removeListener(listener)
-    }
-  }, [config])
 
   const updatePosition = () => {
     if (!render) return

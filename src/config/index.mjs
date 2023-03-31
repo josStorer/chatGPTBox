@@ -66,6 +66,7 @@ export const defaultConfig = {
   preferredLanguage: getNavigatorLanguage(),
   insertAtTop: isMobile(),
   lockWhenAnswer: false,
+  autoRegenAfterSwitchModel: false,
   customModelApiUrl: 'http://localhost:8000/chat/completions',
   customModelName: 'chatglm-6b-int4',
 

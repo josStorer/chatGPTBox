@@ -2,12 +2,12 @@ import Browser from 'webextension-polyfill'
 import { cloneElement, useEffect, useState } from 'react'
 import ConversationCard from '../ConversationCard'
 import PropTypes from 'prop-types'
-import { defaultConfig, getUserConfig } from '../../config/index.mjs'
 import { config as toolsConfig } from '../../content-script/selection-tools'
 import { getClientPosition, isMobile, setElementPositionInViewport } from '../../utils'
 import Draggable from 'react-draggable'
 import { useClampWindowSize } from '../../hooks/use-clamp-window-size'
 import { useTranslation } from 'react-i18next'
+import { useConfig } from '../../hooks/use-config.mjs'
 
 const logo = Browser.runtime.getURL('logo.png')
 
@@ -16,36 +16,15 @@ function FloatingToolbar(props) {
   const [selection, setSelection] = useState(props.selection)
   const [prompt, setPrompt] = useState(props.prompt)
   const [triggered, setTriggered] = useState(props.triggered)
-  const [config, setConfig] = useState(defaultConfig)
   const [render, setRender] = useState(false)
   const [closeable, setCloseable] = useState(props.closeable)
   const [position, setPosition] = useState(getClientPosition(props.container))
   const [virtualPosition, setVirtualPosition] = useState({ x: 0, y: 0 })
   const windowSize = useClampWindowSize([750, 1500], [0, Infinity])
-
-  useEffect(() => {
-    getUserConfig().then((config) => {
-      setConfig(config)
-      setRender(true)
-
-      if (!triggered) props.container.style.position = 'absolute'
-    })
-  }, [])
-
-  useEffect(() => {
-    const listener = (changes) => {
-      const changedItems = Object.keys(changes)
-      let newConfig = {}
-      for (const key of changedItems) {
-        newConfig[key] = changes[key].newValue
-      }
-      setConfig({ ...config, ...newConfig })
-    }
-    Browser.storage.local.onChanged.addListener(listener)
-    return () => {
-      Browser.storage.local.onChanged.removeListener(listener)
-    }
-  }, [config])
+  const config = useConfig(() => {
+    setRender(true)
+    if (!triggered) props.container.style.position = 'absolute'
+  })
 
   useEffect(() => {
     if (isMobile()) {

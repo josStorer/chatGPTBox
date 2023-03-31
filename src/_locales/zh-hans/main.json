@@ -85,5 +85,6 @@
   "Feedback": "反馈",
   "Confirm": "确认",
   "Clear Conversation": "清理对话",
-  "Retry": "重试"
+  "Retry": "重试",
+  "Exceeded maximum context length": "超出最大上下文长度, 请清理对话并重试"
 }

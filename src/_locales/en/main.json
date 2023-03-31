@@ -85,5 +85,6 @@
   "Feedback": "Feedback",
   "Confirm": "Confirm",
   "Clear Conversation": "Clear Conversation",
-  "Retry": "Retry"
+  "Retry": "Retry",
+  "Exceeded maximum context length": "Exceeded maximum context length, please clear the conversation and try again"
 }

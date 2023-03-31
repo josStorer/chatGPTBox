@@ -139,6 +139,7 @@
     color: var(--font-color);
     border-radius: 5px;
     cursor: pointer;
+    white-space: nowrap;
   }
 
   :is(.answer, .question, .error) {

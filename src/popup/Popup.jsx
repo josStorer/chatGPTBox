@@ -297,10 +297,10 @@ function AdvancedPart({ config, updateConfig }) {
       <label>
         <input
           type="checkbox"
-          checked={config.userSiteRegexOnly}
+          checked={config.useSiteRegexOnly}
           onChange={(e) => {
             const checked = e.target.checked
-            updateConfig({ userSiteRegexOnly: checked })
+            updateConfig({ useSiteRegexOnly: checked })
           }}
         />
         {t('Exclusively use Custom Site Regex for website matching, ignoring built-in rules')}

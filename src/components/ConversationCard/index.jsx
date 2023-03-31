@@ -4,7 +4,7 @@ import Browser from 'webextension-polyfill'
 import InputBox from '../InputBox'
 import ConversationItem from '../ConversationItem'
 import { createElementAtPosition, initSession, isSafari } from '../../utils'
-import { DownloadIcon } from '@primer/octicons-react'
+import { DownloadIcon, LinkExternalIcon } from '@primer/octicons-react'
 import { WindowDesktop, XLg, Pin } from 'react-bootstrap-icons'
 import FileSaver from 'file-saver'
 import { render } from 'preact'
@@ -94,7 +94,7 @@ function ConversationCard(props) {
    * @param {'question'|'answer'|'error'} newType
    * @param {boolean} done
    */
-  const UpdateAnswer = (value, appended, newType, done = false) => {
+  const updateAnswer = (value, appended, newType, done = false) => {
     setConversationItemData((old) => {
       const copy = [...old]
       const index = copy.findLastIndex((v) => v.type === 'answer')
@@ -121,19 +121,20 @@ function ConversationCard(props) {
   useEffect(() => {
     const listener = (msg) => {
       if (msg.answer) {
-        UpdateAnswer(msg.answer, false, 'answer')
+        updateAnswer(msg.answer, false, 'answer')
       }
       if (msg.session) {
+        if (msg.done) msg.session = { ...msg.session, isRetry: false }
         setSession(msg.session)
       }
       if (msg.done) {
-        UpdateAnswer('\n<hr/>', true, 'answer', true)
+        updateAnswer('\n<hr/>', true, 'answer', true)
         setIsReady(true)
       }
       if (msg.error) {
         switch (msg.error) {
           case 'UNAUTHORIZED':
-            UpdateAnswer(
+            updateAnswer(
               `${t('UNAUTHORIZED')}<br>${t('Please login at https://chat.openai.com first')}${
                 isSafari() ? `<br>${t('Then open https://chat.openai.com/api/auth/session')}` : ''
               }<br>${t('And refresh this page or type you question again')}` +
@@ -145,7 +146,7 @@ function ConversationCard(props) {
             )
             break
           case 'CLOUDFLARE':
-            UpdateAnswer(
+            updateAnswer(
               `${t('OpenAI Security Check Required')}<br>${
                 isSafari()
                   ? t('Please open https://chat.openai.com/api/auth/session')
@@ -159,10 +160,7 @@ function ConversationCard(props) {
             )
             break
           default:
-            setConversationItemData([
-              ...conversationItemData,
-              new ConversationItemData('error', msg.error + '\n<hr/>'),
-            ])
+            updateAnswer(msg.error + '\n<hr/>', false, 'error')
             break
         }
         setIsReady(true)
@@ -223,6 +221,18 @@ function ConversationCard(props) {
           />
         )}
         <span className="gpt-util-group">
+          {session && session.conversationId && (
+            <a
+              title={t('Continue on official website')}
+              href={'https://chat.openai.com/chat/' + session.conversationId}
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+              className="gpt-util-icon"
+              style="color: inherit;"
+            >
+              <LinkExternalIcon size={16} />
+            </a>
+          )}
           <DeleteButton
             size={16}
             onConfirm={() => {
@@ -269,6 +279,27 @@ function ConversationCard(props) {
             session={session}
             done={data.done}
             port={port}
+            onRetry={
+              idx === conversationItemData.length - 1
+                ? () => {
+                    updateAnswer(
+                      `<p class="gpt-loading">${t('Waiting for response...')}</p>`,
+                      false,
+                      'answer',
+                    )
+                    setIsReady(false)
+
+                    const newSession = { ...session, isRetry: true }
+                    setSession(newSession)
+                    try {
+                      port.postMessage({ stop: true })
+                      port.postMessage({ session: newSession })
+                    } catch (e) {
+                      updateAnswer(e, false, 'error')
+                    }
+                  }
+                : null
+            }
           />
         ))}
       </div>
@@ -283,12 +314,12 @@ function ConversationCard(props) {
           setConversationItemData([...conversationItemData, newQuestion, newAnswer])
           setIsReady(false)
 
-          const newSession = { ...session, question }
+          const newSession = { ...session, question, isRetry: false }
           setSession(newSession)
           try {
             port.postMessage({ session: newSession })
           } catch (e) {
-            UpdateAnswer(e, false, 'error')
+            updateAnswer(e, false, 'error')
           }
         }}
       />

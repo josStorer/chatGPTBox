@@ -16,7 +16,7 @@ export function ConversationItem({ type, content, session, done, port, onRetry }
           <div className="gpt-header">
             <p>{t('You')}:</p>
             <div className="gpt-util-group">
-              <CopyButton contentFn={() => content} size={14} />
+              <CopyButton contentFn={() => content.replace(/\n<hr\/>$/, '')} size={14} />
               {!collapsed ? (
                 <span
                   title={t('Collapse')}
@@ -63,7 +63,9 @@ export function ConversationItem({ type, content, session, done, port, onRetry }
                   <SyncIcon size={14} />
                 </span>
               )}
-              {session && <CopyButton contentFn={() => content} size={14} />}
+              {session && (
+                <CopyButton contentFn={() => content.replace(/\n<hr\/>$/, '')} size={14} />
+              )}
               {!collapsed ? (
                 <span
                   title={t('Collapse')}
@@ -97,7 +99,7 @@ export function ConversationItem({ type, content, session, done, port, onRetry }
                   <SyncIcon size={14} />
                 </span>
               )}
-              <CopyButton contentFn={() => content} size={14} />
+              <CopyButton contentFn={() => content.replace(/\n<hr\/>$/, '')} size={14} />
               {!collapsed ? (
                 <span
                   title={t('Collapse')}

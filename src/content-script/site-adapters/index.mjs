@@ -155,9 +155,9 @@ export const config = {
   },
   reddit: {
     inputQuery: reddit.inputQuery,
-    sidebarContainerQuery: ['.side'],
+    sidebarContainerQuery: ['.side div:nth-child(2)'],
     appendContainerQuery: [],
-    resultsContainerQuery: ['.side'],
+    resultsContainerQuery: ['.side div:nth-child(2)'],
   },
   quora: {
     inputQuery: quora.inputQuery,

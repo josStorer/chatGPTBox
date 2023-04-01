@@ -157,7 +157,15 @@ function ConversationCard(props) {
             )
             break
           default:
-            updateAnswer(msg.error + '\n<hr/>', false, 'error')
+            if (
+              conversationItemData[conversationItemData.length - 1].content.includes('gpt-loading')
+            )
+              updateAnswer(msg.error + '\n<hr/>', false, 'error')
+            else
+              setConversationItemData([
+                ...conversationItemData,
+                new ConversationItemData('error', msg.error + '\n<hr/>'),
+              ])
             break
         }
         setIsReady(true)

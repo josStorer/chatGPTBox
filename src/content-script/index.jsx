@@ -241,7 +241,9 @@ async function prepareForRightClickMenu() {
       if (data.itemId in toolsConfig) {
         prompt = await toolsConfig[data.itemId].genPrompt(data.selectionText)
       } else if (data.itemId in menuConfig) {
-        prompt = await menuConfig[data.itemId].genPrompt()
+        const menuItem = menuConfig[data.itemId]
+        if (!menuItem.genPrompt) return
+        else prompt = await menuItem.genPrompt()
         if (prompt) prompt = cropText(`Reply in ${await getPreferredLanguage()}.\n` + prompt)
       }
 

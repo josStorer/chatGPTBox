@@ -1,4 +1,6 @@
 import { getCoreContentText } from '../../utils/get-core-content-text'
+import { openUrl } from '../../utils/open-url'
+import Browser from 'webextension-polyfill'
 
 export const config = {
   newChat: {
@@ -11,6 +13,12 @@ export const config = {
     label: 'Summarize Page',
     genPrompt: async () => {
       return `The following is the text content of a web page, analyze the core content and summarize:\n${getCoreContentText()}`
+    },
+  },
+  openConversationPage: {
+    label: 'Open Conversation Page',
+    action: async () => {
+      openUrl(Browser.runtime.getURL('IndependentPanel.html'))
     },
   },
 }

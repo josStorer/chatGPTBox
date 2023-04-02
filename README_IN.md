@@ -1,18 +1,18 @@
-<p align="center">
-    <img src="./src/logo.png">
+<p align="pusat">
+     <img src="./src/logo.png">
 </p>
 
 <h1 align="center">ChatGPT Box</h1>
 
-<div align="center">
+<div align="pusat">
 
-Deep ChatGPT integrations in your browser, completely for free.
+Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
 [![license][license-image]][license-url]
 [![release][release-image]][release-url]
 [![verfiy][verify-image]][verify-url]
 
-[English](README.md) | Indonesia | [简体中文](README_ZH.md)
+Inggris | [简体中文](README_ZH.md)
 
 ### Install
 
@@ -23,29 +23,29 @@ Deep ChatGPT integrations in your browser, completely for free.
 [![Android][Android-image]][Android-url]
 [![Github][Github-image]][Github-url]
 
-(Waiting for store review, [Chrome][Chrome-url], [Edge][Edge-url], [Safari(macOS)][Safari-url] and [Firefox][Firefox-url] version is now available)
+(Menunggu peninjauan toko, versi [Chrome][Chrome-url], [Edge][Edge-url], [Safari(macOS)][Safari-url] dan [Firefox][Firefox-url] kini tersedia)
 
-[Guide](https://github.com/josStorer/chatGPTBox/wiki/Guide) |
-[Preview](#Preview) |
-[Development&Contributing][dev-url] |
-[Donation](https://www.buymeacoffee.com/josStorer) |
-[Credit](#Credit)
+[Panduan](https://github.com/josStorer/chatGPTBox/wiki/Guide) |
+[Pratinjau](#Preview) |
+[Pengembangan & Berkontribusi][dev-url] |
+[Donasi](https://www.buymeacoffee.com/josStorer) |
+[Kredit](#Credit)
 
-[Video Demonstration](https://www.youtube.com/watch?v=E1smDxJvTRs)
+[Demonstrasi Video](https://www.youtube.com/watch?v=E1smDxJvTRs)
 
 [dev-url]: https://github.com/josStorer/chatGPTBox/wiki/Development&Contributing
 
-[license-image]: http://img.shields.io/badge/license-MIT-blue.svg
+[gambar-lisensi]: http://img.shields.io/badge/license-MIT-blue.svg
 
-[license-url]: https://github.com/josStorer/chatGPTBox/blob/master/LICENSE
+[lisensi-url]: https://github.com/josStorer/chatGPTBox/blob/master/LICENSE
 
-[release-image]: https://img.shields.io/github/release/josStorer/chatGPTBox.svg
+[rilis-gambar]: https://img.shields.io/github/release/josStorer/chatGPTBox.svg
 
-[release-url]: https://github.com/josStorer/chatGPTBox/releases/latest
+[rilis-url]: https://github.com/josStorer/chatGPTBox/releases/latest
 
-[verify-image]: https://github.com/josStorer/chatGPTBox/workflows/verify-configs/badge.svg
+[verifikasi-gambar]: https://github.com/josStorer/chatGPTBox/workflows/verify-configs/badge.svg
 
-[verify-url]: https://github.com/josStorer/chatGPTBox/actions/workflows/verify-configs.yml
+[verifikasi-url]: https://github.com/josStorer/chatGPTBox/actions/workflows/verify-configs.yml
 
 [Chrome-image]: https://img.shields.io/badge/-Chrome-brightgreen?logo=google-chrome&logoColor=white
 
@@ -59,7 +59,7 @@ Deep ChatGPT integrations in your browser, completely for free.
 
 [Firefox-url]: https://addons.mozilla.org/firefox/addon/chatgptbox/
 
-[Safari-image]: https://img.shields.io/badge/-Safari-blue?logo=safari&logoColor=white
+[Gambar Safari]: https://img.shields.io/badge/-Safari-blue?logo=safari&logoColor=white
 
 [Safari-url]: https://apps.apple.com/app/fission-chatbox/id6446611121
 
@@ -73,67 +73,67 @@ Deep ChatGPT integrations in your browser, completely for free.
 
 </div>
 
-## Offline/Self-hosted model is now supported
+## Model Offline/Dihosting Sendiri kini didukung
 
-  See https://github.com/josStorer/selfhostedAI
+   Lihat https://github.com/josStorer/selfhostedAI
 
-## ✨ Features
+## ✨ Fitur
 
-- 🌈 Call up the chat dialog box on any page at any time. (`Ctrl+B`)
-- 📱 Support for mobile devices.
-- 📓 Summarize any page with right-click menu. (`Alt+B`)
-- 🔗 Multiple API support (Web API for Free and Plus users, GPT-3.5, GPT-4, New Bing, Self-Hosted).
-- 📦 Integration for various commonly used websites (reddit, quora, youtube, github, gitlab, stackoverflow, zhihu, bilibili). (Inspired by [wimdenherder](https://github.com/wimdenherder))
-- 🔍 Integration to all mainstream search engines, and custom queries to support additional sites.
-- 🧰 Selection tool and right-click menu to perform various tasks, such as translation, summarization, polishing,
-  sentiment analysis, paragraph division, code explain and queries.
-- 🗂️ Static cards support floating chat boxes for multi-branch conversations.
-- 🖨️ Easily save your complete chat records or copy them partially.
-- 🎨 Powerful rendering support, whether for code highlighting or complex mathematical formulas.
-- 🌍 Language preference support.
-- 📝 Custom API address support.
-- ⚙️ All site adaptations and selection tools(bubble) can be freely switched on or off, disable modules you don't need.
-- 💡 Selection tools and site adaptation are easy to develop and extend, see the [Development&Contributing][dev-url]
-  section.
-- 😉 Chat to improve the answer quality.
+- 🌈 Panggil kotak dialog obrolan di halaman mana saja kapan saja. (`Ctrl+B`)
+- 📱 Dukungan untuk perangkat seluler.
+- 📓 Ringkas halaman mana saja dengan menu klik kanan. (`Alt+B`)
+- 🔗 Dukungan banyak API (API Web untuk pengguna Gratis dan Plus, GPT-3.5, GPT-4, Bing Baru, Di-hosting Sendiri).
+- 📦 Integrasi untuk berbagai situs web yang umum digunakan (reddit, quora, youtube, github, gitlab, stackoverflow, zhihu, bilibili). (Terinspirasi oleh [wimdenherder](https://github.com/wimdenherder))
+- 🔍 Integrasi ke semua mesin telusur utama, dan kueri khusus untuk mendukung situs tambahan.
+- 🧰 Alat pemilihan dan menu klik kanan untuk melakukan berbagai tugas, seperti terjemahan, peringkasan, pemolesan,
+   analisis sentimen, pembagian paragraf, penjelasan kode dan pertanyaan.
+- 🗂️ Kartu statis mendukung kotak obrolan mengambang untuk percakapan multi-cabang.
+- 🖨️ Simpan catatan obrolan lengkap Anda dengan mudah atau salin sebagian.
+- 🎨 Dukungan rendering yang kuat, baik untuk penyorotan kode atau rumus matematika yang kompleks.
+- 🌍 Dukungan preferensi bahasa.
+- 📝 Dukungan alamat API khusus.
+- ⚙️ Semua adaptasi situs dan alat pemilihan (gelembung) dapat diaktifkan atau dinonaktifkan secara bebas, nonaktifkan modul yang tidak Anda perlukan.
+- 💡 Alat pemilihan dan adaptasi situs mudah dikembangkan dan diperluas, lihat [Development&Contributing][dev-url]
+   bagian.
+- 😉 Obrolan untuk meningkatkan kualitas jawaban.
 
-## Preview
+## Pratinjau
 
-<div align="center">
+<div align="pusat">
 
-**Search Engine Integration, Floating Windows, Conversation Branches**
+**Integrasi Mesin Telusur, Jendela Terapung, Cabang Percakapan**
 
-![preview_google_floatingwindow_conversationbranch](screenshots/preview_google_floatingwindow_conversationbranch.jpg)
+![preview_google_floatingwindow_conversationbranch](tangkapan layar/preview_google_floatingwindow_conversationbranch.jpg)
 
-**Integration with Commonly Used Websites, Selection Tools**
+**Integrasi dengan Situs Web yang Biasa Digunakan, Alat Seleksi**
 
-![preview_reddit_selectiontools](screenshots/preview_reddit_selectiontools.jpg)
+![preview_reddit_selectiontools](tangkapan layar/preview_reddit_selectiontools.jpg)
 
-**Git Analysis, Right Click Menu**
+**Analisis Git, Menu Klik Kanan**
 
-![preview_github_rightclickmenu](screenshots/preview_github_rightclickmenu.jpg)
+![preview_github_rightclickmenu](tangkapan layar/preview_github_rightclickmenu.jpg)
 
-**Video Summary**
+**Ringkasan Video**
 
-![preview_youtube](screenshots/preview_youtube.jpg)
+![preview_youtube](screenshot/preview_youtube.jpg)
 
-**Mobile Support**
+**Dukungan Seluler**
 
-![image](https://user-images.githubusercontent.com/13366013/225529110-9221c8ce-ad41-423e-b6ec-097981e74b66.png)
+![gambar](https://user-images.githubusercontent.com/13366013/225529110-9221c8ce-ad41-423e-b6ec-097981e74b66.png)
 
-**Settings**
+**Pengaturan**
 
-![preview_settings](screenshots/preview_settings.jpg)
+![preview_settings](tangkapan layar/preview_settings.jpg)
 
 </div>
 
-## Credit
+## Kredit
 
-This project is based on one of my other repositories, [josStorer/chatGPT-search-engine-extension](https://github.com/josStorer/chatGPT-search-engine-extension)
+Proyek ini didasarkan pada salah satu repositori saya yang lain, [josStorer/chatGPT-search-engine-extension](https://github.com/josStorer/chatGPT-search-engiekstensi-ne)
 
-[josStorer/chatGPT-search-engine-extension](https://github.com/josStorer/chatGPT-search-engine-extension) is forked
-from [wong2/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension) (I learned a lot from that)
-and detached since 14 December of 2022
+[josStorer/chatGPT-search-engine-extension](https://github.com/josStorer/chatGPT-search-engine-extension) bercabang
+dari [wong2/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension) (Saya belajar banyak dari situ)
+dan terlepas sejak 14 Desember 2022
 
-[wong2/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension) is inspired
-by [ZohaibAhmed/ChatGPT-Google](https://github.com/ZohaibAhmed/ChatGPT-Google) ([upstream-c54528b](https://github.com/wong2/chatgpt-google-extension/commit/c54528b0e13058ab78bfb433c92603db017d1b6b))
+[wong2/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension) terinspirasi
+oleh [ZohaibAhmed/ChatGPT-Google](https://github.com/ZohaibAhmed/ChatGPT-Google) ([upstream-c54528b](https://github.com/wong2/chatgpt-google-extension/commit/c54528b0e13058ab78bfb433c92603db017d1b6b) )

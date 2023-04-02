@@ -4,7 +4,7 @@
 
 <h1 align="center">ChatGPT Box</h1>
 
-<div align="pusat">
+<div align="center">
 
 Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
@@ -12,7 +12,7 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 [![release][release-image]][release-url]
 [![verfiy][verify-image]][verify-url]
 
-Inggris | [简体中文](README_ZH.md)
+[Inggris](README.md) | Indonesia | [简体中文](README_ZH.md)
 
 ### Install
 

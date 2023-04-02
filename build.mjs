@@ -40,8 +40,10 @@ async function runWebpack(isWithoutKatex, isWithoutTiktoken, callback) {
         'countries-list',
         'i18next',
         'react-i18next',
+        'react-tabs',
         './src/utils',
         './src/_locales/i18n-react',
+        './src/components',
       ],
     },
     output: {

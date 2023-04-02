@@ -13,7 +13,7 @@
 [![size](https://img.shields.io/badge/minified%20size-350%20kB-blue)][release-url]
 [![verfiy][verify-image]][verify-url]
 
-[English](README.md) | 简体中文
+[English](README.md) | [Indonesia](README_IN.md) | 简体中文
 
 ### 安装链接
 

@@ -13,7 +13,7 @@ Deep ChatGPT integrations in your browser, completely for free.
 [![size](https://img.shields.io/badge/minified%20size-350%20kB-blue)][release-url]
 [![verfiy][verify-image]][verify-url]
 
-English | [简体中文](README_ZH.md)
+English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
 
 ### Install
 

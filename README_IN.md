@@ -1,5 +1,5 @@
-<p align="pusat">
-     <img src="./src/logo.png">
+<p align="center">
+    <img src="./src/logo.png">
 </p>
 
 <h1 align="center">ChatGPT Box</h1>
@@ -35,17 +35,17 @@ Inggris | [简体中文](README_ZH.md)
 
 [dev-url]: https://github.com/josStorer/chatGPTBox/wiki/Development&Contributing
 
-[gambar-lisensi]: http://img.shields.io/badge/license-MIT-blue.svg
+[license-image]: http://img.shields.io/badge/license-MIT-blue.svg
 
-[lisensi-url]: https://github.com/josStorer/chatGPTBox/blob/master/LICENSE
+[license-url]: https://github.com/josStorer/chatGPTBox/blob/master/LICENSE
 
-[rilis-gambar]: https://img.shields.io/github/release/josStorer/chatGPTBox.svg
+[release-image]: https://img.shields.io/github/release/josStorer/chatGPTBox.svg
 
-[rilis-url]: https://github.com/josStorer/chatGPTBox/releases/latest
+[release-url]: https://github.com/josStorer/chatGPTBox/releases/latest
 
-[verifikasi-gambar]: https://github.com/josStorer/chatGPTBox/workflows/verify-configs/badge.svg
+[verify-image]: https://github.com/josStorer/chatGPTBox/workflows/verify-configs/badge.svg
 
-[verifikasi-url]: https://github.com/josStorer/chatGPTBox/actions/workflows/verify-configs.yml
+[verify-url]: https://github.com/josStorer/chatGPTBox/actions/workflows/verify-configs.yml
 
 [Chrome-image]: https://img.shields.io/badge/-Chrome-brightgreen?logo=google-chrome&logoColor=white
 
@@ -59,7 +59,7 @@ Inggris | [简体中文](README_ZH.md)
 
 [Firefox-url]: https://addons.mozilla.org/firefox/addon/chatgptbox/
 
-[Gambar Safari]: https://img.shields.io/badge/-Safari-blue?logo=safari&logoColor=white
+[Safari-image]: https://img.shields.io/badge/-Safari-blue?logo=safari&logoColor=white
 
 [Safari-url]: https://apps.apple.com/app/fission-chatbox/id6446611121
 
@@ -99,41 +99,41 @@ Inggris | [简体中文](README_ZH.md)
 
 ## Pratinjau
 
-<div align="pusat">
+<div align="center">
 
 **Integrasi Mesin Telusur, Jendela Terapung, Cabang Percakapan**
 
-![preview_google_floatingwindow_conversationbranch](tangkapan layar/preview_google_floatingwindow_conversationbranch.jpg)
+![preview_google_floatingwindow_conversationbranch](screenshots/preview_google_floatingwindow_conversationbranch.jpg)
 
 **Integrasi dengan Situs Web yang Biasa Digunakan, Alat Seleksi**
 
-![preview_reddit_selectiontools](tangkapan layar/preview_reddit_selectiontools.jpg)
+![preview_reddit_selectiontools](screenshots/preview_reddit_selectiontools.jpg)
 
 **Analisis Git, Menu Klik Kanan**
 
-![preview_github_rightclickmenu](tangkapan layar/preview_github_rightclickmenu.jpg)
+![preview_github_rightclickmenu](screenshots/preview_github_rightclickmenu.jpg)
 
 **Ringkasan Video**
 
-![preview_youtube](screenshot/preview_youtube.jpg)
+![preview_youtube](screenshots/preview_youtube.jpg)
 
 **Dukungan Seluler**
 
-![gambar](https://user-images.githubusercontent.com/13366013/225529110-9221c8ce-ad41-423e-b6ec-097981e74b66.png)
+![image](https://user-images.githubusercontent.com/13366013/225529110-9221c8ce-ad41-423e-b6ec-097981e74b66.png)
 
 **Pengaturan**
 
-![preview_settings](tangkapan layar/preview_settings.jpg)
+![preview_settings](screenshots/preview_settings.jpg)
 
 </div>
 
 ## Kredit
 
-Proyek ini didasarkan pada salah satu repositori saya yang lain, [josStorer/chatGPT-search-engine-extension](https://github.com/josStorer/chatGPT-search-engiekstensi-ne)
+Proyek ini didasarkan pada salah satu repositori saya yang lain, [josStorer/chatGPT-search-engine-extension](https://github.com/josStorer/chatGPT-search-engine-extension)
 
 [josStorer/chatGPT-search-engine-extension](https://github.com/josStorer/chatGPT-search-engine-extension) bercabang
 dari [wong2/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension) (Saya belajar banyak dari situ)
 dan terlepas sejak 14 Desember 2022
 
 [wong2/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension) terinspirasi
-oleh [ZohaibAhmed/ChatGPT-Google](https://github.com/ZohaibAhmed/ChatGPT-Google) ([upstream-c54528b](https://github.com/wong2/chatgpt-google-extension/commit/c54528b0e13058ab78bfb433c92603db017d1b6b) )
+oleh [ZohaibAhmed/ChatGPT-Google](https://github.com/ZohaibAhmed/ChatGPT-Google) ([upstream-c54528b](https://github.com/wong2/chatgpt-google-extension/commit/c54528b0e13058ab78bfb433c92603db017d1b6b))

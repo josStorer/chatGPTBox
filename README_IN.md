@@ -93,8 +93,7 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 - 🌍 Dukungan preferensi bahasa.
 - 📝 Dukungan alamat API khusus.
 - ⚙️ Semua adaptasi situs dan alat pemilihan (gelembung) dapat diaktifkan atau dinonaktifkan secara bebas, nonaktifkan modul yang tidak Anda perlukan.
-- 💡 Alat pemilihan dan adaptasi situs mudah dikembangkan dan diperluas, lihat [Development&Contributing][dev-url]
-   bagian.
+- 💡 Alat pemilihan dan adaptasi situs mudah dikembangkan dan diperluas, lihat bagian [Pengembangan & Berkontribusi][dev-url].
 - 😉 Obrolan untuk meningkatkan kualitas jawaban.
 
 ## Pratinjau

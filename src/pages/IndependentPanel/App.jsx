@@ -13,6 +13,8 @@ import { useTranslation } from 'react-i18next'
 import ConfirmButton from '../../components/ConfirmButton'
 import ConversationCard from '../../components/ConversationCard'
 import DeleteButton from '../../components/DeleteButton'
+import { openUrl } from '../../utils/index.mjs'
+import Browser from 'webextension-polyfill'
 
 function App() {
   const { t } = useTranslation()
@@ -128,7 +130,14 @@ function App() {
           <hr />
           <div className="chat-sidebar-button-group">
             <ConfirmButton text={t('Clear conversations')} onConfirm={clearConversations} />
-            <button className="normal-button">{t('Settings')}</button>
+            <button
+              className="normal-button"
+              onClick={() => {
+                openUrl(Browser.runtime.getURL('popup.html'))
+              }}
+            >
+              {t('Settings')}
+            </button>
           </div>
         </div>
         <div className="chat-content">

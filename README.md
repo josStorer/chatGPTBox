@@ -39,7 +39,7 @@ English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
 
 [license-url]: https://github.com/josStorer/chatGPTBox/blob/master/LICENSE
 
-[release-image]: https://img.shields.io/badge/release%20-v.1.9.4-blue.svg
+[release-image]: https://img.shields.io/github/release/josStorer/chatGPTBox.svg
 
 [release-url]: https://github.com/josStorer/chatGPTBox/releases/latest
 

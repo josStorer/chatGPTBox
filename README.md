@@ -10,6 +10,7 @@ Deep ChatGPT integrations in your browser, completely for free.
 
 [![license][license-image]][license-url]
 [![release][release-image]][release-url]
+[![size](https://img.shields.io/badge/minified%20size-350%20kB-blue)][release-url]
 [![verfiy][verify-image]][verify-url]
 
 English | [简体中文](README_ZH.md)
@@ -82,6 +83,7 @@ English | [简体中文](README_ZH.md)
 - 🌈 Call up the chat dialog box on any page at any time. (`Ctrl+B`)
 - 📱 Support for mobile devices.
 - 📓 Summarize any page with right-click menu. (`Alt+B`)
+- 📖 Independent conversation page. (`Ctrl+Shift+H`)
 - 🔗 Multiple API support (Web API for Free and Plus users, GPT-3.5, GPT-4, New Bing, Self-Hosted).
 - 📦 Integration for various commonly used websites (reddit, quora, youtube, github, gitlab, stackoverflow, zhihu, bilibili). (Inspired by [wimdenherder](https://github.com/wimdenherder))
 - 🔍 Integration to all mainstream search engines, and custom queries to support additional sites.

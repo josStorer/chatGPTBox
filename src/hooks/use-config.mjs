@@ -12,6 +12,8 @@ export function useConfig(initFn) {
   }, [])
   useEffect(() => {
     const listener = (changes) => {
+      if (Object.keys(changes).length === 1 && 'sessions' in changes) return
+
       const changedItems = Object.keys(changes)
       let newConfig = {}
       for (const key of changedItems) {

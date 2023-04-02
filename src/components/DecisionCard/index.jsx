@@ -80,11 +80,10 @@ function DecisionCard(props) {
                   return <ConversationCard session={props.session} question={question} />
                 }
                 return (
-                  <p
-                    className="gpt-inner manual-btn icon-and-text"
-                    onClick={() => setTriggered(true)}
-                  >
-                    <SearchIcon size="small" /> {t('Ask ChatGPT')}
+                  <p className="gpt-inner manual-btn" onClick={() => setTriggered(true)}>
+                    <span className="icon-and-text">
+                      <SearchIcon size="small" /> {t('Ask ChatGPT')}
+                    </span>
                   </p>
                 )
               case 'questionMark':
@@ -95,18 +94,19 @@ function DecisionCard(props) {
                   return <ConversationCard session={props.session} question={question} />
                 }
                 return (
-                  <p
-                    className="gpt-inner manual-btn icon-and-text"
-                    onClick={() => setTriggered(true)}
-                  >
-                    <SearchIcon size="small" /> {t('Ask ChatGPT')}
+                  <p className="gpt-inner manual-btn" onClick={() => setTriggered(true)}>
+                    <span className="icon-and-text">
+                      <SearchIcon size="small" /> {t('Ask ChatGPT')}
+                    </span>
                   </p>
                 )
             }
           else
             return (
-              <p className="gpt-inner icon-and-text">
-                <LightBulbIcon size="small" /> {t('No Input Found')}
+              <p className="gpt-inner">
+                <span className="icon-and-text">
+                  <LightBulbIcon size="small" /> {t('No Input Found')}
+                </span>
               </p>
             )
         })()}

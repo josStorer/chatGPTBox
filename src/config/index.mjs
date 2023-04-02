@@ -139,18 +139,19 @@ export function getNavigatorLanguage() {
   return navigator.language.substring(0, 2)
 }
 
-export function isUsingApiKey(config) {
+export function isUsingApiKey(configOrSession) {
   return (
-    gptApiModelKeys.includes(config.modelName) || chatgptApiModelKeys.includes(config.modelName)
+    gptApiModelKeys.includes(configOrSession.modelName) ||
+    chatgptApiModelKeys.includes(configOrSession.modelName)
   )
 }
 
-export function isUsingMultiModeModel(config) {
-  return bingWebModelKeys.includes(config.modelName)
+export function isUsingMultiModeModel(configOrSession) {
+  return bingWebModelKeys.includes(configOrSession.modelName)
 }
 
-export function isUsingCustomModel(config) {
-  return customApiModelKeys.includes(config.modelName)
+export function isUsingCustomModel(configOrSession) {
+  return customApiModelKeys.includes(configOrSession.modelName)
 }
 
 export async function getPreferredLanguageKey() {

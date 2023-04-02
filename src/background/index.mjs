@@ -67,10 +67,7 @@ Browser.runtime.onConnect.addListener((port) => {
     if (!session) return
     const config = await getUserConfig()
     if (!session.modelName) session.modelName = config.modelName
-    if (!session.aiName)
-      session.aiName =
-        Models[session.modelName].desc +
-        (isUsingCustomModel(config) ? ` (${config.customModelName})` : '')
+    if (!session.aiName) session.aiName = Models[session.modelName].desc
     port.postMessage({ session })
 
     try {

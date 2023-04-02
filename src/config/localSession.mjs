@@ -12,12 +12,23 @@ export const initDefaultSession = async () => {
   })
 }
 
-export const createSession = async (session) => {
-  const currentSessions = await getSessions()
-  if (!session) session = await initDefaultSession()
-  currentSessions.unshift(session)
+export const createSession = async (newSession) => {
+  let currentSessions
+  if (newSession) {
+    const ret = await getSession(newSession.sessionId)
+    currentSessions = ret.currentSessions
+    if (ret.session)
+      currentSessions[
+        currentSessions.findIndex((session) => session.sessionId === newSession.sessionId)
+      ] = newSession
+    else currentSessions.unshift(newSession)
+  } else {
+    newSession = await initDefaultSession()
+    currentSessions = await getSessions()
+    currentSessions.unshift(newSession)
+  }
   await Browser.storage.local.set({ sessions: currentSessions })
-  return { session, currentSessions }
+  return { session: newSession, currentSessions }
 }
 
 export const deleteSession = async (sessionId) => {

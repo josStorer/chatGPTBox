@@ -26,6 +26,7 @@ import { isSafari } from '../utils/is-safari'
 import { config as menuConfig } from '../content-script/menu-tools'
 import { t, changeLanguage } from 'i18next'
 import '../_locales/i18n'
+import { openUrl } from '../utils/open-url'
 
 const KEY_ACCESS_TOKEN = 'accessToken'
 const cache = new ExpiryMap(10 * 1000)
@@ -146,6 +147,9 @@ Browser.runtime.onMessage.addListener(async (message) => {
     const token = await getChatGptAccessToken()
     const data = message.data
     await deleteConversation(token, data.conversationId)
+  } else if (message.type === 'OPEN_URL') {
+    const data = message.data
+    openUrl(data.url)
   }
 })
 

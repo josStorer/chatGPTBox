@@ -26,7 +26,7 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 (Menunggu peninjauan toko, versi [Chrome][Chrome-url], [Edge][Edge-url], [Safari(macOS)][Safari-url] dan [Firefox][Firefox-url] kini tersedia)
 
 [Panduan](https://github.com/josStorer/chatGPTBox/wiki/Guide) |
-[Pratinjau](#Preview) |
+[Pratinjau](#Pratinjau) |
 [Pengembangan & Berkontribusi][dev-url] |
 [Donasi](https://www.buymeacoffee.com/josStorer) |
 [Kredit](#Credit)

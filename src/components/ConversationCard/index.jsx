@@ -284,7 +284,7 @@ function ConversationCard(props) {
                 },
               })
               setConversationItemData([])
-              setSession(initSession())
+              setSession(initSession({ modelName: session.modelName }))
             }}
           />
           <span

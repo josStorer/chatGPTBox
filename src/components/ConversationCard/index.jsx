@@ -286,7 +286,13 @@ function ConversationCard(props) {
                 },
               })
               setConversationItemData([])
-              setSession(initSession({ modelName: session.modelName }))
+              const newSession = initSession({
+                ...session,
+                question: null,
+                conversationRecords: [],
+              })
+              newSession.sessionId = session.sessionId
+              setSession(newSession)
             }}
           />
           <span

@@ -29,7 +29,7 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 [Pratinjau](#Pratinjau) |
 [Pengembangan & Berkontribusi][dev-url] |
 [Donasi](https://www.buymeacoffee.com/josStorer) |
-[Kredit](#Credit)
+[Kredit](#Kredit)
 
 [Demonstrasi Video](https://www.youtube.com/watch?v=E1smDxJvTRs)
 

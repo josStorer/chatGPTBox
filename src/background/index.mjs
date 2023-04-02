@@ -20,7 +20,6 @@ import {
   getPreferredLanguageKey,
   getUserConfig,
   gptApiModelKeys,
-  isUsingCustomModel,
   Models,
 } from '../config/index.mjs'
 import { isSafari } from '../utils/is-safari'
@@ -62,7 +61,7 @@ async function getBingAccessToken() {
 
 Browser.runtime.onConnect.addListener((port) => {
   console.debug('connected')
-  port.onMessage.addListener(async (msg) => {
+  const onMessage = async (msg) => {
     console.debug('received msg', msg)
     const session = msg.session
     if (!session) return
@@ -130,7 +129,16 @@ Browser.runtime.onConnect.addListener((port) => {
         else port.postMessage({ error: err.message })
       }
     }
-  })
+  }
+
+  const onDisconnect = () => {
+    console.debug('port disconnected, remove listener')
+    port.onMessage.removeListener(onMessage)
+    port.onDisconnect.removeListener(onDisconnect)
+  }
+
+  port.onMessage.addListener(onMessage)
+  port.onDisconnect.addListener(onDisconnect)
 })
 
 Browser.runtime.onMessage.addListener(async (message) => {

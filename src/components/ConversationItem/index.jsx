@@ -4,10 +4,13 @@ import CopyButton from '../CopyButton'
 import PropTypes from 'prop-types'
 import MarkdownRender from '../MarkdownRender/markdown.jsx'
 import { useTranslation } from 'react-i18next'
+import { isUsingCustomModel } from '../../config/index.mjs'
+import { useConfig } from '../../hooks/use-config.mjs'
 
 export function ConversationItem({ type, content, session, done, port, onRetry }) {
   const { t } = useTranslation()
   const [collapsed, setCollapsed] = useState(false)
+  const config = useConfig()
 
   switch (type) {
     case 'question':
@@ -44,7 +47,11 @@ export function ConversationItem({ type, content, session, done, port, onRetry }
         <div className={type} dir="auto">
           <div className="gpt-header">
             <p style="white-space: nowrap;">
-              {session && session.aiName ? `${t(session.aiName)}:` : t('Loading...')}
+              {session && session.aiName
+                ? `${t(session.aiName)}${
+                    isUsingCustomModel(session) ? ' (' + config.customModelName + ')' : ''
+                  }:`
+                : t('Loading...')}
             </p>
             <div className="gpt-util-group">
               {!done && (

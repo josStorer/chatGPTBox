@@ -20,13 +20,13 @@ import {
   getPreferredLanguageKey,
   getUserConfig,
   gptApiModelKeys,
-  isUsingCustomModel,
   Models,
 } from '../config/index.mjs'
 import { isSafari } from '../utils/is-safari'
 import { config as menuConfig } from '../content-script/menu-tools'
 import { t, changeLanguage } from 'i18next'
 import '../_locales/i18n'
+import { openUrl } from '../utils/open-url'
 
 const KEY_ACCESS_TOKEN = 'accessToken'
 const cache = new ExpiryMap(10 * 1000)
@@ -62,16 +62,13 @@ async function getBingAccessToken() {
 
 Browser.runtime.onConnect.addListener((port) => {
   console.debug('connected')
-  port.onMessage.addListener(async (msg) => {
+  const onMessage = async (msg) => {
     console.debug('received msg', msg)
     const session = msg.session
     if (!session) return
     const config = await getUserConfig()
     if (!session.modelName) session.modelName = config.modelName
-    if (!session.aiName)
-      session.aiName =
-        Models[session.modelName].desc +
-        (isUsingCustomModel(config) ? ` (${config.customModelName})` : '')
+    if (!session.aiName) session.aiName = Models[session.modelName].desc
     port.postMessage({ session })
 
     try {
@@ -130,7 +127,16 @@ Browser.runtime.onConnect.addListener((port) => {
         else port.postMessage({ error: err.message })
       }
     }
-  })
+  }
+
+  const onDisconnect = () => {
+    console.debug('port disconnected, remove listener')
+    port.onMessage.removeListener(onMessage)
+    port.onDisconnect.removeListener(onDisconnect)
+  }
+
+  port.onMessage.addListener(onMessage)
+  port.onDisconnect.addListener(onDisconnect)
 })
 
 Browser.runtime.onMessage.addListener(async (message) => {
@@ -141,6 +147,9 @@ Browser.runtime.onMessage.addListener(async (message) => {
     const token = await getChatGptAccessToken()
     const data = message.data
     await deleteConversation(token, data.conversationId)
+  } else if (message.type === 'OPEN_URL') {
+    const data = message.data
+    openUrl(data.url)
   }
 })
 
@@ -151,6 +160,8 @@ Browser.commands.onCommand.addListener(async (command) => {
     selectionText: '',
     useMenuPosition: false,
   }
+  console.debug('command triggered', message)
+  if (menuConfig[command].action) menuConfig[command].action()
   Browser.tabs.sendMessage(currentTab.id, {
     type: 'CREATE_CHAT',
     data: message,
@@ -203,6 +214,7 @@ function refreshMenu() {
           useMenuPosition: tab.id === currentTab.id,
         }
         console.debug('menu clicked', message)
+        if (menuConfig[message.itemId].action) menuConfig[message.itemId].action()
         Browser.tabs.sendMessage(currentTab.id, {
           type: 'CREATE_CHAT',
           data: message,

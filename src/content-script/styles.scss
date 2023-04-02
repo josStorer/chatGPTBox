@@ -1,4 +1,5 @@
 @import '../fonts/styles.css';
+@import '../pages/styles.scss';
 
 [data-theme='auto'] {
   @import 'github-markdown-css/github-markdown.css';
@@ -54,6 +55,9 @@
   margin-bottom: 20px;
 
   .gpt-inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     border-radius: 8px;
     border: 1px solid;
     overflow: hidden;
@@ -73,7 +77,6 @@
     padding: 5px 15px 10px;
     background-color: var(--theme-color);
     color: var(--font-color);
-    resize: vertical;
     overflow-y: auto;
 
     ul,
@@ -206,6 +209,7 @@
     background-color: var(--theme-color);
     color: var(--font-color);
     resize: none;
+    min-height: 70px;
     max-height: 240px;
   }
 

@@ -87,5 +87,14 @@
   "Clear Conversation": "清理對話",
   "Retry": "重試",
   "Exceeded maximum context length": "超出最大上下文長度, 請清理對話並重試",
-  "Regenerate the answer after switching model": "快捷切換模型時自動重新生成回答"
+  "Regenerate the answer after switching model": "快捷切換模型時自動重新生成回答",
+  "Pin": "固定側邊",
+  "Unpin": "收縮側邊",
+  "Delete Conversation": "刪除對話",
+  "Clear conversations": "清空記錄",
+  "Settings": "設置",
+  "Feature Pages": "功能頁",
+  "Keyboard Shortcuts": "快捷鍵設置",
+  "Open Conversation Page": "打開獨立對話頁",
+  "Store to Independent Conversation Page": "收納到獨立對話頁"
 }

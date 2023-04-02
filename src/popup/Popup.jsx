@@ -24,7 +24,7 @@ import wechatpay from './donation/wechatpay.jpg'
 import bugmeacoffee from './donation/bugmeacoffee.png'
 import { useWindowTheme } from '../hooks/use-window-theme.mjs'
 import { languageList } from '../config/language.mjs'
-import { isSafari } from '../utils/index.mjs'
+import { isEdge, isFirefox, isMobile, isSafari, openUrl } from '../utils/index.mjs'
 import { useTranslation } from 'react-i18next'
 
 function GeneralPart({ config, updateConfig }) {
@@ -254,6 +254,34 @@ function GeneralPart({ config, updateConfig }) {
 GeneralPart.propTypes = {
   config: PropTypes.object.isRequired,
   updateConfig: PropTypes.func.isRequired,
+}
+
+function FeaturePages() {
+  const { t } = useTranslation()
+
+  return (
+    <div style="display:flex;flex-direction:column;align-items:center;">
+      {!isMobile() && !isFirefox() && !isSafari() && (
+        <button
+          type="button"
+          onClick={() => {
+            if (isEdge()) openUrl('edge://extensions/shortcuts')
+            else openUrl('chrome://extensions/shortcuts')
+          }}
+        >
+          {t('Keyboard Shortcuts')}
+        </button>
+      )}
+      <button
+        type="button"
+        onClick={() => {
+          openUrl(Browser.runtime.getURL('IndependentPanel.html'))
+        }}
+      >
+        {t('Open Conversation Page')}
+      </button>
+    </div>
+  )
 }
 
 function AdvancedPart({ config, updateConfig }) {
@@ -506,7 +534,7 @@ function Popup() {
   }, [config.themeMode, theme])
 
   const search = new URLSearchParams(window.location.search)
-  const popup = search.get('popup') // manifest v2
+  const popup = search.get('popup') && !isMobile() // manifest v2
 
   return (
     <div className={popup === 'true' ? 'container-popup-mode' : 'container-page-mode'}>
@@ -514,6 +542,7 @@ function Popup() {
         <Tabs selectedTabClassName="popup-tab--selected">
           <TabList>
             <Tab className="popup-tab">{t('General')}</Tab>
+            <Tab className="popup-tab">{t('Feature Pages')}</Tab>
             <Tab className="popup-tab">{t('Selection Tools')}</Tab>
             <Tab className="popup-tab">{t('Sites')}</Tab>
             <Tab className="popup-tab">{t('Advanced')}</Tab>
@@ -522,6 +551,9 @@ function Popup() {
 
           <TabPanel>
             <GeneralPart config={config} updateConfig={updateConfig} />
+          </TabPanel>
+          <TabPanel>
+            <FeaturePages />
           </TabPanel>
           <TabPanel>
             <SelectionTools config={config} updateConfig={updateConfig} />

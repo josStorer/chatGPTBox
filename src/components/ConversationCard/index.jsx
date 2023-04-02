@@ -4,7 +4,7 @@ import Browser from 'webextension-polyfill'
 import InputBox from '../InputBox'
 import ConversationItem from '../ConversationItem'
 import { createElementAtPosition, initSession, isSafari } from '../../utils'
-import { DownloadIcon, LinkExternalIcon } from '@primer/octicons-react'
+import { DownloadIcon, LinkExternalIcon, ArchiveIcon } from '@primer/octicons-react'
 import { WindowDesktop, XLg, Pin } from 'react-bootstrap-icons'
 import FileSaver from 'file-saver'
 import { render } from 'preact'
@@ -14,6 +14,7 @@ import { Models } from '../../config/index.mjs'
 import { useTranslation } from 'react-i18next'
 import DeleteButton from '../DeleteButton'
 import { useConfig } from '../../hooks/use-config.mjs'
+import { createSession } from '../../config/localSession.mjs'
 
 const logo = Browser.runtime.getURL('logo.png')
 
@@ -65,8 +66,8 @@ function ConversationCard(props) {
   const config = useConfig()
 
   useEffect(() => {
-    if (props.onUpdate) props.onUpdate()
-  })
+    if (props.onUpdate) props.onUpdate(port, session, conversationItemData)
+  }, [session, conversationItemData])
 
   useEffect(() => {
     bodyRef.current.scrollTop = bodyRef.current.scrollHeight
@@ -201,6 +202,7 @@ function ConversationCard(props) {
               title={t('Close the Window')}
               size={16}
               onClick={() => {
+                port.disconnect()
                 if (props.onClose) props.onClose()
               }}
             />
@@ -217,12 +219,12 @@ function ConversationCard(props) {
             <img src={logo} style="user-select:none;width:20px;height:20px;" />
           )}
           <select
-            style={{ width: windowSize[0] * 0.05 + 'px' }}
+            style={props.notClampSize ? {} : { width: windowSize[0] * 0.05 + 'px' }}
             className="normal-button"
             required
             onChange={(e) => {
               const modelName = e.target.value
-              const newSession = { ...session, modelName, aiName: t(Models[modelName].desc) }
+              const newSession = { ...session, modelName, aiName: Models[modelName].desc }
               if (config.autoRegenAfterSwitchModel) getRetryFn(newSession)()
               else setSession(newSession)
             }}
@@ -275,6 +277,7 @@ function ConversationCard(props) {
           )}
           <DeleteButton
             size={16}
+            text={t('Clear Conversation')}
             onConfirm={() => {
               port.postMessage({ stop: true })
               Browser.runtime.sendMessage({
@@ -284,9 +287,40 @@ function ConversationCard(props) {
                 },
               })
               setConversationItemData([])
-              setSession(initSession())
+              const newSession = initSession({
+                ...session,
+                question: null,
+                conversationRecords: [],
+              })
+              newSession.sessionId = session.sessionId
+              setSession(newSession)
             }}
           />
+          {!props.pageMode && (
+            <span
+              title={t('Store to Independent Conversation Page')}
+              className="gpt-util-icon"
+              onClick={() => {
+                const newSession = {
+                  ...session,
+                  sessionName: new Date().toLocaleString(),
+                  autoClean: false,
+                  sessionId: crypto.randomUUID(),
+                }
+                setSession(newSession)
+                createSession(newSession).then(() =>
+                  Browser.runtime.sendMessage({
+                    type: 'OPEN_URL',
+                    data: {
+                      url: Browser.runtime.getURL('IndependentPanel.html'),
+                    },
+                  }),
+                )
+              }}
+            >
+              <ArchiveIcon size={16} />
+            </span>
+          )}
           <span
             title={t('Save Conversation')}
             className="gpt-util-icon"
@@ -309,7 +343,11 @@ function ConversationCard(props) {
       <div
         ref={bodyRef}
         className="markdown-body"
-        style={{ maxHeight: windowSize[1] * 0.75 + 'px' }}
+        style={
+          props.notClampSize
+            ? { flexGrow: 1 }
+            : { maxHeight: windowSize[1] * 0.75 + 'px', resize: 'vertical' }
+        }
       >
         {conversationItemData.map((data, idx) => (
           <ConversationItem
@@ -356,6 +394,8 @@ ConversationCard.propTypes = {
   onClose: PropTypes.func,
   dockable: PropTypes.bool,
   onDock: PropTypes.func,
+  notClampSize: PropTypes.bool,
+  pageMode: PropTypes.bool,
 }
 
 export default memo(ConversationCard)

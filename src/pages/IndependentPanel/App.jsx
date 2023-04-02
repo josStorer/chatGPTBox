@@ -146,6 +146,7 @@ function App() {
               <ConversationCard
                 session={currentSession}
                 notClampSize={true}
+                pageMode={true}
                 onUpdate={(port, session, cData) => {
                   currentPort.current = port
                   if (cData.length > 0 && cData[cData.length - 1].done) {

@@ -4,7 +4,7 @@ import Browser from 'webextension-polyfill'
 import InputBox from '../InputBox'
 import ConversationItem from '../ConversationItem'
 import { createElementAtPosition, initSession, isSafari } from '../../utils'
-import { DownloadIcon, LinkExternalIcon } from '@primer/octicons-react'
+import { DownloadIcon, LinkExternalIcon, ArchiveIcon } from '@primer/octicons-react'
 import { WindowDesktop, XLg, Pin } from 'react-bootstrap-icons'
 import FileSaver from 'file-saver'
 import { render } from 'preact'
@@ -14,6 +14,7 @@ import { Models } from '../../config/index.mjs'
 import { useTranslation } from 'react-i18next'
 import DeleteButton from '../DeleteButton'
 import { useConfig } from '../../hooks/use-config.mjs'
+import { createSession } from '../../config/localSession.mjs'
 
 const logo = Browser.runtime.getURL('logo.png')
 
@@ -295,6 +296,31 @@ function ConversationCard(props) {
               setSession(newSession)
             }}
           />
+          {!props.pageMode && (
+            <span
+              title={t('Store to Independent Conversation Page')}
+              className="gpt-util-icon"
+              onClick={() => {
+                const newSession = {
+                  ...session,
+                  sessionName: new Date().toLocaleString(),
+                  autoClean: false,
+                  sessionId: crypto.randomUUID(),
+                }
+                setSession(newSession)
+                createSession(newSession).then(() =>
+                  Browser.runtime.sendMessage({
+                    type: 'OPEN_URL',
+                    data: {
+                      url: Browser.runtime.getURL('IndependentPanel.html'),
+                    },
+                  }),
+                )
+              }}
+            >
+              <ArchiveIcon size={16} />
+            </span>
+          )}
           <span
             title={t('Save Conversation')}
             className="gpt-util-icon"
@@ -369,6 +395,7 @@ ConversationCard.propTypes = {
   dockable: PropTypes.bool,
   onDock: PropTypes.func,
   notClampSize: PropTypes.bool,
+  pageMode: PropTypes.bool,
 }
 
 export default memo(ConversationCard)

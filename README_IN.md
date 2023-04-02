@@ -12,7 +12,7 @@ Deep ChatGPT integrations in your browser, completely for free.
 [![release][release-image]][release-url]
 [![verfiy][verify-image]][verify-url]
 
-English | Indonesia | [简体中文](README_ZH.md)
+[English](README.md) | Indonesia | [简体中文](README_ZH.md)
 
 ### Install
 

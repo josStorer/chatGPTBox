@@ -12,7 +12,7 @@
 [![release][release-image]][release-url]
 [![verfiy][verify-image]][verify-url]
 
-[English](README.md) | 简体中文
+[Indonesian][English](README.md) | 简体中文
 
 ### 安装链接
 

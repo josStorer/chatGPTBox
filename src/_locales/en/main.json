@@ -87,5 +87,10 @@
   "Clear Conversation": "Clear Conversation",
   "Retry": "Retry",
   "Exceeded maximum context length": "Exceeded maximum context length, please clear the conversation and try again",
-  "Regenerate the answer after switching model": "Regenerate the answer after switching model"
+  "Regenerate the answer after switching model": "Regenerate the answer after switching model",
+  "Pin": "Pin",
+  "Unpin": "Unpin",
+  "Delete Conversation": "Delete Conversation",
+  "Clear conversations": "Clear conversations",
+  "Settings": "Settings"
 }

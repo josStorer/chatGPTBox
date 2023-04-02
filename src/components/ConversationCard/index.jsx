@@ -65,8 +65,8 @@ function ConversationCard(props) {
   const config = useConfig()
 
   useEffect(() => {
-    if (props.onUpdate) props.onUpdate()
-  })
+    if (props.onUpdate) props.onUpdate(port, session, conversationItemData)
+  }, [session, conversationItemData])
 
   useEffect(() => {
     bodyRef.current.scrollTop = bodyRef.current.scrollHeight
@@ -201,6 +201,7 @@ function ConversationCard(props) {
               title={t('Close the Window')}
               size={16}
               onClick={() => {
+                port.disconnect()
                 if (props.onClose) props.onClose()
               }}
             />
@@ -217,7 +218,7 @@ function ConversationCard(props) {
             <img src={logo} style="user-select:none;width:20px;height:20px;" />
           )}
           <select
-            style={{ width: windowSize[0] * 0.05 + 'px' }}
+            style={props.notClampSize ? {} : { width: windowSize[0] * 0.05 + 'px' }}
             className="normal-button"
             required
             onChange={(e) => {
@@ -275,6 +276,7 @@ function ConversationCard(props) {
           )}
           <DeleteButton
             size={16}
+            text={t('Clear Conversation')}
             onConfirm={() => {
               port.postMessage({ stop: true })
               Browser.runtime.sendMessage({
@@ -309,7 +311,11 @@ function ConversationCard(props) {
       <div
         ref={bodyRef}
         className="markdown-body"
-        style={{ maxHeight: windowSize[1] * 0.75 + 'px' }}
+        style={
+          props.notClampSize
+            ? { flexGrow: 1 }
+            : { maxHeight: windowSize[1] * 0.75 + 'px', resize: 'vertical' }
+        }
       >
         {conversationItemData.map((data, idx) => (
           <ConversationItem
@@ -356,6 +362,7 @@ ConversationCard.propTypes = {
   onClose: PropTypes.func,
   dockable: PropTypes.bool,
   onDock: PropTypes.func,
+  notClampSize: PropTypes.bool,
 }
 
 export default memo(ConversationCard)

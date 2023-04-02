@@ -1,15 +1,13 @@
+import { useTranslation } from 'react-i18next'
 import { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
-import { useTranslation } from 'react-i18next'
-import { TrashIcon } from '@primer/octicons-react'
 
-DeleteButton.propTypes = {
+ConfirmButton.propTypes = {
   onConfirm: PropTypes.func.isRequired,
-  size: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
 }
 
-function DeleteButton({ onConfirm, size, text }) {
+function ConfirmButton({ onConfirm, text }) {
   const { t } = useTranslation()
   const [waitConfirm, setWaitConfirm] = useState(false)
   const confirmRef = useRef(null)
@@ -25,7 +23,6 @@ function DeleteButton({ onConfirm, size, text }) {
         type="button"
         className="normal-button"
         style={{
-          fontSize: '10px',
           ...(waitConfirm ? {} : { display: 'none' }),
         }}
         onBlur={() => {
@@ -38,18 +35,20 @@ function DeleteButton({ onConfirm, size, text }) {
       >
         {t('Confirm')}
       </button>
-      <span
-        title={text}
-        className="gpt-util-icon"
-        style={waitConfirm ? { display: 'none' } : {}}
+      <button
+        type="button"
+        className="normal-button"
+        style={{
+          ...(waitConfirm ? { display: 'none' } : {}),
+        }}
         onClick={() => {
           setWaitConfirm(true)
         }}
       >
-        <TrashIcon size={size} />
-      </span>
+        {text}
+      </button>
     </span>
   )
 }
 
-export default DeleteButton
+export default ConfirmButton

@@ -32,6 +32,10 @@ async function runWebpack(isWithoutKatex, isWithoutTiktoken, callback) {
         import: './src/popup/index.jsx',
         dependOn: 'shared',
       },
+      IndependentPanel: {
+        import: './src/pages/IndependentPanel/index.jsx',
+        dependOn: 'shared',
+      },
       shared: [
         'preact',
         'webextension-polyfill',
@@ -238,14 +242,21 @@ async function copyFiles(entryPoints, targetDir) {
 
 async function finishOutput(outputDirSuffix) {
   const commonFiles = [
+    { src: 'src/logo.png', dst: 'logo.png' },
+
     { src: 'build/shared.js', dst: 'shared.js' },
+    { src: 'build/content-script.css', dst: 'content-script.css' }, // shared
+
     { src: 'build/content-script.js', dst: 'content-script.js' },
-    { src: 'build/content-script.css', dst: 'content-script.css' },
+
     { src: 'build/background.js', dst: 'background.js' },
+
     { src: 'build/popup.js', dst: 'popup.js' },
     { src: 'build/popup.css', dst: 'popup.css' },
     { src: 'src/popup/index.html', dst: 'popup.html' },
-    { src: 'src/logo.png', dst: 'logo.png' },
+
+    { src: 'build/IndependentPanel.js', dst: 'IndependentPanel.js' },
+    { src: 'src/pages/IndependentPanel/index.html', dst: 'IndependentPanel.html' },
   ]
 
   // chromium

@@ -87,9 +87,6 @@ function FloatingToolbar(props) {
                   props.container.className = 'chatgptbox-toolbar-container-not-queryable'
                   setCloseable(true)
                 }}
-                onUpdate={() => {
-                  updatePosition()
-                }}
               />
             </div>
           </div>

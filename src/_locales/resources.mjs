@@ -2,7 +2,7 @@ import de from './de/main.json'
 import en from './en/main.json'
 import es from './es/main.json'
 import fr from './fr/main.json'
-import in from './in/main.json'
+import inTrans from './in/main.json'
 import it from './it/main.json'
 import ja from './ja/main.json'
 import ko from './ko/main.json'
@@ -25,7 +25,7 @@ export const resources = {
     translation: fr,
   },
   in: {
-    translation: in,
+    translation: inTrans,
   },
   it: {
     translation: it,

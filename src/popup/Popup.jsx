@@ -534,7 +534,7 @@ function Popup() {
   }, [config.themeMode, theme])
 
   const search = new URLSearchParams(window.location.search)
-  const popup = search.get('popup') && !isMobile() // manifest v2
+  const popup = !isMobile() && search.get('popup') // manifest v2
 
   return (
     <div className={popup === 'true' ? 'container-popup-mode' : 'container-page-mode'}>

@@ -39,6 +39,7 @@ function GeneralPart({ config, updateConfig }) {
       },
     })
     if (response.ok) setBalance((await response.json()).total_available.toFixed(2))
+    else openUrl('https://platform.openai.com/account/usage')
   }
 
   return (

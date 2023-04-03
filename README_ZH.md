@@ -109,6 +109,10 @@
 
 ![preview_reddit_selectiontools](screenshots/preview_reddit_selectiontools.jpg)
 
+**独立对话页面**
+
+![preview_independentpanel](screenshots/preview_independentpanel.jpg)
+
 **Git分析, 右键菜单**
 
 ![preview_github_rightclickmenu](screenshots/preview_github_rightclickmenu.jpg)

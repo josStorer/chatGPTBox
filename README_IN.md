@@ -10,6 +10,7 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
 [![license][license-image]][license-url]
 [![release][release-image]][release-url]
+[![size](https://img.shields.io/badge/minified%20size-350%20kB-blue)][release-url]
 [![verfiy][verify-image]][verify-url]
 
 [Inggris](README.md) | Indonesia | [简体中文](README_ZH.md)
@@ -107,6 +108,10 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 **Integrasi dengan Situs Web yang Biasa Digunakan, Alat Seleksi**
 
 ![preview_reddit_selectiontools](screenshots/preview_reddit_selectiontools.jpg)
+
+**Independent Conversation Page**
+
+![preview_independentpanel](screenshots/preview_independentpanel.jpg)
 
 **Analisis Git, Menu Klik Kanan**
 

@@ -111,6 +111,10 @@ English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
 
 ![preview_reddit_selectiontools](screenshots/preview_reddit_selectiontools.jpg)
 
+**Independent Conversation Page**
+
+![preview_independentpanel](screenshots/preview_independentpanel.jpg)
+
 **Git Analysis, Right Click Menu**
 
 ![preview_github_rightclickmenu](screenshots/preview_github_rightclickmenu.jpg)

@@ -68,7 +68,7 @@ export const defaultConfig = {
   lockWhenAnswer: false,
   autoRegenAfterSwitchModel: false,
   customModelApiUrl: 'http://localhost:8000/chat/completions',
-  customModelName: 'chatglm-6b-int4',
+  customModelName: 'llama-7b-int4',
 
   // advanced
 

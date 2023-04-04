@@ -3,7 +3,7 @@ import fetch, { Headers } from 'node-fetch'
 
 const config = {
   google: {
-    inputQuery: ["input[name='q']"],
+    inputQuery: ["input[name='q']", "textarea[name='q']"],
     sidebarContainerQuery: ['#rhs'],
     appendContainerQuery: ['#rcnt'],
     resultsContainerQuery: ['#rso'],

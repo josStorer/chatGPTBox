@@ -7,16 +7,8 @@ import { pushRecord, setAbortController } from './shared.mjs'
  * @param {string} question
  * @param {Session} session
  * @param {string} accessToken
- * @param {string} modelName
  */
-export async function generateAnswersWithBingWebApi(
-  port,
-  question,
-  session,
-  accessToken,
-  // eslint-disable-next-line
-  modelName,
-) {
+export async function generateAnswersWithBingWebApi(port, question, session, accessToken) {
   const { controller, messageListener } = setAbortController(port)
 
   const bingAIClient = new BingAIClient({ userToken: accessToken })

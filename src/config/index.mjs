@@ -19,6 +19,7 @@ export const Models = {
   chatgptApi4_32k: { value: 'gpt-4-32k', desc: 'ChatGPT (GPT-4-32k)' },
   gptApiDavinci: { value: 'text-davinci-003', desc: 'GPT-3.5' },
   customModel: { value: '', desc: 'Custom Model' },
+  azureOpenAi: { value: '', desc: 'ChatGPT (Azure)' },
 }
 
 export const chatgptWebModelKeys = ['chatgptFree35', 'chatgptPlus4']
@@ -26,6 +27,7 @@ export const bingWebModelKeys = ['bingFree4']
 export const gptApiModelKeys = ['gptApiDavinci']
 export const chatgptApiModelKeys = ['chatgptApi35', 'chatgptApi4_8k', 'chatgptApi4_32k']
 export const customApiModelKeys = ['customModel']
+export const azureOpenAiApiModelKeys = ['azureOpenAi']
 
 export const TriggerMode = {
   always: 'Always',
@@ -60,13 +62,21 @@ export const defaultConfig = {
   themeMode: 'auto',
   /** @type {keyof Models}*/
   modelName: 'chatgptFree35',
-  apiKey: '',
-  /** @type {keyof ModelMode}*/
-  modelMode: 'balanced',
+
   preferredLanguage: getNavigatorLanguage(),
   insertAtTop: isMobile(),
   lockWhenAnswer: false,
   autoRegenAfterSwitchModel: false,
+
+  apiKey: '', // openai ApiKey
+
+  azureApiKey: '',
+  azureEndpoint: '',
+  azureDeploymentName: '',
+
+  /** @type {keyof ModelMode}*/
+  modelMode: 'balanced',
+
   customModelApiUrl: 'http://localhost:8000/chat/completions',
   customModelName: 'llama-7b-int4',
 
@@ -154,6 +164,10 @@ export function isUsingCustomModel(configOrSession) {
   return customApiModelKeys.includes(configOrSession.modelName)
 }
 
+export function isUsingAzureOpenAi(configOrSession) {
+  return azureOpenAiApiModelKeys.includes(configOrSession.modelName)
+}
+
 export async function getPreferredLanguageKey() {
   const config = await getUserConfig()
   if (config.preferredLanguage === 'auto') return config.userLanguage
@@ -166,12 +180,6 @@ export async function getPreferredLanguageKey() {
  */
 export async function getUserConfig() {
   const options = await Browser.storage.local.get(Object.keys(defaultConfig))
-
-  // version compatibility
-  if (options.modelName === 'chatgptFree') options.modelName = 'chatgptFree35'
-  else if (options.modelName === 'chatgptApi') options.modelName = 'chatgptApi35'
-  else if (options.modelName === 'gptDavinci') options.modelName = 'gptApiDavinci'
-
   return defaults(options, defaultConfig)
 }
 

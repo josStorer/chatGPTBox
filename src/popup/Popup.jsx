@@ -5,6 +5,7 @@ import {
   getPreferredLanguageKey,
   getUserConfig,
   isUsingApiKey,
+  isUsingAzureOpenAi,
   isUsingCustomModel,
   isUsingMultiModeModel,
   ModelMode,
@@ -85,7 +86,10 @@ function GeneralPart({ config, updateConfig }) {
         <span style="display: flex; gap: 15px;">
           <select
             style={
-              isUsingApiKey(config) || isUsingMultiModeModel(config) || isUsingCustomModel(config)
+              isUsingApiKey(config) ||
+              isUsingMultiModeModel(config) ||
+              isUsingCustomModel(config) ||
+              isUsingAzureOpenAi(config)
                 ? 'width: 50%;'
                 : undefined
             }
@@ -165,6 +169,18 @@ function GeneralPart({ config, updateConfig }) {
               }}
             />
           )}
+          {isUsingAzureOpenAi(config) && (
+            <input
+              type="password"
+              style="width: 50%;"
+              value={config.azureApiKey}
+              placeholder={t('Azure API Key')}
+              onChange={(e) => {
+                const apiKey = e.target.value
+                updateConfig({ azureApiKey: apiKey })
+              }}
+            />
+          )}
         </span>
         {isUsingCustomModel(config) && (
           <input
@@ -174,6 +190,28 @@ function GeneralPart({ config, updateConfig }) {
             onChange={(e) => {
               const value = e.target.value
               updateConfig({ customModelApiUrl: value })
+            }}
+          />
+        )}
+        {isUsingAzureOpenAi(config) && (
+          <input
+            type="password"
+            value={config.azureEndpoint}
+            placeholder={t('Azure Endpoint')}
+            onChange={(e) => {
+              const endpoint = e.target.value
+              updateConfig({ azureEndpoint: endpoint })
+            }}
+          />
+        )}
+        {isUsingAzureOpenAi(config) && (
+          <input
+            type="text"
+            value={config.azureDeploymentName}
+            placeholder={t('Azure Deployment Name')}
+            onChange={(e) => {
+              const deploymentName = e.target.value
+              updateConfig({ azureDeploymentName: deploymentName })
             }}
           />
         )}

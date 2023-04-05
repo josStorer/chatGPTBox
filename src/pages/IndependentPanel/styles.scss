@@ -46,18 +46,21 @@
   .chat-sidebar {
     display: flex;
     flex-direction: column;
+    min-width: 250px;
     width: 250px;
     background-color: var(--theme-color);
-    transition: width 0.3s;
+    transition: width 0.3s, min-width 0.3s;
     padding: 10px;
   }
 
   .chat-sidebar.collapsed {
+    min-width: 60px;
     width: 60px;
   }
 
   .chat-sidebar:hover,
   .chat-sidebar:not(.collapsed) {
+    min-width: 250px;
     width: 250px;
   }
 

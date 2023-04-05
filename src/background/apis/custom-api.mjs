@@ -9,11 +9,7 @@ import { getUserConfig, maxResponseTokenLength } from '../../config/index.mjs'
 import { fetchSSE } from '../../utils/fetch-sse'
 import { getConversationPairs } from '../../utils/get-conversation-pairs'
 import { isEmpty } from 'lodash-es'
-import { pushRecord, setAbortController } from './shared.mjs'
-
-const getCustomApiPromptBase = async () => {
-  return `I am a helpful, creative, clever, and very friendly assistant. I am familiar with various languages in the world.`
-}
+import { getCustomApiPromptBase, pushRecord, setAbortController } from './shared.mjs'
 
 /**
  * @param {Browser.Runtime.Port} port
@@ -25,7 +21,7 @@ const getCustomApiPromptBase = async () => {
 export async function generateAnswersWithCustomApi(port, question, session, apiKey, modelName) {
   const { controller, messageListener } = setAbortController(port)
 
-  const prompt = getConversationPairs(session.conversationRecords, true)
+  const prompt = getConversationPairs(session.conversationRecords, false)
   prompt.unshift({ role: 'system', content: await getCustomApiPromptBase() })
   prompt.push({ role: 'user', content: question })
   const apiUrl = (await getUserConfig()).customModelApiUrl

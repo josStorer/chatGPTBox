@@ -4,22 +4,12 @@ import { maxResponseTokenLength, Models, getUserConfig } from '../../config/inde
 import { fetchSSE } from '../../utils/fetch-sse'
 import { getConversationPairs } from '../../utils/get-conversation-pairs'
 import { isEmpty } from 'lodash-es'
-import { pushRecord, setAbortController } from './shared.mjs'
-
-const getChatgptPromptBase = async () => {
-  return `You are a helpful, creative, clever, and very friendly assistant. You are familiar with various languages in the world.`
-}
-
-const getGptPromptBase = async () => {
-  return (
-    `The following is a conversation with an AI assistant.` +
-    `The assistant is helpful, creative, clever, and very friendly. The assistant is familiar with various languages in the world.\n\n` +
-    `Human: Hello, who are you?\n` +
-    `AI: I am an AI created by OpenAI. How can I help you today?\n` +
-    `Human: 谢谢\n` +
-    `AI: 不客气\n`
-  )
-}
+import {
+  getChatSystemPromptBase,
+  getCompletionPromptBase,
+  pushRecord,
+  setAbortController,
+} from './shared.mjs'
 
 /**
  * @param {Browser.Runtime.Port} port
@@ -38,9 +28,9 @@ export async function generateAnswersWithGptCompletionApi(
   const { controller, messageListener } = setAbortController(port)
 
   const prompt =
-    (await getGptPromptBase()) +
-    getConversationPairs(session.conversationRecords, false) +
-    `Human:${question}\nAI:`
+    (await getCompletionPromptBase()) +
+    getConversationPairs(session.conversationRecords, true) +
+    `Human: ${question}\nAI: `
   const apiUrl = (await getUserConfig()).customOpenAiApiUrl
 
   let answer = ''
@@ -101,8 +91,8 @@ export async function generateAnswersWithGptCompletionApi(
 export async function generateAnswersWithChatgptApi(port, question, session, apiKey, modelName) {
   const { controller, messageListener } = setAbortController(port)
 
-  const prompt = getConversationPairs(session.conversationRecords, true)
-  prompt.unshift({ role: 'system', content: await getChatgptPromptBase() })
+  const prompt = getConversationPairs(session.conversationRecords, false)
+  prompt.unshift({ role: 'system', content: await getChatSystemPromptBase() })
   prompt.push({ role: 'user', content: question })
   const apiUrl = (await getUserConfig()).customOpenAiApiUrl
 

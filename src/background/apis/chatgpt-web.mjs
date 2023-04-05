@@ -4,6 +4,7 @@ import { fetchSSE } from '../../utils/fetch-sse'
 import { isEmpty } from 'lodash-es'
 import { chatgptWebModelKeys, getUserConfig, Models } from '../../config/index.mjs'
 import { pushRecord, setAbortController } from './shared.mjs'
+import Browser from 'webextension-polyfill'
 
 async function request(token, method, path, data) {
   const apiUrl = (await getUserConfig()).customChatGptWebApiUrl
@@ -67,6 +68,12 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
     models && models.includes(selectedModel) ? selectedModel : Models[chatgptWebModelKeys[0]].value
   console.debug('usedModel', usedModel)
 
+  const cookie = (await Browser.cookies.getAll({ url: 'https://chat.openai.com/' }))
+    .map((cookie) => {
+      return `${cookie.name}=${cookie.value}`
+    })
+    .join('; ')
+
   let answer = ''
   await fetchSSE(`${config.customChatGptWebApiUrl}${config.customChatGptWebApiPath}`, {
     method: 'POST',
@@ -74,6 +81,7 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
+      Cookie: cookie,
     },
     body: JSON.stringify({
       action: 'next',

@@ -278,17 +278,19 @@ async function prepareForStaticCard() {
   const matches = location.hostname.match(siteRegex)
   if (matches) {
     const siteName = matches[0]
+
+    if (
+      userConfig.siteAdapters.includes(siteName) &&
+      !userConfig.activeSiteAdapters.includes(siteName)
+    )
+      return
+
     if (siteName in siteConfig) {
       const siteAction = siteConfig[siteName].action
       if (siteAction && siteAction.init) {
         await siteAction.init(location.hostname, userConfig, getInput, mountComponent)
       }
     }
-    if (
-      userConfig.siteAdapters.includes(siteName) &&
-      !userConfig.activeSiteAdapters.includes(siteName)
-    )
-      return
 
     mountComponent(siteConfig[siteName], userConfig)
   }

@@ -18,7 +18,7 @@ import Browser from 'webextension-polyfill'
 
 function App() {
   const { t } = useTranslation()
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, setCollapsed] = useState(true)
   const config = useConfig()
   const [sessions, setSessions] = useState([])
   const [sessionId, setSessionId] = useState(null)

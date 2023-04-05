@@ -84,7 +84,7 @@ English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
 - 📱 Support for mobile devices.
 - 📓 Summarize any page with right-click menu. (`Alt+B`)
 - 📖 Independent conversation page. (`Ctrl+Shift+H`)
-- 🔗 Multiple API support (Web API for Free and Plus users, GPT-3.5, GPT-4, New Bing, Self-Hosted).
+- 🔗 Multiple API support (Web API for Free and Plus users, GPT-3.5, GPT-4, New Bing, Self-Hosted, Azure).
 - 📦 Integration for various commonly used websites (reddit, quora, youtube, github, gitlab, stackoverflow, zhihu, bilibili). (Inspired by [wimdenherder](https://github.com/wimdenherder))
 - 🔍 Integration to all mainstream search engines, and custom queries to support additional sites.
 - 🧰 Selection tool and right-click menu to perform various tasks, such as translation, summarization, polishing,

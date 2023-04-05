@@ -4,7 +4,7 @@ import { maxResponseTokenLength, Models, getUserConfig } from '../../config/inde
 import { fetchSSE } from '../../utils/fetch-sse'
 import { getConversationPairs } from '../../utils/get-conversation-pairs'
 import { isEmpty } from 'lodash-es'
-import { pushRecord } from './shared.mjs'
+import { pushRecord, setAbortController } from './shared.mjs'
 
 const getChatgptPromptBase = async () => {
   return `You are a helpful, creative, clever, and very friendly assistant. You are familiar with various languages in the world.`
@@ -35,20 +35,7 @@ export async function generateAnswersWithGptCompletionApi(
   apiKey,
   modelName,
 ) {
-  const controller = new AbortController()
-  const stopListener = (msg) => {
-    if (msg.stop) {
-      console.debug('stop generating')
-      port.postMessage({ done: true })
-      port.onMessage.removeListener(stopListener)
-      controller.abort()
-    }
-  }
-  port.onMessage.addListener(stopListener)
-  port.onDisconnect.addListener(() => {
-    console.debug('port disconnected')
-    controller.abort()
-  })
+  const { controller, messageListener } = setAbortController(port)
 
   const prompt =
     (await getGptPromptBase()) +
@@ -90,10 +77,10 @@ export async function generateAnswersWithGptCompletionApi(
     },
     async onStart() {},
     async onEnd() {
-      port.onMessage.removeListener(stopListener)
+      port.onMessage.removeListener(messageListener)
     },
     async onError(resp) {
-      port.onMessage.removeListener(stopListener)
+      port.onMessage.removeListener(messageListener)
       if (resp instanceof Error) throw resp
       if (resp.status === 403) {
         throw new Error('CLOUDFLARE')
@@ -112,20 +99,7 @@ export async function generateAnswersWithGptCompletionApi(
  * @param {string} modelName
  */
 export async function generateAnswersWithChatgptApi(port, question, session, apiKey, modelName) {
-  const controller = new AbortController()
-  const stopListener = (msg) => {
-    if (msg.stop) {
-      console.debug('stop generating')
-      port.postMessage({ done: true })
-      port.onMessage.removeListener(stopListener)
-      controller.abort()
-    }
-  }
-  port.onMessage.addListener(stopListener)
-  port.onDisconnect.addListener(() => {
-    console.debug('port disconnected')
-    controller.abort()
-  })
+  const { controller, messageListener } = setAbortController(port)
 
   const prompt = getConversationPairs(session.conversationRecords, true)
   prompt.unshift({ role: 'system', content: await getChatgptPromptBase() })
@@ -166,10 +140,10 @@ export async function generateAnswersWithChatgptApi(port, question, session, api
     },
     async onStart() {},
     async onEnd() {
-      port.onMessage.removeListener(stopListener)
+      port.onMessage.removeListener(messageListener)
     },
     async onError(resp) {
-      port.onMessage.removeListener(stopListener)
+      port.onMessage.removeListener(messageListener)
       if (resp instanceof Error) throw resp
       if (resp.status === 403) {
         throw new Error('CLOUDFLARE')

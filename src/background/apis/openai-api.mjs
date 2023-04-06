@@ -125,8 +125,10 @@ export async function generateAnswersWithChatgptApi(port, question, session, api
         console.debug('json error', error)
         return
       }
-      if ('content' in data.choices[0].delta) answer += data.choices[0].delta.content
-      port.postMessage({ answer: answer, done: false, session: null })
+      if ('content' in data.choices[0].delta) {
+        answer += data.choices[0].delta.content
+        port.postMessage({ answer: answer, done: false, session: null })
+      }
     },
     async onStart() {},
     async onEnd() {

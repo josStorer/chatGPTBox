@@ -1,8 +1,8 @@
-import { Configuration, OpenAIApi } from 'azure-openai'
 import { getUserConfig, maxResponseTokenLength } from '../../config/index.mjs'
 import { getChatSystemPromptBase, pushRecord, setAbortController } from './shared.mjs'
 import { getConversationPairs } from '../../utils/get-conversation-pairs'
-import fetchAdapter from '@vespaiach/axios-fetch-adapter'
+import { fetchSSE } from '../../utils/fetch-sse'
+import { isEmpty } from 'lodash-es'
 
 /**
  * @param {Runtime.Port} port
@@ -17,72 +17,54 @@ export async function generateAnswersWithAzureOpenaiApi(port, question, session)
   prompt.unshift({ role: 'system', content: await getChatSystemPromptBase() })
   prompt.push({ role: 'user', content: question })
 
-  const openAiApi = new OpenAIApi(
-    new Configuration({
-      apiKey: config.azureApiKey,
-      azure: {
-        apiKey: config.azureApiKey,
-        endpoint: config.azureEndpoint,
-        deploymentName: config.azureDeploymentName,
+  let answer = ''
+  await fetchSSE(
+    `${config.azureEndpoint.replace(/\/$/, '')}/openai/deployments/${
+      config.azureDeploymentName
+    }/chat/completions?api-version=2023-03-15-preview`,
+    {
+      method: 'POST',
+      signal: controller.signal,
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': config.azureApiKey,
       },
-    }),
-  )
-
-  const response = await openAiApi
-    .createChatCompletion(
-      {
+      body: JSON.stringify({
         messages: prompt,
         stream: true,
         max_tokens: maxResponseTokenLength,
+      }),
+      onMessage(message) {
+        console.debug('sse message', message)
+        let data
+        try {
+          data = JSON.parse(message)
+        } catch (error) {
+          console.debug('json error', error)
+          return
+        }
+        if ('content' in data.choices[0].delta) {
+          answer += data.choices[0].delta.content
+          port.postMessage({ answer: answer, done: false, session: null })
+        }
+        if (data.choices[0].finish_reason === 'stop') {
+          pushRecord(session, question, answer)
+          console.debug('conversation history', { content: session.conversationRecords })
+          port.postMessage({ answer: null, done: true, session: session })
+        }
       },
-      {
-        signal: controller.signal,
-        responseType: 'stream',
-        adapter: fetchAdapter,
+      async onStart() {},
+      async onEnd() {
+        port.onMessage.removeListener(messageListener)
       },
-    )
-    .catch((err) => {
-      port.onMessage.removeListener(messageListener)
-      throw err
-    })
-
-  let chunkData = ''
-  const step = 1500
-  let length = 0
-  for await (const chunk of response.data) {
-    chunkData += chunk
-    length += 1
-    if (length % step !== 0 && !chunkData.endsWith('[DONE]')) continue
-
-    const lines = chunkData
-      .toString('utf8')
-      .split('\n')
-      .filter((line) => line.trim().startsWith('data: '))
-
-    let answer = ''
-    let message = ''
-    let data
-    for (const line of lines) {
-      message = line.replace(/^data: /, '')
-      try {
-        data = JSON.parse(message)
-      } catch (error) {
-        continue
-      }
-      if ('content' in data.choices[0].delta) answer += data.choices[0].delta.content
-    }
-    if (data) {
-      console.debug('sse message', data)
-      port.postMessage({ answer: answer, done: false, session: null })
-    }
-    if (message === '[DONE]') {
-      console.debug('sse message', '[DONE]')
-      pushRecord(session, question, answer)
-      console.debug('conversation history', { content: session.conversationRecords })
-      port.postMessage({ answer: null, done: true, session: session })
-      break
-    }
-  }
-
-  port.onMessage.removeListener(messageListener)
+      async onError(resp) {
+        port.onMessage.removeListener(messageListener)
+        if (resp instanceof Error) throw resp
+        const error = await resp.json().catch(() => ({}))
+        throw new Error(
+          !isEmpty(error) ? JSON.stringify(error) : `${resp.status} ${resp.statusText}`,
+        )
+      },
+    },
+  )
 }

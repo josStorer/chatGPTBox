@@ -159,7 +159,7 @@ Browser.commands.onCommand.addListener(async (command) => {
     useMenuPosition: false,
   }
   console.debug('command triggered', message)
-  if (menuConfig[command].action) menuConfig[command].action()
+  if (command in menuConfig && menuConfig[command].action) menuConfig[command].action()
   Browser.tabs.sendMessage(currentTab.id, {
     type: 'CREATE_CHAT',
     data: message,
@@ -212,7 +212,8 @@ function refreshMenu() {
           useMenuPosition: tab.id === currentTab.id,
         }
         console.debug('menu clicked', message)
-        if (menuConfig[message.itemId].action) menuConfig[message.itemId].action()
+        if (message.itemId in menuConfig && menuConfig[message.itemId].action)
+          menuConfig[message.itemId].action()
         Browser.tabs.sendMessage(currentTab.id, {
           type: 'CREATE_CHAT',
           data: message,

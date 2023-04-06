@@ -80,12 +80,12 @@ English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
 
 ## ✨ Features
 
-- 🌈 Call up the chat dialog box on any page at any time. (`Ctrl+B`)
+- 🌈 Call up the chat dialog box on any page at any time. (<kbd>Ctrl</kbd>+<kbd>B</kbd>)
 - 📱 Support for mobile devices.
-- 📓 Summarize any page with right-click menu. (`Alt+B`)
-- 📖 Independent conversation page. (`Ctrl+Shift+H`)
+- 📓 Summarize any page with right-click menu. (<kbd>Alt</kbd>+<kbd>B</kbd>)
+- 📖 Independent conversation page. (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>)
 - 🔗 Multiple API support (Web API for Free and Plus users, GPT-3.5, GPT-4, New Bing, Self-Hosted, Azure).
-- 📦 Integration for various commonly used websites (reddit, quora, youtube, github, gitlab, stackoverflow, zhihu, bilibili). (Inspired by [wimdenherder](https://github.com/wimdenherder))
+- 📦 Integration for various commonly used websites (Reddit, Quora, YouTube, GitHub, GitLab, StackOverflow, Zhihu, Bilibili). (Inspired by [wimdenherder](https://github.com/wimdenherder))
 - 🔍 Integration to all mainstream search engines, and custom queries to support additional sites.
 - 🧰 Selection tool and right-click menu to perform various tasks, such as translation, summarization, polishing,
   sentiment analysis, paragraph division, code explain and queries.

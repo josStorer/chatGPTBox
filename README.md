@@ -76,6 +76,8 @@ English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
 
 ## Offline/Self-hosted model is now supported
 
+  [New] llama.cpp is now supported
+
   See https://github.com/josStorer/selfhostedAI
 
 ## ✨ Features

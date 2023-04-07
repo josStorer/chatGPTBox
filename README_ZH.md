@@ -76,6 +76,8 @@
 
 ## 离线/自托管模型现已支持
 
+  [新动态] llama.cpp 现已受支持
+
   仓库地址 https://github.com/josStorer/selfhostedAI
 
 ## ✨ Features

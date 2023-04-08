@@ -21,6 +21,9 @@
     "unlimitedStorage",
     "tabs"
   ],
+  "optional_permissions": [
+    "background"
+  ],
   "background": {
     "service_worker": "background.js"
   },
@@ -78,6 +81,9 @@
         "mac": "MacCtrl+Shift+H"
       },
       "description": "Open the independent conversation page"
+    },
+    "openConversationWindow": {
+      "description": "Open the independent conversation window"
     }
   }
 }

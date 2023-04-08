@@ -96,5 +96,7 @@
   "Feature Pages": "功能頁",
   "Keyboard Shortcuts": "快速鍵設定",
   "Open Conversation Page": "開啟獨立對話頁",
-  "Store to Independent Conversation Page": "收納到獨立對話頁"
+  "Open Conversation Window": "開啟獨立對話視窗",
+  "Store to Independent Conversation Page": "收納到獨立對話頁",
+  "Keep Conversation Window in Background": "保持對話窗口在後臺, 以便在任何程序中使用快捷鍵呼出"
 }

@@ -95,6 +95,7 @@
   "Settings": "設定",
   "Feature Pages": "機能ページ",
   "Keyboard Shortcuts": "キーボードショートカット",
-  "Open Conversation Page": "独立した会話ページを開く",
+  "Open Conversation Page": "会話ページを開く",
+  "Open Conversation Window": "会話ウィンドウを開く",
   "Store to Independent Conversation Page": "独立した会話ページに保存"
 }

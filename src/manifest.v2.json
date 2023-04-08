@@ -19,6 +19,9 @@
     "https://*.openai.com/",
     "https://*.bing.com/"
   ],
+  "optional_permissions": [
+    "background"
+  ],
   "background": {
     "scripts": [
       "background.js"
@@ -71,6 +74,9 @@
         "mac": "MacCtrl+Shift+H"
       },
       "description": "Open the independent conversation page"
+    },
+    "openConversationWindow": {
+      "description": "Open the independent conversation window"
     }
   }
 }

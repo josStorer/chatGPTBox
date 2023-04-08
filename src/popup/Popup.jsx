@@ -297,9 +297,15 @@ GeneralPart.propTypes = {
 
 function FeaturePages() {
   const { t } = useTranslation()
+  const [backgroundPermission, setBackgroundPermission] = useState(false)
+
+  if (!isMobile() && !isFirefox() && !isSafari())
+    Browser.permissions.contains({ permissions: ['background'] }).then((result) => {
+      setBackgroundPermission(result)
+    })
 
   return (
-    <div style="display:flex;flex-direction:column;align-items:center;">
+    <div style="display:flex;flex-direction:column;align-items:left;">
       {!isMobile() && !isFirefox() && !isSafari() && (
         <button
           type="button"
@@ -319,6 +325,39 @@ function FeaturePages() {
       >
         {t('Open Conversation Page')}
       </button>
+      <button
+        type="button"
+        onClick={() => {
+          Browser.windows.create({
+            url: Browser.runtime.getURL('IndependentPanel.html'),
+            type: 'popup',
+            width: 500,
+            height: 650,
+          })
+        }}
+      >
+        {t('Open Conversation Window')}
+      </button>
+      {!isMobile() && !isFirefox() && !isSafari() && (
+        <label>
+          <input
+            type="checkbox"
+            checked={backgroundPermission}
+            onChange={(e) => {
+              const checked = e.target.checked
+              if (checked)
+                Browser.permissions.request({ permissions: ['background'] }).then((result) => {
+                  setBackgroundPermission(result)
+                })
+              else
+                Browser.permissions.remove({ permissions: ['background'] }).then((result) => {
+                  setBackgroundPermission(result)
+                })
+            }}
+          />
+          {t('Keep Conversation Window in Background')}
+        </label>
+      )}
     </div>
   )
 }

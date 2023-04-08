@@ -15,6 +15,7 @@
     "storage",
     "contextMenus",
     "unlimitedStorage",
+    "tabs",
     "https://*.openai.com/",
     "https://*.bing.com/"
   ],

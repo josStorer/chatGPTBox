@@ -254,7 +254,7 @@ async function prepareForRightClickMenu() {
       container.className = 'chatgptbox-toolbar-container-not-queryable'
       render(
         <FloatingToolbar
-          session={initSession({ modelName: userConfig.modelName })}
+          session={initSession({ modelName: (await getUserConfig()).modelName })}
           selection={data.selectionText}
           container={container}
           triggered={true}

@@ -74,6 +74,12 @@
 
 </div>
 
+## 新闻
+
+- 这个扩展程序不收集你的数据, 你可以通过对代码全局搜索 `fetch(` 和 `XMLHttpRequest(` 找到所有的网络请求调用. 代码量不多, 所以很容易验证.
+
+- 离线/自托管模型 (llama.cpp, ChatGLM) 现已支持, 查看 https://github.com/josStorer/selfhostedAI
+
 ## 离线/自托管模型现已支持
 
   [新动态] llama.cpp 现已受支持

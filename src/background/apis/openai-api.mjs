@@ -1,6 +1,6 @@
 // api version
 
-import { maxResponseTokenLength, Models, getUserConfig } from '../../config/index.mjs'
+import { Models, getUserConfig } from '../../config/index.mjs'
 import { fetchSSE } from '../../utils/fetch-sse'
 import { getConversationPairs } from '../../utils/get-conversation-pairs'
 import { isEmpty } from 'lodash-es'
@@ -31,7 +31,8 @@ export async function generateAnswersWithGptCompletionApi(
     (await getCompletionPromptBase()) +
     getConversationPairs(session.conversationRecords, true) +
     `Human: ${question}\nAI: `
-  const apiUrl = (await getUserConfig()).customOpenAiApiUrl
+  const config = await getUserConfig()
+  const apiUrl = config.customOpenAiApiUrl
 
   let answer = ''
   await fetchSSE(`${apiUrl}/v1/completions`, {
@@ -45,7 +46,7 @@ export async function generateAnswersWithGptCompletionApi(
       prompt: prompt,
       model: Models[modelName].value,
       stream: true,
-      max_tokens: maxResponseTokenLength,
+      max_tokens: config.maxResponseTokenLength,
     }),
     onMessage(message) {
       console.debug('sse message', message)
@@ -94,7 +95,8 @@ export async function generateAnswersWithChatgptApi(port, question, session, api
   const prompt = getConversationPairs(session.conversationRecords, false)
   prompt.unshift({ role: 'system', content: await getChatSystemPromptBase() })
   prompt.push({ role: 'user', content: question })
-  const apiUrl = (await getUserConfig()).customOpenAiApiUrl
+  const config = await getUserConfig()
+  const apiUrl = config.customOpenAiApiUrl
 
   let answer = ''
   await fetchSSE(`${apiUrl}/v1/chat/completions`, {
@@ -108,7 +110,7 @@ export async function generateAnswersWithChatgptApi(port, question, session, api
       messages: prompt,
       model: Models[modelName].value,
       stream: true,
-      max_tokens: maxResponseTokenLength,
+      max_tokens: config.maxResponseTokenLength,
     }),
     onMessage(message) {
       console.debug('sse message', message)

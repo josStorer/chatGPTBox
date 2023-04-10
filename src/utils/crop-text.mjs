@@ -20,13 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import { maxResponseTokenLength } from '../config/index.mjs'
 import { encode } from '@nem035/gpt-3-encoder'
 
 // TODO add model support
 export function cropText(
   text,
-  maxLength = 3900 - maxResponseTokenLength,
+  maxLength = 3900 - 1000,
   startLength = 400,
   endLength = 300,
   tiktoken = true,

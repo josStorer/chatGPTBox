@@ -5,7 +5,7 @@
 // and it has not yet had a negative impact on maintenance.
 // If necessary, I will refactor.
 
-import { getUserConfig, maxResponseTokenLength } from '../../config/index.mjs'
+import { getUserConfig } from '../../config/index.mjs'
 import { fetchSSE } from '../../utils/fetch-sse'
 import { getConversationPairs } from '../../utils/get-conversation-pairs'
 import { isEmpty } from 'lodash-es'
@@ -24,7 +24,8 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
   const prompt = getConversationPairs(session.conversationRecords, false)
   prompt.unshift({ role: 'system', content: await getCustomApiPromptBase() })
   prompt.push({ role: 'user', content: question })
-  const apiUrl = (await getUserConfig()).customModelApiUrl
+  const config = await getUserConfig()
+  const apiUrl = config.customModelApiUrl
 
   let answer = ''
   await fetchSSE(apiUrl, {
@@ -38,7 +39,7 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
       messages: prompt,
       model: modelName,
       stream: true,
-      max_tokens: maxResponseTokenLength,
+      max_tokens: config.maxResponseTokenLength,
     }),
     onMessage(message) {
       console.debug('sse message', message)

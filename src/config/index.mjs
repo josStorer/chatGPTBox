@@ -48,8 +48,6 @@ export const ModelMode = {
   fast: 'Fast',
 }
 
-export const maxResponseTokenLength = 1000
-
 /**
  * @typedef {typeof defaultConfig} UserConfig
  */
@@ -82,6 +80,7 @@ export const defaultConfig = {
 
   // advanced
 
+  maxResponseTokenLength: 1000,
   customChatGptWebApiUrl: 'https://chat.openai.com',
   customChatGptWebApiPath: '/backend-api/conversation',
   customOpenAiApiUrl: 'https://api.openai.com',

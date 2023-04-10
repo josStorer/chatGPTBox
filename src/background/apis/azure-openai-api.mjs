@@ -1,4 +1,4 @@
-import { getUserConfig, maxResponseTokenLength } from '../../config/index.mjs'
+import { getUserConfig } from '../../config/index.mjs'
 import { getChatSystemPromptBase, pushRecord, setAbortController } from './shared.mjs'
 import { getConversationPairs } from '../../utils/get-conversation-pairs'
 import { fetchSSE } from '../../utils/fetch-sse'
@@ -32,7 +32,7 @@ export async function generateAnswersWithAzureOpenaiApi(port, question, session)
       body: JSON.stringify({
         messages: prompt,
         stream: true,
-        max_tokens: maxResponseTokenLength,
+        max_tokens: config.maxResponseTokenLength,
       }),
       onMessage(message) {
         console.debug('sse message', message)

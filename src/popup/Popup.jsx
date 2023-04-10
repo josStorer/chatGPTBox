@@ -368,6 +368,20 @@ function AdvancedPart({ config, updateConfig }) {
   return (
     <>
       <label>
+        {t('Max Response Token Length')}
+        <input
+          type="number"
+          min="100"
+          max="40000"
+          step="100"
+          value={config.maxResponseTokenLength}
+          onChange={(e) => {
+            const value = parseInt(e.target.value)
+            updateConfig({ maxResponseTokenLength: value })
+          }}
+        />
+      </label>
+      <label>
         {t('Custom ChatGPT Web API Url')}
         <input
           type="text"

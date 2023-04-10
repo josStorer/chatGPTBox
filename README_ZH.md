@@ -80,12 +80,6 @@
 
 - 离线/自托管模型 (llama.cpp, ChatGLM) 现已支持, 查看 https://github.com/josStorer/selfhostedAI
 
-## 离线/自托管模型现已支持
-
-  [新动态] llama.cpp 现已受支持
-
-  仓库地址 https://github.com/josStorer/selfhostedAI
-
 ## ✨ Features
 
 - 🌈 在任何页面随时呼出聊天对话框 (<kbd>Ctrl</kbd>+<kbd>B</kbd>)

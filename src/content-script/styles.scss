@@ -120,6 +120,12 @@
     position: absolute;
     right: 10px;
     top: 3px;
+    transition: opacity 0.3s;
+    opacity: 0.2;
+  }
+
+  .code-corner-util:hover {
+    opacity: 1;
   }
 
   .gpt-util-group {
@@ -210,7 +216,7 @@
     color: var(--font-color);
     resize: none;
     min-height: 70px;
-    max-height: 240px;
+    max-height: 160px;
   }
 
   .dragbar {

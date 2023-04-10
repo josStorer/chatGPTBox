@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { defaultConfig, getUserConfig } from '../config/index.mjs'
 import Browser from 'webextension-polyfill'
 
-export function useConfig(initFn) {
+export function useConfig(initFn, ignoreSession = true) {
   const [config, setConfig] = useState(defaultConfig)
   useEffect(() => {
     getUserConfig().then((config) => {
@@ -12,7 +12,7 @@ export function useConfig(initFn) {
   }, [])
   useEffect(() => {
     const listener = (changes) => {
-      if (Object.keys(changes).length === 1 && 'sessions' in changes) return
+      if (ignoreSession) if (Object.keys(changes).length === 1 && 'sessions' in changes) return
 
       const changedItems = Object.keys(changes)
       let newConfig = {}

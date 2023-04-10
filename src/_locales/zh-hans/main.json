@@ -96,5 +96,8 @@
   "Feature Pages": "功能页",
   "Keyboard Shortcuts": "快捷键设置",
   "Open Conversation Page": "打开独立对话页",
-  "Store to Independent Conversation Page": "收纳到独立对话页"
+  "Open Conversation Window": "打开独立对话窗口",
+  "Store to Independent Conversation Page": "收纳到独立对话页",
+  "Keep Conversation Window in Background": "保持对话窗口在后台, 以便在任何程序中使用快捷键呼出",
+  "Max Response Token Length": "响应的最大token长度"
 }

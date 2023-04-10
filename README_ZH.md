@@ -10,7 +10,7 @@
 
 [![license][license-image]][license-url]
 [![release][release-image]][release-url]
-[![size](https://img.shields.io/badge/minified%20size-350%20kB-blue)][release-url]
+[![size](https://img.shields.io/badge/minified%20size-360%20kB-blue)][release-url]
 [![verfiy][verify-image]][verify-url]
 
 [English](README.md) | [Indonesia](README_IN.md) | 简体中文
@@ -74,18 +74,20 @@
 
 </div>
 
-## 离线/自托管模型现已支持
+## 新闻
 
-  仓库地址 https://github.com/josStorer/selfhostedAI
+- 这个扩展程序不收集你的数据, 你可以通过对代码全局搜索 `fetch(` 和 `XMLHttpRequest(` 找到所有的网络请求调用. 代码量不多, 所以很容易验证.
+
+- 离线/自托管模型 (llama.cpp, ChatGLM) 现已支持, 查看 https://github.com/josStorer/selfhostedAI
 
 ## ✨ Features
 
-- 🌈 在任何页面随时呼出聊天对话框 (`Ctrl+B`)
+- 🌈 在任何页面随时呼出聊天对话框 (<kbd>Ctrl</kbd>+<kbd>B</kbd>)
 - 📱 支持手机等移动设备
-- 📓 通过右键菜单总结任意页面 (`Alt+B`)
-- 📖 独立对话页面 (`Ctrl+Shift+H`)
-- 🔗 多种API支持 (免费用户和Plus用户可用Web API, 此外还有GPT-3.5, GPT-4, NewBing, 自托管支持等)
-- 📦 对各种常用网站的集成适配 (reddit, quora, youtube, github, gitlab, stackoverflow, zhihu, bilibili) (受到[wimdenherder](https://github.com/wimdenherder)启发)
+- 📓 通过右键菜单总结任意页面 (<kbd>Alt</kbd>+<kbd>B</kbd>)
+- 📖 独立对话页面 (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>)
+- 🔗 多种API支持 (免费用户和Plus用户可用Web API, 此外还有GPT-3.5, GPT-4, NewBing, 自托管支持, Azure等)
+- 📦 对各种常用网站的集成适配 (Reddit, Quora, YouTube, GitHub, GitLab, StackOverflow, Zhihu, Bilibili) (受到[wimdenherder](https://github.com/wimdenherder)启发)
 - 🔍 对所有主流搜索引擎的适配, 并支持自定义查询以支持额外的站点
 - 🧰 框选工具与右键菜单, 执行各种你的需求, 如翻译, 总结, 润色, 情感分析, 段落划分, 代码解释, 问询
 - 🗂️ 静态卡片支持浮出聊天框, 进行多分支对话

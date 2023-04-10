@@ -10,7 +10,7 @@ Deep ChatGPT integrations in your browser, completely for free.
 
 [![license][license-image]][license-url]
 [![release][release-image]][release-url]
-[![size](https://img.shields.io/badge/minified%20size-350%20kB-blue)][release-url]
+[![size](https://img.shields.io/badge/minified%20size-360%20kB-blue)][release-url]
 [![verfiy][verify-image]][verify-url]
 
 English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
@@ -74,18 +74,20 @@ English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
 
 </div>
 
-## Offline/Self-hosted model is now supported
+## News
 
-  See https://github.com/josStorer/selfhostedAI
+- This extension does **not** collect your data. You can verify it by conducting a global search for `fetch(` and `XMLHttpRequest(` in the code to find all network request calls. The amount of code is not much, so it's easy to do that.
+
+- Offline/Self-hosted model (llama.cpp, ChatGLM) is now supported, See https://github.com/josStorer/selfhostedAI
 
 ## ✨ Features
 
-- 🌈 Call up the chat dialog box on any page at any time. (`Ctrl+B`)
+- 🌈 Call up the chat dialog box on any page at any time. (<kbd>Ctrl</kbd>+<kbd>B</kbd>)
 - 📱 Support for mobile devices.
-- 📓 Summarize any page with right-click menu. (`Alt+B`)
-- 📖 Independent conversation page. (`Ctrl+Shift+H`)
-- 🔗 Multiple API support (Web API for Free and Plus users, GPT-3.5, GPT-4, New Bing, Self-Hosted).
-- 📦 Integration for various commonly used websites (reddit, quora, youtube, github, gitlab, stackoverflow, zhihu, bilibili). (Inspired by [wimdenherder](https://github.com/wimdenherder))
+- 📓 Summarize any page with right-click menu. (<kbd>Alt</kbd>+<kbd>B</kbd>)
+- 📖 Independent conversation page. (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>)
+- 🔗 Multiple API support (Web API for Free and Plus users, GPT-3.5, GPT-4, New Bing, Self-Hosted, Azure).
+- 📦 Integration for various commonly used websites (Reddit, Quora, YouTube, GitHub, GitLab, StackOverflow, Zhihu, Bilibili). (Inspired by [wimdenherder](https://github.com/wimdenherder))
 - 🔍 Integration to all mainstream search engines, and custom queries to support additional sites.
 - 🧰 Selection tool and right-click menu to perform various tasks, such as translation, summarization, polishing,
   sentiment analysis, paragraph division, code explain and queries.

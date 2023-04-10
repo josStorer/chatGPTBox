@@ -1,7 +1,7 @@
 {
   "name": "ChatGPTBox",
   "description": "Integrating ChatGPT into your browser deeply, everything you need is here",
-  "version": "2.2.0",
+  "version": "2.2.4",
   "manifest_version": 2,
   "icons": {
     "16": "logo.png",
@@ -15,8 +15,12 @@
     "storage",
     "contextMenus",
     "unlimitedStorage",
+    "tabs",
     "https://*.openai.com/",
     "https://*.bing.com/"
+  ],
+  "optional_permissions": [
+    "background"
   ],
   "background": {
     "scripts": [
@@ -70,6 +74,9 @@
         "mac": "MacCtrl+Shift+H"
       },
       "description": "Open the independent conversation page"
+    },
+    "openConversationWindow": {
+      "description": "Open the independent conversation window"
     }
   }
 }

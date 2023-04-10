@@ -1,7 +1,7 @@
 {
   "name": "ChatGPTBox",
   "description": "Integrating ChatGPT into your browser deeply, everything you need is here",
-  "version": "2.2.0",
+  "version": "2.2.4",
   "manifest_version": 3,
   "icons": {
     "16": "logo.png",
@@ -18,7 +18,11 @@
     "cookies",
     "storage",
     "contextMenus",
-    "unlimitedStorage"
+    "unlimitedStorage",
+    "tabs"
+  ],
+  "optional_permissions": [
+    "background"
   ],
   "background": {
     "service_worker": "background.js"
@@ -77,6 +81,9 @@
         "mac": "MacCtrl+Shift+H"
       },
       "description": "Open the independent conversation page"
+    },
+    "openConversationWindow": {
+      "description": "Open the independent conversation window"
     }
   }
 }

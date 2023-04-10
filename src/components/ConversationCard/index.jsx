@@ -346,7 +346,7 @@ function ConversationCard(props) {
         style={
           props.notClampSize
             ? { flexGrow: 1 }
-            : { maxHeight: windowSize[1] * 0.75 + 'px', resize: 'vertical' }
+            : { maxHeight: windowSize[1] * 0.55 + 'px', resize: 'vertical' }
         }
       >
         {conversationItemData.map((data, idx) => (

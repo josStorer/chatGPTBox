@@ -11,7 +11,9 @@ import {
   generateAnswersWithGptCompletionApi,
 } from './apis/openai-api'
 import { generateAnswersWithCustomApi } from './apis/custom-api.mjs'
+import { generateAnswersWithAzureOpenaiApi } from './apis/azure-openai-api.mjs'
 import {
+  azureOpenAiApiModelKeys,
   bingWebModelKeys,
   chatgptApiModelKeys,
   chatgptWebModelKeys,
@@ -81,13 +83,7 @@ Browser.runtime.onConnect.addListener((port) => {
         await generateAnswersWithChatgptWebApi(port, session.question, session, accessToken)
       } else if (bingWebModelKeys.includes(session.modelName)) {
         const accessToken = await getBingAccessToken()
-        await generateAnswersWithBingWebApi(
-          port,
-          session.question,
-          session,
-          accessToken,
-          session.modelName,
-        )
+        await generateAnswersWithBingWebApi(port, session.question, session, accessToken)
       } else if (gptApiModelKeys.includes(session.modelName)) {
         await generateAnswersWithGptCompletionApi(
           port,
@@ -112,6 +108,8 @@ Browser.runtime.onConnect.addListener((port) => {
           '',
           config.customModelName,
         )
+      } else if (azureOpenAiApiModelKeys.includes(session.modelName)) {
+        await generateAnswersWithAzureOpenaiApi(port, session.question, session)
       }
     } catch (err) {
       console.error(err)
@@ -161,7 +159,7 @@ Browser.commands.onCommand.addListener(async (command) => {
     useMenuPosition: false,
   }
   console.debug('command triggered', message)
-  if (menuConfig[command].action) menuConfig[command].action()
+  if (command in menuConfig && menuConfig[command].action) menuConfig[command].action()
   Browser.tabs.sendMessage(currentTab.id, {
     type: 'CREATE_CHAT',
     data: message,
@@ -214,7 +212,8 @@ function refreshMenu() {
           useMenuPosition: tab.id === currentTab.id,
         }
         console.debug('menu clicked', message)
-        if (menuConfig[message.itemId].action) menuConfig[message.itemId].action()
+        if (message.itemId in menuConfig && menuConfig[message.itemId].action)
+          menuConfig[message.itemId].action()
         Browser.tabs.sendMessage(currentTab.id, {
           type: 'CREATE_CHAT',
           data: message,

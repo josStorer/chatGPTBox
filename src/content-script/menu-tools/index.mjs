@@ -21,4 +21,15 @@ export const config = {
       openUrl(Browser.runtime.getURL('IndependentPanel.html'))
     },
   },
+  openConversationWindow: {
+    label: 'Open Conversation Window',
+    action: async () => {
+      Browser.windows.create({
+        url: Browser.runtime.getURL('IndependentPanel.html'),
+        type: 'popup',
+        width: 500,
+        height: 650,
+      })
+    },
+  },
 }

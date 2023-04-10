@@ -1,36 +1,15 @@
 import BingAIClient from '../clients/BingAIClient'
 import { getUserConfig } from '../../config/index.mjs'
-import { pushRecord } from './shared.mjs'
+import { pushRecord, setAbortController } from './shared.mjs'
 
 /**
  * @param {Runtime.Port} port
  * @param {string} question
  * @param {Session} session
  * @param {string} accessToken
- * @param {string} modelName
  */
-export async function generateAnswersWithBingWebApi(
-  port,
-  question,
-  session,
-  accessToken,
-  // eslint-disable-next-line
-  modelName,
-) {
-  const controller = new AbortController()
-  const stopListener = (msg) => {
-    if (msg.stop) {
-      console.debug('stop generating')
-      port.postMessage({ done: true })
-      port.onMessage.removeListener(stopListener)
-      controller.abort()
-    }
-  }
-  port.onMessage.addListener(stopListener)
-  port.onDisconnect.addListener(() => {
-    console.debug('port disconnected')
-    controller.abort()
-  })
+export async function generateAnswersWithBingWebApi(port, question, session, accessToken) {
+  const { controller, messageListener } = setAbortController(port)
 
   const bingAIClient = new BingAIClient({ userToken: accessToken })
 
@@ -55,7 +34,7 @@ export async function generateAnswersWithBingWebApi(
         : {}),
     })
     .catch((err) => {
-      port.onMessage.removeListener(stopListener)
+      port.onMessage.removeListener(messageListener)
       throw err
     })
 
@@ -66,6 +45,6 @@ export async function generateAnswersWithBingWebApi(
 
   pushRecord(session, question, answer)
   console.debug('conversation history', { content: session.conversationRecords })
-  port.onMessage.removeListener(stopListener)
+  port.onMessage.removeListener(messageListener)
   port.postMessage({ answer: answer, done: true, session: session })
 }

@@ -3,7 +3,8 @@
 import { fetchSSE } from '../../utils/fetch-sse'
 import { isEmpty } from 'lodash-es'
 import { chatgptWebModelKeys, getUserConfig, Models } from '../../config/index.mjs'
-import { pushRecord } from './shared.mjs'
+import { pushRecord, setAbortController } from './shared.mjs'
+import Browser from 'webextension-polyfill'
 
 async function request(token, method, path, data) {
   const apiUrl = (await getUserConfig()).customChatGptWebApiUrl
@@ -53,24 +54,12 @@ export async function getModels(token) {
  * @param {string} accessToken
  */
 export async function generateAnswersWithChatgptWebApi(port, question, session, accessToken) {
-  const controller = new AbortController()
-  const stopListener = (msg) => {
-    if (msg.stop) {
-      console.debug('stop generating')
-      port.postMessage({ done: true })
-      port.onMessage.removeListener(stopListener)
-      controller.abort()
-    }
-  }
-  port.onMessage.addListener(stopListener)
-  port.onDisconnect.addListener(() => {
-    console.debug('port disconnected')
-    controller.abort()
+  const { controller, messageListener } = setAbortController(port, null, () => {
     if (session.autoClean) deleteConversation(accessToken, session.conversationId)
   })
 
   const models = await getModels(accessToken).catch(() => {
-    port.onMessage.removeListener(stopListener)
+    port.onMessage.removeListener(messageListener)
   })
   console.debug('models', models)
   const config = await getUserConfig()
@@ -79,6 +68,12 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
     models && models.includes(selectedModel) ? selectedModel : Models[chatgptWebModelKeys[0]].value
   console.debug('usedModel', usedModel)
 
+  const cookie = (await Browser.cookies.getAll({ url: 'https://chat.openai.com/' }))
+    .map((cookie) => {
+      return `${cookie.name}=${cookie.value}`
+    })
+    .join('; ')
+
   let answer = ''
   await fetchSSE(`${config.customChatGptWebApiUrl}${config.customChatGptWebApiPath}`, {
     method: 'POST',
@@ -86,6 +81,7 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
+      Cookie: cookie,
     },
     body: JSON.stringify({
       action: 'next',
@@ -130,10 +126,10 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
       // sendModerations(accessToken, question, session.conversationId, session.messageId)
     },
     async onEnd() {
-      port.onMessage.removeListener(stopListener)
+      port.onMessage.removeListener(messageListener)
     },
     async onError(resp) {
-      port.onMessage.removeListener(stopListener)
+      port.onMessage.removeListener(messageListener)
       if (resp instanceof Error) throw resp
       if (resp.status === 403) {
         throw new Error('CLOUDFLARE')

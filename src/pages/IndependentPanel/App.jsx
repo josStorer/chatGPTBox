@@ -18,8 +18,8 @@ import Browser from 'webextension-polyfill'
 
 function App() {
   const { t } = useTranslation()
-  const [collapsed, setCollapsed] = useState(false)
-  const config = useConfig()
+  const [collapsed, setCollapsed] = useState(true)
+  const config = useConfig(null, false)
   const [sessions, setSessions] = useState([])
   const [sessionId, setSessionId] = useState(null)
   const [currentSession, setCurrentSession] = useState(null)
@@ -53,6 +53,10 @@ function App() {
       await setSessionIdSafe(sessions[0].sessionId)
     })()
   }, [])
+
+  useEffect(() => {
+    if ('sessions' in config && config['sessions']) setSessions(config['sessions'])
+  }, [config])
 
   useEffect(() => {
     // eslint-disable-next-line

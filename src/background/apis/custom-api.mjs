@@ -5,15 +5,11 @@
 // and it has not yet had a negative impact on maintenance.
 // If necessary, I will refactor.
 
-import { getUserConfig, maxResponseTokenLength } from '../../config/index.mjs'
+import { getUserConfig } from '../../config/index.mjs'
 import { fetchSSE } from '../../utils/fetch-sse'
 import { getConversationPairs } from '../../utils/get-conversation-pairs'
 import { isEmpty } from 'lodash-es'
-import { pushRecord } from './shared.mjs'
-
-const getCustomApiPromptBase = async () => {
-  return `I am a helpful, creative, clever, and very friendly assistant. I am familiar with various languages in the world.`
-}
+import { getCustomApiPromptBase, pushRecord, setAbortController } from './shared.mjs'
 
 /**
  * @param {Browser.Runtime.Port} port
@@ -23,25 +19,13 @@ const getCustomApiPromptBase = async () => {
  * @param {string} modelName
  */
 export async function generateAnswersWithCustomApi(port, question, session, apiKey, modelName) {
-  const controller = new AbortController()
-  const stopListener = (msg) => {
-    if (msg.stop) {
-      console.debug('stop generating')
-      port.postMessage({ done: true })
-      port.onMessage.removeListener(stopListener)
-      controller.abort()
-    }
-  }
-  port.onMessage.addListener(stopListener)
-  port.onDisconnect.addListener(() => {
-    console.debug('port disconnected')
-    controller.abort()
-  })
+  const { controller, messageListener } = setAbortController(port)
 
-  const prompt = getConversationPairs(session.conversationRecords, true)
+  const prompt = getConversationPairs(session.conversationRecords, false)
   prompt.unshift({ role: 'system', content: await getCustomApiPromptBase() })
   prompt.push({ role: 'user', content: question })
-  const apiUrl = (await getUserConfig()).customModelApiUrl
+  const config = await getUserConfig()
+  const apiUrl = config.customModelApiUrl
 
   let answer = ''
   await fetchSSE(apiUrl, {
@@ -55,7 +39,7 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
       messages: prompt,
       model: modelName,
       stream: true,
-      max_tokens: maxResponseTokenLength,
+      max_tokens: config.maxResponseTokenLength,
     }),
     onMessage(message) {
       console.debug('sse message', message)
@@ -77,14 +61,11 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
     },
     async onStart() {},
     async onEnd() {
-      port.onMessage.removeListener(stopListener)
+      port.onMessage.removeListener(messageListener)
     },
     async onError(resp) {
-      port.onMessage.removeListener(stopListener)
+      port.onMessage.removeListener(messageListener)
       if (resp instanceof Error) throw resp
-      if (resp.status === 403) {
-        throw new Error('CLOUDFLARE')
-      }
       const error = await resp.json().catch(() => ({}))
       throw new Error(!isEmpty(error) ? JSON.stringify(error) : `${resp.status} ${resp.statusText}`)
     },

@@ -74,15 +74,18 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
 </div>
 
-## Model Offline/Dihosting Sendiri kini didukung
+## Berita
 
-   Lihat https://github.com/josStorer/selfhostedAI
+- Ekstensi ini tidak mengumpulkan data Anda. Anda dapat memverifikasinya dengan melakukan pencarian global untuk fetch( dan XMLHttpRequest( dalam kode untuk menemukan semua panggilan permintaan jaringan. Jumlah kode tidak banyak, sehingga mudah untuk melakukannya.
+
+- Model Offline/Self-hosted (llama.cpp, ChatGLM) kini didukung, Lihat https://github.com/josStorer/selfhostedAI
 
 ## ✨ Fitur
 
 - 🌈 Panggil kotak dialog obrolan di halaman mana saja kapan saja. (<kbd>Ctrl</kbd>+<kbd>B</kbd>)
 - 📱 Dukungan untuk perangkat seluler.
 - 📓 Ringkas halaman mana saja dengan menu klik kanan. (<kbd>Alt</kbd>+<kbd>B</kbd>)
+- 📖 Halaman percakapan independen. (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>)
 - 🔗 Dukungan banyak API (API Web untuk pengguna Gratis dan Plus, GPT-3.5, GPT-4, Bing Baru, Di-hosting Sendiri, Azure).
 - 📦 Integrasi untuk berbagai situs web yang umum digunakan (Reddit, Quora, YouTube, GitHub, GitLab, StackOverflow, Zhihu, Bilibili). (Terinspirasi oleh [wimdenherder](https://github.com/wimdenherder))
 - 🔍 Integrasi ke semua mesin telusur utama, dan kueri khusus untuk mendukung situs tambahan.

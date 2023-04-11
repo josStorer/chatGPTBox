@@ -152,18 +152,26 @@ Browser.runtime.onMessage.addListener(async (message) => {
 })
 
 Browser.commands.onCommand.addListener(async (command) => {
-  const currentTab = (await Browser.tabs.query({ active: true, currentWindow: true }))[0]
   const message = {
     itemId: command,
     selectionText: '',
     useMenuPosition: false,
   }
   console.debug('command triggered', message)
-  if (command in menuConfig && menuConfig[command].action) menuConfig[command].action()
-  Browser.tabs.sendMessage(currentTab.id, {
-    type: 'CREATE_CHAT',
-    data: message,
-  })
+
+  if (command in menuConfig) {
+    if (menuConfig[command].action) {
+      menuConfig[command].action()
+    }
+
+    if (menuConfig[command].genPrompt) {
+      const currentTab = (await Browser.tabs.query({ active: true, currentWindow: true }))[0]
+      Browser.tabs.sendMessage(currentTab.id, {
+        type: 'CREATE_CHAT',
+        data: message,
+      })
+    }
+  }
 })
 
 function refreshMenu() {
@@ -212,12 +220,24 @@ function refreshMenu() {
           useMenuPosition: tab.id === currentTab.id,
         }
         console.debug('menu clicked', message)
-        if (message.itemId in menuConfig && menuConfig[message.itemId].action)
-          menuConfig[message.itemId].action()
-        Browser.tabs.sendMessage(currentTab.id, {
-          type: 'CREATE_CHAT',
-          data: message,
-        })
+
+        if (defaultConfig.selectionTools.includes(message.itemId)) {
+          Browser.tabs.sendMessage(currentTab.id, {
+            type: 'CREATE_CHAT',
+            data: message,
+          })
+        } else if (message.itemId in menuConfig) {
+          if (menuConfig[message.itemId].action) {
+            menuConfig[message.itemId].action()
+          }
+
+          if (menuConfig[message.itemId].genPrompt) {
+            Browser.tabs.sendMessage(currentTab.id, {
+              type: 'CREATE_CHAT',
+              data: message,
+            })
+          }
+        }
       })
     })
   })

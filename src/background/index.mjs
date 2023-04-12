@@ -12,6 +12,7 @@ import {
 } from './apis/openai-api'
 import { generateAnswersWithCustomApi } from './apis/custom-api.mjs'
 import { generateAnswersWithAzureOpenaiApi } from './apis/azure-openai-api.mjs'
+import { generateAnswersWithWaylaidwandererApi } from './apis/waylaidwanderer-api.mjs'
 import {
   azureOpenAiApiModelKeys,
   bingWebModelKeys,
@@ -21,6 +22,7 @@ import {
   defaultConfig,
   getPreferredLanguageKey,
   getUserConfig,
+  githubThirdPartyApiModelKeys,
   gptApiModelKeys,
   Models,
 } from '../config/index.mjs'
@@ -110,6 +112,8 @@ Browser.runtime.onConnect.addListener((port) => {
         )
       } else if (azureOpenAiApiModelKeys.includes(session.modelName)) {
         await generateAnswersWithAzureOpenaiApi(port, session.question, session)
+      } else if (githubThirdPartyApiModelKeys.includes(session.modelName)) {
+        await generateAnswersWithWaylaidwandererApi(port, session.question, session)
       }
     } catch (err) {
       console.error(err)

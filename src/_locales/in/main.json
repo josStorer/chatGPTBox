@@ -88,4 +88,16 @@
   "Retry": "Coba Lagi",
   "Exceeded maximum context length": "Melampaui batas maksimum panjang konteks, harap bersihkan percakapan dan coba lagi",
   "Regenerate the answer after switching model": "Hasilkan kembali jawaban setelah beralih ke model lain"
+  "Pin": "Pin",
+  "Unpin": "Lepas Pin",
+  "Delete Conversation": "Hapus Percakapan",
+  "Clear conversations": "Hapus Percakapan",
+  "Settings": "Pengaturan",
+  "Feature Pages": "Halaman Fitur",
+  "Keyboard Shortcuts": "Pintasan Keyboard",
+  "Open Conversation Page": "Buka Halaman Percakapan",
+  "Open Conversation Window": "Buka Jendela Percakapan",
+  "Store to Independent Conversation Page": "Simpan ke Halaman Percakapan Independen",
+  "Keep Conversation Window in Background": "Biarkan jendela percakapan di latar belakang, sehingga Anda dapat menggunakan pintasan keyboard untuk memanggilnya di program mana pun",
+  "Max Response Token Length": "Panjang Token Respon Maksimum"
 }

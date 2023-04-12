@@ -1,6 +1,11 @@
 import { cropText } from '../../../utils'
 import { config } from '../index.mjs'
 
+function replaceHtmlEntities(htmlString) { // This function was written by ChatGPT and modified by me (iamsirsammy)
+  const doc = new DOMParser().parseFromString(htmlString.replace("&amp;", "&"), 'text/html');
+  return doc.documentElement.innerText;
+}
+
 export default {
   init: async (hostname, userConfig, getInput, mountComponent) => {
     try {
@@ -44,9 +49,11 @@ export default {
         subtitleContent += subtitleData.substring(0, subtitleData.indexOf('<')) + ','
       }
 
+      subtitleContent = replaceHtmlEntities(subtitleContent.replace(",", " "))
+
       return cropText(
-        `Provide a brief summary of the video using concise language and incorporating the video title.` +
-          `The video title is:"${title}".The subtitle content is as follows:\n${subtitleContent}`,
+        `Provide a brief summary of the following video using concise language, still including all the important details, and incorporating the video title.` +
+          `The video title is "${title}". The subtitle content is as follows:\n${subtitleContent}`,
       )
     } catch (e) {
       console.log(e)

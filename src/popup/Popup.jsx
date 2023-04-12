@@ -33,7 +33,7 @@ function GeneralPart({ config, updateConfig }) {
   const [balance, setBalance] = useState(null)
 
   const getBalance = async () => {
-    const response = await fetch('https://api.openai.com/dashboard/billing/credit_grants', {
+    const response = await fetch(`${config.customOpenAiApiUrl}/dashboard/billing/credit_grants`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${config.apiKey}`,

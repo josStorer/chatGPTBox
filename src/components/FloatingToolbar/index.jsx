@@ -61,6 +61,13 @@ function FloatingToolbar(props) {
       updatePosition() // avoid jitter
     }
 
+    const onDock = () => {
+      props.container.className = 'chatgptbox-toolbar-container-not-queryable'
+      setCloseable(true)
+    }
+
+    if (config.alwaysPinWindow) onDock()
+
     return (
       <div data-theme={config.themeMode}>
         <Draggable
@@ -83,10 +90,7 @@ function FloatingToolbar(props) {
                   props.container.remove()
                 }}
                 dockable={props.dockable}
-                onDock={() => {
-                  props.container.className = 'chatgptbox-toolbar-container-not-queryable'
-                  setCloseable(true)
-                }}
+                onDock={onDock}
                 onUpdate={() => {
                   updatePosition()
                 }}

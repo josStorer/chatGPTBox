@@ -297,6 +297,17 @@ function GeneralPart({ config, updateConfig }) {
         />
         {t('Regenerate the answer after switching model')}
       </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={config.alwaysPinWindow}
+          onChange={(e) => {
+            const checked = e.target.checked
+            updateConfig({ alwaysPinWindow: checked })
+          }}
+        />
+        {t('Always pin the floating window')}
+      </label>
       <br />
     </>
   )

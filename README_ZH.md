@@ -80,7 +80,7 @@
 
 - 自定义模型, chatGLM-6B, chatRWKV, chatYuan支持, 查看 https://github.com/l15y/wenda, API兼容
 
-- 三方API服务兼容, 查看 https://api2d.com/r/193934, 该服务并不是由我提供的, 但对于获取账号困难的用户可以考虑
+- 三方API服务兼容, 查看 https://api2d.com/r/193934, 该服务并不是由我提供的, 但对于获取账号困难的用户可以考虑, 使用方法: https://github.com/josStorer/chatGPTBox/issues/166#issuecomment-1504704489
 
 - 离线/自托管模型 (llama.cpp, ChatGLM) 现已支持, 查看 https://github.com/josStorer/selfhostedAI
 

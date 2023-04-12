@@ -95,7 +95,7 @@ export const defaultConfig = {
 
   // others
 
-  activeSelectionTools: ['translate', 'summary', 'polish', 'sentiment', 'divide', 'code', 'ask'],
+  activeSelectionTools: ['translate', 'summary', 'polish', 'code', 'ask'],
   activeSiteAdapters: [
     'bilibili',
     'github',

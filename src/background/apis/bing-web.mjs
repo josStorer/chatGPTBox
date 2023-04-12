@@ -24,12 +24,12 @@ export async function generateAnswersWithBingWebApi(port, question, session, acc
         answer = answer.replaceAll(/\[\^\d+\^\]/g, '')
         port.postMessage({ answer: answer, done: false, session: null })
       },
-      ...(session.bingWeb.conversationId
+      ...(session.bingWeb_conversationId
         ? {
-            conversationId: session.bingWeb.conversationId,
-            conversationSignature: session.bingWeb.conversationSignature,
-            clientId: session.bingWeb.clientId,
-            invocationId: session.bingWeb.invocationId,
+            conversationId: session.bingWeb_conversationId,
+            conversationSignature: session.bingWeb_conversationSignature,
+            clientId: session.bingWeb_clientId,
+            invocationId: session.bingWeb_invocationId,
           }
         : {}),
     })
@@ -38,10 +38,10 @@ export async function generateAnswersWithBingWebApi(port, question, session, acc
       throw err
     })
 
-  session.bingWeb.conversationSignature = response.conversationSignature
-  session.bingWeb.conversationId = response.conversationId
-  session.bingWeb.clientId = response.clientId
-  session.bingWeb.invocationId = response.invocationId
+  session.bingWeb_conversationSignature = response.conversationSignature
+  session.bingWeb_conversationId = response.conversationId
+  session.bingWeb_clientId = response.clientId
+  session.bingWeb_invocationId = response.invocationId
 
   pushRecord(session, question, answer)
   console.debug('conversation history', { content: session.conversationRecords })

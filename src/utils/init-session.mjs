@@ -1,13 +1,6 @@
 import { Models } from '../config/index.mjs'
 
 /**
- * @typedef {object} BingWeb
- * @property {string|null} conversationSignature
- * @property {string|null} conversationId
- * @property {string|null} clientId
- * @property {string|null} invocationId
- */
-/**
  * @typedef {object} Session
  * @property {string|null} question
  * @property {Object[]|null} conversationRecords
@@ -20,7 +13,10 @@ import { Models } from '../config/index.mjs'
  * @property {string|null} conversationId - chatGPT web mode
  * @property {string|null} messageId - chatGPT web mode
  * @property {string|null} parentMessageId - chatGPT web mode
- * @property {BingWeb} bingWeb
+ * @property {string|null} bingWeb_conversationSignature
+ * @property {string|null} bingWeb_conversationId
+ * @property {string|null} bingWeb_clientId
+ * @property {string|null} bingWeb_invocationId
  */
 /**
  * @param {string|null} question
@@ -57,11 +53,9 @@ export function initSession({
     parentMessageId: null,
 
     // bing
-    bingWeb: {
-      conversationSignature: null,
-      conversationId: null,
-      clientId: null,
-      invocationId: null,
-    },
+    bingWeb_conversationSignature: null,
+    bingWeb_conversationId: null,
+    bingWeb_clientId: null,
+    bingWeb_invocationId: null,
   }
 }

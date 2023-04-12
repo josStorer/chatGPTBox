@@ -20,6 +20,7 @@ export const Models = {
   gptApiDavinci: { value: 'text-davinci-003', desc: 'GPT-3.5' },
   customModel: { value: '', desc: 'Custom Model' },
   azureOpenAi: { value: '', desc: 'ChatGPT (Azure)' },
+  waylaidwandererApi: { value: '', desc: 'Waylaidwanderer API (Github)' },
 }
 
 export const chatgptWebModelKeys = ['chatgptFree35', 'chatgptPlus4']
@@ -28,6 +29,7 @@ export const gptApiModelKeys = ['gptApiDavinci']
 export const chatgptApiModelKeys = ['chatgptApi35', 'chatgptApi4_8k', 'chatgptApi4_32k']
 export const customApiModelKeys = ['customModel']
 export const azureOpenAiApiModelKeys = ['azureOpenAi']
+export const githubThirdPartyApiModelKeys = ['waylaidwandererApi']
 
 export const TriggerMode = {
   always: 'Always',
@@ -77,6 +79,7 @@ export const defaultConfig = {
 
   customModelApiUrl: 'http://localhost:8000/chat/completions',
   customModelName: 'llama-7b-int4',
+  githubThirdPartyUrl: 'http://127.0.0.1:3000/conversation',
 
   // advanced
 
@@ -165,6 +168,10 @@ export function isUsingCustomModel(configOrSession) {
 
 export function isUsingAzureOpenAi(configOrSession) {
   return azureOpenAiApiModelKeys.includes(configOrSession.modelName)
+}
+
+export function isUsingGithubThirdPartyApi(configOrSession) {
+  return githubThirdPartyApiModelKeys.includes(configOrSession.modelName)
 }
 
 export async function getPreferredLanguageKey() {

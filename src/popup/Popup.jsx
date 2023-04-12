@@ -7,6 +7,7 @@ import {
   isUsingApiKey,
   isUsingAzureOpenAi,
   isUsingCustomModel,
+  isUsingGithubThirdPartyApi,
   isUsingMultiModeModel,
   ModelMode,
   Models,
@@ -212,6 +213,17 @@ function GeneralPart({ config, updateConfig }) {
             onChange={(e) => {
               const deploymentName = e.target.value
               updateConfig({ azureDeploymentName: deploymentName })
+            }}
+          />
+        )}
+        {isUsingGithubThirdPartyApi(config) && (
+          <input
+            type="text"
+            value={config.githubThirdPartyUrl}
+            placeholder={t('API Url')}
+            onChange={(e) => {
+              const url = e.target.value
+              updateConfig({ githubThirdPartyUrl: url })
             }}
           />
         )}

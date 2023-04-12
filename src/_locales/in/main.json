@@ -87,7 +87,7 @@
   "Clear Conversation": "Bersihkan Percakapan",
   "Retry": "Coba Lagi",
   "Exceeded maximum context length": "Melampaui batas maksimum panjang konteks, harap bersihkan percakapan dan coba lagi",
-  "Regenerate the answer after switching model": "Hasilkan kembali jawaban setelah beralih ke model lain"
+  "Regenerate the answer after switching model": "Hasilkan kembali jawaban setelah beralih ke model lain",
   "Pin": "Pin",
   "Unpin": "Lepas Pin",
   "Delete Conversation": "Hapus Percakapan",

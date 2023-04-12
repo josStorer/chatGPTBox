@@ -67,6 +67,7 @@ export const defaultConfig = {
   insertAtTop: isMobile(),
   lockWhenAnswer: false,
   autoRegenAfterSwitchModel: false,
+  alwaysPinWindow: false,
 
   apiKey: '', // openai ApiKey
 

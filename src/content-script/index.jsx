@@ -268,6 +268,7 @@ async function prepareForRightClickMenu() {
 }
 
 async function prepareForStaticCard() {
+  const userConfig = await getUserConfig()
   let siteRegex
   if (userConfig.useSiteRegexOnly) siteRegex = userConfig.siteRegex
   else
@@ -296,10 +297,7 @@ async function prepareForStaticCard() {
   }
 }
 
-let userConfig
-
 async function run() {
-  userConfig = await getUserConfig()
   await getPreferredLanguageKey().then((lang) => {
     changeLanguage(lang)
   })

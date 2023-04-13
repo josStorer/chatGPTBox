@@ -25,7 +25,12 @@ import { changeLanguage } from 'i18next'
  */
 async function mountComponent(siteConfig, userConfig) {
   const retry = 10
+  let oldUrl = location.href
   for (let i = 1; i <= retry; i++) {
+    if (location.href !== oldUrl) {
+      console.log(`SiteAdapters Retry ${i}/${retry}: stop`)
+      return
+    }
     const e =
       (siteConfig &&
         (getPossibleElementByQuerySelector(siteConfig.sidebarContainerQuery) ||

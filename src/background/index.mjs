@@ -1,5 +1,4 @@
 import Browser from 'webextension-polyfill'
-import ExpiryMap from 'expiry-map'
 import {
   deleteConversation,
   generateAnswersWithChatgptWebApi,
@@ -18,6 +17,7 @@ import {
   bingWebModelKeys,
   chatgptApiModelKeys,
   chatgptWebModelKeys,
+  clearOldAccessToken,
   customApiModelKeys,
   defaultConfig,
   getPreferredLanguageKey,
@@ -25,27 +25,18 @@ import {
   githubThirdPartyApiModelKeys,
   gptApiModelKeys,
   Models,
+  setAccessToken,
 } from '../config/index.mjs'
-import { isSafari } from '../utils/is-safari'
 import { config as menuConfig } from '../content-script/menu-tools'
 import { t, changeLanguage } from 'i18next'
 import '../_locales/i18n'
 import { openUrl } from '../utils/open-url'
 
-const KEY_ACCESS_TOKEN = 'accessToken'
-const cache = new ExpiryMap(10 * 1000)
-
 async function getChatGptAccessToken() {
-  if (cache.get(KEY_ACCESS_TOKEN)) {
-    return cache.get(KEY_ACCESS_TOKEN)
-  }
-  if (isSafari()) {
-    const userConfig = await getUserConfig()
-    if (userConfig.accessToken) {
-      cache.set(KEY_ACCESS_TOKEN, userConfig.accessToken)
-    } else {
-      throw new Error('UNAUTHORIZED')
-    }
+  await clearOldAccessToken()
+  const userConfig = await getUserConfig()
+  if (userConfig.accessToken) {
+    return userConfig.accessToken
   } else {
     const resp = await fetch('https://chat.openai.com/api/auth/session')
     if (resp.status === 403) {
@@ -55,9 +46,9 @@ async function getChatGptAccessToken() {
     if (!data.accessToken) {
       throw new Error('UNAUTHORIZED')
     }
-    cache.set(KEY_ACCESS_TOKEN, data.accessToken)
+    await setAccessToken(data.accessToken)
+    return data.accessToken
   }
-  return cache.get(KEY_ACCESS_TOKEN)
 }
 
 async function getBingAccessToken() {
@@ -118,8 +109,6 @@ Browser.runtime.onConnect.addListener((port) => {
     } catch (err) {
       console.error(err)
       if (!err.message.includes('aborted')) {
-        cache.delete(KEY_ACCESS_TOKEN)
-
         if (
           ['message you submitted was too long', 'maximum context length'].some((m) =>
             err.message.includes(m),

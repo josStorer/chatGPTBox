@@ -24,7 +24,6 @@
     "@primer/octicons-react": "^18.2.0",
     "countries-list": "^2.6.1",
     "eventsource-parser": "^0.1.0",
-    "expiry-map": "^2.0.0",
     "file-saver": "^2.0.5",
     "github-markdown-css": "^5.2.0",
     "gpt-3-encoder": "^1.1.4",

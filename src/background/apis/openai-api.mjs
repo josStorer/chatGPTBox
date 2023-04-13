@@ -73,9 +73,6 @@ export async function generateAnswersWithGptCompletionApi(
     async onError(resp) {
       port.onMessage.removeListener(messageListener)
       if (resp instanceof Error) throw resp
-      if (resp.status === 403) {
-        throw new Error('CLOUDFLARE')
-      }
       const error = await resp.json().catch(() => ({}))
       throw new Error(!isEmpty(error) ? JSON.stringify(error) : `${resp.status} ${resp.statusText}`)
     },
@@ -139,9 +136,6 @@ export async function generateAnswersWithChatgptApi(port, question, session, api
     async onError(resp) {
       port.onMessage.removeListener(messageListener)
       if (resp instanceof Error) throw resp
-      if (resp.status === 403) {
-        throw new Error('CLOUDFLARE')
-      }
       const error = await resp.json().catch(() => ({}))
       throw new Error(!isEmpty(error) ? JSON.stringify(error) : `${resp.status} ${resp.statusText}`)
     },

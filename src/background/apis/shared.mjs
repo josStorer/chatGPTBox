@@ -7,9 +7,7 @@ export const getCompletionPromptBase = async () => {
     `The following is a conversation with an AI assistant.` +
     `The assistant is helpful, creative, clever, and very friendly. The assistant is familiar with various languages in the world.\n\n` +
     `Human: Hello, who are you?\n` +
-    `AI: I am an AI assistant. How can I help you today?\n` +
-    `Human: 没什么\n` +
-    `AI: 好的, 如果有什么需要, 随时告诉我\n`
+    `AI: I am an AI assistant. How can I help you today?\n`
   )
 }
 

@@ -19,6 +19,20 @@ async function deleteOldDir() {
 }
 
 async function runWebpack(isWithoutKatex, isWithoutTiktoken, callback) {
+  const shared = [
+    'preact',
+    'webextension-polyfill',
+    '@primer/octicons-react',
+    'react-bootstrap-icons',
+    'countries-list',
+    'i18next',
+    'react-i18next',
+    'react-tabs',
+    './src/utils',
+    './src/_locales/i18n-react',
+  ]
+  if (isWithoutKatex) shared.push('./src/components')
+
   const compiler = webpack({
     entry: {
       'content-script': {
@@ -36,19 +50,7 @@ async function runWebpack(isWithoutKatex, isWithoutTiktoken, callback) {
         import: './src/pages/IndependentPanel/index.jsx',
         dependOn: 'shared',
       },
-      shared: [
-        'preact',
-        'webextension-polyfill',
-        '@primer/octicons-react',
-        'react-bootstrap-icons',
-        'countries-list',
-        'i18next',
-        'react-i18next',
-        'react-tabs',
-        './src/utils',
-        './src/_locales/i18n-react',
-        './src/components',
-      ],
+      shared: shared,
     },
     output: {
       filename: '[name].js',

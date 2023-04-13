@@ -5,19 +5,13 @@ import DecisionCard from '../components/DecisionCard'
 import { config as siteConfig } from './site-adapters'
 import { config as toolsConfig } from './selection-tools'
 import { config as menuConfig } from './menu-tools'
-import {
-  clearOldAccessToken,
-  getPreferredLanguageKey,
-  getUserConfig,
-  setAccessToken,
-} from '../config/index.mjs'
+import { getPreferredLanguageKey, getUserConfig, setAccessToken } from '../config/index.mjs'
 import {
   createElementAtPosition,
   cropText,
   getClientPosition,
   getPossibleElementByQuerySelector,
   initSession,
-  isSafari,
 } from '../utils'
 import FloatingToolbar from '../components/FloatingToolbar'
 import Browser from 'webextension-polyfill'
@@ -100,9 +94,7 @@ async function getInput(inputQuery) {
   }
 }
 
-async function prepareForSafari() {
-  await clearOldAccessToken()
-
+async function overwriteAccessToken() {
   if (location.hostname !== 'chat.openai.com' || location.pathname !== '/api/auth/session') return
 
   const response = document.querySelector('pre').textContent
@@ -116,6 +108,7 @@ async function prepareForSafari() {
   }
   if (data.accessToken) {
     await setAccessToken(data.accessToken)
+    console.log(data.accessToken)
   }
 }
 
@@ -308,7 +301,8 @@ async function run() {
     }
   })
 
-  if (isSafari()) await prepareForSafari()
+  await overwriteAccessToken()
+
   prepareForSelectionTools()
   prepareForSelectionToolsTouch()
   prepareForStaticCard()

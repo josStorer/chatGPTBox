@@ -85,8 +85,8 @@ export const defaultConfig = {
   // advanced
 
   maxResponseTokenLength: 1000,
-  customChatGptWebApiUrl: 'https://chat.openai.com',
-  customChatGptWebApiPath: '/backend-api/conversation',
+  customChatGptWebApiUrl: 'https://bypass.churchless.tech', // https://chat.openai.com
+  customChatGptWebApiPath: '/api/conversation', // /backend-api/conversation
   customOpenAiApiUrl: 'https://api.openai.com',
   siteRegex: 'match nothing',
   useSiteRegexOnly: false,

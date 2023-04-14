@@ -10,6 +10,7 @@ import { pushRecord, setAbortController } from './shared.mjs'
  */
 export async function generateAnswersWithBingWebApi(port, question, session, accessToken) {
   const { controller, messageListener } = setAbortController(port)
+  const config = await getUserConfig()
 
   const bingAIClient = new BingAIClient({ userToken: accessToken })
 
@@ -17,7 +18,8 @@ export async function generateAnswersWithBingWebApi(port, question, session, acc
   const response = await bingAIClient
     .sendMessage(question, {
       abortController: controller,
-      toneStyle: (await getUserConfig()).modelMode,
+      toneStyle: config.modelMode,
+      jailbreakConversationId: config.sydneyMode,
       onProgress: (token) => {
         answer += token
         // remove reference markers [^number^]

@@ -1,9 +1,10 @@
 import { cropText } from '../../../utils'
 import { config } from '../index.mjs'
 
-function replaceHtmlEntities(htmlString) { // This function was written by ChatGPT and modified by me (iamsirsammy)
-  const doc = new DOMParser().parseFromString(htmlString.replace("&amp;", "&"), 'text/html');
-  return doc.documentElement.innerText;
+// This function was written by ChatGPT and modified by iamsirsammy
+function replaceHtmlEntities(htmlString) {
+  const doc = new DOMParser().parseFromString(htmlString.replaceAll('&amp;', '&'), 'text/html')
+  return doc.documentElement.innerText
 }
 
 export default {
@@ -46,7 +47,7 @@ export default {
       let subtitleContent = ''
       while (subtitleData.indexOf('">') !== -1) {
         subtitleData = subtitleData.substring(subtitleData.indexOf('">') + 2)
-        subtitleContent += subtitleData.substring(0, subtitleData.indexOf('<')) + ' '
+        subtitleContent += subtitleData.substring(0, subtitleData.indexOf('<')) + ','
       }
 
       subtitleContent = replaceHtmlEntities(subtitleContent)

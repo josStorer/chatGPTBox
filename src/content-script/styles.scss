@@ -165,8 +165,8 @@
       padding: 0;
     }
 
-    & > p {
-      margin-bottom: 10px;
+    p {
+      margin: 0 0 10px;
     }
 
     code {
@@ -177,10 +177,6 @@
       .hljs {
         padding: 0;
       }
-    }
-
-    p {
-      margin: 0;
     }
   }
 
@@ -194,6 +190,7 @@
 
     p {
       font-weight: bold;
+      margin: 0;
     }
 
     .gpt-feedback {

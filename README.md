@@ -24,8 +24,6 @@ English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
 [![Android][Android-image]][Android-url]
 [![Github][Github-image]][Github-url]
 
-(Waiting for store review, [Chrome][Chrome-url], [Edge][Edge-url], [Safari(macOS)][Safari-url] and [Firefox][Firefox-url] version is now available)
-
 [Guide](https://github.com/josStorer/chatGPTBox/wiki/Guide) |
 [Preview](#Preview) |
 [Development&Contributing][dev-url] |
@@ -88,7 +86,7 @@ English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
 - 📱 Support for mobile devices.
 - 📓 Summarize any page with right-click menu. (<kbd>Alt</kbd>+<kbd>B</kbd>)
 - 📖 Independent conversation page. (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>)
-- 🔗 Multiple API support (Web API for Free and Plus users, GPT-3.5, GPT-4, New Bing, Self-Hosted, Azure).
+- 🔗 Multiple API support (Web API for Free and Plus users, GPT-3.5, GPT-4, New Bing, Self-Hosted, Azure, Poe etc.).
 - 📦 Integration for various commonly used websites (Reddit, Quora, YouTube, GitHub, GitLab, StackOverflow, Zhihu, Bilibili). (Inspired by [wimdenherder](https://github.com/wimdenherder))
 - 🔍 Integration to all mainstream search engines, and custom queries to support additional sites.
 - 🧰 Selection tool and right-click menu to perform various tasks, such as translation, summarization, polishing,

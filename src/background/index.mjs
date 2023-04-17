@@ -78,7 +78,9 @@ Browser.runtime.onConnect.addListener((port) => {
         await generateAnswersWithChatgptWebApi(port, session.question, session, accessToken)
       } else if (bingWebModelKeys.includes(session.modelName)) {
         const accessToken = await getBingAccessToken()
-        await generateAnswersWithBingWebApi(port, session.question, session, accessToken)
+        if (session.modelName === 'bingFreeSydney')
+          await generateAnswersWithBingWebApi(port, session.question, session, accessToken, true)
+        else await generateAnswersWithBingWebApi(port, session.question, session, accessToken)
       } else if (gptApiModelKeys.includes(session.modelName)) {
         await generateAnswersWithGptCompletionApi(
           port,

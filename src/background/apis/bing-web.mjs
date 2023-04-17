@@ -7,8 +7,15 @@ import { pushRecord, setAbortController } from './shared.mjs'
  * @param {string} question
  * @param {Session} session
  * @param {string} accessToken
+ * @param {boolean} sydneyMode
  */
-export async function generateAnswersWithBingWebApi(port, question, session, accessToken) {
+export async function generateAnswersWithBingWebApi(
+  port,
+  question,
+  session,
+  accessToken,
+  sydneyMode = false,
+) {
   const { controller, messageListener } = setAbortController(port)
   const config = await getUserConfig()
 
@@ -19,7 +26,7 @@ export async function generateAnswersWithBingWebApi(port, question, session, acc
     .sendMessage(question, {
       abortController: controller,
       toneStyle: config.modelMode,
-      jailbreakConversationId: config.sydneyMode,
+      jailbreakConversationId: sydneyMode,
       onProgress: (token) => {
         answer += token
         // remove reference markers [^number^]

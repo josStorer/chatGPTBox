@@ -1,6 +1,14 @@
+import { getPossibleElementByQuerySelector } from './get-possible-element-by-query-selector.mjs'
+
 function getArea(e) {
   const rect = e.getBoundingClientRect()
   return rect.width * rect.height
+}
+
+const adapters = {
+  'scholar.google': ['#gs_res_ccl_mid'],
+  google: ['#search'],
+  csdn: ['#content_views'],
 }
 
 function findLargestElement(e) {
@@ -26,6 +34,14 @@ function findLargestElement(e) {
 }
 
 export function getCoreContentText() {
+  for (const [siteName, selectors] of Object.entries(adapters)) {
+    if (location.hostname.includes(siteName)) {
+      const element = getPossibleElementByQuerySelector(selectors)
+      if (element) return element.innerText || element.textContent
+      break
+    }
+  }
+
   const largestElement = findLargestElement(document.body)
   const secondLargestElement = findLargestElement(largestElement)
   console.log(largestElement)

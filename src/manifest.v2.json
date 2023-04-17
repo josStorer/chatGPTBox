@@ -17,7 +17,8 @@
     "unlimitedStorage",
     "tabs",
     "https://*.openai.com/",
-    "https://*.bing.com/"
+    "https://*.bing.com/",
+    "https://*.poe.com/"
   ],
   "optional_permissions": [
     "background"

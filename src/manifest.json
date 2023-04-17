@@ -11,7 +11,8 @@
   },
   "host_permissions": [
     "https://*.openai.com/",
-    "https://*.bing.com/"
+    "https://*.bing.com/",
+    "https://*.poe.com/"
   ],
   "permissions": [
     "commands",

@@ -17,6 +17,7 @@ import { Models } from '../config/index.mjs'
  * @property {string|null} bingWeb_conversationId
  * @property {string|null} bingWeb_clientId
  * @property {string|null} bingWeb_invocationId
+ * @property {number|null} poe_chatId
  */
 /**
  * @param {string|null} question
@@ -57,5 +58,8 @@ export function initSession({
     bingWeb_conversationId: null,
     bingWeb_clientId: null,
     bingWeb_invocationId: null,
+
+    // poe
+    poe_chatId: null,
   }
 }

@@ -12,6 +12,7 @@ import {
 import { generateAnswersWithCustomApi } from './apis/custom-api.mjs'
 import { generateAnswersWithAzureOpenaiApi } from './apis/azure-openai-api.mjs'
 import { generateAnswersWithWaylaidwandererApi } from './apis/waylaidwanderer-api.mjs'
+import { generateAnswersWithPoeWebApi } from './apis/poe-web.mjs'
 import {
   azureOpenAiApiModelKeys,
   bingWebModelKeys,
@@ -25,6 +26,7 @@ import {
   githubThirdPartyApiModelKeys,
   gptApiModelKeys,
   Models,
+  poeWebModelKeys,
   setAccessToken,
 } from '../config/index.mjs'
 import { config as menuConfig } from '../content-script/menu-tools'
@@ -105,6 +107,13 @@ Browser.runtime.onConnect.addListener((port) => {
         await generateAnswersWithAzureOpenaiApi(port, session.question, session)
       } else if (githubThirdPartyApiModelKeys.includes(session.modelName)) {
         await generateAnswersWithWaylaidwandererApi(port, session.question, session)
+      } else if (poeWebModelKeys.includes(session.modelName)) {
+        await generateAnswersWithPoeWebApi(
+          port,
+          session.question,
+          session,
+          Models[session.modelName].value,
+        )
       }
     } catch (err) {
       console.error(err)

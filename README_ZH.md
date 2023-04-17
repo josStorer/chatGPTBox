@@ -24,8 +24,6 @@
 [![Android][Android-image]][Android-url]
 [![Github][Github-image]][Github-url]
 
-(目前正在等待商店审核, [Chrome][Chrome-url], [Edge][Edge-url], [Safari(macOS)][Safari-url]及[Firefox][Firefox-url]版本已过审)
-
 [使用指南](https://github.com/josStorer/chatGPTBox/wiki/Guide) |
 [效果预览](#Preview) |
 [开发&贡献][dev-url] |
@@ -92,7 +90,7 @@
 - 📱 支持手机等移动设备
 - 📓 通过右键菜单总结任意页面 (<kbd>Alt</kbd>+<kbd>B</kbd>)
 - 📖 独立对话页面 (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>)
-- 🔗 多种API支持 (免费用户和Plus用户可用Web API, 此外还有GPT-3.5, GPT-4, NewBing, 自托管支持, Azure等)
+- 🔗 多种API支持 (免费用户和Plus用户可用Web API, 此外还有GPT-3.5, GPT-4, NewBing, 自托管支持, Azure, Poe等)
 - 📦 对各种常用网站的集成适配 (Reddit, Quora, YouTube, GitHub, GitLab, StackOverflow, Zhihu, Bilibili) (受到[wimdenherder](https://github.com/wimdenherder)启发)
 - 🔍 对所有主流搜索引擎的适配, 并支持自定义查询以支持额外的站点
 - 🧰 框选工具与右键菜单, 执行各种你的需求, 如翻译, 总结, 润色, 情感分析, 段落划分, 代码解释, 问询

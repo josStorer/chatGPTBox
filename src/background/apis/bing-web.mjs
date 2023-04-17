@@ -29,8 +29,8 @@ export async function generateAnswersWithBingWebApi(
       jailbreakConversationId: sydneyMode,
       onProgress: (token) => {
         answer += token
-        // remove reference markers [^number^]
-        answer = answer.replaceAll(/\[\^\d+\^\]/g, '')
+        // reference markers [^number^]
+        answer = answer.replaceAll(/\[\^(\d+)\^\]/g, '<sup>$1</sup>')
         port.postMessage({ answer: answer, done: false, session: null })
       },
       ...(session.bingWeb_conversationId
@@ -51,6 +51,15 @@ export async function generateAnswersWithBingWebApi(
   session.bingWeb_conversationId = response.conversationId
   session.bingWeb_clientId = response.clientId
   session.bingWeb_invocationId = response.invocationId
+
+  if (response.details.sourceAttributions.length > 0) {
+    const footnotes =
+      '\n\\-\n' +
+      response.details.sourceAttributions
+        .map((attr, index) => `\\[${index + 1}]: [${attr.providerDisplayName}](${attr.seeMoreUrl})`)
+        .join('\n')
+    answer += footnotes
+  }
 
   pushRecord(session, question, answer)
   console.debug('conversation history', { content: session.conversationRecords })

@@ -13,7 +13,12 @@ import { isMobile } from '../utils/is-mobile.mjs'
 export const Models = {
   chatgptFree35: { value: 'text-davinci-002-render-sha', desc: 'ChatGPT (Web)' },
   chatgptPlus4: { value: 'gpt-4', desc: 'ChatGPT (Web, GPT-4)' },
-  bingFree4: { value: 'gpt-4', desc: 'Bing (Web, GPT-4)' },
+  bingFree4: { value: '', desc: 'Bing (Web, GPT-4)' },
+  bingFreeSydney: { value: '', desc: 'Bing (Web, GPT-4, Sydney)' },
+  poeAiWebSage: { value: 'sage', desc: 'Poe AI (Web, Sage)' },
+  poeAiWebGPT4: { value: 'gpt-4', desc: 'Poe AI (Web, GPT-4)' },
+  poeAiWebClaudePlus: { value: 'claude+', desc: 'Poe AI (Web, Claude+)' },
+  poeAiWebClaude: { value: 'claude', desc: 'Poe AI (Web, Claude)' },
   chatgptApi35: { value: 'gpt-3.5-turbo', desc: 'ChatGPT (GPT-3.5-turbo)' },
   chatgptApi4_8k: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k)' },
   chatgptApi4_32k: { value: 'gpt-4-32k', desc: 'ChatGPT (GPT-4-32k)' },
@@ -21,15 +26,25 @@ export const Models = {
   customModel: { value: '', desc: 'Custom Model' },
   azureOpenAi: { value: '', desc: 'ChatGPT (Azure)' },
   waylaidwandererApi: { value: '', desc: 'Waylaidwanderer API (Github)' },
+  poeAiWebChatGpt: { value: 'chatgpt', desc: 'Poe AI (Web, ChatGPT)' },
+  poeAiWebDragonfly: { value: 'dragonfly', desc: 'Poe AI (Web, Dragonfly)' },
 }
 
 export const chatgptWebModelKeys = ['chatgptFree35', 'chatgptPlus4']
-export const bingWebModelKeys = ['bingFree4']
+export const bingWebModelKeys = ['bingFree4', 'bingFreeSydney']
 export const gptApiModelKeys = ['gptApiDavinci']
 export const chatgptApiModelKeys = ['chatgptApi35', 'chatgptApi4_8k', 'chatgptApi4_32k']
 export const customApiModelKeys = ['customModel']
 export const azureOpenAiApiModelKeys = ['azureOpenAi']
 export const githubThirdPartyApiModelKeys = ['waylaidwandererApi']
+export const poeWebModelKeys = [
+  'poeAiWebSage',
+  'poeAiWebGPT4',
+  'poeAiWebClaudePlus',
+  'poeAiWebClaude',
+  'poeAiWebChatGpt',
+  'poeAiWebDragonfly',
+]
 
 export const TriggerMode = {
   always: 'Always',

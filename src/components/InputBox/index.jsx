@@ -12,6 +12,10 @@ export function InputBox({ onSubmit, enabled }) {
     updateRefHeight(inputRef)
   })
 
+  useEffect(() => {
+    if (enabled) inputRef.current.focus()
+  }, [enabled])
+
   const onKeyDown = (e) => {
     e.stopPropagation()
     if (e.keyCode === 13 && e.shiftKey === false) {

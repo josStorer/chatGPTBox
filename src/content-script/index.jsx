@@ -100,18 +100,21 @@ async function getInput(inputQuery) {
 }
 
 async function overwriteAccessToken() {
-  if (location.hostname !== 'chat.openai.com' || location.pathname !== '/api/auth/session') return
-
-  const response = document.querySelector('pre').textContent
+  if (location.hostname !== 'chat.openai.com') return
 
   let data
-  try {
-    data = JSON.parse(response)
-  } catch (error) {
-    console.error('json error', error)
-    return
+  if (location.pathname === '/api/auth/session') {
+    const response = document.querySelector('pre').textContent
+    try {
+      data = JSON.parse(response)
+    } catch (error) {
+      console.error('json error', error)
+    }
+  } else {
+    const resp = await fetch('https://chat.openai.com/api/auth/session')
+    data = await resp.json().catch(() => ({}))
   }
-  if (data.accessToken) {
+  if (data && data.accessToken) {
     await setAccessToken(data.accessToken)
     console.log(data.accessToken)
   }

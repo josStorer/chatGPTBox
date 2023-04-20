@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next'
 import DeleteButton from '../DeleteButton'
 import { useConfig } from '../../hooks/use-config.mjs'
 import { createSession } from '../../config/localSession.mjs'
+import { v4 as uuidv4 } from 'uuid'
 
 const logo = Browser.runtime.getURL('logo.png')
 
@@ -306,7 +307,7 @@ function ConversationCard(props) {
                   ...session,
                   sessionName: new Date().toLocaleString(),
                   autoClean: false,
-                  sessionId: crypto.randomUUID(),
+                  sessionId: uuidv4(),
                 }
                 setSession(newSession)
                 createSession(newSession).then(() =>

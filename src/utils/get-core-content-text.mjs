@@ -9,6 +9,7 @@ const adapters = {
   'scholar.google': ['#gs_res_ccl_mid'],
   google: ['#search'],
   csdn: ['#content_views'],
+  bing: ['#b_results'],
 }
 
 function findLargestElement(e) {

@@ -45,7 +45,7 @@
   "UNAUTHORIZED": "未授權",
   "Please login at https://chat.openai.com first": "請先登入 https://chat.openai.com",
   "Then open https://chat.openai.com/api/auth/session": "然後開啟 https://chat.openai.com/api/auth/session",
-  "And refresh this page or type you question again": "接著重新整理頁面或重新輸入你的問題",
+  "And refresh this page or type you question again": "接著點擊右上角的重試按鈕",
   "Consider creating an api key at https://platform.openai.com/account/api-keys": "建議在 https://platform.openai.com/account/api-keys 建立一個API金鑰",
   "OpenAI Security Check Required": "需要通過OpenAI的安全檢查",
   "Please open https://chat.openai.com/api/auth/session": "請開啟 https://chat.openai.com/api/auth/session",

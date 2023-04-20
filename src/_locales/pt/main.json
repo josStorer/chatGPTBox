@@ -45,7 +45,7 @@
   "UNAUTHORIZED": "NÃO AUTORIZADO",
   "Please login at https://chat.openai.com first": "Por favor, faça login em https://chat.openai.com primeiro",
   "Then open https://chat.openai.com/api/auth/session": "Então, abra https://chat.openai.com/api/auth/session",
-  "And refresh this page or type you question again": "E atualize esta página ou digite sua pergunta novamente",
+  "And refresh this page or type you question again": "Depois clique no botão Retry, no canto superior direito",
   "Consider creating an api key at https://platform.openai.com/account/api-keys": "Considere criar uma chave de API em https://platform.openai.com/account/api-keys",
   "OpenAI Security Check Required": "Necessário Verificação de Segurança do OpenAI",
   "Please open https://chat.openai.com/api/auth/session": "Por favor, abra https://chat.openai.com/api/auth/session",

@@ -45,7 +45,7 @@
   "UNAUTHORIZED": "TIDAK DIIZINKAN",
   "Please login at https://chat.openai.com first": "Silakan masuk di https://chat.openai.com terlebih dahulu",
   "Then open https://chat.openai.com/api/auth/session": "Lalu buka https://chat.openai.com/api/auth/session",
-  "And refresh this page or type you question again": "Dan segarkan halaman ini atau ketik pertanyaanmu kembali",
+  "And refresh this page or type you question again": "Setelah itu klik tombol Coba Lagi di sudut kanan atas",
   "Consider creating an api key at https://platform.openai.com/account/api-keys": "Pertimbangkan untuk membuat kunci API di https://platform.openai.com/account/api-keys",
   "OpenAI Security Check Required": "Diperlukan Pemeriksaan Keamanan OpenAI",
   "Please open https://chat.openai.com/api/auth/session": "Harap buka https://chat.openai.com/api/auth/session",

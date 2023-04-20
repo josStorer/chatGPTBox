@@ -1,5 +1,7 @@
 // https://github.com/waylaidwanderer/node-chatgpt-api
 
+import { v4 as uuidv4 } from 'uuid'
+
 /**
  * https://stackoverflow.com/a/58326357
  * @param {number} size
@@ -52,7 +54,7 @@ export default class BingAIClient {
         'sec-fetch-dest': 'empty',
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-origin',
-        'x-ms-client-request-id': crypto.randomUUID(),
+        'x-ms-client-request-id': uuidv4(),
         'x-ms-useragent':
           'azsdk-js-api-client-factory/1.0.0-beta.1 core-rest-pipeline/1.10.0 OS/Win32',
         cookie: this.options.cookies || `_U=${this.options.userToken}`,
@@ -164,7 +166,7 @@ export default class BingAIClient {
       invocationId = 0,
       systemMessage,
       context,
-      parentMessageId = jailbreakConversationId === true ? crypto.randomUUID() : null,
+      parentMessageId = jailbreakConversationId === true ? uuidv4() : null,
       abortController = new AbortController(),
     } = opts
 
@@ -201,7 +203,7 @@ export default class BingAIClient {
     const stopToken = '\n\n[user](#message)'
 
     if (jailbreakConversationId === true) {
-      jailbreakConversationId = crypto.randomUUID()
+      jailbreakConversationId = uuidv4()
     }
 
     const conversationKey = jailbreakConversationId
@@ -266,7 +268,7 @@ export default class BingAIClient {
     }
 
     const userMessage = {
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       parentMessageId,
       role: 'User',
       message,
@@ -503,7 +505,7 @@ export default class BingAIClient {
     const { message: reply, conversationExpiryTime } = await messagePromise
 
     const replyMessage = {
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       parentMessageId: userMessage.id,
       role: 'Bing',
       message: reply.text,

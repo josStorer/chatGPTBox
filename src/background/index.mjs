@@ -1,4 +1,5 @@
 import Browser from 'webextension-polyfill'
+import { v4 as uuidv4 } from 'uuid'
 import {
   deleteConversation,
   generateAnswersWithChatgptWebApi,
@@ -71,9 +72,9 @@ Browser.runtime.onConnect.addListener((port) => {
     try {
       if (chatgptWebModelKeys.includes(session.modelName)) {
         const accessToken = await getChatGptAccessToken()
-        session.messageId = crypto.randomUUID()
+        session.messageId = uuidv4()
         if (session.parentMessageId == null) {
-          session.parentMessageId = crypto.randomUUID()
+          session.parentMessageId = uuidv4()
         }
         await generateAnswersWithChatgptWebApi(port, session.question, session, accessToken)
       } else if (bingWebModelKeys.includes(session.modelName)) {

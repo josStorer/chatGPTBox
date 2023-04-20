@@ -1,4 +1,5 @@
 import { Models } from '../config/index.mjs'
+import { v4 as uuidv4 } from 'uuid'
 
 /**
  * @typedef {object} Session
@@ -43,7 +44,7 @@ export function initSession({
     conversationRecords,
 
     sessionName,
-    sessionId: crypto.randomUUID(),
+    sessionId: uuidv4(),
 
     aiName: modelName ? Models[modelName].desc : null,
     modelName,

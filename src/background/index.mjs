@@ -41,7 +41,16 @@ async function getChatGptAccessToken() {
   if (userConfig.accessToken) {
     return userConfig.accessToken
   } else {
-    const resp = await fetch('https://chat.openai.com/api/auth/session')
+    const cookie = (await Browser.cookies.getAll({ url: 'https://chat.openai.com/' }))
+      .map((cookie) => {
+        return `${cookie.name}=${cookie.value}`
+      })
+      .join('; ')
+    const resp = await fetch('https://chat.openai.com/api/auth/session', {
+      headers: {
+        Cookie: cookie,
+      },
+    })
     if (resp.status === 403) {
       throw new Error('CLOUDFLARE')
     }

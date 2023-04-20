@@ -20,6 +20,11 @@ export async function generateAnswersWithBingWebApi(
   const config = await getUserConfig()
 
   const bingAIClient = new BingAIClient({ userToken: accessToken })
+  if (session.bingWeb_jailbreakConversationCache)
+    bingAIClient.conversationsCache.set(
+      session.bingWeb_jailbreakConversationId,
+      session.bingWeb_jailbreakConversationCache,
+    )
 
   let answer = ''
   const response = await bingAIClient
@@ -40,6 +45,11 @@ export async function generateAnswersWithBingWebApi(
             clientId: session.bingWeb_clientId,
             invocationId: session.bingWeb_invocationId,
           }
+        : session.bingWeb_jailbreakConversationId
+        ? {
+            jailbreakConversationId: session.bingWeb_jailbreakConversationId,
+            parentMessageId: session.bingWeb_parentMessageId,
+          }
         : {}),
     })
     .catch((err) => {
@@ -47,10 +57,18 @@ export async function generateAnswersWithBingWebApi(
       throw err
     })
 
-  session.bingWeb_conversationSignature = response.conversationSignature
-  session.bingWeb_conversationId = response.conversationId
-  session.bingWeb_clientId = response.clientId
-  session.bingWeb_invocationId = response.invocationId
+  if (!sydneyMode) {
+    session.bingWeb_conversationSignature = response.conversationSignature
+    session.bingWeb_conversationId = response.conversationId
+    session.bingWeb_clientId = response.clientId
+    session.bingWeb_invocationId = response.invocationId
+  } else {
+    session.bingWeb_jailbreakConversationId = response.jailbreakConversationId
+    session.bingWeb_parentMessageId = response.messageId
+    session.bingWeb_jailbreakConversationCache = bingAIClient.conversationsCache.get(
+      response.jailbreakConversationId,
+    )
+  }
 
   if (response.details.sourceAttributions.length > 0) {
     const footnotes =

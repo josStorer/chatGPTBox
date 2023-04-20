@@ -17,6 +17,9 @@ import { Models } from '../config/index.mjs'
  * @property {string|null} bingWeb_conversationId
  * @property {string|null} bingWeb_clientId
  * @property {string|null} bingWeb_invocationId
+ * @property {string|null} bingWeb_jailbreakConversationId
+ * @property {string|null} bingWeb_parentMessageId
+ * @property {Object|null} bingWeb_jailbreakConversationCache
  * @property {number|null} poe_chatId
  */
 /**
@@ -58,6 +61,11 @@ export function initSession({
     bingWeb_conversationId: null,
     bingWeb_clientId: null,
     bingWeb_invocationId: null,
+
+    // bing sydney
+    bingWeb_jailbreakConversationId: null,
+    bingWeb_parentMessageId: null,
+    bingWeb_jailbreakConversationCache: null,
 
     // poe
     poe_chatId: null,

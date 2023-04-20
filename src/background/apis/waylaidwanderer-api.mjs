@@ -23,13 +23,13 @@ export async function generateAnswersWithWaylaidwandererApi(port, question, sess
     body: JSON.stringify({
       message: question,
       stream: true,
-      ...(session.bingWeb_conversationId && {
+      ...(session.bingWeb_conversationSignature && {
         conversationId: session.bingWeb_conversationId,
         conversationSignature: session.bingWeb_conversationSignature,
         clientId: session.bingWeb_clientId,
         invocationId: session.bingWeb_invocationId,
       }),
-      ...(session.conversationId && {
+      ...(session.parentMessageId && {
         conversationId: session.conversationId,
         parentMessageId: session.parentMessageId,
       }),

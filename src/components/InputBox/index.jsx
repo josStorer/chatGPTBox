@@ -10,6 +10,7 @@ export function InputBox({ onSubmit, enabled }) {
 
   useEffect(() => {
     updateRefHeight(inputRef)
+    if (enabled) inputRef.current.focus()
   })
 
   const onKeyDown = (e) => {

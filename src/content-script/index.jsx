@@ -126,6 +126,19 @@ const deleteToolbar = () => {
     toolbarContainer.remove()
 }
 
+const createSelectionTools = (toolbarContainer, selection) => {
+  toolbarContainer.className = 'chatgptbox-toolbar-container'
+  render(
+    <FloatingToolbar
+      session={initSession()}
+      selection={selection}
+      container={toolbarContainer}
+      dockable={true}
+    />,
+    toolbarContainer,
+  )
+}
+
 async function prepareForSelectionTools() {
   document.addEventListener('mouseup', (e) => {
     if (toolbarContainer && toolbarContainer.contains(e.target)) return
@@ -154,16 +167,7 @@ async function prepareForSelectionTools() {
           position = { x: e.pageX + 20, y: e.pageY + 20 }
         }
         toolbarContainer = createElementAtPosition(position.x, position.y)
-        toolbarContainer.className = 'chatgptbox-toolbar-container'
-        render(
-          <FloatingToolbar
-            session={initSession()}
-            selection={selection}
-            container={toolbarContainer}
-            dockable={true}
-          />,
-          toolbarContainer,
-        )
+        createSelectionTools(toolbarContainer, selection)
       }
     })
   })
@@ -207,16 +211,7 @@ async function prepareForSelectionToolsTouch() {
           e.changedTouches[0].pageX + 20,
           e.changedTouches[0].pageY + 20,
         )
-        toolbarContainer.className = 'chatgptbox-toolbar-container'
-        render(
-          <FloatingToolbar
-            session={initSession()}
-            selection={selection}
-            container={toolbarContainer}
-            dockable={true}
-          />,
-          toolbarContainer,
-        )
+        createSelectionTools(toolbarContainer, selection)
       }
     })
   })

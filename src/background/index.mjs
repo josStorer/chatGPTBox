@@ -143,7 +143,7 @@ Browser.runtime.onConnect.addListener((port) => {
             err.message.includes(m),
           )
         )
-          port.postMessage({ error: t('Exceeded maximum context length') })
+          port.postMessage({ error: t('Exceeded maximum context length') + '\n' + err.message })
         else port.postMessage({ error: err.message })
       }
     }

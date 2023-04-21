@@ -27,11 +27,14 @@ export async function generateAnswersWithGptCompletionApi(
 ) {
   const { controller, messageListener } = setAbortController(port)
 
+  const config = await getUserConfig()
   const prompt =
     (await getCompletionPromptBase()) +
-    getConversationPairs(session.conversationRecords, true) +
+    getConversationPairs(
+      session.conversationRecords.slice(-config.maxConversationContextLength),
+      true,
+    ) +
     `Human: ${question}\nAI: `
-  const config = await getUserConfig()
   const apiUrl = config.customOpenAiApiUrl
 
   let answer = ''
@@ -89,10 +92,13 @@ export async function generateAnswersWithGptCompletionApi(
 export async function generateAnswersWithChatgptApi(port, question, session, apiKey, modelName) {
   const { controller, messageListener } = setAbortController(port)
 
-  const prompt = getConversationPairs(session.conversationRecords, false)
+  const config = await getUserConfig()
+  const prompt = getConversationPairs(
+    session.conversationRecords.slice(-config.maxConversationContextLength),
+    false,
+  )
   prompt.unshift({ role: 'system', content: await getChatSystemPromptBase() })
   prompt.push({ role: 'user', content: question })
-  const config = await getUserConfig()
   const apiUrl = config.customOpenAiApiUrl
 
   let answer = ''

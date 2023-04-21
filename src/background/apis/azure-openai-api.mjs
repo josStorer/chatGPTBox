@@ -13,7 +13,10 @@ export async function generateAnswersWithAzureOpenaiApi(port, question, session)
   const { controller, messageListener } = setAbortController(port)
   const config = await getUserConfig()
 
-  const prompt = getConversationPairs(session.conversationRecords, false)
+  const prompt = getConversationPairs(
+    session.conversationRecords.slice(-config.maxConversationContextLength),
+    false,
+  )
   prompt.unshift({ role: 'system', content: await getChatSystemPromptBase() })
   prompt.push({ role: 'user', content: question })
 

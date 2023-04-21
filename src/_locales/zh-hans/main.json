@@ -101,5 +101,6 @@
   "Store to Independent Conversation Page": "收纳到独立对话页",
   "Keep Conversation Window in Background": "保持对话窗口在后台, 以便在任何程序中使用快捷键呼出",
   "Max Response Token Length": "响应的最大token长度",
+  "Max Conversation Length": "对话处理的最大长度",
   "Always pin the floating window": "总是固定浮动窗口"
 }

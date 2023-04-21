@@ -339,7 +339,7 @@ GeneralPart.propTypes = {
   updateConfig: PropTypes.func.isRequired,
 }
 
-function FeaturePages() {
+function FeaturePages({ config, updateConfig }) {
   const { t } = useTranslation()
   const [backgroundPermission, setBackgroundPermission] = useState(false)
 
@@ -369,19 +369,21 @@ function FeaturePages() {
       >
         {t('Open Conversation Page')}
       </button>
-      <button
-        type="button"
-        onClick={() => {
-          Browser.windows.create({
-            url: Browser.runtime.getURL('IndependentPanel.html'),
-            type: 'popup',
-            width: 500,
-            height: 650,
-          })
-        }}
-      >
-        {t('Open Conversation Window')}
-      </button>
+      {!isMobile() && (
+        <button
+          type="button"
+          onClick={() => {
+            Browser.windows.create({
+              url: Browser.runtime.getURL('IndependentPanel.html'),
+              type: 'popup',
+              width: 500,
+              height: 650,
+            })
+          }}
+        >
+          {t('Open Conversation Window')}
+        </button>
+      )}
       {!isMobile() && !isFirefox() && !isSafari() && (
         <label>
           <input
@@ -402,8 +404,26 @@ function FeaturePages() {
           {t('Keep Conversation Window in Background')}
         </label>
       )}
+      {!isMobile() && (
+        <label>
+          <input
+            type="checkbox"
+            checked={config.alwaysCreateNewConversationWindow}
+            onChange={(e) => {
+              const checked = e.target.checked
+              updateConfig({ alwaysCreateNewConversationWindow: checked })
+            }}
+          />
+          {t('Always Create New Conversation Window')}
+        </label>
+      )}
     </div>
   )
+}
+
+FeaturePages.propTypes = {
+  config: PropTypes.object.isRequired,
+  updateConfig: PropTypes.func.isRequired,
 }
 
 function AdvancedPart({ config, updateConfig }) {
@@ -703,7 +723,7 @@ function Popup() {
             <GeneralPart config={config} updateConfig={updateConfig} />
           </TabPanel>
           <TabPanel>
-            <FeaturePages />
+            <FeaturePages config={config} updateConfig={updateConfig} />
           </TabPanel>
           <TabPanel>
             <SelectionTools config={config} updateConfig={updateConfig} />

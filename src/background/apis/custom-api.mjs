@@ -21,10 +21,13 @@ import { getCustomApiPromptBase, pushRecord, setAbortController } from './shared
 export async function generateAnswersWithCustomApi(port, question, session, apiKey, modelName) {
   const { controller, messageListener } = setAbortController(port)
 
-  const prompt = getConversationPairs(session.conversationRecords, false)
+  const config = await getUserConfig()
+  const prompt = getConversationPairs(
+    session.conversationRecords.slice(-config.maxConversationContextLength),
+    false,
+  )
   prompt.unshift({ role: 'system', content: await getCustomApiPromptBase() })
   prompt.push({ role: 'user', content: question })
-  const config = await getUserConfig()
   const apiUrl = config.customModelApiUrl
 
   let answer = ''

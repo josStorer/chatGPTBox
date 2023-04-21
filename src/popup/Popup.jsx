@@ -27,7 +27,14 @@ import wechatpay from './donation/wechatpay.jpg'
 import bugmeacoffee from './donation/bugmeacoffee.png'
 import { useWindowTheme } from '../hooks/use-window-theme.mjs'
 import { languageList } from '../config/language.mjs'
-import { isEdge, isFirefox, isMobile, isSafari, openUrl } from '../utils/index.mjs'
+import {
+  isEdge,
+  isFirefox,
+  isMobile,
+  isSafari,
+  openUrl,
+  parseIntWithClamp,
+} from '../utils/index.mjs'
 import { useTranslation } from 'react-i18next'
 
 function GeneralPart({ config, updateConfig }) {
@@ -413,8 +420,22 @@ function AdvancedPart({ config, updateConfig }) {
           step="100"
           value={config.maxResponseTokenLength}
           onChange={(e) => {
-            const value = parseInt(e.target.value)
+            const value = parseIntWithClamp(e.target.value, 1000, 100, 40000)
             updateConfig({ maxResponseTokenLength: value })
+          }}
+        />
+      </label>
+      <label>
+        {t('Max Conversation Length')}
+        <input
+          type="number"
+          min="0"
+          max="100"
+          step="1"
+          value={config.maxConversationContextLength}
+          onChange={(e) => {
+            const value = parseIntWithClamp(e.target.value, 9, 0, 100)
+            updateConfig({ maxConversationContextLength: value })
           }}
         />
       </label>

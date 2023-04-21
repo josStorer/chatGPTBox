@@ -102,5 +102,6 @@
   "Keep Conversation Window in Background": "Keep conversation window in background, so that you can use shortcut keys to call it up in any program",
   "Max Response Token Length": "Max Response Token Length",
   "Max Conversation Length": "Max Conversation Length",
-  "Always pin the floating window": "Always pin the floating window"
+  "Always pin the floating window": "Always pin the floating window",
+  "Export": "Export"
 }

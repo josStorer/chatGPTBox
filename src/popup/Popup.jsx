@@ -7,6 +7,7 @@ import {
   isUsingApiKey,
   isUsingAzureOpenAi,
   isUsingCustomModel,
+  isUsingCustomNameOnlyModel,
   isUsingGithubThirdPartyApi,
   isUsingMultiModeModel,
   ModelMode,
@@ -90,7 +91,8 @@ function GeneralPart({ config, updateConfig }) {
               isUsingApiKey(config) ||
               isUsingMultiModeModel(config) ||
               isUsingCustomModel(config) ||
-              isUsingAzureOpenAi(config)
+              isUsingAzureOpenAi(config) ||
+              isUsingCustomNameOnlyModel(config)
                 ? 'width: 50%;'
                 : undefined
             }
@@ -167,6 +169,18 @@ function GeneralPart({ config, updateConfig }) {
               onChange={(e) => {
                 const customModelName = e.target.value
                 updateConfig({ customModelName: customModelName })
+              }}
+            />
+          )}
+          {isUsingCustomNameOnlyModel(config) && (
+            <input
+              style="width: 50%;"
+              type="text"
+              value={config.poeCustomBotName}
+              placeholder={t('Bot Name')}
+              onChange={(e) => {
+                const customName = e.target.value
+                updateConfig({ poeCustomBotName: customName })
               }}
             />
           )}

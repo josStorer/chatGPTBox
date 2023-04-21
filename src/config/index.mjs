@@ -26,6 +26,7 @@ export const Models = {
   customModel: { value: '', desc: 'Custom Model' },
   azureOpenAi: { value: '', desc: 'ChatGPT (Azure)' },
   waylaidwandererApi: { value: '', desc: 'Waylaidwanderer API (Github)' },
+  poeAiWebCustom: { value: '', desc: 'Poe AI (Web, Custom)' },
   poeAiWebChatGpt: { value: 'chatgpt', desc: 'Poe AI (Web, ChatGPT)' },
   poeAiWebDragonfly: { value: 'dragonfly', desc: 'Poe AI (Web, Dragonfly)' },
 }
@@ -42,6 +43,7 @@ export const poeWebModelKeys = [
   'poeAiWebGPT4',
   'poeAiWebClaudePlus',
   'poeAiWebClaude',
+  'poeAiWebCustom',
   'poeAiWebChatGpt',
   'poeAiWebDragonfly',
 ]
@@ -89,6 +91,8 @@ export const defaultConfig = {
   azureApiKey: '',
   azureEndpoint: '',
   azureDeploymentName: '',
+
+  poeCustomBotName: '',
 
   /** @type {keyof ModelMode}*/
   modelMode: 'balanced',
@@ -180,6 +184,10 @@ export function isUsingMultiModeModel(configOrSession) {
 
 export function isUsingCustomModel(configOrSession) {
   return customApiModelKeys.includes(configOrSession.modelName)
+}
+
+export function isUsingCustomNameOnlyModel(configOrSession) {
+  return configOrSession.modelName === 'poeAiWebCustom'
 }
 
 export function isUsingAzureOpenAi(configOrSession) {

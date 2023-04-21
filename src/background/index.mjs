@@ -120,12 +120,20 @@ Browser.runtime.onConnect.addListener((port) => {
       } else if (githubThirdPartyApiModelKeys.includes(session.modelName)) {
         await generateAnswersWithWaylaidwandererApi(port, session.question, session)
       } else if (poeWebModelKeys.includes(session.modelName)) {
-        await generateAnswersWithPoeWebApi(
-          port,
-          session.question,
-          session,
-          Models[session.modelName].value,
-        )
+        if (session.modelName === 'poeAiWebCustom')
+          await generateAnswersWithPoeWebApi(
+            port,
+            session.question,
+            session,
+            config.poeCustomBotName,
+          )
+        else
+          await generateAnswersWithPoeWebApi(
+            port,
+            session.question,
+            session,
+            Models[session.modelName].value,
+          )
       }
     } catch (err) {
       console.error(err)

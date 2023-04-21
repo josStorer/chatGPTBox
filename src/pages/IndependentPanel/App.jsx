@@ -15,6 +15,7 @@ import ConversationCard from '../../components/ConversationCard'
 import DeleteButton from '../../components/DeleteButton'
 import { openUrl } from '../../utils/index.mjs'
 import Browser from 'webextension-polyfill'
+import FileSaver from 'file-saver'
 
 function App() {
   const { t } = useTranslation()
@@ -81,6 +82,12 @@ function App() {
     await setSessionIdSafe(session.sessionId)
   }
 
+  const exportConversations = async () => {
+    const sessions = await getSessions()
+    const blob = new Blob([JSON.stringify(sessions, null, 2)], { type: 'text/json;charset=utf-8' })
+    FileSaver.saveAs(blob, 'conversations.json')
+  }
+
   const clearConversations = async () => {
     const sessions = await resetSessions()
     setSessions(sessions)
@@ -97,6 +104,9 @@ function App() {
             </button>
             <button className="normal-button" onClick={createNewChat}>
               {t('New Chat')}
+            </button>
+            <button className="normal-button" onClick={exportConversations}>
+              {t('Export')}
             </button>
           </div>
           <hr />

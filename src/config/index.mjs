@@ -116,6 +116,7 @@ export const defaultConfig = {
 
   // others
 
+  alwaysCreateNewConversationWindow: false,
   activeSelectionTools: ['translate', 'summary', 'polish', 'code', 'ask'],
   activeSiteAdapters: [
     'bilibili',

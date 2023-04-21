@@ -99,9 +99,10 @@
   "Open Conversation Page": "開啟獨立對話頁",
   "Open Conversation Window": "開啟獨立對話視窗",
   "Store to Independent Conversation Page": "收納到獨立對話頁",
-  "Keep Conversation Window in Background": "保持對話窗口在後臺, 以便在任何程序中使用快捷鍵呼出",
+  "Keep Conversation Window in Background": "保持對話視窗在後臺, 以便在任何程序中使用快捷鍵呼出",
   "Max Response Token Length": "響應的最大token長度",
   "Max Conversation Length": "對話處理的最大長度",
   "Always pin the floating window": "總是固定浮動視窗",
-  "Export": "導出"
+  "Export": "導出",
+  "Always Create New Conversation Window": "總是創建新的對話視窗"
 }

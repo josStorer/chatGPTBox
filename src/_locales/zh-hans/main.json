@@ -103,5 +103,6 @@
   "Max Response Token Length": "响应的最大token长度",
   "Max Conversation Length": "对话处理的最大长度",
   "Always pin the floating window": "总是固定浮动窗口",
-  "Export": "导出"
+  "Export": "导出",
+  "Always Create New Conversation Window": "总是创建新的对话窗口"
 }

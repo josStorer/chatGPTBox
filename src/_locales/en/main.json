@@ -103,5 +103,6 @@
   "Max Response Token Length": "Max Response Token Length",
   "Max Conversation Length": "Max Conversation Length",
   "Always pin the floating window": "Always pin the floating window",
-  "Export": "Export"
+  "Export": "Export",
+  "Always Create New Conversation Window": "Always Create New Conversation Window"
 }

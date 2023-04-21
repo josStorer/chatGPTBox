@@ -23,7 +23,16 @@ function FloatingToolbar(props) {
   const windowSize = useClampWindowSize([750, 1500], [0, Infinity])
   const config = useConfig(() => {
     setRender(true)
-    if (!triggered) props.container.style.position = 'absolute'
+    if (!triggered) {
+      props.container.style.position = 'absolute'
+      setTimeout(() => {
+        const left = Math.min(
+          Math.max(0, window.innerWidth - props.container.offsetWidth - 30),
+          Math.max(0, position.x),
+        )
+        props.container.style.left = left + 'px'
+      })
+    }
   })
 
   useEffect(() => {

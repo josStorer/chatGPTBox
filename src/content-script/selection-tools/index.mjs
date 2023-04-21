@@ -16,7 +16,14 @@ export const config = {
     label: 'Translate',
     genPrompt: async (selection) => {
       const preferredLanguage = await getPreferredLanguage()
-      return `Translate the following into ${preferredLanguage} and only show me the translated content:\n"${selection}"`
+      return `Translate the following into ${preferredLanguage} and only show me the translated content:\n${selection}`
+    },
+  },
+  translateToEn: {
+    icon: <Globe />,
+    label: 'Translate (To English)',
+    genPrompt: async (selection) => {
+      return `Translate the following into English and only show me the translated content:\n${selection}`
     },
   },
   translateBidi: {
@@ -27,7 +34,7 @@ export const config = {
       return (
         `Translate the following into ${preferredLanguage} and only show me the translated content.` +
         `If it is already in ${preferredLanguage},` +
-        `translate it into English and only show me the translated content:\n"${selection}"`
+        `translate it into English and only show me the translated content:\n${selection}`
       )
     },
   },

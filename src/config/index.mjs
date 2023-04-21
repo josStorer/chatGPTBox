@@ -134,6 +134,7 @@ export const defaultConfig = {
   userLanguage: getNavigatorLanguage(),
   selectionTools: [
     'translate',
+    'translateToEn',
     'translateBidi',
     'summary',
     'polish',
@@ -144,6 +145,7 @@ export const defaultConfig = {
   ],
   selectionToolsDesc: [
     'Translate',
+    'Translate (To English)',
     'Translate (Bidirectional)',
     'Summary',
     'Polish',

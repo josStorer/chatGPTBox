@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from 'uuid'
  * @property {Object[]|null} conversationRecords
  * @property {string|null} sessionName
  * @property {string|null} sessionId
+ * @property {string|null} createdAt
+ * @property {string|null} updatedAt
  * @property {string|null} aiName
  * @property {string|null} modelName
  * @property {boolean|null} autoClean
@@ -45,6 +47,8 @@ export function initSession({
 
     sessionName,
     sessionId: uuidv4(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
 
     aiName: modelName ? Models[modelName].desc : null,
     modelName,

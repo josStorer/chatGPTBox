@@ -51,6 +51,7 @@ export const getSession = async (sessionId) => {
 }
 
 export const updateSession = async (newSession) => {
+  newSession.updatedAt = new Date().toISOString()
   const currentSessions = await getSessions()
   currentSessions[
     currentSessions.findIndex((session) => session.sessionId === newSession.sessionId)

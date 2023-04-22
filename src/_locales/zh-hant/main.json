@@ -11,7 +11,7 @@
   "Balance": "餘額",
   "Preferred Language": "語言偏好",
   "Insert ChatGPT at the top of search results": "將對話卡片插入搜尋結果頂部",
-  "Lock scrollbar while answering": "回答時鎖定捲動條",
+  "Lock scrollbar while answering": "回答時鎖定捲軸",
   "Current Version": "目前版本",
   "Latest": "最新",
   "Help | Changelog ": "幫助 | 更新日誌 ",
@@ -56,7 +56,7 @@
   "Translate (Bidirectional)": "雙向翻譯",
   "Translate (To English)": "翻譯為英語",
   "Summary": "摘要",
-  "Polish": "潤色",
+  "Polish": "潤飾",
   "Sentiment Analysis": "情感分析",
   "Divide Paragraphs": "劃分段落",
   "Code Explain": "程式碼解釋",
@@ -99,10 +99,10 @@
   "Open Conversation Page": "開啟獨立對話頁",
   "Open Conversation Window": "開啟獨立對話視窗",
   "Store to Independent Conversation Page": "收納到獨立對話頁",
-  "Keep Conversation Window in Background": "保持對話視窗在後臺, 以便在任何程序中使用快捷鍵呼出",
-  "Max Response Token Length": "響應的最大token長度",
+  "Keep Conversation Window in Background": "保持對話視窗在背景, 以便在任何程序中使用快捷鍵呼叫",
+  "Max Response Token Length": "回應的最大token長度",
   "Max Conversation Length": "對話處理的最大長度",
   "Always pin the floating window": "總是固定浮動視窗",
-  "Export": "導出",
-  "Always Create New Conversation Window": "總是創建新的對話視窗"
+  "Export": "匯出",
+  "Always Create New Conversation Window": "總是建立新的對話視窗"
 }

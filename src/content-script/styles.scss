@@ -213,6 +213,7 @@
   .interact-input {
     box-sizing: border-box;
     padding: 5px 15px;
+    padding-right: 1em;
     border: 0;
     border-top: 1px solid var(--theme-border-color);
     width: 100%;
@@ -221,6 +222,21 @@
     resize: none;
     min-height: 70px;
     max-height: 160px;
+  }
+
+  .submit-button {
+    position: absolute;
+    right: 1.1em;
+    bottom: 0.2em;
+    padding: 1px 6px;
+    cursor: pointer;
+    background-color: #30a14e;
+    color: white;
+    border: 1px solid;
+    border-radius: 6px;
+    border-color: rgba(31, 35, 40, 0.15);
+    font-size: 1em;
+    box-shadow: 0 1px 0 rgba(31, 35, 40, 0.1);
   }
 
   .dragbar {

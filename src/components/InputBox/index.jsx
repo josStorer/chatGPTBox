@@ -48,20 +48,9 @@ export function InputBox({ onSubmit, enabled, port }) {
         onKeyDown={handleKeyDownOrClick}
       />
       <button
+        className="submit-button"
         style={{
-          position: 'absolute',
-          top: '50%',
-          right: '8px',
-          transform: 'translateY(-50%)',
-          cursor: 'pointer',
           backgroundColor: enabled ? '#30a14e' : '#cf222e',
-          color: 'white',
-          border: '1px solid',
-          borderRadius: '6px',
-          borderColor: 'rgba(31,35,40,0.15)',
-          padding: '0.2em 0.8em',
-          fontSize: '1.2em',
-          boxShadow: '0 1px 0 rgba(31,35,40,0.1)',
         }}
         onClick={handleKeyDownOrClick}
       >

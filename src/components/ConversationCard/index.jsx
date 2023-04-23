@@ -382,6 +382,7 @@ function ConversationCard(props) {
             updateAnswer(e, false, 'error')
           }
         }}
+        port={port}
       />
     </div>
   )

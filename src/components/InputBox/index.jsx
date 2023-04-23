@@ -53,6 +53,7 @@ export function InputBox({ onSubmit, enabled, port }) {
           top: '50%',
           right: '8px',
           transform: 'translateY(-50%)',
+          cursor: 'pointer',
           backgroundColor: enabled ? '#30a14e' : '#cf222e',
           color: 'white',
           border: '1px solid',

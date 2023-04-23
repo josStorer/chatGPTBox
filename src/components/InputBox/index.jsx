@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { updateRefHeight } from '../../utils'
 import { useTranslation } from 'react-i18next'
 
-export function InputBox({ onSubmit, enabled }) {
+export function InputBox({ onSubmit, enabled, port }) {
   const { t } = useTranslation()
   const [value, setValue] = useState('')
   const inputRef = useRef(null)
@@ -16,37 +16,64 @@ export function InputBox({ onSubmit, enabled }) {
     if (enabled) inputRef.current.focus()
   }, [enabled])
 
-  const onKeyDown = (e) => {
+  const handleKeyDownOrClick = (e) => {
     e.stopPropagation()
-    if (e.keyCode === 13 && e.shiftKey === false) {
-      e.preventDefault()
-      if (!value) return
-      onSubmit(value)
-      setValue('')
+    if (e.type === 'click' || (e.keyCode === 13 && e.shiftKey === false)) {
+      if (enabled) {
+        e.preventDefault()
+        if (!value) return
+        onSubmit(value)
+        setValue('')
+      } else {
+        e.preventDefault()
+        port.postMessage({ stop: true })
+      }
     }
   }
 
   return (
-    <textarea
-      dir="auto"
-      ref={inputRef}
-      disabled={!enabled}
-      className="interact-input"
-      placeholder={
-        enabled
-          ? t('Type your question here\nEnter to send, shift + enter to break line')
-          : t('Wait for the answer to finish and then continue here')
-      }
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-      onKeyDown={onKeyDown}
-    />
+    <div style={{ position: 'relative' }}>
+      <textarea
+        dir="auto"
+        ref={inputRef}
+        disabled={false}
+        className="interact-input"
+        placeholder={
+          enabled
+            ? t('Type your question here\nEnter to send\nShift + enter to break line')
+            : t('Type your question here\nEnter to stop generating\nShift + enter to break line')
+        }
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        onKeyDown={handleKeyDownOrClick}
+      />
+      <button
+        style={{
+          position: 'absolute',
+          top: '50%',
+          right: '8px',
+          transform: 'translateY(-50%)',
+          backgroundColor: enabled ? '#30a14e' : '#cf222e',
+          color: 'white',
+          border: '1px solid',
+          borderRadius: '6px',
+          borderColor: 'rgba(31,35,40,0.15)',
+          padding: '0.2em 0.8em',
+          fontSize: '1.2em',
+          boxShadow: '0 1px 0 rgba(31,35,40,0.1)',
+        }}
+        onClick={handleKeyDownOrClick}
+      >
+        {enabled ? t('Send') : t('Stop')}
+      </button>
+    </div>
   )
 }
 
 InputBox.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   enabled: PropTypes.bool,
+  port: PropTypes.func.isRequired,
 }
 
 export default InputBox

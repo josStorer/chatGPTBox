@@ -32,7 +32,7 @@ export function InputBox({ onSubmit, enabled, port }) {
   }
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className="input-box">
       <textarea
         dir="auto"
         ref={inputRef}

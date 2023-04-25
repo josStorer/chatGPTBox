@@ -48,7 +48,7 @@ async function mountComponent(siteConfig, userConfig) {
       else await new Promise((r) => setTimeout(r, 500))
     }
   }
-  document.querySelectorAll('.chatgptbox-container').forEach((e) => {
+  document.querySelectorAll('.chatgptbox-container,#chatgptbox-container').forEach((e) => {
     unmountComponentAtNode(e)
     e.remove()
   })
@@ -57,12 +57,12 @@ async function mountComponent(siteConfig, userConfig) {
   if (userConfig.inputQuery) question = await getInput([userConfig.inputQuery])
   if (!question && siteConfig) question = await getInput(siteConfig.inputQuery)
 
-  document.querySelectorAll('.chatgptbox-container').forEach((e) => {
+  document.querySelectorAll('.chatgptbox-container,#chatgptbox-container').forEach((e) => {
     unmountComponentAtNode(e)
     e.remove()
   })
   const container = document.createElement('div')
-  container.className = 'chatgptbox-container'
+  container.id='chatgptbox-container'
   render(
     <DecisionCard
       session={initSession()}

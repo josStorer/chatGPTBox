@@ -127,6 +127,8 @@ export const defaultConfig = {
     'youtube',
     'zhihu',
     'stackoverflow',
+    'juejin',
+    'mp.weixin.qq',
   ],
   accessToken: '',
   tokenSavedOn: 0,
@@ -166,6 +168,8 @@ export const defaultConfig = {
     'youtube',
     'zhihu',
     'stackoverflow',
+    'juejin',
+    'mp.weixin.qq',
   ],
 }
 

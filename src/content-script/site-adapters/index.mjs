@@ -7,6 +7,8 @@ import zhihu from './zhihu'
 import reddit from './reddit'
 import quora from './quora'
 import stackoverflow from './stackoverflow'
+import juejin from './juejin'
+import weixin from './weixin'
 
 /**
  * @typedef {object} SiteConfigAction
@@ -170,5 +172,17 @@ export const config = {
     sidebarContainerQuery: ['#sidebar'],
     appendContainerQuery: [],
     resultsContainerQuery: ['#sidebar'],
+  },
+  juejin: {
+    inputQuery: juejin.inputQuery,
+    sidebarContainerQuery: ['div.sidebar'],
+    appendContainerQuery: [],
+    resultsContainerQuery: ['div.main-area.article-area > article > div.article-content'],
+  },
+  'mp.weixin.qq': {
+    inputQuery: weixin.inputQuery,
+    sidebarContainerQuery: [],
+    appendContainerQuery: [],
+    resultsContainerQuery: ['#js_content'],
   },
 }

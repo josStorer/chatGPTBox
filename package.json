@@ -28,6 +28,7 @@
     "file-saver": "^2.0.5",
     "github-markdown-css": "^5.2.0",
     "gpt-3-encoder": "^1.1.4",
+    "graphql": "^16.6.0",
     "i18next": "^22.4.15",
     "katex": "^0.16.6",
     "lodash-es": "^4.17.21",

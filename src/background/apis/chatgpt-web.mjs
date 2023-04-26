@@ -89,7 +89,9 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
       messages: [
         {
           id: session.messageId,
-          role: 'user',
+          author: {
+            role: 'user',
+          },
           content: {
             content_type: 'text',
             parts: [question],
@@ -98,6 +100,9 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
       ],
       model: usedModel,
       parent_message_id: session.parentMessageId,
+      timezone_offset_min: new Date().getTimezoneOffset(),
+      variant_purpose: 'none',
+      history_and_training_disabled: true,
     }),
     onMessage(message) {
       console.debug('sse message', message)

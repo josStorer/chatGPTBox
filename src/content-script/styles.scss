@@ -43,12 +43,14 @@
   margin-left: 60px;
 }
 
-.chatgptbox-container,#chatgptbox-container * {
+.chatgptbox-container,
+#chatgptbox-container * {
   font-family: 'Cairo', sans-serif;
   font-size: 14px;
 }
 
-.chatgptbox-container,#chatgptbox-container {
+.chatgptbox-container,
+#chatgptbox-container {
   width: 100%;
   flex-basis: 0;
   flex-grow: 1;

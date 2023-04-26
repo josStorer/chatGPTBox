@@ -62,7 +62,7 @@ async function mountComponent(siteConfig, userConfig) {
     e.remove()
   })
   const container = document.createElement('div')
-  container.id='chatgptbox-container'
+  container.id = 'chatgptbox-container'
   render(
     <DecisionCard
       session={initSession()}

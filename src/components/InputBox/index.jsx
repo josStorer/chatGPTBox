@@ -3,13 +3,37 @@ import PropTypes from 'prop-types'
 import { updateRefHeight } from '../../utils'
 import { useTranslation } from 'react-i18next'
 
-export function InputBox({ onSubmit, enabled, port }) {
+export function InputBox({ onSubmit, enabled, port, reverseResizeDir }) {
   const { t } = useTranslation()
   const [value, setValue] = useState('')
+  const reverseDivRef = useRef(null)
   const inputRef = useRef(null)
+  const resizedRef = useRef(false)
+
+  const virtualInputRef = reverseResizeDir ? reverseDivRef : inputRef
 
   useEffect(() => {
-    updateRefHeight(inputRef)
+    const onResizeY = () => {
+      if (virtualInputRef.current.h !== virtualInputRef.current.offsetHeight) {
+        virtualInputRef.current.h = virtualInputRef.current.offsetHeight
+        if (!resizedRef.current) {
+          resizedRef.current = true
+          virtualInputRef.current.style.maxHeight = ''
+        }
+      }
+    }
+    virtualInputRef.current.h = virtualInputRef.current.offsetHeight
+    virtualInputRef.current.addEventListener('mousemove', onResizeY)
+  }, [])
+
+  useEffect(() => {
+    if (!resizedRef.current) {
+      if (!reverseResizeDir) {
+        updateRefHeight(inputRef)
+        virtualInputRef.current.h = virtualInputRef.current.offsetHeight
+        virtualInputRef.current.style.maxHeight = '160px'
+      }
+    }
   })
 
   useEffect(() => {
@@ -33,20 +57,37 @@ export function InputBox({ onSubmit, enabled, port }) {
 
   return (
     <div className="input-box">
-      <textarea
-        dir="auto"
-        ref={inputRef}
-        disabled={false}
-        className="interact-input"
-        placeholder={
-          enabled
-            ? t('Type your question here\nEnter to send\nShift + enter to break line')
-            : t('Type your question here\nEnter to stop generating\nShift + enter to break line')
+      <div
+        ref={reverseDivRef}
+        style={
+          reverseResizeDir && {
+            transform: 'rotateX(180deg)',
+            resize: 'vertical',
+            overflow: 'hidden',
+            minHeight: '160px',
+          }
         }
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        onKeyDown={handleKeyDownOrClick}
-      />
+      >
+        <textarea
+          dir="auto"
+          ref={inputRef}
+          disabled={false}
+          className="interact-input"
+          style={
+            reverseResizeDir
+              ? { transform: 'rotateX(180deg)', resize: 'none' }
+              : { resize: 'vertical', minHeight: '70px' }
+          }
+          placeholder={
+            enabled
+              ? t('Type your question here\nEnter to send\nShift + enter to break line')
+              : t('Type your question here\nEnter to stop generating\nShift + enter to break line')
+          }
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          onKeyDown={handleKeyDownOrClick}
+        />
+      </div>
       <button
         className="submit-button"
         style={{
@@ -62,8 +103,9 @@ export function InputBox({ onSubmit, enabled, port }) {
 
 InputBox.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  enabled: PropTypes.bool,
-  port: PropTypes.func.isRequired,
+  enabled: PropTypes.bool.isRequired,
+  reverseResizeDir: PropTypes.bool,
+  port: PropTypes.object.isRequired,
 }
 
 export default InputBox

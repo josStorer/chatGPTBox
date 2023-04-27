@@ -80,7 +80,7 @@ export function InputBox({ onSubmit, enabled, port, reverseResizeDir }) {
           }
           placeholder={
             enabled
-              ? t('Type your question here\nEnter to send\nShift + enter to break line')
+              ? t('Type your question here\nEnter to send, shift + enter to break line')
               : t('Type your question here\nEnter to stop generating\nShift + enter to break line')
           }
           value={value}

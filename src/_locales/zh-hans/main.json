@@ -24,7 +24,7 @@
   "Append Query": "挂载到末尾的查询选择器",
   "Prepend Query": "插入到开头的查询选择器",
   "Wechat Pay": "微信打赏",
-  "Type your question here\nEnter to send, shift + enter to break line": "在此输入你的问题\n回车 发送, shift+回车 换行",
+  "Type your question here\nEnter to send, shift + enter to break line": "在此输入你的问题\n回车 发送\nshift+回车 换行",
   "Wait for the answer to finish and then continue here": "等待回答完成, 然后在此继续",
   "Ask ChatGPT": "询问ChatGPT",
   "No Input Found": "无输入",

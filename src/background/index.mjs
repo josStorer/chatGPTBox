@@ -100,23 +100,24 @@ async function executeApi(session, port, config) {
 }
 
 Browser.runtime.onMessage.addListener(async (message) => {
-  let token
   switch (message.type) {
-    case 'FEEDBACK':
-      token = await getChatGptAccessToken()
+    case 'FEEDBACK': {
+      const token = await getChatGptAccessToken()
       await sendMessageFeedback(token, message.data)
       break
-    case 'DELETE_CONVERSATION':
-      token = await getChatGptAccessToken()
+    }
+    case 'DELETE_CONVERSATION': {
+      const token = await getChatGptAccessToken()
       await deleteConversation(token, message.data.conversationId)
       break
+    }
     case 'OPEN_URL':
       openUrl(message.data.url)
       break
     case 'REFRESH_MENU':
       refreshMenu()
       break
-    case 'PIN_TAB':
+    case 'PIN_TAB': {
       let tabId
       if (message.data.tabId) tabId = message.data.tabId
       else {
@@ -132,6 +133,7 @@ Browser.runtime.onMessage.addListener(async (message) => {
         if (message.data.saveAsChatgptConfig) await setUserConfig({ chatgptTabId: tabId })
       }
       break
+    }
   }
 })
 

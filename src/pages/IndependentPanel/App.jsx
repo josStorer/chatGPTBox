@@ -5,7 +5,7 @@ import {
   updateSession,
   getSession,
   deleteSession,
-} from '../../config/localSession'
+} from '../../services/local-session.mjs'
 import { useEffect, useRef, useState } from 'react'
 import './styles.scss'
 import { useConfig } from '../../hooks/use-config.mjs'

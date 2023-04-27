@@ -1,4 +1,4 @@
-import BingAIClient from '../clients/bing'
+import BingAIClient from '../clients/bing/index.mjs'
 import { getUserConfig } from '../../config/index.mjs'
 import { pushRecord, setAbortController } from './shared.mjs'
 

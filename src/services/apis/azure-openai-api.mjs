@@ -1,7 +1,7 @@
 import { getUserConfig } from '../../config/index.mjs'
 import { getChatSystemPromptBase, pushRecord, setAbortController } from './shared.mjs'
-import { getConversationPairs } from '../../utils/get-conversation-pairs'
-import { fetchSSE } from '../../utils/fetch-sse'
+import { getConversationPairs } from '../../utils/get-conversation-pairs.mjs'
+import { fetchSSE } from '../../utils/fetch-sse.mjs'
 import { isEmpty } from 'lodash-es'
 
 /**

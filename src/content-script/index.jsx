@@ -11,13 +11,13 @@ import {
   cropText,
   getClientPosition,
   getPossibleElementByQuerySelector,
-  initSession,
 } from '../utils'
 import FloatingToolbar from '../components/FloatingToolbar'
 import Browser from 'webextension-polyfill'
 import { getPreferredLanguage } from '../config/language.mjs'
 import '../_locales/i18n-react'
 import { changeLanguage } from 'i18next'
+import { initSession } from '../services/init-session.mjs'
 
 /**
  * @param {SiteConfig} siteConfig
@@ -96,27 +96,6 @@ async function getInput(inputQuery) {
         `use markdown syntax to make your answer more readable, such as code blocks, bold, list:\n` +
         input
       )
-  }
-}
-
-async function overwriteAccessToken() {
-  if (location.hostname !== 'chat.openai.com') return
-
-  let data
-  if (location.pathname === '/api/auth/session') {
-    const response = document.querySelector('pre').textContent
-    try {
-      data = JSON.parse(response)
-    } catch (error) {
-      console.error('json error', error)
-    }
-  } else {
-    const resp = await fetch('https://chat.openai.com/api/auth/session')
-    data = await resp.json().catch(() => ({}))
-  }
-  if (data && data.accessToken) {
-    await setAccessToken(data.accessToken)
-    console.log(data.accessToken)
   }
 }
 
@@ -290,6 +269,27 @@ async function prepareForStaticCard() {
     }
 
     mountComponent(siteConfig[siteName], userConfig)
+  }
+}
+
+async function overwriteAccessToken() {
+  if (location.hostname !== 'chat.openai.com') return
+
+  let data
+  if (location.pathname === '/api/auth/session') {
+    const response = document.querySelector('pre').textContent
+    try {
+      data = JSON.parse(response)
+    } catch (error) {
+      console.error('json error', error)
+    }
+  } else {
+    const resp = await fetch('https://chat.openai.com/api/auth/session')
+    data = await resp.json().catch(() => ({}))
+  }
+  if (data && data.accessToken) {
+    await setAccessToken(data.accessToken)
+    console.log(data.accessToken)
   }
 }
 

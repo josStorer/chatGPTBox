@@ -1,6 +1,6 @@
 import Browser from 'webextension-polyfill'
-import { initSession } from '../utils/index.mjs'
-import { getUserConfig } from './index.mjs'
+import { initSession } from './init-session.mjs'
+import { getUserConfig } from '../config/index.mjs'
 
 export const initDefaultSession = async () => {
   const config = await getUserConfig()

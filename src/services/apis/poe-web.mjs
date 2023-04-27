@@ -1,5 +1,5 @@
 import { pushRecord, setAbortController } from './shared.mjs'
-import PoeAiClient from '../clients/poe'
+import PoeAiClient from '../clients/poe/index.mjs'
 
 /**
  * @param {Runtime.Port} port

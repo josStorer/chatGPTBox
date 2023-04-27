@@ -1,8 +1,8 @@
 // api version
 
 import { Models, getUserConfig } from '../../config/index.mjs'
-import { fetchSSE } from '../../utils/fetch-sse'
-import { getConversationPairs } from '../../utils/get-conversation-pairs'
+import { fetchSSE } from '../../utils/fetch-sse.mjs'
+import { getConversationPairs } from '../../utils/get-conversation-pairs.mjs'
 import { isEmpty } from 'lodash-es'
 import {
   getChatSystemPromptBase,

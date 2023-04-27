@@ -1,6 +1,6 @@
 // web version
 
-import { fetchSSE } from '../../utils/fetch-sse'
+import { fetchSSE } from '../../utils/fetch-sse.mjs'
 import { isEmpty } from 'lodash-es'
 import { chatgptWebModelKeys, getUserConfig, Models } from '../../config/index.mjs'
 import { pushRecord, setAbortController } from './shared.mjs'

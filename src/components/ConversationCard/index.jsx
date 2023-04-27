@@ -365,6 +365,8 @@ function ConversationCard(props) {
       </div>
       <InputBox
         enabled={isReady}
+        port={port}
+        reverseResizeDir={props.pageMode}
         onSubmit={(question) => {
           const newQuestion = new ConversationItemData('question', question + '\n<hr/>')
           const newAnswer = new ConversationItemData(
@@ -382,7 +384,6 @@ function ConversationCard(props) {
             updateAnswer(e, false, 'error')
           }
         }}
-        port={port}
       />
     </div>
   )

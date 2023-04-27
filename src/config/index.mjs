@@ -98,7 +98,7 @@ export const defaultConfig = {
   modelMode: 'balanced',
 
   customModelApiUrl: 'http://localhost:8000/chat/completions',
-  customModelName: 'llama-7b-int4',
+  customModelName: 'rwkv',
   githubThirdPartyUrl: 'http://127.0.0.1:3000/conversation',
 
   // advanced

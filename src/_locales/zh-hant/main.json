@@ -104,5 +104,6 @@
   "Max Conversation Length": "對話處理的最大長度",
   "Always pin the floating window": "總是固定浮動視窗",
   "Export": "匯出",
-  "Always Create New Conversation Window": "總是建立新的對話視窗"
+  "Always Create New Conversation Window": "總是建立新的對話視窗",
+  "Please keep this tab open. You can now use the web mode of ChatGPTBox": "請保持這個頁面開啟, 現在妳可以使用ChatGPTBox的網頁版模式"
 }

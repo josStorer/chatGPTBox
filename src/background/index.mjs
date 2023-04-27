@@ -1,5 +1,4 @@
 import Browser from 'webextension-polyfill'
-import { v4 as uuidv4 } from 'uuid'
 import {
   deleteConversation,
   generateAnswersWithChatgptWebApi,
@@ -20,10 +19,12 @@ import {
   chatgptApiModelKeys,
   chatgptWebModelKeys,
   customApiModelKeys,
+  defaultConfig,
   githubThirdPartyApiModelKeys,
   gptApiModelKeys,
   Models,
   poeWebModelKeys,
+  setUserConfig,
 } from '../config/index.mjs'
 import '../_locales/i18n'
 import { openUrl } from '../utils/open-url'
@@ -37,12 +38,27 @@ import { registerCommands } from './commands.mjs'
 
 async function executeApi(session, port, config) {
   if (chatgptWebModelKeys.includes(session.modelName)) {
-    const accessToken = await getChatGptAccessToken()
-    session.messageId = uuidv4()
-    if (session.parentMessageId == null) {
-      session.parentMessageId = uuidv4()
+    let tabId
+    if (
+      config.chatgptTabId &&
+      config.customChatGptWebApiUrl === defaultConfig.customChatGptWebApiUrl
+    ) {
+      const tab = await Browser.tabs.get(config.chatgptTabId).catch(() => {})
+      if (tab) tabId = tab.id
     }
-    await generateAnswersWithChatgptWebApi(port, session.question, session, accessToken)
+    if (tabId) {
+      const proxyPort = Browser.tabs.connect(tabId)
+      proxyPort.onMessage.addListener((msg) => {
+        port.postMessage(msg)
+      })
+      port.onMessage.addListener((msg) => {
+        proxyPort.postMessage(msg)
+      })
+      proxyPort.postMessage({ session })
+    } else {
+      const accessToken = await getChatGptAccessToken()
+      await generateAnswersWithChatgptWebApi(port, session.question, session, accessToken)
+    }
   } else if (bingWebModelKeys.includes(session.modelName)) {
     const accessToken = await getBingAccessToken()
     if (session.modelName === 'bingFreeSydney')
@@ -84,18 +100,38 @@ async function executeApi(session, port, config) {
 }
 
 Browser.runtime.onMessage.addListener(async (message) => {
-  if (message.type === 'FEEDBACK') {
-    const token = await getChatGptAccessToken()
-    await sendMessageFeedback(token, message.data)
-  } else if (message.type === 'DELETE_CONVERSATION') {
-    const token = await getChatGptAccessToken()
-    const data = message.data
-    await deleteConversation(token, data.conversationId)
-  } else if (message.type === 'OPEN_URL') {
-    const data = message.data
-    openUrl(data.url)
-  } else if (message.type === 'REFRESH_MENU') {
-    refreshMenu()
+  let token
+  switch (message.type) {
+    case 'FEEDBACK':
+      token = await getChatGptAccessToken()
+      await sendMessageFeedback(token, message.data)
+      break
+    case 'DELETE_CONVERSATION':
+      token = await getChatGptAccessToken()
+      await deleteConversation(token, message.data.conversationId)
+      break
+    case 'OPEN_URL':
+      openUrl(message.data.url)
+      break
+    case 'REFRESH_MENU':
+      refreshMenu()
+      break
+    case 'PIN_TAB':
+      let tabId
+      if (message.data.tabId) tabId = message.data.tabId
+      else {
+        const currentTab = (await Browser.tabs.query({ active: true, currentWindow: true }))[0]
+        if (message.data.saveAsChatgptConfig) {
+          if (currentTab.url.includes('chat.openai.com')) tabId = currentTab.id
+        } else {
+          tabId = currentTab.id
+        }
+      }
+      if (tabId) {
+        await Browser.tabs.update(tabId, { pinned: true })
+        if (message.data.saveAsChatgptConfig) await setUserConfig({ chatgptTabId: tabId })
+      }
+      break
   }
 })
 

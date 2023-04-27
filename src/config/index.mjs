@@ -132,6 +132,7 @@ export const defaultConfig = {
   ],
   accessToken: '',
   tokenSavedOn: 0,
+  chatgptTabId: 0,
 
   // unchangeable
 

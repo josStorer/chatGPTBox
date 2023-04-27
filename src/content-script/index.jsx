@@ -5,7 +5,12 @@ import DecisionCard from '../components/DecisionCard'
 import { config as siteConfig } from './site-adapters'
 import { config as toolsConfig } from './selection-tools'
 import { config as menuConfig } from './menu-tools'
-import { getPreferredLanguageKey, getUserConfig, setAccessToken } from '../config/index.mjs'
+import {
+  chatgptWebModelKeys,
+  getPreferredLanguageKey,
+  getUserConfig,
+  setAccessToken,
+} from '../config/index.mjs'
 import {
   createElementAtPosition,
   cropText,
@@ -16,8 +21,10 @@ import FloatingToolbar from '../components/FloatingToolbar'
 import Browser from 'webextension-polyfill'
 import { getPreferredLanguage } from '../config/language.mjs'
 import '../_locales/i18n-react'
-import { changeLanguage } from 'i18next'
+import { changeLanguage, t } from 'i18next'
 import { initSession } from '../services/init-session.mjs'
+import { getChatGptAccessToken, registerPortListener } from '../services/wrappers.mjs'
+import { generateAnswersWithChatgptWebApi } from '../services/apis/chatgpt-web.mjs'
 
 /**
  * @param {SiteConfig} siteConfig
@@ -293,6 +300,35 @@ async function overwriteAccessToken() {
   }
 }
 
+async function prepareForForegroundRequests() {
+  if (location.hostname !== 'chat.openai.com') return
+
+  const div = document.createElement('div')
+  div.innerText = t('Please keep this tab open. You can now use the web mode of ChatGPTBox')
+  div.style.position = 'fixed'
+  div.style.top = '25px'
+  div.style.right = '25px'
+  div.style.zIndex = '2147483647'
+  div.style.padding = '4px 10px'
+  div.style.border = '1px solid'
+  div.style.borderRadius = '4px'
+  document.body.append(div)
+
+  await Browser.runtime.sendMessage({
+    type: 'PIN_TAB',
+    data: {
+      saveAsChatgptConfig: true,
+    },
+  })
+
+  registerPortListener(async (session, port) => {
+    if (chatgptWebModelKeys.includes(session.modelName)) {
+      const accessToken = await getChatGptAccessToken()
+      await generateAnswersWithChatgptWebApi(port, session.question, session, accessToken)
+    }
+  })
+}
+
 async function run() {
   await getPreferredLanguageKey().then((lang) => {
     changeLanguage(lang)
@@ -305,6 +341,7 @@ async function run() {
   })
 
   await overwriteAccessToken()
+  await prepareForForegroundRequests()
 
   prepareForSelectionTools()
   prepareForSelectionToolsTouch()

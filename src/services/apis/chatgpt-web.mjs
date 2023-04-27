@@ -5,6 +5,7 @@ import { isEmpty } from 'lodash-es'
 import { chatgptWebModelKeys, getUserConfig, Models } from '../../config/index.mjs'
 import { pushRecord, setAbortController } from './shared.mjs'
 import Browser from 'webextension-polyfill'
+import { v4 as uuidv4 } from 'uuid'
 
 async function request(token, method, path, data) {
   const apiUrl = (await getUserConfig()).customChatGptWebApiUrl
@@ -54,6 +55,11 @@ export async function getModels(token) {
  * @param {string} accessToken
  */
 export async function generateAnswersWithChatgptWebApi(port, question, session, accessToken) {
+  session.messageId = uuidv4()
+  if (session.parentMessageId == null) {
+    session.parentMessageId = uuidv4()
+  }
+
   const { controller, messageListener } = setAbortController(port, null, () => {
     if (session.autoClean) deleteConversation(accessToken, session.conversationId)
   })
@@ -68,20 +74,23 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
     models && models.includes(selectedModel) ? selectedModel : Models[chatgptWebModelKeys[0]].value
   console.debug('usedModel', usedModel)
 
-  const cookie = (await Browser.cookies.getAll({ url: 'https://chat.openai.com/' }))
-    .map((cookie) => {
-      return `${cookie.name}=${cookie.value}`
-    })
-    .join('; ')
+  let cookie
+  if (Browser.cookies && Browser.cookies.getAll)
+    cookie = (await Browser.cookies.getAll({ url: 'https://chat.openai.com/' }))
+      .map((cookie) => {
+        return `${cookie.name}=${cookie.value}`
+      })
+      .join('; ')
 
   let answer = ''
   await fetchSSE(`${config.customChatGptWebApiUrl}${config.customChatGptWebApiPath}`, {
     method: 'POST',
     signal: controller.signal,
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
-      Cookie: cookie,
+      ...(cookie && { Cookie: cookie }),
     },
     body: JSON.stringify({
       action: 'next',

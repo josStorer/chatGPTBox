@@ -104,5 +104,6 @@
   "Max Conversation Length": "对话处理的最大长度",
   "Always pin the floating window": "总是固定浮动窗口",
   "Export": "导出",
-  "Always Create New Conversation Window": "总是创建新的对话窗口"
+  "Always Create New Conversation Window": "总是创建新的对话窗口",
+  "Please keep this tab open. You can now use the web mode of ChatGPTBox": "请保持这个页面打开, 现在你可以使用ChatGPTBox的网页版模式"
 }

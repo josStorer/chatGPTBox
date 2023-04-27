@@ -271,7 +271,7 @@ function GeneralPart({ config, updateConfig }) {
                       lang,
                     },
                   })
-                  .catch(() => ({}))
+                  .catch(() => {})
               })
             })
           }}

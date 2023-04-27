@@ -95,7 +95,7 @@ export function InputBox({ onSubmit, enabled, port, reverseResizeDir }) {
         }}
         onClick={handleKeyDownOrClick}
       >
-        {enabled ? t('Send') : t('Stop')}
+        {enabled ? t('Ask') : t('Stop')}
       </button>
     </div>
   )

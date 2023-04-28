@@ -36,6 +36,29 @@ import {
 import { refreshMenu } from './menus.mjs'
 import { registerCommands } from './commands.mjs'
 
+function setPortProxy(port, proxyTabId) {
+  port.proxy = Browser.tabs.connect(proxyTabId)
+  const proxyOnMessage = (msg) => {
+    port.postMessage(msg)
+  }
+  const portOnMessage = (msg) => {
+    port.proxy.postMessage(msg)
+  }
+  const proxyOnDisconnect = () => {
+    port.proxy = Browser.tabs.connect(proxyTabId)
+  }
+  const portOnDisconnect = (msg) => {
+    port.proxy.onMessage.removeListener(proxyOnMessage)
+    port.onMessage.removeListener(portOnMessage)
+    port.proxy.onDisconnect.removeListener(proxyOnDisconnect)
+    port.onDisconnect.removeListener(portOnDisconnect)
+  }
+  port.proxy.onMessage.addListener(proxyOnMessage)
+  port.onMessage.addListener(portOnMessage)
+  port.proxy.onDisconnect.addListener(proxyOnDisconnect)
+  port.onDisconnect.addListener(portOnDisconnect)
+}
+
 async function executeApi(session, port, config) {
   if (chatgptWebModelKeys.includes(session.modelName)) {
     let tabId
@@ -47,14 +70,10 @@ async function executeApi(session, port, config) {
       if (tab) tabId = tab.id
     }
     if (tabId) {
-      const proxyPort = Browser.tabs.connect(tabId)
-      proxyPort.onMessage.addListener((msg) => {
-        port.postMessage(msg)
-      })
-      port.onMessage.addListener((msg) => {
-        proxyPort.postMessage(msg)
-      })
-      proxyPort.postMessage({ session })
+      if (!port.proxy) {
+        setPortProxy(port, tabId)
+        port.proxy.postMessage({ session })
+      }
     } else {
       const accessToken = await getChatGptAccessToken()
       await generateAnswersWithChatgptWebApi(port, session.question, session, accessToken)

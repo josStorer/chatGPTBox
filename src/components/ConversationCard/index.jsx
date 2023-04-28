@@ -17,6 +17,7 @@ import { useConfig } from '../../hooks/use-config.mjs'
 import { createSession } from '../../services/local-session.mjs'
 import { v4 as uuidv4 } from 'uuid'
 import { initSession } from '../../services/init-session.mjs'
+import { findLastIndex } from 'lodash-es'
 
 const logo = Browser.runtime.getURL('logo.png')
 
@@ -97,7 +98,7 @@ function ConversationCard(props) {
   const updateAnswer = (value, appended, newType, done = false) => {
     setConversationItemData((old) => {
       const copy = [...old]
-      const index = copy.findLastIndex((v) => v.type === 'answer' || v.type === 'error')
+      const index = findLastIndex(copy, (v) => v.type === 'answer' || v.type === 'error')
       if (index === -1) return copy
       copy[index] = new ConversationItemData(
         newType,

@@ -47,7 +47,7 @@ function setPortProxy(port, proxyTabId) {
   const proxyOnDisconnect = () => {
     port.proxy = Browser.tabs.connect(proxyTabId)
   }
-  const portOnDisconnect = (msg) => {
+  const portOnDisconnect = () => {
     port.proxy.onMessage.removeListener(proxyOnMessage)
     port.onMessage.removeListener(portOnMessage)
     port.proxy.onDisconnect.removeListener(proxyOnDisconnect)
@@ -118,7 +118,7 @@ async function executeApi(session, port, config) {
   }
 }
 
-Browser.runtime.onMessage.addListener(async (message) => {
+Browser.runtime.onMessage.addListener(async (message, sender) => {
   switch (message.type) {
     case 'FEEDBACK': {
       const token = await getChatGptAccessToken()
@@ -130,6 +130,22 @@ Browser.runtime.onMessage.addListener(async (message) => {
       await deleteConversation(token, message.data.conversationId)
       break
     }
+    case 'NEW_URL': {
+      const newTab = await Browser.tabs.create({
+        url: message.data.url,
+        pinned: message.data.pinned,
+      })
+      if (message.data.saveAsChatgptConfig) {
+        await setUserConfig({
+          chatgptTabId: newTab.id,
+          chatgptJumpBackTabId: sender.tab.id,
+        })
+      }
+      break
+    }
+    case 'ACTIVATE_URL':
+      await Browser.tabs.update(message.data.tabId, { active: true })
+      break
     case 'OPEN_URL':
       openUrl(message.data.url)
       break
@@ -139,17 +155,11 @@ Browser.runtime.onMessage.addListener(async (message) => {
     case 'PIN_TAB': {
       let tabId
       if (message.data.tabId) tabId = message.data.tabId
-      else {
-        const currentTab = (await Browser.tabs.query({ active: true, currentWindow: true }))[0]
-        if (message.data.saveAsChatgptConfig) {
-          if (currentTab.url.includes('chat.openai.com')) tabId = currentTab.id
-        } else {
-          tabId = currentTab.id
-        }
-      }
-      if (tabId) {
-        await Browser.tabs.update(tabId, { pinned: true })
-        if (message.data.saveAsChatgptConfig) await setUserConfig({ chatgptTabId: tabId })
+      else tabId = sender.tab.id
+
+      await Browser.tabs.update(tabId, { pinned: true })
+      if (message.data.saveAsChatgptConfig) {
+        await setUserConfig({ chatgptTabId: tabId })
       }
       break
     }

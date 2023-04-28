@@ -21,10 +21,11 @@ import FloatingToolbar from '../components/FloatingToolbar'
 import Browser from 'webextension-polyfill'
 import { getPreferredLanguage } from '../config/language.mjs'
 import '../_locales/i18n-react'
-import { changeLanguage, t } from 'i18next'
+import { changeLanguage } from 'i18next'
 import { initSession } from '../services/init-session.mjs'
 import { getChatGptAccessToken, registerPortListener } from '../services/wrappers.mjs'
 import { generateAnswersWithChatgptWebApi } from '../services/apis/chatgpt-web.mjs'
+import NotificationForChatGPTWeb from '../components/NotificationForChatGPTWeb'
 
 /**
  * @param {SiteConfig} siteConfig
@@ -304,15 +305,8 @@ async function prepareForForegroundRequests() {
   if (location.hostname !== 'chat.openai.com') return
 
   const div = document.createElement('div')
-  div.innerText = t('Please keep this tab open. You can now use the web mode of ChatGPTBox')
-  div.style.position = 'fixed'
-  div.style.top = '25px'
-  div.style.right = '25px'
-  div.style.zIndex = '2147483647'
-  div.style.padding = '4px 10px'
-  div.style.border = '1px solid'
-  div.style.borderRadius = '4px'
   document.body.append(div)
+  render(<NotificationForChatGPTWeb container={div} />, div)
 
   await Browser.runtime.sendMessage({
     type: 'PIN_TAB',

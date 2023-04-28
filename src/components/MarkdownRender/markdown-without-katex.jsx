@@ -4,13 +4,9 @@ import rehypeHighlight from 'rehype-highlight'
 import remarkGfm from 'remark-gfm'
 import remarkBreaks from 'remark-breaks'
 import { Pre } from './Pre'
+import { Hyperlink } from './Hyperlink'
 
 export function MarkdownRender(props) {
-  const linkProperties = {
-    target: '_blank',
-    style: 'color: #8ab4f8;',
-    rel: 'nofollow noopener noreferrer',
-  }
   return (
     <div dir="auto">
       <ReactMarkdown
@@ -26,11 +22,7 @@ export function MarkdownRender(props) {
           ],
         ]}
         components={{
-          a: (props) => (
-            <a href={props.href} {...linkProperties}>
-              {props.children}
-            </a>
-          ),
+          a: Hyperlink,
           pre: Pre,
         }}
         {...props}

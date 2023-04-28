@@ -43,6 +43,7 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
       model: modelName,
       stream: true,
       max_tokens: config.maxResponseTokenLength,
+      temperature: config.temperature,
     }),
     onMessage(message) {
       console.debug('sse message', message)

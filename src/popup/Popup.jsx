@@ -33,6 +33,7 @@ import {
   isMobile,
   isSafari,
   openUrl,
+  parseFloatWithClamp,
   parseIntWithClamp,
 } from '../utils/index.mjs'
 import { useTranslation } from 'react-i18next'
@@ -432,9 +433,9 @@ function AdvancedPart({ config, updateConfig }) {
   return (
     <>
       <label>
-        {t('Max Response Token Length')}
+        {t('Max Response Token Length') + `: ${config.maxResponseTokenLength}`}
         <input
-          type="number"
+          type="range"
           min="100"
           max="40000"
           step="100"
@@ -446,9 +447,9 @@ function AdvancedPart({ config, updateConfig }) {
         />
       </label>
       <label>
-        {t('Max Conversation Length')}
+        {t('Max Conversation Length') + `: ${config.maxConversationContextLength}`}
         <input
-          type="number"
+          type="range"
           min="0"
           max="100"
           step="1"
@@ -456,6 +457,20 @@ function AdvancedPart({ config, updateConfig }) {
           onChange={(e) => {
             const value = parseIntWithClamp(e.target.value, 9, 0, 100)
             updateConfig({ maxConversationContextLength: value })
+          }}
+        />
+      </label>
+      <label>
+        {t('Temperature') + `: ${config.temperature}`}
+        <input
+          type="range"
+          min="0"
+          max="2"
+          step="0.1"
+          value={config.temperature}
+          onChange={(e) => {
+            const value = parseFloatWithClamp(e.target.value, 1, 0, 2)
+            updateConfig({ temperature: value })
           }}
         />
       </label>

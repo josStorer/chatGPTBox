@@ -50,6 +50,7 @@ export async function generateAnswersWithGptCompletionApi(
       model: Models[modelName].value,
       stream: true,
       max_tokens: config.maxResponseTokenLength,
+      temperature: config.temperature,
     }),
     onMessage(message) {
       console.debug('sse message', message)
@@ -114,6 +115,7 @@ export async function generateAnswersWithChatgptApi(port, question, session, api
       model: Models[modelName].value,
       stream: true,
       max_tokens: config.maxResponseTokenLength,
+      temperature: config.temperature,
     }),
     onMessage(message) {
       console.debug('sse message', message)

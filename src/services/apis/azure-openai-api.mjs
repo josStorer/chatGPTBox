@@ -36,6 +36,7 @@ export async function generateAnswersWithAzureOpenaiApi(port, question, session)
         messages: prompt,
         stream: true,
         max_tokens: config.maxResponseTokenLength,
+        temperature: config.temperature,
       }),
       onMessage(message) {
         console.debug('sse message', message)

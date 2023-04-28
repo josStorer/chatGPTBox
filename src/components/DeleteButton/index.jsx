@@ -28,6 +28,10 @@ function DeleteButton({ onConfirm, size, text }) {
           fontSize: '10px',
           ...(waitConfirm ? {} : { display: 'none' }),
         }}
+        onMouseDown={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+        }}
         onBlur={() => {
           setWaitConfirm(false)
         }}

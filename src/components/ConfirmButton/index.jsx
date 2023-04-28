@@ -25,6 +25,10 @@ function ConfirmButton({ onConfirm, text }) {
         style={{
           ...(waitConfirm ? {} : { display: 'none' }),
         }}
+        onMouseDown={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+        }}
         onBlur={() => {
           setWaitConfirm(false)
         }}

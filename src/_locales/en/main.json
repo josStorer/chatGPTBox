@@ -106,5 +106,9 @@
   "Export": "Export",
   "Always Create New Conversation Window": "Always Create New Conversation Window",
   "Please keep this tab open. You can now use the web mode of ChatGPTBox": "Please keep this tab open. You can now use the web mode of ChatGPTBox",
-  "Go Back": "Go Back"
+  "Go Back": "Go Back",
+  "Modules": "Modules",
+  "API Params": "API Params",
+  "API Url": "API Url",
+  "Others": "Others"
 }

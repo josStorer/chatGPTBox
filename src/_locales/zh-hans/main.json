@@ -106,5 +106,9 @@
   "Export": "导出",
   "Always Create New Conversation Window": "总是创建新的对话窗口",
   "Please keep this tab open. You can now use the web mode of ChatGPTBox": "请保持这个页面打开, 现在你可以使用ChatGPTBox的网页版模式",
-  "Go Back": "返回"
+  "Go Back": "返回",
+  "Modules": "模块",
+  "API Params": "API参数",
+  "API Url": "API地址",
+  "Others": "其他"
 }

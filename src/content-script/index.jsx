@@ -304,6 +304,10 @@ async function overwriteAccessToken() {
 async function prepareForForegroundRequests() {
   if (location.hostname !== 'chat.openai.com') return
 
+  const userConfig = await getUserConfig()
+
+  if (!chatgptWebModelKeys.some((model) => userConfig.activeApiModes.includes(model))) return
+
   const div = document.createElement('div')
   document.body.append(div)
   render(<NotificationForChatGPTWeb container={div} />, div)

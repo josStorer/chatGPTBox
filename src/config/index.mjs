@@ -118,6 +118,20 @@ export const defaultConfig = {
   // others
 
   alwaysCreateNewConversationWindow: false,
+  activeApiModes: [
+    'chatgptFree35',
+    'chatgptPlus4',
+    'chatgptApi35',
+    'bingFree4',
+    'bingFreeSydney',
+    'poeAiWebSage',
+    'poeAiWebGPT4',
+    'poeAiWebClaudePlus',
+    'chatgptApi4_8k',
+    'customModel',
+    'azureOpenAi',
+    'poeAiWebCustom',
+  ],
   activeSelectionTools: ['translate', 'summary', 'polish', 'code', 'ask'],
   activeSiteAdapters: [
     'bilibili',
@@ -139,6 +153,7 @@ export const defaultConfig = {
   // unchangeable
 
   userLanguage: getNavigatorLanguage(),
+  apiModes: Object.keys(Models),
   selectionTools: [
     'translate',
     'translateToEn',

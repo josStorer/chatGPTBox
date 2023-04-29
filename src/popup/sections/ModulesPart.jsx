@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
+import { ApiModes } from './ApiModes'
 import { SelectionTools } from './SelectionTools'
 import { SiteAdapters } from './SiteAdapters'
 
@@ -16,10 +17,14 @@ export function ModulesPart({ config, updateConfig }) {
     <>
       <Tabs selectedTabClassName="popup-tab--selected">
         <TabList>
+          <Tab className="popup-tab">{t('API Modes')}</Tab>
           <Tab className="popup-tab">{t('Selection Tools')}</Tab>
           <Tab className="popup-tab">{t('Sites')}</Tab>
         </TabList>
 
+        <TabPanel>
+          <ApiModes config={config} updateConfig={updateConfig} />
+        </TabPanel>
         <TabPanel>
           <SelectionTools config={config} updateConfig={updateConfig} />
         </TabPanel>

@@ -94,7 +94,8 @@ export function GeneralPart({ config, updateConfig }) {
               updateConfig({ modelName: modelName })
             }}
           >
-            {Object.entries(Models).map(([key, model]) => {
+            {config.activeApiModes.map((key) => {
+              const model = Models[key]
               return (
                 <option value={key} key={key} selected={key === config.modelName}>
                   {t(model.desc)}

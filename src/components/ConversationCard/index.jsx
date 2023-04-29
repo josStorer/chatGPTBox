@@ -233,7 +233,8 @@ function ConversationCard(props) {
               else setSession(newSession)
             }}
           >
-            {Object.entries(Models).map(([key, model]) => {
+            {config.activeApiModes.map((key) => {
+              const model = Models[key]
               return (
                 <option value={key} key={key} selected={key === session.modelName}>
                   {t(model.desc)}

@@ -27,10 +27,8 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 [Panduan](https://github.com/josStorer/chatGPTBox/wiki/Guide) |
 [Pratinjau](#Pratinjau) |
 [Pengembangan & Berkontribusi][dev-url] |
-[Donasi](https://www.buymeacoffee.com/josStorer) |
+[Demonstrasi Video](https://www.youtube.com/watch?v=E1smDxJvTRs) |
 [Kredit](#Kredit)
-
-[Demonstrasi Video](https://www.youtube.com/watch?v=E1smDxJvTRs)
 
 [dev-url]: https://github.com/josStorer/chatGPTBox/wiki/Development&Contributing
 

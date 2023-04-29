@@ -23,8 +23,6 @@ import { MarkGithubIcon } from '@primer/octicons-react'
 import Browser from 'webextension-polyfill'
 import PropTypes from 'prop-types'
 import { config as toolsConfig } from '../content-script/selection-tools'
-import wechatpay from './donation/wechatpay.jpg'
-import bugmeacoffee from './donation/bugmeacoffee.png'
 import { useWindowTheme } from '../hooks/use-window-theme.mjs'
 import { languageList } from '../config/language.mjs'
 import {
@@ -628,27 +626,6 @@ SiteAdapters.propTypes = {
   updateConfig: PropTypes.func.isRequired,
 }
 
-function Donation() {
-  const { t } = useTranslation()
-
-  return (
-    <div style="display:flex;flex-direction:column;align-items:center;">
-      <a
-        href="https://www.buymeacoffee.com/josStorer"
-        target="_blank"
-        rel="nofollow noopener noreferrer"
-      >
-        <img alt="buymeacoffee" src={bugmeacoffee} />
-      </a>
-      <br />
-      <>
-        {t('Wechat Pay')}
-        <img alt="wechatpay" src={wechatpay} />
-      </>
-    </div>
-  )
-}
-
 // eslint-disable-next-line react/prop-types
 function Footer({ currentVersion, latestVersion }) {
   const { t } = useTranslation()
@@ -731,7 +708,6 @@ function Popup() {
             <Tab className="popup-tab">{t('Selection Tools')}</Tab>
             <Tab className="popup-tab">{t('Sites')}</Tab>
             <Tab className="popup-tab">{t('Advanced')}</Tab>
-            {isSafari() ? null : <Tab className="popup-tab">{t('Donate')}</Tab>}
           </TabList>
 
           <TabPanel>
@@ -749,11 +725,6 @@ function Popup() {
           <TabPanel>
             <AdvancedPart config={config} updateConfig={updateConfig} />
           </TabPanel>
-          {isSafari() ? null : (
-            <TabPanel>
-              <Donation />
-            </TabPanel>
-          )}
         </Tabs>
       </form>
       <br />

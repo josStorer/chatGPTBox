@@ -27,10 +27,8 @@
 [使用指南](https://github.com/josStorer/chatGPTBox/wiki/Guide) |
 [效果预览](#Preview) |
 [开发&贡献][dev-url] |
-[捐助](https://www.buymeacoffee.com/josStorer) |
+[视频演示](https://www.bilibili.com/video/BV1524y1x7io) |
 [鸣谢](#Credit)
-
-[视频演示](https://www.bilibili.com/video/BV1524y1x7io)
 
 [dev-url]: https://github.com/josStorer/chatGPTBox/wiki/Development&Contributing
 

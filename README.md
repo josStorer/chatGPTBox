@@ -27,10 +27,8 @@ English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
 [Guide](https://github.com/josStorer/chatGPTBox/wiki/Guide) |
 [Preview](#Preview) |
 [Development&Contributing][dev-url] |
-[Donation](https://www.buymeacoffee.com/josStorer) |
+[Video Demonstration](https://www.youtube.com/watch?v=E1smDxJvTRs) |
 [Credit](#Credit)
-
-[Video Demonstration](https://www.youtube.com/watch?v=E1smDxJvTRs)
 
 [dev-url]: https://github.com/josStorer/chatGPTBox/wiki/Development&Contributing
 

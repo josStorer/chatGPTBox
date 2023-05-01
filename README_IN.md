@@ -82,7 +82,7 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 - 📱 Dukungan untuk perangkat seluler.
 - 📓 Ringkas halaman mana saja dengan menu klik kanan. (<kbd>Alt</kbd>+<kbd>B</kbd>)
 - 📖 Halaman percakapan independen. (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>)
-- 🔗 Dukungan banyak API (API Web untuk pengguna Gratis dan Plus, GPT-3.5, GPT-4, Bing Baru, Di-hosting Sendiri, Azure, Poe etc.).
+- 🔗 Dukungan banyak API (API Web untuk pengguna Gratis dan Plus, GPT-3.5, GPT-4, Bing Baru, Di-hosting Sendiri, Azure, Poe dan lain-lain.).
 - 📦 Integrasi untuk berbagai situs web yang umum digunakan (Reddit, Quora, YouTube, GitHub, GitLab, StackOverflow, Zhihu, Bilibili). (Terinspirasi oleh [wimdenherder](https://github.com/wimdenherder))
 - 🔍 Integrasi ke semua mesin telusur utama, dan kueri khusus untuk mendukung situs tambahan.
 - 🧰 Alat pemilihan dan menu klik kanan untuk melakukan berbagai tugas, seperti terjemahan, peringkasan, pemolesan,

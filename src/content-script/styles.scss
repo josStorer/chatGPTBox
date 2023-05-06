@@ -178,6 +178,7 @@
 
       code {
         background-color: var(--code-background-color);
+        font-size: 14px;
       }
     }
 
@@ -186,12 +187,13 @@
     }
 
     code {
-      padding: 0.2em 0.4em;
+      padding: 0 0.4em;
       margin: 0;
       white-space: pre-wrap;
       word-break: break-word;
       border-radius: 8px;
       background-color: var(--color-neutral-muted);
+      font-size: 11px;
 
       .hljs {
         padding: 0;

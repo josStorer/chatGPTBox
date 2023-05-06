@@ -54,7 +54,7 @@
   "Summarize Page": "Ringkasan Halaman",
   "Translate": "Terjemahkan",
   "Translate (Bidirectional)": "Terjemahkan (Dua Arah)",
-  "Translate (To English)" : "Terjemahkan (ke Bahasa Inggris)"												 
+  "Translate (To English)": "Terjemahkan (ke Bahasa Inggris)",
   "Summary": "Ringkasan",
   "Polish": "Perbaikan",
   "Sentiment Analysis": "Analisis Sentimen",
@@ -100,7 +100,7 @@
   "Open Conversation Window": "Buka Jendela Percakapan",
   "Store to Independent Conversation Page": "Simpan ke Halaman Percakapan Independen",
   "Keep Conversation Window in Background": "Biarkan jendela percakapan di latar belakang, sehingga Anda dapat menggunakan pintasan keyboard untuk memanggilnya di program mana pun",
-  "Max Response Token Length": "Panjang Token Respon Maksimum"
+  "Max Response Token Length": "Panjang Token Respon Maksimum",
   "Max Conversation Length": "Panjang Percakapan Maksimum",
   "Always pin the floating window": "Selalu selipkan jendela mengambang",
   "Export": "Ekspor",
@@ -111,5 +111,5 @@
   "API Params": "Parameter API",
   "API Url": "URL API",
   "Others": "Lain-lain",
-  "API Modes": "Mode API"													   	   										  
+  "API Modes": "Mode API"
 }

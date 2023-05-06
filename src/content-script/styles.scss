@@ -9,6 +9,8 @@
     --theme-color: #202124;
     --theme-border-color: #3c4043;
     --dragbar-color: #3c4043;
+    --color-neutral-muted: rgba(110, 118, 129, 0.4);
+    --code-background-color: rgb(13, 17, 23);
   }
   @media screen and (prefers-color-scheme: light) {
     @import 'highlight.js/scss/github.scss';
@@ -16,6 +18,8 @@
     --theme-color: #eaecf0;
     --theme-border-color: #aeafb2;
     --dragbar-color: #dfe0e1;
+    --color-neutral-muted: rgba(150, 160, 170, 0.3);
+    --code-background-color: rgb(255, 255, 255);
   }
 }
 
@@ -27,6 +31,8 @@
   --theme-color: #202124;
   --theme-border-color: #3c4043;
   --dragbar-color: #3c4043;
+  --color-neutral-muted: rgba(110, 118, 129, 0.4);
+  --code-background-color: rgb(13, 17, 23);
 }
 
 [data-theme='light'] {
@@ -37,6 +43,8 @@
   --theme-color: #eaecf0;
   --theme-border-color: #aeafb2;
   --dragbar-color: #ccced0;
+  --color-neutral-muted: rgba(150, 160, 170, 0.3);
+  --code-background-color: rgb(255, 255, 255);
 }
 
 .chatgptbox-sidebar-free {
@@ -163,9 +171,14 @@
     line-height: 1.6;
     border-radius: 8px;
     word-break: break-word;
+
     pre {
       margin-top: 10px;
       padding: 0;
+
+      code {
+        background-color: var(--code-background-color);
+      }
     }
 
     p {
@@ -173,9 +186,12 @@
     }
 
     code {
+      padding: 0.2em 0.4em;
+      margin: 0;
       white-space: pre-wrap;
       word-break: break-word;
       border-radius: 8px;
+      background-color: var(--color-neutral-muted);
 
       .hljs {
         padding: 0;
@@ -210,6 +226,7 @@
     p {
       color: #ec4336;
     }
+
     color: #ec4336;
   }
 

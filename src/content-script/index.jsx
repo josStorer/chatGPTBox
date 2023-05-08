@@ -302,7 +302,7 @@ async function overwriteAccessToken() {
 }
 
 async function prepareForForegroundRequests() {
-  if (location.hostname !== 'chat.openai.com') return
+  if (location.hostname !== 'chat.openai.com' || location.pathname === '/auth/login') return
 
   const userConfig = await getUserConfig()
 
@@ -313,10 +313,8 @@ async function prepareForForegroundRequests() {
   render(<NotificationForChatGPTWeb container={div} />, div)
 
   await Browser.runtime.sendMessage({
-    type: 'PIN_TAB',
-    data: {
-      saveAsChatgptConfig: true,
-    },
+    type: 'SET_CHATGPT_TAB',
+    data: {},
   })
 
   registerPortListener(async (session, port) => {

@@ -16,7 +16,7 @@ export function Hyperlink({ href, children }) {
           type: 'NEW_URL',
           data: {
             url: href,
-            pinned: true,
+            pinned: false,
             saveAsChatgptConfig: true,
           },
         })

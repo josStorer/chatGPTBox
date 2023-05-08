@@ -143,6 +143,12 @@ Browser.runtime.onMessage.addListener(async (message, sender) => {
       }
       break
     }
+    case 'SET_CHATGPT_TAB': {
+      await setUserConfig({
+        chatgptTabId: sender.tab.id,
+      })
+      break
+    }
     case 'ACTIVATE_URL':
       await Browser.tabs.update(message.data.tabId, { active: true })
       break

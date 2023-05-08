@@ -315,17 +315,3 @@
   background-color: var(--theme-color);
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
 }
-
-.chatgptbox-notification {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 6px;
-  position: fixed;
-  top: 25px;
-  right: 25px;
-  z-index: 2147483647;
-  padding: 4px 10px;
-  border: 1px solid;
-  border-radius: 4px;
-}

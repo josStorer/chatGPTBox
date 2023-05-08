@@ -19,7 +19,17 @@ export async function fetchSSE(resource, options) {
   let hasStarted = false
   for await (const chunk of streamAsyncIterable(resp.body)) {
     const str = new TextDecoder().decode(chunk)
-    parser.feed(str)
+    if (!str.startsWith('{') && !str.startsWith('"{')) {
+      parser.feed(str)
+    } else {
+      const formattedStr =
+        'data: ' +
+        JSON.stringify(
+          JSON.parse(str.replace(/^"|"$/g, '').replaceAll('\\"', '"').replaceAll('\\\\u', '\\u')),
+        ).replaceAll('\\\\n', '\\n') +
+        '\n\ndata: [DONE]\n\n'
+      parser.feed(formattedStr)
+    }
 
     if (!hasStarted) {
       hasStarted = true

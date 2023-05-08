@@ -132,10 +132,12 @@ export async function generateAnswersWithChatgptApi(port, question, session, api
         console.debug('json error', error)
         return
       }
-      if ('content' in data.choices[0].delta) {
-        answer += data.choices[0].delta.content
-        port.postMessage({ answer: answer, done: false, session: null })
-      }
+      answer +=
+        data.choices[0]?.delta?.content ||
+        data.choices[0]?.message?.content ||
+        data.choices[0]?.text ||
+        ''
+      port.postMessage({ answer: answer, done: false, session: null })
     },
     async onStart() {},
     async onEnd() {

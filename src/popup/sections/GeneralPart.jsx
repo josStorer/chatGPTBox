@@ -94,13 +94,25 @@ export function GeneralPart({ config, updateConfig }) {
               updateConfig({ modelName: modelName })
             }}
           >
-            {config.activeApiModes.map((key) => {
-              const model = Models[key]
-              return (
-                <option value={key} key={key} selected={key === config.modelName}>
-                  {t(model.desc)}
-                </option>
-              )
+            {config.activeApiModes.map((modelName) => {
+              let desc
+              if (modelName.includes('-')) {
+                const splits = modelName.split('-')
+                if (splits[0] in Models)
+                  desc = `${t(Models[splits[0]].desc)} (${t(ModelMode[splits[1]])})`
+              } else {
+                if (modelName in Models) desc = t(Models[modelName].desc)
+              }
+              if (desc)
+                return (
+                  <option
+                    value={modelName}
+                    key={modelName}
+                    selected={modelName === config.modelName}
+                  >
+                    {desc}
+                  </option>
+                )
             })}
           </select>
           {isUsingMultiModeModel(config) && (

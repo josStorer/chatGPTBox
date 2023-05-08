@@ -18,6 +18,11 @@ export async function generateAnswersWithBingWebApi(
 ) {
   const { controller, messageListener } = setAbortController(port)
   const config = await getUserConfig()
+  let modelMode
+  if (session.modelName.includes('-')) modelMode = session.modelName.split('-')[1]
+  else modelMode = config.modelMode
+
+  console.debug('mode', modelMode)
 
   const bingAIClient = new BingAIClient({ userToken: accessToken })
   if (session.bingWeb_jailbreakConversationCache)
@@ -30,7 +35,7 @@ export async function generateAnswersWithBingWebApi(
   const response = await bingAIClient
     .sendMessage(question, {
       abortController: controller,
-      toneStyle: config.modelMode,
+      toneStyle: modelMode,
       jailbreakConversationId: sydneyMode,
       onProgress: (token) => {
         answer += token

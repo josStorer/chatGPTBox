@@ -2,6 +2,42 @@ import { defaults } from 'lodash-es'
 import Browser from 'webextension-polyfill'
 import { isMobile } from '../utils/is-mobile.mjs'
 
+export const TriggerMode = {
+  always: 'Always',
+  questionMark: 'When query ends with question mark (?)',
+  manually: 'Manually',
+}
+
+export const ThemeMode = {
+  light: 'Light',
+  dark: 'Dark',
+  auto: 'Auto',
+}
+
+export const ModelMode = {
+  balanced: 'Balanced',
+  creative: 'Creative',
+  precise: 'Precise',
+  fast: 'Fast',
+}
+
+export const chatgptWebModelKeys = ['chatgptFree35', 'chatgptPlus4']
+export const bingWebModelKeys = ['bingFree4', 'bingFreeSydney']
+export const gptApiModelKeys = ['gptApiDavinci']
+export const chatgptApiModelKeys = ['chatgptApi35', 'chatgptApi4_8k', 'chatgptApi4_32k']
+export const customApiModelKeys = ['customModel']
+export const azureOpenAiApiModelKeys = ['azureOpenAi']
+export const githubThirdPartyApiModelKeys = ['waylaidwandererApi']
+export const poeWebModelKeys = [
+  'poeAiWebSage',
+  'poeAiWebGPT4',
+  'poeAiWebClaudePlus',
+  'poeAiWebClaude',
+  'poeAiWebCustom',
+  'poeAiWebChatGpt',
+  'poeAiWebDragonfly',
+]
+
 /**
  * @typedef {object} Model
  * @property {string} value
@@ -31,40 +67,13 @@ export const Models = {
   poeAiWebDragonfly: { value: 'dragonfly', desc: 'Poe AI (Web, Dragonfly)' },
 }
 
-export const chatgptWebModelKeys = ['chatgptFree35', 'chatgptPlus4']
-export const bingWebModelKeys = ['bingFree4', 'bingFreeSydney']
-export const gptApiModelKeys = ['gptApiDavinci']
-export const chatgptApiModelKeys = ['chatgptApi35', 'chatgptApi4_8k', 'chatgptApi4_32k']
-export const customApiModelKeys = ['customModel']
-export const azureOpenAiApiModelKeys = ['azureOpenAi']
-export const githubThirdPartyApiModelKeys = ['waylaidwandererApi']
-export const poeWebModelKeys = [
-  'poeAiWebSage',
-  'poeAiWebGPT4',
-  'poeAiWebClaudePlus',
-  'poeAiWebClaude',
-  'poeAiWebCustom',
-  'poeAiWebChatGpt',
-  'poeAiWebDragonfly',
-]
-
-export const TriggerMode = {
-  always: 'Always',
-  questionMark: 'When query ends with question mark (?)',
-  manually: 'Manually',
-}
-
-export const ThemeMode = {
-  light: 'Light',
-  dark: 'Dark',
-  auto: 'Auto',
-}
-
-export const ModelMode = {
-  balanced: 'Balanced',
-  creative: 'Creative',
-  precise: 'Precise',
-  fast: 'Fast',
+for (const modelName in Models) {
+  if (isUsingMultiModeModel({ modelName }))
+    for (const mode in ModelMode)
+      Models[`${modelName}-${mode}`] = {
+        value: mode,
+        desc: `${Models[modelName].desc} (${ModelMode[mode]})`,
+      }
 }
 
 /**

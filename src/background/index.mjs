@@ -60,6 +60,7 @@ function setPortProxy(port, proxyTabId) {
 }
 
 async function executeApi(session, port, config) {
+  console.debug('modelName', session.modelName)
   if (chatgptWebModelKeys.includes(session.modelName)) {
     let tabId
     if (
@@ -78,9 +79,9 @@ async function executeApi(session, port, config) {
       const accessToken = await getChatGptAccessToken()
       await generateAnswersWithChatgptWebApi(port, session.question, session, accessToken)
     }
-  } else if (bingWebModelKeys.includes(session.modelName)) {
+  } else if (bingWebModelKeys.some((n) => session.modelName.includes(n))) {
     const accessToken = await getBingAccessToken()
-    if (session.modelName === 'bingFreeSydney')
+    if (session.modelName.includes('bingFreeSydney'))
       await generateAnswersWithBingWebApi(port, session.question, session, accessToken, true)
     else await generateAnswersWithBingWebApi(port, session.question, session, accessToken)
   } else if (gptApiModelKeys.includes(session.modelName)) {

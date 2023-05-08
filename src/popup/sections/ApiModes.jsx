@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
-import { Models } from '../../config/index.mjs'
+import { ModelMode, Models } from '../../config/index.mjs'
 
 ApiModes.propTypes = {
   config: PropTypes.object.isRequired,
@@ -12,21 +12,32 @@ export function ApiModes({ config, updateConfig }) {
 
   return (
     <>
-      {config.apiModes.map((key) => (
-        <label key={key}>
-          <input
-            type="checkbox"
-            checked={config.activeApiModes.includes(key)}
-            onChange={(e) => {
-              const checked = e.target.checked
-              const activeApiModes = config.activeApiModes.filter((i) => i !== key)
-              if (checked) activeApiModes.push(key)
-              updateConfig({ activeApiModes })
-            }}
-          />
-          {t(Models[key].desc)}
-        </label>
-      ))}
+      {config.apiModes.map((modelName) => {
+        let desc
+        if (modelName.includes('-')) {
+          const splits = modelName.split('-')
+          if (splits[0] in Models)
+            desc = `${t(Models[splits[0]].desc)} (${t(ModelMode[splits[1]])})`
+        } else {
+          if (modelName in Models) desc = t(Models[modelName].desc)
+        }
+        if (desc)
+          return (
+            <label key={modelName}>
+              <input
+                type="checkbox"
+                checked={config.activeApiModes.includes(modelName)}
+                onChange={(e) => {
+                  const checked = e.target.checked
+                  const activeApiModes = config.activeApiModes.filter((i) => i !== modelName)
+                  if (checked) activeApiModes.push(modelName)
+                  updateConfig({ activeApiModes })
+                }}
+              />
+              {desc}
+            </label>
+          )
+      })}
     </>
   )
 }

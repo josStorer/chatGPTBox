@@ -139,7 +139,7 @@ function FloatingToolbar(props) {
         <div className="chatgptbox-selection-toolbar">
           <img
             src={logo}
-            style="user-select:none;width:24px;height:24px;background:rgba(0,0,0,0);"
+            style="user-select:none;width:24px;height:24px;background:rgba(0,0,0,0);filter:none;"
           />
           {tools}
         </div>

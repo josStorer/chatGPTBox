@@ -10,6 +10,7 @@ const adapters = {
   google: ['#search'],
   csdn: ['#content_views'],
   bing: ['#b_results'],
+  wikipedia: ['#mw-content-text'],
 }
 
 function findLargestElement(e) {

@@ -319,6 +319,17 @@ export function GeneralPart({ config, updateConfig }) {
       <label>
         <input
           type="checkbox"
+          checked={config.selectionToolsNextToInputBox}
+          onChange={(e) => {
+            const checked = e.target.checked
+            updateConfig({ selectionToolsNextToInputBox: checked })
+          }}
+        />
+        {t('Display selection tools next to input box to avoid blocking')}
+      </label>
+      <label>
+        <input
+          type="checkbox"
           checked={config.alwaysPinWindow}
           onChange={(e) => {
             const checked = e.target.checked

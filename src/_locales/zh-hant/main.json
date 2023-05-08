@@ -113,5 +113,6 @@
   "API Url": "API網址",
   "Others": "其他",
   "API Modes": "API模式",
-  "Disable web mode history for better privacy protection, but it will result in unavailable conversations after a period of time": "禁用網頁版模式歷史記錄以獲得更好的隱私保護, 但會導致對話在壹段時間後不可用"
+  "Disable web mode history for better privacy protection, but it will result in unavailable conversations after a period of time": "禁用網頁版模式歷史記錄以獲得更好的隱私保護, 但會導致對話在壹段時間後不可用",
+  "Display selection tools next to input box to avoid blocking": "將選擇浮動工具顯示在輸入框旁邊以避免遮擋"
 }

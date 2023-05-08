@@ -135,23 +135,28 @@ async function prepareForSelectionTools() {
     if (toolbarContainer && selectionElement && toolbarContainer.contains(selectionElement)) return
 
     deleteToolbar()
-    setTimeout(() => {
+    setTimeout(async () => {
       const selection = window
         .getSelection()
         ?.toString()
         .trim()
         .replace(/^-+|-+$/g, '')
       if (selection) {
-        const inputElement = selectionElement.querySelector('input, textarea')
         let position
-        if (inputElement) {
-          position = getClientPosition(inputElement)
-          position = {
-            x: position.x + window.scrollX + inputElement.offsetWidth + 50,
-            y: e.pageY + 30,
+
+        const config = await getUserConfig()
+        if (!config.selectionToolsNextToInputBox) position = { x: e.pageX + 20, y: e.pageY + 20 }
+        else {
+          const inputElement = selectionElement.querySelector('input, textarea')
+          if (inputElement) {
+            position = getClientPosition(inputElement)
+            position = {
+              x: position.x + window.scrollX + inputElement.offsetWidth + 50,
+              y: e.pageY + 30,
+            }
+          } else {
+            position = { x: e.pageX + 20, y: e.pageY + 20 }
           }
-        } else {
-          position = { x: e.pageX + 20, y: e.pageY + 20 }
         }
         toolbarContainer = createElementAtPosition(position.x, position.y)
         createSelectionTools(toolbarContainer, selection)

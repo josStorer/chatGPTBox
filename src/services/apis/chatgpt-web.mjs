@@ -111,7 +111,7 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
       parent_message_id: session.parentMessageId,
       timezone_offset_min: new Date().getTimezoneOffset(),
       variant_purpose: 'none',
-      history_and_training_disabled: true,
+      history_and_training_disabled: config.disableWebModeHistory,
     }),
     onMessage(message) {
       console.debug('sse message', message)

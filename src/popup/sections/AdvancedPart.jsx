@@ -117,6 +117,20 @@ function Others({ config, updateConfig }) {
   return (
     <>
       <label>
+        <input
+          type="checkbox"
+          checked={config.disableWebModeHistory}
+          onChange={(e) => {
+            const checked = e.target.checked
+            updateConfig({ disableWebModeHistory: checked })
+          }}
+        />
+        {t(
+          'Disable web mode history for better privacy protection, but it will result in unavailable conversations after a period of time',
+        )}
+      </label>
+      <br />
+      <label>
         {t('Custom Site Regex')}
         <input
           type="text"

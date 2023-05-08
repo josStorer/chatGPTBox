@@ -109,6 +109,7 @@ export const defaultConfig = {
   customChatGptWebApiUrl: 'https://chat.openai.com',
   customChatGptWebApiPath: '/backend-api/conversation',
   customOpenAiApiUrl: 'https://api.openai.com',
+  disableWebModeHistory: true,
   siteRegex: 'match nothing',
   useSiteRegexOnly: false,
   inputQuery: '',

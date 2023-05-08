@@ -112,5 +112,6 @@
   "API Params": "API Params",
   "API Url": "API Url",
   "Others": "Others",
-  "API Modes": "API Modes"
+  "API Modes": "API Modes",
+  "Disable web mode history for better privacy protection, but it will result in unavailable conversations after a period of time": "Disable web mode history for better privacy protection, but it will result in unavailable conversations after a period of time"
 }

@@ -112,5 +112,6 @@
   "API Params": "API參數",
   "API Url": "API網址",
   "Others": "其他",
-  "API Modes": "API模式"
+  "API Modes": "API模式",
+  "Disable web mode history for better privacy protection, but it will result in unavailable conversations after a period of time": "禁用網頁版模式歷史記錄以獲得更好的隱私保護, 但會導致對話在壹段時間後不可用"
 }

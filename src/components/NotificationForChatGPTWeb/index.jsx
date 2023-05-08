@@ -5,6 +5,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import { useEffect } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import { useTheme } from '../../hooks/use-theme.mjs'
+import { getUserConfig } from '../../config/index.mjs'
 
 const NotificationForChatGPTWeb = () => {
   const { t } = useTranslation()
@@ -45,11 +46,11 @@ const NotificationForChatGPTWeb = () => {
           </button>
           <button
             style={buttonStyle}
-            onClick={() => {
+            onClick={async () => {
               Browser.runtime.sendMessage({
                 type: 'ACTIVATE_URL',
                 data: {
-                  tabId: config.chatgptJumpBackTabId,
+                  tabId: (await getUserConfig()).chatgptJumpBackTabId,
                 },
               })
             }}

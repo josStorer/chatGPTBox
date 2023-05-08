@@ -25,7 +25,7 @@
   "Prepend Query": "Вставить запрос",
   "Wechat Pay": "Wechat-платеж",
   "Type your question here\nEnter to send, shift + enter to break line": "Введите свой вопрос здесь\nНажмите Enter, чтобы отправить, Shift + Enter - для переноса строки",
-  "Wait for the answer to finish and then continue here": "Дождитесь завершения ответа, а затем продолжайте здесь",
+  "Type your question here\nEnter to stop generating\nShift + enter to break line": "Введите свой вопрос здесь\nНажмите Enter для остановки генерации\nShift+Enter для переноса строки",
   "Ask ChatGPT": "Спросить ChatGPT",
   "No Input Found": "Не найден ввод",
   "You": "Ты",

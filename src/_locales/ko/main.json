@@ -25,7 +25,7 @@
   "Prepend Query": "앞에 추가할 쿼리 선택기",
   "Wechat Pay": "위챗 페이",
   "Type your question here\nEnter to send, shift + enter to break line": "여기에 질문을 입력하세요. \n 보내려면 엔터, 줄바꿈을 하려면 shift + enter를 누르세요.",
-  "Wait for the answer to finish and then continue here": "답변이 끝날 때까지 기다리고 여기서 계속해주세요.",
+  "Type your question here\nEnter to stop generating\nShift + enter to break line": "여기에 질문을 입력하세요.\nEnter로 생성을 중지하려면 \nShift + Enter로 줄을 바꾸세요.",
   "Ask ChatGPT": "ChatGPT에게 물어보세요.",
   "No Input Found": "입력 없음",
   "You": "당신",

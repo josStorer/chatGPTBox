@@ -38,7 +38,7 @@ export function initSession({
   conversationRecords = [],
   sessionName = null,
   modelName = null,
-  autoClean = true,
+  autoClean = false,
 } = {}) {
   return {
     // common

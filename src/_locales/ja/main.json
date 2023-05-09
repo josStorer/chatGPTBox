@@ -25,7 +25,7 @@
   "Prepend Query": "先頭に挿入するクエリ",
   "Wechat Pay": "Wechatペイ",
   "Type your question here\nEnter to send, shift + enter to break line": "ここに質問を入力してください\nEnterで送信、shift+Enterで改行",
-  "Wait for the answer to finish and then continue here": "回答が完了するのを待ってからここを続けます",
+  "Type your question here\nEnter to stop generating\nShift + enter to break line": "ここに質問を入力してください\nEnterで生成を停止、Shift + Enterで改行",
   "Ask ChatGPT": "ChatGPTに質問する",
   "No Input Found": "入力が見つかりません",
   "You": "あなた",

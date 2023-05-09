@@ -25,7 +25,7 @@
   "Prepend Query": "Am Anfang hinzufügen",
   "Wechat Pay": "WeChat-Pay",
   "Type your question here\nEnter to send, shift + enter to break line": "Geben Sie Ihre Frage hier ein\nEnter zum Senden, Shift + Enter zum Zeilenumbruch",
-  "Wait for the answer to finish and then continue here": "Warten Sie, bis die Antwort fertig ist, und setzen Sie hier fort",
+  "Type your question here\nEnter to stop generating\nShift + enter to break line": "Geben Sie Ihre Frage hier ein\nEnter zum Stoppen der Generierung\nShift + Enter zum Zeilenumbruch",
   "Ask ChatGPT": "ChatGPT fragen",
   "No Input Found": "Keine Eingabe gefunden",
   "You": "Du",

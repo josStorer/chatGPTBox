@@ -25,7 +25,7 @@
   "Prepend Query": "Tambahkan Query di Awal",
   "Wechat Pay": "Pembayaran Wechat",
   "Type your question here\nEnter to send, shift + enter to break line": "Ketik pertanyaanmu di sini\nTekan Enter untuk mengirim, Shift + Enter untuk membuat baris baru",
-  "Wait for the answer to finish and then continue here": "Tunggu hingga jawaban selesai dan kemudian lanjutkan di sini",
+  "Type your question here\nEnter to stop generating\nShift + enter to break line": "Ketik pertanyaanmu di sini\nTekan Enter untuk menghentikan pembuatan\nShift + Enter untuk membuat baris baru",
   "Ask ChatGPT": "Tanyakan ke ChatGPT",
   "No Input Found": "Tidak Ada Input Ditemukan",
   "You": "Anda",

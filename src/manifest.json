@@ -85,6 +85,9 @@
     },
     "openConversationWindow": {
       "description": "Open the independent conversation window"
+    },
+    "closeAllChats": {
+      "description": "Close all chats in this page"
     }
   }
 }

@@ -68,14 +68,6 @@ function ConversationCard(props) {
   )
   const config = useConfig()
 
-  document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape' || event.keyCode === 27) {
-      // 关闭窗口代码
-      port.disconnect()
-      if (props.onClose) props.onClose()
-    }
-  })
-
   useEffect(() => {
     if (props.onUpdate) props.onUpdate(port, session, conversationItemData)
   }, [session, conversationItemData])
@@ -118,13 +110,23 @@ function ConversationCard(props) {
   }
 
   useEffect(() => {
-    const listener = () => {
+    const portListener = () => {
       setPort(Browser.runtime.connect())
       setIsReady(true)
     }
-    port.onDisconnect.addListener(listener)
+
+    const closeChatsListener = (message) => {
+      if (message.type === 'CLOSE_CHATS') {
+        port.disconnect()
+        if (props.onClose) props.onClose()
+      }
+    }
+
+    if (props.closeable) Browser.runtime.onMessage.addListener(closeChatsListener)
+    port.onDisconnect.addListener(portListener)
     return () => {
-      port.onDisconnect.removeListener(listener)
+      if (props.closeable) Browser.runtime.onMessage.removeListener(closeChatsListener)
+      port.onDisconnect.removeListener(portListener)
     }
   }, [port])
   useEffect(() => {

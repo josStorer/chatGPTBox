@@ -39,4 +39,15 @@ export const config = {
         })
     },
   },
+  closeAllChats: {
+    label: 'Close All Chats In This Page',
+    action: async () => {
+      Browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+        Browser.tabs.sendMessage(tabs[0].id, {
+          type: 'CLOSE_CHATS',
+          data: {},
+        })
+      })
+    },
+  },
 }

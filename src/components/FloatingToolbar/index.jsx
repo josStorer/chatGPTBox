@@ -80,7 +80,7 @@ function FloatingToolbar(props) {
     return (
       <div data-theme={config.themeMode}>
         <Draggable
-          handle=".dragbar"
+          handle=".draggable"
           onDrag={dragEvent.onDrag}
           onStop={dragEvent.onStop}
           position={virtualPosition}

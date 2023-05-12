@@ -207,7 +207,7 @@ function ConversationCard(props) {
     <div className="gpt-inner">
       <div
         className={props.draggable ? 'gpt-header draggable' : 'gpt-header'}
-        style="padding: 15px;user-select:none;"
+        style="padding:15px;user-select:none;"
       >
         <span className="gpt-util-group">
           {props.closeable ? (
@@ -233,7 +233,7 @@ function ConversationCard(props) {
             <img src={logo} style="user-select:none;width:20px;height:20px;" />
           )}
           <select
-            style={props.notClampSize ? {} : { width: 'auto' }}
+            style={props.notClampSize ? {} : { width: windowSize[0] * 0.15 + 'px' }}
             className="normal-button"
             required
             onChange={(e) => {

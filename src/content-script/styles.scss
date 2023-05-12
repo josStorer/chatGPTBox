@@ -88,8 +88,27 @@
     padding: 5px 15px 10px;
     background-color: var(--theme-color);
     color: var(--font-color);
-    overflow-y: auto;
+    ::-webkit-scrollbar {
+      background-color: var(--theme-color);
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--dragbar-color);
+    }
+    &::-webkit-scrollbar {
+      background-color: var(--theme-color);
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--dragbar-color);
+    }
+    ::-webkit-resizer {
+      background-color: var(--theme-color);
+    }
+    &::-webkit-resizer {
+      background-color: var(--theme-color);
+    }
 
+    overflow-y: auto;
+    min-height: 300px;
     p {
       color: var(--font-color);
     }

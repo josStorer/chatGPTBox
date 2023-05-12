@@ -68,6 +68,14 @@ function ConversationCard(props) {
   )
   const config = useConfig()
 
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' || event.keyCode === 27) {
+      // 关闭窗口代码
+      port.disconnect()
+      if (props.onClose) props.onClose()
+    }
+  })
+
   useEffect(() => {
     if (props.onUpdate) props.onUpdate(port, session, conversationItemData)
   }, [session, conversationItemData])
@@ -197,7 +205,10 @@ function ConversationCard(props) {
 
   return (
     <div className="gpt-inner">
-      <div className="gpt-header" style="margin: 15px;">
+      <div
+        className={props.draggable ? 'gpt-header draggable' : 'gpt-header'}
+        style="padding: 15px;user-select:none;"
+      >
         <span className="gpt-util-group">
           {props.closeable ? (
             <XLg
@@ -222,7 +233,7 @@ function ConversationCard(props) {
             <img src={logo} style="user-select:none;width:20px;height:20px;" />
           )}
           <select
-            style={props.notClampSize ? {} : { width: windowSize[0] * 0.05 + 'px' }}
+            style={props.notClampSize ? {} : { width: 'auto' }}
             className="normal-button"
             required
             onChange={(e) => {
@@ -255,9 +266,7 @@ function ConversationCard(props) {
             })}
           </select>
         </span>
-        {props.draggable ? (
-          <div className="dragbar" />
-        ) : (
+        {!props.draggable && (
           <WindowDesktop
             className="gpt-util-icon"
             title={t('Float the Window')}

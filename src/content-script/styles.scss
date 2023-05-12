@@ -88,27 +88,20 @@
     padding: 5px 15px 10px;
     background-color: var(--theme-color);
     color: var(--font-color);
-    ::-webkit-scrollbar {
-      background-color: var(--theme-color);
-    }
-    ::-webkit-scrollbar-thumb {
-      background-color: var(--dragbar-color);
-    }
     &::-webkit-scrollbar {
       background-color: var(--theme-color);
+      width: 9px;
     }
     &::-webkit-scrollbar-thumb {
-      background-color: var(--dragbar-color);
+      background-color: var(--theme-border-color);
+      border-radius: 20px;
+      border: transparent;
     }
-    ::-webkit-resizer {
-      background-color: var(--theme-color);
-    }
-    &::-webkit-resizer {
-      background-color: var(--theme-color);
+    &::-webkit-scrollbar-corner {
+      background: transparent;
     }
 
     overflow-y: auto;
-    min-height: 300px;
     p {
       color: var(--font-color);
     }
@@ -269,6 +262,19 @@
     &:focus {
       outline: none;
     }
+
+    &::-webkit-scrollbar {
+      background-color: var(--theme-color);
+      width: 9px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--theme-border-color);
+      border-radius: 20px;
+      border: transparent;
+    }
+    &::-webkit-scrollbar-corner {
+      background: transparent;
+    }
   }
 
   .submit-button {
@@ -284,6 +290,10 @@
     border-color: rgba(31, 35, 40, 0.15);
     font-size: 1em;
     box-shadow: 0 1px 0 rgba(31, 35, 40, 0.1);
+  }
+
+  .draggable {
+    cursor: move;
   }
 
   .dragbar {

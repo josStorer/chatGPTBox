@@ -51,6 +51,19 @@
     background-color: var(--theme-color);
     transition: width 0.3s, min-width 0.3s;
     padding: 10px;
+
+    ::-webkit-scrollbar {
+      background-color: var(--theme-color);
+      width: 9px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--theme-border-color);
+      border-radius: 20px;
+      border: transparent;
+    }
+    ::-webkit-scrollbar-corner {
+      background: transparent;
+    }
   }
 
   .chat-sidebar.collapsed {

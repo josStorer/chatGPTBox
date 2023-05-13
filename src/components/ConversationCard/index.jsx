@@ -211,7 +211,7 @@ function ConversationCard(props) {
         className={props.draggable ? 'gpt-header draggable' : 'gpt-header'}
         style="padding:15px;user-select:none;"
       >
-        <span className="gpt-util-group">
+        <span className="gpt-util-group" style={props.notClampSize ? {} : { flexGrow: 1 }}>
           {props.closeable ? (
             <XLg
               className="gpt-util-icon"
@@ -235,7 +235,7 @@ function ConversationCard(props) {
             <img src={logo} style="user-select:none;width:20px;height:20px;" />
           )}
           <select
-            style={props.notClampSize ? {} : { width: windowSize[0] * 0.15 + 'px' }}
+            style={props.notClampSize ? {} : { width: 0, flexGrow: 1 }}
             className="normal-button"
             required
             onChange={(e) => {
@@ -268,7 +268,19 @@ function ConversationCard(props) {
             })}
           </select>
         </span>
-        {!props.draggable && (
+        <span className="gpt-util-group" style={{ flexGrow: 1, justifyContent: 'flex-end' }}>
+          {session && session.conversationId && (
+            <a
+              title={t('Continue on official website')}
+              href={'https://chat.openai.com/chat/' + session.conversationId}
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+              className="gpt-util-icon"
+              style="color: inherit;"
+            >
+              <LinkExternalIcon size={16} />
+            </a>
+          )}
           <WindowDesktop
             className="gpt-util-icon"
             title={t('Float the Window')}
@@ -289,20 +301,6 @@ function ConversationCard(props) {
               )
             }}
           />
-        )}
-        <span className="gpt-util-group">
-          {session && session.conversationId && (
-            <a
-              title={t('Continue on official website')}
-              href={'https://chat.openai.com/chat/' + session.conversationId}
-              target="_blank"
-              rel="nofollow noopener noreferrer"
-              className="gpt-util-icon"
-              style="color: inherit;"
-            >
-              <LinkExternalIcon size={16} />
-            </a>
-          )}
           <DeleteButton
             size={16}
             text={t('Clear Conversation')}

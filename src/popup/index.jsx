@@ -18,7 +18,7 @@ getUserConfig().then(async (config) => {
 
     if (config.clickIconAction in menuConfig) {
       if (menuConfig[config.clickIconAction].action) {
-        menuConfig[config.clickIconAction].action()
+        menuConfig[config.clickIconAction].action(false)
       }
 
       if (menuConfig[config.clickIconAction].genPrompt) {

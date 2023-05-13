@@ -12,7 +12,7 @@ export function registerCommands() {
 
     if (command in menuConfig) {
       if (menuConfig[command].action) {
-        menuConfig[command].action()
+        menuConfig[command].action(true)
       }
 
       if (menuConfig[command].genPrompt) {

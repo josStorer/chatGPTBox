@@ -360,6 +360,17 @@ export function GeneralPart({ config, updateConfig }) {
         />
         {t('Always pin the floating window')}
       </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={config.focusAfterAnswer}
+          onChange={(e) => {
+            const checked = e.target.checked
+            updateConfig({ focusAfterAnswer: checked })
+          }}
+        />
+        {t('Focus to input box after answering')}
+      </label>
       <br />
     </>
   )

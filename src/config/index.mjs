@@ -96,6 +96,7 @@ export const defaultConfig = {
   autoRegenAfterSwitchModel: false,
   selectionToolsNextToInputBox: false,
   alwaysPinWindow: false,
+  focusAfterAnswer: true,
 
   apiKey: '', // openai ApiKey
 

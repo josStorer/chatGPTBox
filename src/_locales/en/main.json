@@ -117,5 +117,6 @@
   "Display selection tools next to input box to avoid blocking": "Display selection tools next to input box to avoid blocking",
   "Close All Chats In This Page": "Close All Chats In This Page",
   "When Icon Clicked": "When Icon Clicked",
-  "Open Settings": "Open Settings"
+  "Open Settings": "Open Settings",
+  "Focus to input box after answering": "Focus to input box after answering"
 }

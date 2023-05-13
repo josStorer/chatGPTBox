@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { updateRefHeight } from '../../utils'
 import { useTranslation } from 'react-i18next'
+import { getUserConfig } from '../../config/index.mjs'
 
 export function InputBox({ onSubmit, enabled, port, reverseResizeDir }) {
   const { t } = useTranslation()
@@ -13,6 +14,8 @@ export function InputBox({ onSubmit, enabled, port, reverseResizeDir }) {
   const virtualInputRef = reverseResizeDir ? reverseDivRef : inputRef
 
   useEffect(() => {
+    inputRef.current.focus()
+
     const onResizeY = () => {
       if (virtualInputRef.current.h !== virtualInputRef.current.offsetHeight) {
         virtualInputRef.current.h = virtualInputRef.current.offsetHeight
@@ -37,7 +40,10 @@ export function InputBox({ onSubmit, enabled, port, reverseResizeDir }) {
   })
 
   useEffect(() => {
-    if (enabled) inputRef.current.focus()
+    if (enabled)
+      getUserConfig().then((config) => {
+        if (config.focusAfterAnswer) inputRef.current.focus()
+      })
   }, [enabled])
 
   const handleKeyDownOrClick = (e) => {

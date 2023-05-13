@@ -117,5 +117,6 @@
   "Display selection tools next to input box to avoid blocking": "將選擇浮動工具顯示在輸入框旁邊以避免遮擋",
   "Close All Chats In This Page": "關閉本頁所有對話",
   "When Icon Clicked": "當圖示被點擊時",
-  "Open Settings": "開啟設定"
+  "Open Settings": "開啟設定",
+  "Focus to input box after answering": "回答結束後自動聚焦到輸入框"
 }

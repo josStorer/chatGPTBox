@@ -181,7 +181,7 @@ export const config = {
   },
   'mp.weixin.qq': {
     inputQuery: weixin.inputQuery,
-    sidebarContainerQuery: [],
+    sidebarContainerQuery: ['.qr_code_pc', '#js_content'],
     appendContainerQuery: [],
     resultsContainerQuery: ['#js_content'],
   },

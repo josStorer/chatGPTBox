@@ -34,7 +34,12 @@ export function FeaturePages({ config, updateConfig }) {
       <button
         type="button"
         onClick={() => {
-          openUrl(Browser.runtime.getURL('IndependentPanel.html'))
+          Browser.runtime.sendMessage({
+            type: 'OPEN_URL',
+            data: {
+              url: Browser.runtime.getURL('IndependentPanel.html'),
+            },
+          })
         }}
       >
         {t('Open Conversation Page')}
@@ -43,11 +48,9 @@ export function FeaturePages({ config, updateConfig }) {
         <button
           type="button"
           onClick={() => {
-            Browser.windows.create({
-              url: Browser.runtime.getURL('IndependentPanel.html'),
-              type: 'popup',
-              width: 500,
-              height: 650,
+            Browser.runtime.sendMessage({
+              type: 'OPEN_CHAT_WINDOW',
+              data: {},
             })
           }}
         >

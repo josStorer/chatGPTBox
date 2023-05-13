@@ -90,6 +90,7 @@ export const defaultConfig = {
   modelName: 'chatgptFree35',
 
   preferredLanguage: getNavigatorLanguage(),
+  clickIconAction: 'popup',
   insertAtTop: isMobile(),
   lockWhenAnswer: false,
   autoRegenAfterSwitchModel: false,

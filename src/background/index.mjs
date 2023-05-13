@@ -20,6 +20,7 @@ import {
   chatgptWebModelKeys,
   customApiModelKeys,
   defaultConfig,
+  getUserConfig,
   githubThirdPartyApiModelKeys,
   gptApiModelKeys,
   Models,
@@ -156,6 +157,21 @@ Browser.runtime.onMessage.addListener(async (message, sender) => {
     case 'OPEN_URL':
       openUrl(message.data.url)
       break
+    case 'OPEN_CHAT_WINDOW': {
+      const config = await getUserConfig()
+      const url = Browser.runtime.getURL('IndependentPanel.html')
+      const tabs = await Browser.tabs.query({ url: url, windowType: 'popup' })
+      if (!config.alwaysCreateNewConversationWindow && tabs.length > 0)
+        await Browser.windows.update(tabs[0].windowId, { focused: true })
+      else
+        await Browser.windows.create({
+          url: url,
+          type: 'popup',
+          width: 500,
+          height: 650,
+        })
+      break
+    }
     case 'REFRESH_MENU':
       refreshMenu()
       break

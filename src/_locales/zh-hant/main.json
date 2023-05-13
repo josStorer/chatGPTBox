@@ -115,5 +115,7 @@
   "API Modes": "API 模式",
   "Disable web mode history for better privacy protection, but it will result in unavailable conversations after a period of time": "停用網頁版模式歷史記錄以提升隱私保護，但會導致對話記錄在一段時間後無法使用",
   "Display selection tools next to input box to avoid blocking": "將選擇浮動工具顯示在輸入框旁邊以避免遮擋",
-  "Close All Chats In This Page": "關閉本頁所有對話"
+  "Close All Chats In This Page": "關閉本頁所有對話",
+  "When Icon Clicked": "當圖示被點擊時",
+  "Open Settings": "開啟設定"
 }

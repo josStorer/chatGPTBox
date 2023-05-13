@@ -16,6 +16,7 @@ import {
 import Browser from 'webextension-polyfill'
 import { languageList } from '../../config/language.mjs'
 import PropTypes from 'prop-types'
+import { config as menuConfig } from '../../content-script/menu-tools'
 
 GeneralPart.propTypes = {
   config: PropTypes.object.isRequired,
@@ -278,6 +279,27 @@ export function GeneralPart({ config, updateConfig }) {
             return (
               <option value={k} key={k} selected={k === config.preferredLanguage}>
                 {v.native}
+              </option>
+            )
+          })}
+        </select>
+      </label>
+      <label>
+        <legend>{t('When Icon Clicked')}</legend>
+        <select
+          required
+          onChange={(e) => {
+            const mode = e.target.value
+            updateConfig({ clickIconAction: mode })
+          }}
+        >
+          <option value="popup" key="popup" selected={config.clickIconAction === 'popup'}>
+            {t('Open Settings')}
+          </option>
+          {Object.entries(menuConfig).map(([k, v]) => {
+            return (
+              <option value={k} key={k} selected={k === config.clickIconAction}>
+                {t(v.label)}
               </option>
             )
           })}

@@ -1,7 +1,5 @@
 import { getCoreContentText } from '../../utils/get-core-content-text'
-import { openUrl } from '../../utils/open-url'
 import Browser from 'webextension-polyfill'
-import { getUserConfig } from '../../config/index.mjs'
 
 export const config = {
   newChat: {
@@ -19,24 +17,21 @@ export const config = {
   openConversationPage: {
     label: 'Open Conversation Page',
     action: async () => {
-      openUrl(Browser.runtime.getURL('IndependentPanel.html'))
+      Browser.runtime.sendMessage({
+        type: 'OPEN_URL',
+        data: {
+          url: Browser.runtime.getURL('IndependentPanel.html'),
+        },
+      })
     },
   },
   openConversationWindow: {
     label: 'Open Conversation Window',
     action: async () => {
-      const config = await getUserConfig()
-      const url = Browser.runtime.getURL('IndependentPanel.html')
-      const tabs = await Browser.tabs.query({ url: url, windowType: 'popup' })
-      if (!config.alwaysCreateNewConversationWindow && tabs.length > 0)
-        await Browser.windows.update(tabs[0].windowId, { focused: true })
-      else
-        await Browser.windows.create({
-          url: url,
-          type: 'popup',
-          width: 500,
-          height: 650,
-        })
+      Browser.runtime.sendMessage({
+        type: 'OPEN_CHAT_WINDOW',
+        data: {},
+      })
     },
   },
   closeAllChats: {

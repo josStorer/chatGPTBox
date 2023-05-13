@@ -1,7 +1,7 @@
 import { getCoreContentText } from '../../utils/get-core-content-text'
 import Browser from 'webextension-polyfill'
 import { getUserConfig } from '../../config/index.mjs'
-import { openUrl } from '../../utils/index.mjs'
+import { openUrl } from '../../utils/open-url'
 
 export const config = {
   newChat: {

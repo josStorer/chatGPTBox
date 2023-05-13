@@ -59,8 +59,8 @@ function ConversationCard(props) {
       else {
         const ret = []
         for (const record of session.conversationRecords) {
-          ret.push(new ConversationItemData('question', record.question + '\n<hr/>', true))
-          ret.push(new ConversationItemData('answer', record.answer + '\n<hr/>', true))
+          ret.push(new ConversationItemData('question', record.question, true))
+          ret.push(new ConversationItemData('answer', record.answer, true))
         }
         return ret
       }
@@ -139,7 +139,7 @@ function ConversationCard(props) {
         setSession(msg.session)
       }
       if (msg.done) {
-        updateAnswer('\n<hr/>', true, 'answer', true)
+        updateAnswer('', true, 'answer', true)
         setIsReady(true)
       }
       if (msg.error) {
@@ -151,7 +151,7 @@ function ConversationCard(props) {
               }<br>${t('And refresh this page or type you question again')}` +
                 `<br><br>${t(
                   'Consider creating an api key at https://platform.openai.com/account/api-keys',
-                )}\n<hr/>`,
+                )}`,
               false,
               'error',
             )
@@ -165,7 +165,7 @@ function ConversationCard(props) {
               }<br>${t('And refresh this page or type you question again')}` +
                 `<br><br>${t(
                   'Consider creating an api key at https://platform.openai.com/account/api-keys',
-                )}\n<hr/>`,
+                )}`,
               false,
               'error',
             )
@@ -174,11 +174,11 @@ function ConversationCard(props) {
             if (
               conversationItemData[conversationItemData.length - 1].content.includes('gpt-loading')
             )
-              updateAnswer(msg.error + '\n<hr/>', false, 'error')
+              updateAnswer(msg.error, false, 'error')
             else
               setConversationItemData([
                 ...conversationItemData,
-                new ConversationItemData('error', msg.error + '\n<hr/>'),
+                new ConversationItemData('error', msg.error),
               ])
             break
         }
@@ -392,7 +392,7 @@ function ConversationCard(props) {
         port={port}
         reverseResizeDir={props.pageMode}
         onSubmit={(question) => {
-          const newQuestion = new ConversationItemData('question', question + '\n<hr/>')
+          const newQuestion = new ConversationItemData('question', question)
           const newAnswer = new ConversationItemData(
             'answer',
             `<p class="gpt-loading">${t('Waiting for response...')}</p>`,

@@ -7,6 +7,7 @@
     @import 'highlight.js/scss/github-dark.scss';
     --font-color: #c9d1d9;
     --theme-color: #202124;
+    --question-bg-color: #2d2e33;
     --theme-border-color: #3c4043;
     --dragbar-color: #3c4043;
     --color-neutral-muted: rgba(110, 118, 129, 0.4);
@@ -16,6 +17,7 @@
     @import 'highlight.js/scss/github.scss';
     --font-color: #24292f;
     --theme-color: #eaecf0;
+    --question-bg-color: #e2e4e8;
     --theme-border-color: #aeafb2;
     --dragbar-color: #dfe0e1;
     --color-neutral-muted: rgba(150, 160, 170, 0.3);
@@ -29,6 +31,7 @@
 
   --font-color: #c9d1d9;
   --theme-color: #202124;
+  --question-bg-color: #2d2e33;
   --theme-border-color: #3c4043;
   --dragbar-color: #3c4043;
   --color-neutral-muted: rgba(110, 118, 129, 0.4);
@@ -41,6 +44,7 @@
 
   --font-color: #24292f;
   --theme-color: #eaecf0;
+  --question-bg-color: #e2e4e8;
   --theme-border-color: #aeafb2;
   --dragbar-color: #ccced0;
   --color-neutral-muted: rgba(150, 160, 170, 0.3);
@@ -80,14 +84,27 @@
       height: 1px;
       background-color: var(--theme-border-color);
       border: none;
-      margin: 5px 0;
+      margin: 0;
     }
   }
 
   .markdown-body {
-    padding: 5px 15px 10px;
     background-color: var(--theme-color);
     color: var(--font-color);
+    overflow-y: auto;
+
+    ::-webkit-scrollbar {
+      background-color: var(--theme-color);
+      width: 9px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--theme-border-color);
+      border-radius: 20px;
+      border: transparent;
+    }
+    ::-webkit-scrollbar-corner {
+      background: transparent;
+    }
     &::-webkit-scrollbar {
       background-color: var(--theme-color);
       width: 9px;
@@ -100,8 +117,6 @@
     &::-webkit-scrollbar-corner {
       background: transparent;
     }
-
-    overflow-y: auto;
     p {
       color: var(--font-color);
     }
@@ -178,10 +193,14 @@
     white-space: nowrap;
   }
 
+  .question {
+    background: var(--question-bg-color);
+  }
+
   :is(.answer, .question, .error) {
     font-size: 15px;
     line-height: 1.6;
-    border-radius: 8px;
+    padding: 4px 15px;
     word-break: break-word;
 
     pre {

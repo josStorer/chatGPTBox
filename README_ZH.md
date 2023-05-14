@@ -76,9 +76,9 @@
 
 - 你可以通过这个链接获取免费的反向代理, 并在高级设置中填写来绕过cloudflare验证: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
 
-- 自定义模型, chatGLM-6B, chatRWKV, chatYuan支持, 查看 https://github.com/l15y/wenda, API兼容
+- 对于国内用户, 有GPT, Midjourney, Netflix等账号需求的, 可以考虑此站点购买合租, 此链接购买的订单也会给我带来一定收益, 作为对本项目的支持: https://nf.video/yinhe/web?sharedId=84599
 
-- 三方API服务兼容, 查看 https://api2d.com/r/193934, 该服务并不是由我提供的, 但对于获取账号困难的用户可以考虑, 使用方法: https://github.com/josStorer/chatGPTBox/issues/166#issuecomment-1504704489
+- 三方API服务兼容, 查看 https://api2d.com/r/193934, 该服务并不是由我提供的, 但对于获取账号困难的用户可以考虑, 使用方法: [视频](https://www.bilibili.com/video/BV1bo4y1h7Hb/) [图文](https://github.com/josStorer/chatGPTBox/issues/166#issuecomment-1504704489)
 
 - 离线/自托管模型 (llama.cpp, ChatGLM) 现已支持, 查看 https://github.com/josStorer/selfhostedAI
 

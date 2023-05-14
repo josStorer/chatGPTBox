@@ -20,9 +20,6 @@
     "https://*.bing.com/",
     "https://*.poe.com/"
   ],
-  "optional_permissions": [
-    "background"
-  ],
   "background": {
     "scripts": [
       "background.js"

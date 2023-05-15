@@ -27,7 +27,7 @@ const config = {
   },
   duckduckgo: {
     inputQuery: ["input[name='q']"],
-    sidebarContainerQuery: ['.react-results--sidebar'],
+    sidebarContainerQuery: ['.js-react-sidebar', '.react-results--sidebar'],
     appendContainerQuery: ['#links_wrapper'],
     resultsContainerQuery: ['.react-results--main'],
   },

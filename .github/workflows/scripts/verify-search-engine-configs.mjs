@@ -91,7 +91,7 @@ const urls = {
   google: ['https://www.google.com/search?q=hello'],
   bing: ['https://www.bing.com/search?q=hello', 'https://cn.bing.com/search?q=hello'],
   yahoo: ['https://search.yahoo.com/search?p=hello', 'https://search.yahoo.co.jp/search?p=hello'],
-  duckduckgo: ['https://duckduckgo.com/s?q=hello'],
+  duckduckgo: [],
   startpage: [], // need redirect and post https://www.startpage.com/do/search?query=hello
   baidu: ['https://www.baidu.com/s?wd=hello'],
   kagi: [], // need login https://kagi.com/search?q=hello

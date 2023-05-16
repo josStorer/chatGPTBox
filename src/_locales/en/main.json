@@ -118,5 +118,8 @@
   "Close All Chats In This Page": "Close All Chats In This Page",
   "When Icon Clicked": "When Icon Clicked",
   "Open Settings": "Open Settings",
-  "Focus to input box after answering": "Focus to input box after answering"
+  "Focus to input box after answering": "Focus to input box after answering",
+  "Bing CaptchaChallenge": "You must pass Bing's verification. Please go to https://www.bing.com/search?q=Bing+AI&showconv=1&FORM=hpcodx and send a message",
+  "Exceeded quota": "You exceeded your current quota, check https://platform.openai.com/account/usage",
+  "Rate limit": "Rate limit exceeded"
 }

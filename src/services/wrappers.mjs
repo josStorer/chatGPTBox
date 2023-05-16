@@ -55,7 +55,13 @@ export function registerPortListener(executor) {
               err.message.includes(m),
             )
           )
-            port.postMessage({ error: t('Exceeded maximum context length') + '\n' + err.message })
+            port.postMessage({ error: t('Exceeded maximum context length') + '\n\n' + err.message })
+          else if (['CaptchaChallenge', 'CAPTCHA'].some((m) => err.message.includes(m)))
+            port.postMessage({ error: t('Bing CaptchaChallenge') + '\n\n' + err.message })
+          else if (['exceeded your current quota'].some((m) => err.message.includes(m)))
+            port.postMessage({ error: t('Exceeded quota') + '\n\n' + err.message })
+          else if (['Rate limit reached'].some((m) => err.message.includes(m)))
+            port.postMessage({ error: t('Rate limit') + '\n\n' + err.message })
           else port.postMessage({ error: err.message })
         }
       }

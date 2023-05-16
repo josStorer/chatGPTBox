@@ -118,5 +118,8 @@
   "Close All Chats In This Page": "关闭本页所有聊天",
   "When Icon Clicked": "当图标被点击时",
   "Open Settings": "打开设置",
-  "Focus to input box after answering": "回答结束后自动聚焦到输入框"
+  "Focus to input box after answering": "回答结束后自动聚焦到输入框",
+  "Bing CaptchaChallenge": "你必须通过必应的验证, 打开 https://www.bing.com/search?q=Bing+AI&showconv=1&FORM=hpcodx 并发送一条消息",
+  "Exceeded quota": "余额不足或过期, 检查此链接: https://platform.openai.com/account/usage",
+  "Rate limit": "请求频率过高"
 }

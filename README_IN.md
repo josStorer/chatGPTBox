@@ -74,6 +74,8 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
 - Ekstensi ini tidak mengumpulkan data Anda. Anda dapat memverifikasinya dengan melakukan pencarian global untuk fetch( dan XMLHttpRequest( dalam kode untuk menemukan semua panggilan permintaan jaringan. Jumlah kode tidak banyak, sehingga mudah untuk melakukannya.
 
+- Anda dapat mengatur proxy mundur gratis dalam pengaturan Lanjutan untuk menghindari cloudflare: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
+
 - Model Offline/Self-hosted (llama.cpp, ChatGLM) kini didukung, Lihat https://github.com/josStorer/selfhostedAI
 
 ## ✨ Fitur

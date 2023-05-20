@@ -62,6 +62,8 @@ export function registerPortListener(executor) {
             port.postMessage({ error: t('Exceeded quota') + '\n\n' + err.message })
           else if (['Rate limit reached'].some((m) => err.message.includes(m)))
             port.postMessage({ error: t('Rate limit') + '\n\n' + err.message })
+          else if (['authentication token has expired'].some((m) => err.message.includes(m)))
+            port.postMessage({ error: 'UNAUTHORIZED' })
           else port.postMessage({ error: err.message })
         }
       }

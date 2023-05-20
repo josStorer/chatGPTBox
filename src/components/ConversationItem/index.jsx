@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ChevronDownIcon, XCircleIcon, SyncIcon } from '@primer/octicons-react'
 import CopyButton from '../CopyButton'
+import ReadButton from '../ReadButton'
 import PropTypes from 'prop-types'
 import MarkdownRender from '../MarkdownRender/markdown.jsx'
 import { useTranslation } from 'react-i18next'
@@ -20,6 +21,7 @@ export function ConversationItem({ type, content, session, done, port, onRetry }
             <p>{t('You')}:</p>
             <div className="gpt-util-group">
               <CopyButton contentFn={() => content.replace(/\n<hr\/>$/, '')} size={14} />
+              <ReadButton contentFn={() => content} size={14} />
               {!collapsed ? (
                 <span
                   title={t('Collapse')}
@@ -73,6 +75,7 @@ export function ConversationItem({ type, content, session, done, port, onRetry }
               {session && (
                 <CopyButton contentFn={() => content.replace(/\n<hr\/>$/, '')} size={14} />
               )}
+              {session && <ReadButton contentFn={() => content} size={14} />}
               {!collapsed ? (
                 <span
                   title={t('Collapse')}

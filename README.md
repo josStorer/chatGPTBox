@@ -70,6 +70,8 @@ English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
 
 </div>
 
+#### My new project [RWKV-Runner](https://github.com/josStorer/RWKV-Runner) has been released, a one-click deployable open-source commercially available large language model tool that can be used in conjunction with ChatGPTBox.
+
 ## News
 
 - This extension does **not** collect your data. You can verify it by conducting a global search for `fetch(` and `XMLHttpRequest(` in the code to find all network request calls. The amount of code is not much, so it's easy to do that.

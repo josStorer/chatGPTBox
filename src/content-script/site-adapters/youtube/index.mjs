@@ -53,7 +53,35 @@ export default {
       subtitleContent = replaceHtmlEntities(subtitleContent)
 
       return cropText(
-        `Provide a structured summary of the following video in markdown format, focusing on key takeaways and crucial information, and ensuring to include the video title. The summary should be easy to read and concise, yet comprehensive.` +
+        `Think step by step and provide a clear, concise, yet comprehensive summary of the provided YouTube video. Your task is to distil the video's content into a structured written format, using markdown for readability and organization. 
+
+        In your summary, please ensure to:
+
+        1. **Include the video title**: This will set the context and provide an idea about the video's content.
+        2. **Identify and summarize the key points/highlights**: List out the primary points, arguments, discoveries, or themes presented in the video. Consider these as the "need-to-know" points for understanding the video's core message/content.
+        3. **Provide detail without losing clarity**: After the key points, provide a more detailed summary. Include significant sub-points, illustrative examples, discussions, and any conclusions or implications. Aim for this detailed section to complement and expand on the key points, but ensure it remains digestible and clear.
+        4. **Structure your summary with markdown**: Use headers for different sections (e.g., Key Points, Detailed Summary), bullet points for listing items, bold or italic text for emphasis, and tables where appropriate.
+        5. **Capture the video's essence without unnecessary length**: Strive for a balance of detail and brevity. Capture all the necessary information, but avoid overly long sentences and excessive detail.
+        
+        Remember, the goal is to ensure that someone who reads your summary will gain a complete and accurate understanding of the video's content, even if they haven't watched it themselves.
+        If a video includes visual elements crucial to its understanding (like a graph, diagram, or scene description), please describe it briefly within the relevant part of the summary.
+
+        Here's a template to guide your summary:
+        # [title]
+
+        ## TLDR
+        (Provide a short summary of the video in a maximum of 3 sentences)
+
+        ## Key Points/Highlights
+        - Main Point/Highlight 1
+        - Main Point/Highlight 2
+        - ...
+
+        ## Detailed Summary
+        (Expand on the key points with sub-points, examples, discussions, conclusions or implications)
+
+        ## Conclusion
+        (Any conclusions made in the video, the final thoughts of the speaker, etc.)` +
         `The video title is "${title}". The subtitle content is as follows:\n${subtitleContent}`,
       )
     } catch (e) {

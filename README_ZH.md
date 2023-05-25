@@ -70,6 +70,8 @@
 
 </div>
 
+#### 我的新项目[RWKV-Runner](https://github.com/josStorer/RWKV-Runner)现已发布，一个一键部署的开源可商用大语言模型工具，能够与ChatGPTBox配合使用
+
 ## 新闻
 
 - 这个扩展程序不收集你的数据, 你可以通过对代码全局搜索 `fetch(` 和 `XMLHttpRequest(` 找到所有的网络请求调用. 代码量不多, 所以很容易验证.

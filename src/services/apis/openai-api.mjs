@@ -51,6 +51,7 @@ export async function generateAnswersWithGptCompletionApi(
       stream: true,
       max_tokens: config.maxResponseTokenLength,
       temperature: config.temperature,
+      stop: '\nHuman',
     }),
     onMessage(message) {
       console.debug('sse message', message)

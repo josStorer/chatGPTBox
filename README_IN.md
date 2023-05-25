@@ -13,7 +13,7 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 [![size](https://img.shields.io/badge/minified%20size-360%20kB-blue)][release-url]
 [![verfiy][verify-image]][verify-url]
 
-[Inggris](README.md) | Indonesia | [简体中文](README_ZH.md)
+[Inggris](README.md) &nbsp;&nbsp;|&nbsp;&nbsp; Indonesia &nbsp;&nbsp;|&nbsp;&nbsp; [简体中文](README_ZH.md)
 
 ### Install
 
@@ -24,11 +24,7 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 [![Android][Android-image]][Android-url]
 [![Github][Github-image]][Github-url]
 
-[Panduan](https://github.com/josStorer/chatGPTBox/wiki/Guide) |
-[Pratinjau](#Pratinjau) |
-[Pengembangan & Berkontribusi][dev-url] |
-[Demonstrasi Video](https://www.youtube.com/watch?v=E1smDxJvTRs) |
-[Kredit](#Kredit)
+[Panduan](https://github.com/josStorer/chatGPTBox/wiki/Guide) &nbsp;&nbsp;|&nbsp;&nbsp; [Pratinjau](#Pratinjau) &nbsp;&nbsp;|&nbsp;&nbsp; [Pengembangan & Berkontribusi][dev-url] &nbsp;&nbsp;|&nbsp;&nbsp; [Demonstrasi Video](https://www.youtube.com/watch?v=E1smDxJvTRs) &nbsp;&nbsp;|&nbsp;&nbsp; [Kredit](#Kredit)
 
 [dev-url]: https://github.com/josStorer/chatGPTBox/wiki/Development&Contributing
 

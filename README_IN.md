@@ -100,15 +100,15 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
 <div align="center">
 
-**Integrasi Mesin Telusur, Jendela Terapung, Cabang Percakapan**
+**Integrasi Mesin Pencari, Jendela Mengapung, Percakapan Cabang**
 
 ![preview_google_floatingwindow_conversationbranch](screenshots/preview_google_floatingwindow_conversationbranch.jpg)
 
-**Integrasi dengan Situs Web yang Biasa Digunakan, Alat Seleksi**
+**Integrasi dengan Situs Web yang Umum Digunakan, Alat Pemilihan**
 
 ![preview_reddit_selectiontools](screenshots/preview_reddit_selectiontools.jpg)
 
-**Independent Conversation Page**
+**Halaman Percakapan Independen**
 
 ![preview_independentpanel](screenshots/preview_independentpanel.jpg)
 
@@ -120,7 +120,7 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
 ![preview_youtube](screenshots/preview_youtube.jpg)
 
-**Dukungan Seluler**
+**Dukungan Perangkat Mobile**
 
 ![image](https://user-images.githubusercontent.com/13366013/225529110-9221c8ce-ad41-423e-b6ec-097981e74b66.png)
 

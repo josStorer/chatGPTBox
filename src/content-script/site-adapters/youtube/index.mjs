@@ -54,7 +54,7 @@ export default {
 
       return cropText(
         `Provide a structured summary of the following video in markdown format, focusing on key takeaways and crucial information, and ensuring to include the video title. The summary should be easy to read and concise, yet comprehensive.` +
-        `The video title is "${title}". The subtitle content is as follows:\n${subtitleContent}`,
+          `The video title is "${title}". The subtitle content is as follows:\n${subtitleContent}`,
       )
     } catch (e) {
       console.log(e)

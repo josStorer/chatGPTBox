@@ -22,13 +22,19 @@ export async function fetchSSE(resource, options) {
     if (!str.startsWith('{') && !str.startsWith('"{')) {
       parser.feed(str)
     } else {
-      const formattedStr =
-        'data: ' +
-        JSON.stringify(
-          JSON.parse(str.replace(/^"|"$/g, '').replaceAll('\\"', '"').replaceAll('\\\\u', '\\u')),
-        ).replaceAll('\\\\n', '\\n') +
-        '\n\ndata: [DONE]\n\n'
-      parser.feed(formattedStr)
+      try {
+        const formattedData = JSON.parse(
+          str
+            .replace(/^"|"$/g, '')
+            .replaceAll('\\"', '"')
+            .replaceAll('\\\\u', '\\u')
+            .replaceAll('\\\\n', '\\n'),
+        )
+        const formattedStr = 'data: ' + JSON.stringify(formattedData) + '\n\ndata: [DONE]\n\n'
+        parser.feed(formattedStr)
+      } catch (error) {
+        console.debug('json error', error)
+      }
     }
 
     if (!hasStarted) {

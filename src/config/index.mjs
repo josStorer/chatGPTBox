@@ -144,6 +144,7 @@ export const defaultConfig = {
     'chatgptFree35',
     'chatgptFree35Mobile',
     'chatgptPlus4',
+    'chatgptPlus4Browsing',
     'chatgptPlus4Mobile',
     'chatgptApi35',
     'bingFree4',

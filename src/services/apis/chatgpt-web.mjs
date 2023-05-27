@@ -69,7 +69,7 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
   })
   console.debug('models', models)
   const config = await getUserConfig()
-  const selectedModel = Models[config.modelName].value
+  const selectedModel = Models[session.modelName].value
   const usedModel =
     models && models.includes(selectedModel) ? selectedModel : Models[chatgptWebModelKeys[0]].value
   console.debug('usedModel', usedModel)

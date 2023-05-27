@@ -23,18 +23,62 @@ GeneralPart.propTypes = {
   updateConfig: PropTypes.func.isRequired,
 }
 
+function formatDate(date) {
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+}
+
+async function checkBilling(apiKey, apiUrl) {
+  const now = new Date();
+  let startDate = new Date(now - 90 * 24 * 60 * 60 * 1000);
+  const endDate = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+  const subDate = new Date(now);
+  subDate.setDate(1)
+
+  const urlSubscription = `${apiUrl}/v1/dashboard/billing/subscription`;
+  let urlUsage = `${apiUrl}/v1/dashboard/billing/usage?start_date=${formatDate(startDate)}&end_date=${formatDate(endDate)}`; // 查使用量
+  const headers = {
+    "Authorization": "Bearer " + apiKey,
+    "Content-Type": "application/json"
+  };
+
+  try {
+    let response = await fetch(urlSubscription, { headers });
+    if (!response.ok) {
+      console.log("Your account has been suspended. Please log in to OpenAI to check.");
+      return;
+    }
+    const subscriptionData = await response.json();
+    const totalAmount = subscriptionData.hard_limit_usd;
+
+    if (totalAmount > 20) {
+      startDate = subDate;
+    }
+
+    urlUsage = `${apiUrl}/v1/dashboard/billing/usage?start_date=${formatDate(startDate)}&end_date=${formatDate(endDate)}`;
+
+    response = await fetch(urlUsage, { headers });
+    const usageData = await response.json();
+    const totalUsage = usageData.total_usage / 100;
+    const remaining = totalAmount - totalUsage;
+
+    return [totalAmount, totalUsage, remaining];
+  } catch (error) {
+    console.error(error);
+    return [null, null, null];
+  }
+}
+
 export function GeneralPart({ config, updateConfig }) {
   const { t, i18n } = useTranslation()
   const [balance, setBalance] = useState(null)
 
   const getBalance = async () => {
-    const response = await fetch(`${config.customOpenAiApiUrl}/dashboard/billing/credit_grants`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${config.apiKey}`,
-      },
-    })
-    if (response.ok) setBalance((await response.json()).total_available.toFixed(2))
+    const billing = await checkBilling(config.apiKey, config.customOpenAiApiUrl)
+    if (billing[2]) setBalance(`${billing[2].toFixed(2)}`)
     else openUrl('https://platform.openai.com/account/usage')
   }
 

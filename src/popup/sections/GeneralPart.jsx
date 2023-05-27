@@ -24,51 +24,55 @@ GeneralPart.propTypes = {
 }
 
 function formatDate(date) {
-  const year = date.getFullYear();
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const day = date.getDate().toString().padStart(2, '0');
+  const year = date.getFullYear()
+  const month = (date.getMonth() + 1).toString().padStart(2, '0')
+  const day = date.getDate().toString().padStart(2, '0')
 
-  return `${year}-${month}-${day}`;
+  return `${year}-${month}-${day}`
 }
 
 async function checkBilling(apiKey, apiUrl) {
-  const now = new Date();
-  let startDate = new Date(now - 90 * 24 * 60 * 60 * 1000);
-  const endDate = new Date(now.getTime() + 24 * 60 * 60 * 1000);
-  const subDate = new Date(now);
+  const now = new Date()
+  let startDate = new Date(now - 90 * 24 * 60 * 60 * 1000)
+  const endDate = new Date(now.getTime() + 24 * 60 * 60 * 1000)
+  const subDate = new Date(now)
   subDate.setDate(1)
 
-  const urlSubscription = `${apiUrl}/v1/dashboard/billing/subscription`;
-  let urlUsage = `${apiUrl}/v1/dashboard/billing/usage?start_date=${formatDate(startDate)}&end_date=${formatDate(endDate)}`; // 查使用量
+  const urlSubscription = `${apiUrl}/v1/dashboard/billing/subscription`
+  let urlUsage = `${apiUrl}/v1/dashboard/billing/usage?start_date=${formatDate(
+    startDate,
+  )}&end_date=${formatDate(endDate)}`
   const headers = {
-    "Authorization": "Bearer " + apiKey,
-    "Content-Type": "application/json"
-  };
+    Authorization: 'Bearer ' + apiKey,
+    'Content-Type': 'application/json',
+  }
 
   try {
-    let response = await fetch(urlSubscription, { headers });
+    let response = await fetch(urlSubscription, { headers })
     if (!response.ok) {
-      console.log("Your account has been suspended. Please log in to OpenAI to check.");
-      return;
+      console.log('Your account has been suspended. Please log in to OpenAI to check.')
+      return [null, null, null]
     }
-    const subscriptionData = await response.json();
-    const totalAmount = subscriptionData.hard_limit_usd;
+    const subscriptionData = await response.json()
+    const totalAmount = subscriptionData.hard_limit_usd
 
     if (totalAmount > 20) {
-      startDate = subDate;
+      startDate = subDate
     }
 
-    urlUsage = `${apiUrl}/v1/dashboard/billing/usage?start_date=${formatDate(startDate)}&end_date=${formatDate(endDate)}`;
+    urlUsage = `${apiUrl}/v1/dashboard/billing/usage?start_date=${formatDate(
+      startDate,
+    )}&end_date=${formatDate(endDate)}`
 
-    response = await fetch(urlUsage, { headers });
-    const usageData = await response.json();
-    const totalUsage = usageData.total_usage / 100;
-    const remaining = totalAmount - totalUsage;
+    response = await fetch(urlUsage, { headers })
+    const usageData = await response.json()
+    const totalUsage = usageData.total_usage / 100
+    const remaining = totalAmount - totalUsage
 
-    return [totalAmount, totalUsage, remaining];
+    return [totalAmount, totalUsage, remaining]
   } catch (error) {
-    console.error(error);
-    return [null, null, null];
+    console.error(error)
+    return [null, null, null]
   }
 }
 
@@ -78,7 +82,7 @@ export function GeneralPart({ config, updateConfig }) {
 
   const getBalance = async () => {
     const billing = await checkBilling(config.apiKey, config.customOpenAiApiUrl)
-    if (billing[2]) setBalance(`${billing[2].toFixed(2)}`)
+    if (billing && billing.length > 2 && billing[2]) setBalance(`${billing[2].toFixed(2)}`)
     else openUrl('https://platform.openai.com/account/usage')
   }
 

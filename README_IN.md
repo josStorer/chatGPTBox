@@ -74,7 +74,7 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
 - Anda dapat mengatur proxy balik gratis di Pengaturan Lanjutan untuk menghindari cloudflare: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
 
-- Model Offline/Self-hosted (llama.cpp, ChatGLM) sekarang didukung, Lihat https://github.com/josStorer/selfhostedAI
+- Model Offline/Self-hosted (RWKV, llama.cpp, ChatGLM) sekarang didukung, Lihat https://github.com/josStorer/selfhostedAI
 
 ## ✨ Fitur
 
@@ -93,7 +93,7 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 - 🌍 Dukungan preferensi bahasa.
 - 📝 Dukungan alamat API kustom.
 - ⚙️ Semua adaptasi situs dan alat pemilihan (gelembung) dapat dinonaktifkan atau diaktifkan secara bebas, nonaktifkan modul yang tidak diperlukan.
-- 💡 Alat pemilihan dan adaptasi situs mudah untuk dikembangkan dan diperluas, lihat bagian [Development&Contributing][dev-url].
+- 💡 Alat pemilihan dan adaptasi situs mudah untuk dikembangkan dan diperluas, lihat bagian [Pengembangan & Berkontribusi][dev-url].
 - 😉 Berbicara untuk meningkatkan kualitas jawaban.
 
 ## Pratinjau

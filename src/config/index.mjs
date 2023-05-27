@@ -21,7 +21,13 @@ export const ModelMode = {
   fast: 'Fast',
 }
 
-export const chatgptWebModelKeys = ['chatgptFree35', 'chatgptPlus4']
+export const chatgptWebModelKeys = [
+  'chatgptFree35',
+  'chatgptPlus4',
+  'chatgptFree35Mobile',
+  'chatgptPlus4Browsing',
+  'chatgptPlus4Mobile',
+]
 export const bingWebModelKeys = ['bingFree4', 'bingFreeSydney']
 export const gptApiModelKeys = ['gptApiDavinci']
 export const chatgptApiModelKeys = ['chatgptApi35', 'chatgptApi4_8k', 'chatgptApi4_32k']
@@ -48,7 +54,10 @@ export const poeWebModelKeys = [
  */
 export const Models = {
   chatgptFree35: { value: 'text-davinci-002-render-sha', desc: 'ChatGPT (Web)' },
+  chatgptFree35Mobile: { value: 'text-davinci-002-render-sha-mobile', desc: 'ChatGPT (Mobile)' },
   chatgptPlus4: { value: 'gpt-4', desc: 'ChatGPT (Web, GPT-4)' },
+  chatgptPlus4Browsing: { value: 'gpt-4-browsing', desc: 'ChatGPT (Web, GPT-4, Browsing)' },
+  chatgptPlus4Mobile: { value: 'gpt-4-mobile', desc: 'ChatGPT (Mobile, GPT-4)' },
   chatgptApi35: { value: 'gpt-3.5-turbo', desc: 'ChatGPT (GPT-3.5-turbo)' },
   bingFree4: { value: '', desc: 'Bing (Web, GPT-4)' },
   bingFreeSydney: { value: '', desc: 'Bing (Web, GPT-4, Sydney)' },
@@ -133,7 +142,9 @@ export const defaultConfig = {
   alwaysCreateNewConversationWindow: false,
   activeApiModes: [
     'chatgptFree35',
+    'chatgptFree35Mobile',
     'chatgptPlus4',
+    'chatgptPlus4Mobile',
     'chatgptApi35',
     'bingFree4',
     'bingFreeSydney',

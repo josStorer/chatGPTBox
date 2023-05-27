@@ -57,7 +57,9 @@ export default class BingAIClient {
         'x-ms-client-request-id': uuidv4(),
         'x-ms-useragent':
           'azsdk-js-api-client-factory/1.0.0-beta.1 core-rest-pipeline/1.10.0 OS/Win32',
-        cookie: this.options.cookies || `_U=${this.options.userToken}`,
+        cookie:
+          this.options.cookies ||
+          (this.options.userToken ? `_U=${this.options.userToken}` : undefined),
         Referer: 'https://www.bing.com/search?q=Bing+AI&showconv=1&FORM=hpcodx',
         'Referrer-Policy': 'origin-when-cross-origin',
         // Workaround for request being blocked due to geolocation
@@ -369,7 +371,7 @@ export default class BingAIClient {
             'Timed out waiting for response. Try enabling debug mode to see more information.',
           ),
         )
-      }, 120 * 1000)
+      }, 180 * 1000)
 
       // abort the request if the abort controller is aborted
       abortController.signal.addEventListener('abort', () => {
@@ -459,7 +461,9 @@ export default class BingAIClient {
               jailbreakConversationId &&
               (stopTokenFound ||
                 event.item.messages[0].topicChangerText ||
-                event.item.messages[0].offense === 'OffenseTrigger')
+                event.item.messages[0].offense === 'OffenseTrigger' ||
+                (event.item.messages.length > 1 &&
+                  event.item.messages[1].contentOrigin === 'Apology'))
             ) {
               if (!replySoFar) {
                 replySoFar =

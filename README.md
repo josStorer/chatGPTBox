@@ -74,7 +74,7 @@ English &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md) &nbsp;&nbsp;|&nbsp;&
 
 - You can set a free reverse proxy in the Advanced setting to bypass cloudflare: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
 
-- Offline/Self-hosted model (llama.cpp, ChatGLM) is now supported, See https://github.com/josStorer/selfhostedAI
+- Offline/Self-hosted model (RWKV, llama.cpp, ChatGLM) is now supported, See https://github.com/josStorer/selfhostedAI
 
 ## ✨ Features
 

@@ -82,7 +82,7 @@
 
 - 三方API服务兼容, 查看 https://api2d.com/r/193934, 该服务并不是由我提供的, 但对于获取账号困难的用户可以考虑, 使用方法: [视频](https://www.bilibili.com/video/BV1bo4y1h7Hb/) [图文](https://github.com/josStorer/chatGPTBox/issues/166#issuecomment-1504704489)
 
-- 离线/自托管模型 (llama.cpp, ChatGLM) 现已支持, 查看 https://github.com/josStorer/selfhostedAI
+- 离线/自托管模型 (RWKV, ChatGLM, llama.cpp) 现已支持, 查看 https://github.com/josStorer/selfhostedAI, 你还可以部署wenda (https://github.com/wenda-LLM/wenda), 配合自定义模型模式使用, 从而调用各类本地模型
 
 ## ✨ Features
 

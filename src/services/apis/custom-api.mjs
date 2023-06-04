@@ -60,7 +60,13 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
         console.debug('json error', error)
         return
       }
-      if (data.response) answer = data.response
+
+      answer +=
+        data.choices[0]?.delta?.content ||
+        data.choices[0]?.message?.content ||
+        data.choices[0]?.text ||
+        data.response ||
+        ''
       port.postMessage({ answer: answer, done: false, session: null })
     },
     async onStart() {},

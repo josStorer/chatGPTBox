@@ -86,7 +86,10 @@ function ConversationCard(props) {
 
   useEffect(() => {
     const { offsetHeight, scrollHeight, scrollTop } = bodyRef.current
-    if (config.lockWhenAnswer && scrollHeight <= scrollTop + offsetHeight + 50) {
+    if (
+      config.lockWhenAnswer &&
+      scrollHeight <= scrollTop + offsetHeight + config.answerScrollMargin
+    ) {
       bodyRef.current.scrollTo({
         top: scrollHeight,
         behavior: 'smooth',
@@ -380,7 +383,7 @@ function ConversationCard(props) {
           <span>
             {conversationItemData.length > 0 && (
               <span
-                title={t('Move to bottom')}
+                title={t('Jump to bottom')}
                 className="gpt-util-icon"
                 onClick={() => {
                   bodyRef.current.scrollTo({

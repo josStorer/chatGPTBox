@@ -104,6 +104,7 @@ export const defaultConfig = {
   clickIconAction: 'popup',
   insertAtTop: isMobile(),
   lockWhenAnswer: false,
+  answerScrollMargin: 200,
   autoRegenAfterSwitchModel: false,
   selectionToolsNextToInputBox: false,
   alwaysPinWindow: false,

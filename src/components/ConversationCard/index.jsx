@@ -4,7 +4,12 @@ import Browser from 'webextension-polyfill'
 import InputBox from '../InputBox'
 import ConversationItem from '../ConversationItem'
 import { createElementAtPosition, isSafari } from '../../utils'
-import { DownloadIcon, LinkExternalIcon, ArchiveIcon } from '@primer/octicons-react'
+import {
+  LinkExternalIcon,
+  ArchiveIcon,
+  DesktopDownloadIcon,
+  MoveToBottomIcon,
+} from '@primer/octicons-react'
 import { WindowDesktop, XLg, Pin } from 'react-bootstrap-icons'
 import FileSaver from 'file-saver'
 import { render } from 'preact'
@@ -73,11 +78,23 @@ function ConversationCard(props) {
   }, [session, conversationItemData])
 
   useEffect(() => {
-    bodyRef.current.scrollTop = bodyRef.current.scrollHeight
+    bodyRef.current.scrollTo({
+      top: bodyRef.current.scrollHeight,
+      behavior: 'instant',
+    })
   }, [session])
 
   useEffect(() => {
-    if (config.lockWhenAnswer) bodyRef.current.scrollTop = bodyRef.current.scrollHeight
+    const { offsetHeight, scrollHeight, scrollTop } = bodyRef.current
+    if (
+      config.lockWhenAnswer &&
+      scrollHeight <= scrollTop + offsetHeight + config.answerScrollMargin
+    ) {
+      bodyRef.current.scrollTo({
+        top: scrollHeight,
+        behavior: 'smooth',
+      })
+    }
   }, [conversationItemData])
 
   useEffect(() => {
@@ -361,7 +378,23 @@ function ConversationCard(props) {
               FileSaver.saveAs(blob, 'conversation.md')
             }}
           >
-            <DownloadIcon size={16} />
+            <DesktopDownloadIcon size={16} />
+          </span>
+          <span>
+            {conversationItemData.length > 0 && (
+              <span
+                title={t('Jump to bottom')}
+                className="gpt-util-icon"
+                onClick={() => {
+                  bodyRef.current.scrollTo({
+                    top: bodyRef.current.scrollHeight,
+                    behavior: 'smooth',
+                  })
+                }}
+              >
+                <MoveToBottomIcon size={16} />
+              </span>
+            )}
           </span>
         </span>
       </div>

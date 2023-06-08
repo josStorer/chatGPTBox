@@ -13,7 +13,7 @@ Deep ChatGPT integrations in your browser, completely for free.
 [![size](https://img.shields.io/badge/minified%20size-360%20kB-blue)][release-url]
 [![verfiy][verify-image]][verify-url]
 
-English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
+English &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md) &nbsp;&nbsp;|&nbsp;&nbsp; [简体中文](README_ZH.md)
 
 ### Install
 
@@ -24,11 +24,7 @@ English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
 [![Android][Android-image]][Android-url]
 [![Github][Github-image]][Github-url]
 
-[Guide](https://github.com/josStorer/chatGPTBox/wiki/Guide) |
-[Preview](#Preview) |
-[Development&Contributing][dev-url] |
-[Video Demonstration](https://www.youtube.com/watch?v=E1smDxJvTRs) |
-[Credit](#Credit)
+[Guide](https://github.com/josStorer/chatGPTBox/wiki/Guide) &nbsp;&nbsp;|&nbsp;&nbsp; [Preview](#Preview) &nbsp;&nbsp;|&nbsp;&nbsp; [Development&Contributing][dev-url] &nbsp;&nbsp;|&nbsp;&nbsp; [Video Demonstration](https://www.youtube.com/watch?v=E1smDxJvTRs) &nbsp;&nbsp;|&nbsp;&nbsp; [Credit](#Credit)
 
 [dev-url]: https://github.com/josStorer/chatGPTBox/wiki/Development&Contributing
 

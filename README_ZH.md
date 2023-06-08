@@ -13,7 +13,7 @@
 [![size](https://img.shields.io/badge/minified%20size-360%20kB-blue)][release-url]
 [![verfiy][verify-image]][verify-url]
 
-[English](README.md) | [Indonesia](README_IN.md) | 简体中文
+[English](README.md) &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md) &nbsp;&nbsp;|&nbsp;&nbsp; 简体中文
 
 ### 安装链接
 
@@ -24,11 +24,7 @@
 [![Android][Android-image]][Android-url]
 [![Github][Github-image]][Github-url]
 
-[使用指南](https://github.com/josStorer/chatGPTBox/wiki/Guide) |
-[效果预览](#Preview) |
-[开发&贡献][dev-url] |
-[视频演示](https://www.bilibili.com/video/BV1524y1x7io) |
-[鸣谢](#Credit)
+[使用指南](https://github.com/josStorer/chatGPTBox/wiki/Guide) &nbsp;&nbsp;|&nbsp;&nbsp; [效果预览](#Preview) &nbsp;&nbsp;|&nbsp;&nbsp; [开发&贡献][dev-url] &nbsp;&nbsp;|&nbsp;&nbsp; [视频演示](https://www.bilibili.com/video/BV1524y1x7io) &nbsp;&nbsp;|&nbsp;&nbsp; [鸣谢](#Credit)
 
 [dev-url]: https://github.com/josStorer/chatGPTBox/wiki/Development&Contributing
 

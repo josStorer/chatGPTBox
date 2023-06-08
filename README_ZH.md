@@ -64,9 +64,9 @@
 
 [Github-url]: https://github.com/josStorer/chatGPTBox/wiki/Install
 
-</div>
-
 #### 我的新项目[RWKV-Runner](https://github.com/josStorer/RWKV-Runner)现已发布，一个一键部署的开源可商用大语言模型工具，能够与ChatGPTBox配合使用
+
+</div>
 
 ## 新闻
 

@@ -64,9 +64,9 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
 [Github-url]: https://github.com/josStorer/chatGPTBox/wiki/Install
 
-</div>
-
 #### Proyek baru saya [RWKV-Runner](https://github.com/josStorer/RWKV-Runner) telah dirilis, sebuah alat model bahasa besar sumber terbuka yang tersedia secara komersial dan dapat diterapkan dengan sekali klik yang dapat digunakan bersama dengan ChatGPTBox.
+
+</div>
 
 ## Berita
 

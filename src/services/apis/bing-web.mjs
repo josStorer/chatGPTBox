@@ -24,7 +24,7 @@ export async function generateAnswersWithBingWebApi(
 
   console.debug('mode', modelMode)
 
-  const bingAIClient = new BingAIClient({ userToken: accessToken })
+  const bingAIClient = new BingAIClient({ userToken: accessToken, features: { genImage: false } })
   if (session.bingWeb_jailbreakConversationCache)
     bingAIClient.conversationsCache.set(
       session.bingWeb_jailbreakConversationId,

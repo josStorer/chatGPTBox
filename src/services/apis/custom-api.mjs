@@ -60,9 +60,8 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
         console.debug('json error', error)
         return
       }
-      
-      if (data.response)
-        answer = data.response
+
+      if (data.response) answer = data.response
       else
         answer +=
           data.choices[0]?.delta?.content ||

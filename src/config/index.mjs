@@ -187,6 +187,7 @@ export const defaultConfig = {
   selectionTools: [
     'translate',
     'translateToEn',
+    'translateToZh',
     'translateBidi',
     'summary',
     'polish',

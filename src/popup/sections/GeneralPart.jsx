@@ -81,9 +81,18 @@ export function GeneralPart({ config, updateConfig }) {
   const [balance, setBalance] = useState(null)
 
   const getBalance = async () => {
-    const billing = await checkBilling(config.apiKey, config.customOpenAiApiUrl)
-    if (billing && billing.length > 2 && billing[2]) setBalance(`${billing[2].toFixed(2)}`)
-    else openUrl('https://platform.openai.com/account/usage')
+    const response = await fetch(`${config.customOpenAiApiUrl}/dashboard/billing/credit_grants`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${config.apiKey}`,
+      },
+    })
+    if (response.ok) setBalance((await response.json()).total_available.toFixed(2))
+    else {
+      const billing = await checkBilling(config.apiKey, config.customOpenAiApiUrl)
+      if (billing && billing.length > 2 && billing[2]) setBalance(`${billing[2].toFixed(2)}`)
+      else openUrl('https://platform.openai.com/account/usage')
+    }
   }
 
   return (

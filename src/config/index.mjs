@@ -156,6 +156,7 @@ export const defaultConfig = {
     'poeAiWebSage',
     'poeAiWebGPT4',
     'poeAiWebClaudePlus',
+    'poeAiWebClaude100k',
     'chatgptApi4_8k',
     'customModel',
     'azureOpenAi',

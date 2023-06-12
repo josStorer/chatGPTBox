@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { isUsingCustomModel } from '../../config/index.mjs'
 import { useConfig } from '../../hooks/use-config.mjs'
 
+// eslint-disable-next-line
 export function ConversationItem({ type, content, session, done, port, onRetry }) {
   const { t } = useTranslation()
   const [collapsed, setCollapsed] = useState(false)
@@ -56,17 +57,6 @@ export function ConversationItem({ type, content, session, done, port, onRetry }
                 : t('Loading...')}
             </p>
             <div className="gpt-util-group">
-              {!done && (
-                <button
-                  type="button"
-                  className="normal-button"
-                  onClick={() => {
-                    port.postMessage({ stop: true })
-                  }}
-                >
-                  {t('Stop')}
-                </button>
-              )}
               {onRetry && (
                 <span title={t('Retry')} className="gpt-util-icon" onClick={onRetry}>
                   <SyncIcon size={14} />

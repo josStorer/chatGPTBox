@@ -49,13 +49,12 @@ export function InputBox({ onSubmit, enabled, port, reverseResizeDir }) {
   const handleKeyDownOrClick = (e) => {
     e.stopPropagation()
     if (e.type === 'click' || (e.keyCode === 13 && e.shiftKey === false)) {
+      e.preventDefault()
       if (enabled) {
-        e.preventDefault()
         if (!value) return
         onSubmit(value)
         setValue('')
       } else {
-        e.preventDefault()
         port.postMessage({ stop: true })
       }
     }

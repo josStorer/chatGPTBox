@@ -211,6 +211,15 @@ function ConversationCard(props) {
     updateAnswer(`<p class="gpt-loading">${t('Waiting for response...')}</p>`, false, 'answer')
     setIsReady(false)
 
+    if (session.conversationRecords.length > 0) {
+      const lastRecord = session.conversationRecords[session.conversationRecords.length - 1]
+      if (
+        conversationItemData[conversationItemData.length - 1].done &&
+        lastRecord.question === conversationItemData[conversationItemData.length - 2].content
+      ) {
+        session.conversationRecords.pop()
+      }
+    }
     const newSession = { ...session, isRetry: true }
     setSession(newSession)
     try {

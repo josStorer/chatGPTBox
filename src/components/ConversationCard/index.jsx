@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Browser from 'webextension-polyfill'
 import InputBox from '../InputBox'
 import ConversationItem from '../ConversationItem'
-import { createElementAtPosition, isSafari } from '../../utils'
+import { createElementAtPosition, isFirefox, isMobile, isSafari } from '../../utils'
 import {
   LinkExternalIcon,
   ArchiveIcon,
@@ -47,6 +47,8 @@ function ConversationCard(props) {
   const [session, setSession] = useState(props.session)
   const windowSize = useClampWindowSize([750, 1500], [250, 1100])
   const bodyRef = useRef(null)
+  const [completeDraggable, setCompleteDraggable] = useState(false)
+
   /**
    * @type {[ConversationItemData[], (conversationItemData: ConversationItemData[]) => void]}
    */
@@ -72,6 +74,10 @@ function ConversationCard(props) {
     })(),
   )
   const config = useConfig()
+
+  useEffect(() => {
+    setCompleteDraggable(!isSafari() && !isFirefox() && !isMobile())
+  }, [])
 
   useEffect(() => {
     if (props.onUpdate) props.onUpdate(port, session, conversationItemData)
@@ -218,10 +224,18 @@ function ConversationCard(props) {
   return (
     <div className="gpt-inner">
       <div
-        className={props.draggable ? 'gpt-header draggable' : 'gpt-header'}
-        style="padding:15px;user-select:none;"
+        className={
+          props.draggable ? `gpt-header${completeDraggable ? ' draggable' : ''}` : 'gpt-header'
+        }
+        style="user-select:none;"
       >
-        <span className="gpt-util-group" style={props.notClampSize ? {} : { flexGrow: 1 }}>
+        <span
+          className="gpt-util-group"
+          style={{
+            padding: '15px 0 15px 15px',
+            ...(props.notClampSize ? {} : { flexGrow: 1 }),
+          }}
+        >
           {props.closeable ? (
             <XLg
               className="gpt-util-icon"
@@ -278,7 +292,17 @@ function ConversationCard(props) {
             })}
           </select>
         </span>
-        <span className="gpt-util-group" style={{ flexGrow: 1, justifyContent: 'flex-end' }}>
+        {props.draggable && !completeDraggable && (
+          <div className="draggable" style={{ flexGrow: 2, cursor: 'move', height: '55px' }} />
+        )}
+        <span
+          className="gpt-util-group"
+          style={{
+            padding: '15px 15px 15px 0',
+            justifyContent: 'flex-end',
+            flexGrow: props.draggable && !completeDraggable ? 0 : 1,
+          }}
+        >
           {!config.disableWebModeHistory && session && session.conversationId && (
             <a
               title={t('Continue on official website')}

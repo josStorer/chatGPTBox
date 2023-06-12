@@ -10,7 +10,7 @@ import { isEmpty } from 'lodash-es'
  * @param {Session} session
  */
 export async function generateAnswersWithAzureOpenaiApi(port, question, session) {
-  const { controller, messageListener } = setAbortController(port)
+  const { controller, messageListener, disconnectListener } = setAbortController(port)
   const config = await getUserConfig()
 
   const prompt = getConversationPairs(
@@ -60,9 +60,11 @@ export async function generateAnswersWithAzureOpenaiApi(port, question, session)
       async onStart() {},
       async onEnd() {
         port.onMessage.removeListener(messageListener)
+        port.onDisconnect.removeListener(disconnectListener)
       },
       async onError(resp) {
         port.onMessage.removeListener(messageListener)
+        port.onDisconnect.removeListener(disconnectListener)
         if (resp instanceof Error) throw resp
         const error = await resp.json().catch(() => ({}))
         throw new Error(

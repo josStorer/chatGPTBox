@@ -8,7 +8,7 @@ import Bard from '../clients/bard'
  * @param {string} cookies
  */
 export async function generateAnswersWithBardWebApi(port, question, session, cookies) {
-  // const { controller, messageListener } = setAbortController(port)
+  // const { controller, messageListener, disconnectListener } = setAbortController(port)
   const bot = new Bard(cookies)
 
   // eslint-disable-next-line
@@ -18,9 +18,11 @@ export async function generateAnswersWithBardWebApi(port, question, session, coo
     pushRecord(session, question, answer)
     console.debug('conversation history', { content: session.conversationRecords })
     // port.onMessage.removeListener(messageListener)
+    // port.onDisconnect.removeListener(disconnectListener)
     port.postMessage({ answer: answer, done: true, session: session })
   } catch (err) {
     // port.onMessage.removeListener(messageListener)
+    // port.onDisconnect.removeListener(disconnectListener)
     throw err
   }
 }

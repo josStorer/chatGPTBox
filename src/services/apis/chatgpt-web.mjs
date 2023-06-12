@@ -60,12 +60,13 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
     session.parentMessageId = uuidv4()
   }
 
-  const { controller, messageListener } = setAbortController(port, null, () => {
+  const { controller, messageListener, disconnectListener } = setAbortController(port, null, () => {
     if (session.autoClean) deleteConversation(accessToken, session.conversationId)
   })
 
   const models = await getModels(accessToken).catch(() => {
     port.onMessage.removeListener(messageListener)
+    port.onDisconnect.removeListener(disconnectListener)
   })
   console.debug('models', models)
   const config = await getUserConfig()
@@ -141,9 +142,11 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
     },
     async onEnd() {
       port.onMessage.removeListener(messageListener)
+      port.onDisconnect.removeListener(disconnectListener)
     },
     async onError(resp) {
       port.onMessage.removeListener(messageListener)
+      port.onDisconnect.removeListener(disconnectListener)
       if (resp instanceof Error) throw resp
       if (resp.status === 403) {
         throw new Error('CLOUDFLARE')

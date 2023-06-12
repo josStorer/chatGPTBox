@@ -19,7 +19,7 @@ import { getCustomApiPromptBase, pushRecord, setAbortController } from './shared
  * @param {string} modelName
  */
 export async function generateAnswersWithCustomApi(port, question, session, apiKey, modelName) {
-  const { controller, messageListener } = setAbortController(port)
+  const { controller, messageListener, disconnectListener } = setAbortController(port)
 
   const config = await getUserConfig()
   const prompt = getConversationPairs(
@@ -73,9 +73,11 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
     async onStart() {},
     async onEnd() {
       port.onMessage.removeListener(messageListener)
+      port.onDisconnect.removeListener(disconnectListener)
     },
     async onError(resp) {
       port.onMessage.removeListener(messageListener)
+      port.onDisconnect.removeListener(disconnectListener)
       if (resp instanceof Error) throw resp
       const error = await resp.json().catch(() => ({}))
       throw new Error(!isEmpty(error) ? JSON.stringify(error) : `${resp.status} ${resp.statusText}`)

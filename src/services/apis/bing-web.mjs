@@ -16,7 +16,7 @@ export async function generateAnswersWithBingWebApi(
   accessToken,
   sydneyMode = false,
 ) {
-  const { controller, messageListener } = setAbortController(port)
+  const { controller, messageListener, disconnectListener } = setAbortController(port)
   const config = await getUserConfig()
   let modelMode
   if (session.modelName.includes('-')) modelMode = session.modelName.split('-')[1]
@@ -59,6 +59,7 @@ export async function generateAnswersWithBingWebApi(
     })
     .catch((err) => {
       port.onMessage.removeListener(messageListener)
+      port.onDisconnect.removeListener(disconnectListener)
       throw err
     })
 
@@ -87,5 +88,6 @@ export async function generateAnswersWithBingWebApi(
   pushRecord(session, question, answer)
   console.debug('conversation history', { content: session.conversationRecords })
   port.onMessage.removeListener(messageListener)
+  port.onDisconnect.removeListener(disconnectListener)
   port.postMessage({ answer: answer, done: true, session: session })
 }

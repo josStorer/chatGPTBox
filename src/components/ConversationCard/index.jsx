@@ -78,13 +78,6 @@ function ConversationCard(props) {
   }, [session, conversationItemData])
 
   useEffect(() => {
-    bodyRef.current.scrollTo({
-      top: bodyRef.current.scrollHeight,
-      behavior: 'instant',
-    })
-  }, [session])
-
-  useEffect(() => {
     const { offsetHeight, scrollHeight, scrollTop } = bodyRef.current
     if (
       config.lockWhenAnswer &&
@@ -92,7 +85,7 @@ function ConversationCard(props) {
     ) {
       bodyRef.current.scrollTo({
         top: scrollHeight,
-        behavior: 'smooth',
+        behavior: 'instant',
       })
     }
   }, [conversationItemData])

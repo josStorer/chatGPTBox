@@ -105,7 +105,7 @@ export const defaultConfig = {
   preferredLanguage: getNavigatorLanguage(),
   clickIconAction: 'popup',
   insertAtTop: isMobile(),
-  lockWhenAnswer: false,
+  lockWhenAnswer: true,
   answerScrollMargin: 200,
   autoRegenAfterSwitchModel: false,
   selectionToolsNextToInputBox: false,

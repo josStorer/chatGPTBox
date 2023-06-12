@@ -18,7 +18,8 @@
     "tabs",
     "https://*.openai.com/",
     "https://*.bing.com/",
-    "https://*.poe.com/"
+    "https://*.poe.com/",
+    "https://*.google.com/"
   ],
   "background": {
     "scripts": [

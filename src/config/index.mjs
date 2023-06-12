@@ -29,6 +29,7 @@ export const chatgptWebModelKeys = [
   'chatgptPlus4Mobile',
 ]
 export const bingWebModelKeys = ['bingFree4', 'bingFreeSydney']
+export const bardWebModelKeys = ['bardWebFree']
 export const gptApiModelKeys = ['gptApiDavinci']
 export const chatgptApiModelKeys = ['chatgptApi35', 'chatgptApi4_8k', 'chatgptApi4_32k']
 export const customApiModelKeys = ['customModel']
@@ -62,6 +63,7 @@ export const Models = {
   chatgptApi35: { value: 'gpt-3.5-turbo', desc: 'ChatGPT (GPT-3.5-turbo)' },
   bingFree4: { value: '', desc: 'Bing (Web, GPT-4)' },
   bingFreeSydney: { value: '', desc: 'Bing (Web, GPT-4, Sydney)' },
+  bardWebFree: { value: '', desc: 'Bard (Web)' },
   poeAiWebSage: { value: 'sage', desc: 'Poe AI (Web, Sage)' },
   poeAiWebGPT4: { value: 'gpt-4', desc: 'Poe AI (Web, GPT-4)' },
   poeAiWebClaudePlus: { value: 'claude+', desc: 'Poe AI (Web, Claude+)' },

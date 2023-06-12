@@ -34,6 +34,12 @@ export async function getBingAccessToken() {
   return (await Browser.cookies.get({ url: 'https://bing.com/', name: '_U' }))?.value
 }
 
+export async function getBardCookies() {
+  const token = (await Browser.cookies.get({ url: 'https://google.com/', name: '__Secure-1PSID' }))
+    ?.value
+  return '__Secure-1PSID=' + token
+}
+
 export function registerPortListener(executor) {
   Browser.runtime.onConnect.addListener((port) => {
     console.debug('connected')

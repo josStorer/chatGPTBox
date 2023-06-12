@@ -279,7 +279,7 @@ function ConversationCard(props) {
           </select>
         </span>
         <span className="gpt-util-group" style={{ flexGrow: 1, justifyContent: 'flex-end' }}>
-          {session && session.conversationId && (
+          {!config.disableWebModeHistory && session && session.conversationId && (
             <a
               title={t('Continue on official website')}
               href={'https://chat.openai.com/chat/' + session.conversationId}

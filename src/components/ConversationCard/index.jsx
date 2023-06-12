@@ -381,6 +381,21 @@ function ConversationCard(props) {
               <ArchiveIcon size={16} />
             </span>
           )}
+          a{' '}
+          {conversationItemData.length > 0 && (
+            <span
+              title={t('Jump to bottom')}
+              className="gpt-util-icon"
+              onClick={() => {
+                bodyRef.current.scrollTo({
+                  top: bodyRef.current.scrollHeight,
+                  behavior: 'smooth',
+                })
+              }}
+            >
+              <MoveToBottomIcon size={16} />
+            </span>
+          )}
           <span
             title={t('Save Conversation')}
             className="gpt-util-icon"
@@ -396,22 +411,6 @@ function ConversationCard(props) {
             }}
           >
             <DesktopDownloadIcon size={16} />
-          </span>
-          <span>
-            {conversationItemData.length > 0 && (
-              <span
-                title={t('Jump to bottom')}
-                className="gpt-util-icon"
-                onClick={() => {
-                  bodyRef.current.scrollTo({
-                    top: bodyRef.current.scrollHeight,
-                    behavior: 'smooth',
-                  })
-                }}
-              >
-                <MoveToBottomIcon size={16} />
-              </span>
-            )}
           </span>
         </span>
       </div>

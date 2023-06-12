@@ -390,7 +390,6 @@ function ConversationCard(props) {
               <ArchiveIcon size={16} />
             </span>
           )}
-          a{' '}
           {conversationItemData.length > 0 && (
             <span
               title={t('Jump to bottom')}

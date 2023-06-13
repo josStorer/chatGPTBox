@@ -242,7 +242,8 @@ function ConversationCard(props) {
           className="gpt-util-group"
           style={{
             padding: '15px 0 15px 15px',
-            ...(props.notClampSize ? {} : { flexGrow: 1 }),
+            ...(props.notClampSize ? {} : { flexGrow: isSafari() ? 0 : 1 }),
+            ...(isSafari() ? { maxWidth: '200px' } : {}),
           }}
         >
           {props.closeable ? (

@@ -31,7 +31,13 @@ export const chatgptWebModelKeys = [
 export const bingWebModelKeys = ['bingFree4', 'bingFreeSydney']
 export const bardWebModelKeys = ['bardWebFree']
 export const gptApiModelKeys = ['gptApiDavinci']
-export const chatgptApiModelKeys = ['chatgptApi35', 'chatgptApi4_8k', 'chatgptApi4_32k']
+export const chatgptApiModelKeys = [
+  'chatgptApi35',
+  'chatgptApi35_16k',
+  'chatgptApi35_0613',
+  'chatgptApi4_8k',
+  'chatgptApi4_32k',
+]
 export const customApiModelKeys = ['customModel']
 export const azureOpenAiApiModelKeys = ['azureOpenAi']
 export const githubThirdPartyApiModelKeys = ['waylaidwandererApi']
@@ -61,6 +67,8 @@ export const Models = {
   chatgptPlus4Browsing: { value: 'gpt-4-browsing', desc: 'ChatGPT (Web, GPT-4, Browsing)' },
   chatgptPlus4Mobile: { value: 'gpt-4-mobile', desc: 'ChatGPT (Mobile, GPT-4)' },
   chatgptApi35: { value: 'gpt-3.5-turbo', desc: 'ChatGPT (GPT-3.5-turbo)' },
+  chatgptApi35_16k: { value: 'gpt-3.5-turbo-16k', desc: 'ChatGPT (GPT-3.5-turbo-16k)' },
+  chatgptApi35_0613: { value: 'gpt-3.5-turbo-0613', desc: 'ChatGPT (GPT-3.5-turbo 0613)' },
   bingFree4: { value: '', desc: 'Bing (Web, GPT-4)' },
   bingFreeSydney: { value: '', desc: 'Bing (Web, GPT-4, Sydney)' },
   bardWebFree: { value: '', desc: 'Bard (Web)' },
@@ -151,6 +159,7 @@ export const defaultConfig = {
     'chatgptPlus4',
     'chatgptPlus4Mobile',
     'chatgptApi35',
+    'chatgptApi35_16k',
     'bingFree4',
     'bingFreeSydney',
     'poeAiWebSage',

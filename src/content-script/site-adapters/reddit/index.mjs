@@ -13,7 +13,7 @@ export default {
         answers += `answer${i}:${texts[i].textContent}|`
       }
 
-      return cropText(
+      return await cropText(
         `Below is the content from a social forum,giving the corresponding summary and your opinion on it.` +
           `The title is:'${title}',and the further description of the title is:'${description}'.` +
           `Some answers are as follows:\n${answers}`,

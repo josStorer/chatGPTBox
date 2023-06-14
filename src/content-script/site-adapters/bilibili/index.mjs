@@ -50,7 +50,7 @@ export default {
         else subtitleContent += subtitles[i].content + ','
       }
 
-      return cropText(
+      return await cropText(
         `用尽量简练的语言,联系视频标题,对视频进行内容摘要,同时仍要保留重要细节,视频标题为:"${title}",字幕内容为:\n${subtitleContent}`,
       )
     } catch (e) {

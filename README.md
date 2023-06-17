@@ -64,7 +64,7 @@ English &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md) &nbsp;&nbsp;|&nbsp;&
 
 [Github-url]: https://github.com/josStorer/chatGPTBox/wiki/Install
 
-#### My new project [RWKV-Runner](https://github.com/josStorer/RWKV-Runner) has been released, a one-click deployable open-source commercially available large language model tool that can be used in conjunction with ChatGPTBox.
+#### My new project [RWKV-Runner](https://github.com/josStorer/RWKV-Runner) has been released, a one-click deployable open-source commercially usable large language model tool that can be used in conjunction with ChatGPTBox.
 
 </div>
 

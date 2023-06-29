@@ -49,6 +49,7 @@ export const poeWebModelKeys = [
   'poeAiWebClaude100k',
   'poeAiWebCustom',
   'poeAiWebChatGpt',
+  'poeAiWebGooglePaLM',
 ]
 
 /**
@@ -76,6 +77,7 @@ export const Models = {
   poeAiWebClaudePlus: { value: 'claude+', desc: 'Poe AI (Web, Claude+)' },
   poeAiWebClaude: { value: 'claude', desc: 'Poe AI (Web, Claude)' },
   poeAiWebClaude100k: { value: 'claude-instant-100k', desc: 'Poe AI (Web, Claude instant 100k)' },
+  poeAiWebGooglePaLM: { value: 'Google-PaLM', desc: 'Poe AI (Web, Google-PaLM)' },
   chatgptApi4_8k: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k)' },
   chatgptApi4_32k: { value: 'gpt-4-32k', desc: 'ChatGPT (GPT-4-32k)' },
   gptApiDavinci: { value: 'text-davinci-003', desc: 'GPT-3.5' },

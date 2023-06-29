@@ -143,7 +143,11 @@ export default class PoeAiClient {
       bot = 'a2'
     } else if (bot === 'chatgpt') {
       bot = 'chinchilla'
+    } else if (bot === 'Google-PaLM') {
+      bot = 'acouchy'
     }
+    
+    
 
     this.bot = bot
   }

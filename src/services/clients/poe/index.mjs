@@ -146,8 +146,6 @@ export default class PoeAiClient {
     } else if (bot === 'Google-PaLM') {
       bot = 'acouchy'
     }
-    
-    
 
     this.bot = bot
   }

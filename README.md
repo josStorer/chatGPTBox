@@ -10,10 +10,10 @@ Deep ChatGPT integrations in your browser, completely for free.
 
 [![license][license-image]][license-url]
 [![release][release-image]][release-url]
-[![size](https://img.shields.io/badge/minified%20size-360%20kB-blue)][release-url]
+[![size](https://img.shields.io/badge/minified%20size-370%20kB-blue)][release-url]
 [![verfiy][verify-image]][verify-url]
 
-English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
+English &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md) &nbsp;&nbsp;|&nbsp;&nbsp; [简体中文](README_ZH.md)
 
 ### Install
 
@@ -24,11 +24,7 @@ English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
 [![Android][Android-image]][Android-url]
 [![Github][Github-image]][Github-url]
 
-[Guide](https://github.com/josStorer/chatGPTBox/wiki/Guide) |
-[Preview](#Preview) |
-[Development&Contributing][dev-url] |
-[Video Demonstration](https://www.youtube.com/watch?v=E1smDxJvTRs) |
-[Credit](#Credit)
+[Guide](https://github.com/josStorer/chatGPTBox/wiki/Guide) &nbsp;&nbsp;|&nbsp;&nbsp; [Preview](#Preview) &nbsp;&nbsp;|&nbsp;&nbsp; [Development&Contributing][dev-url] &nbsp;&nbsp;|&nbsp;&nbsp; [Video Demonstration](https://www.youtube.com/watch?v=E1smDxJvTRs) &nbsp;&nbsp;|&nbsp;&nbsp; [Credit](#Credit)
 
 [dev-url]: https://github.com/josStorer/chatGPTBox/wiki/Development&Contributing
 
@@ -68,15 +64,19 @@ English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
 
 [Github-url]: https://github.com/josStorer/chatGPTBox/wiki/Install
 
+#### My new project [RWKV-Runner](https://github.com/josStorer/RWKV-Runner) has been released, a one-click deployable open-source commercially usable large language model tool that can be used in conjunction with ChatGPTBox.
+
 </div>
 
 ## News
 
 - This extension does **not** collect your data. You can verify it by conducting a global search for `fetch(` and `XMLHttpRequest(` in the code to find all network request calls. The amount of code is not much, so it's easy to do that.
 
+- This tool will not transmit any data to ChatGPT unless you explicitly ask it to. By default, the extension must be activated manually. It will only send a request to ChatGPT if you specifically click "Ask ChatGPT" or trigger the selection floating tools — and this is applicable only when you're using GPT API modes. (issue #407)
+
 - You can set a free reverse proxy in the Advanced setting to bypass cloudflare: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
 
-- Offline/Self-hosted model (llama.cpp, ChatGLM) is now supported, See https://github.com/josStorer/selfhostedAI
+- Offline/Self-hosted model (RWKV, llama.cpp, ChatGLM) is now supported, See https://github.com/josStorer/selfhostedAI
 
 ## ✨ Features
 

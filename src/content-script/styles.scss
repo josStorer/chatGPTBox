@@ -16,12 +16,12 @@
   @media screen and (prefers-color-scheme: light) {
     @import 'highlight.js/scss/github.scss';
     --font-color: #24292f;
-    --theme-color: #eaecf0;
-    --question-bg-color: #e2e4e8;
-    --theme-border-color: #aeafb2;
-    --dragbar-color: #dfe0e1;
+    --theme-color: #ffffff;
+    --question-bg-color: #f7f7f7;
+    --theme-border-color: #dbdbde;
+    --dragbar-color: #ccced0;
     --color-neutral-muted: rgba(150, 160, 170, 0.3);
-    --code-background-color: rgb(255, 255, 255);
+    --code-background-color: #f7f7f7;
   }
 }
 
@@ -43,12 +43,12 @@
   @import 'github-markdown-css/github-markdown-light.css';
 
   --font-color: #24292f;
-  --theme-color: #eaecf0;
-  --question-bg-color: #e2e4e8;
-  --theme-border-color: #aeafb2;
+  --theme-color: #ffffff;
+  --question-bg-color: #f7f7f7;
+  --theme-border-color: #dbdbde;
   --dragbar-color: #ccced0;
   --color-neutral-muted: rgba(150, 160, 170, 0.3);
-  --code-background-color: rgb(255, 255, 255);
+  --code-background-color: #f7f7f7;
 }
 
 .chatgptbox-sidebar-free {
@@ -92,6 +92,7 @@
     background-color: var(--theme-color);
     color: var(--font-color);
     overflow-y: auto;
+    overflow-x: hidden;
 
     ::-webkit-scrollbar {
       background-color: var(--theme-color);
@@ -180,6 +181,7 @@
     display: flex;
     cursor: pointer;
     align-items: center;
+    z-index: 0;
   }
 
   .normal-button {

@@ -9,10 +9,16 @@ import PoeAiClient from '../clients/poe/index.mjs'
  */
 export async function generateAnswersWithPoeWebApi(port, question, session, modelName) {
   const bot = new PoeAiClient(session.poe_chatId)
-  const { messageListener } = setAbortController(port, () => {
-    bot.breakMsg()
-    bot.close()
-  })
+  const { messageListener, disconnectListener } = setAbortController(
+    port,
+    () => {
+      bot.close()
+    },
+    () => {
+      bot.breakMsg()
+      bot.close()
+    },
+  )
 
   let answer = ''
   await bot
@@ -29,12 +35,15 @@ export async function generateAnswersWithPoeWebApi(port, question, session, mode
         pushRecord(session, question, answer)
         console.debug('conversation history', { content: session.conversationRecords })
         port.onMessage.removeListener(messageListener)
+        if (session.conversationRecords.length > 1)
+          port.onDisconnect.removeListener(disconnectListener)
         port.postMessage({ answer: answer, done: true, session: session })
         bot.close()
       },
     )
     .catch((err) => {
       port.onMessage.removeListener(messageListener)
+      port.onDisconnect.removeListener(disconnectListener)
       bot.close()
       throw err
     })

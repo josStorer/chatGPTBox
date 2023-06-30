@@ -3,8 +3,13 @@ import PropTypes from 'prop-types'
 import Browser from 'webextension-polyfill'
 import InputBox from '../InputBox'
 import ConversationItem from '../ConversationItem'
-import { createElementAtPosition, isSafari } from '../../utils'
-import { DownloadIcon, LinkExternalIcon, ArchiveIcon } from '@primer/octicons-react'
+import { createElementAtPosition, isFirefox, isMobile, isSafari } from '../../utils'
+import {
+  LinkExternalIcon,
+  ArchiveIcon,
+  DesktopDownloadIcon,
+  MoveToBottomIcon,
+} from '@primer/octicons-react'
 import { WindowDesktop, XLg, Pin } from 'react-bootstrap-icons'
 import FileSaver from 'file-saver'
 import { render } from 'preact'
@@ -42,6 +47,8 @@ function ConversationCard(props) {
   const [session, setSession] = useState(props.session)
   const windowSize = useClampWindowSize([750, 1500], [250, 1100])
   const bodyRef = useRef(null)
+  const [completeDraggable, setCompleteDraggable] = useState(false)
+
   /**
    * @type {[ConversationItemData[], (conversationItemData: ConversationItemData[]) => void]}
    */
@@ -69,15 +76,24 @@ function ConversationCard(props) {
   const config = useConfig()
 
   useEffect(() => {
+    setCompleteDraggable(!isSafari() && !isFirefox() && !isMobile())
+  }, [])
+
+  useEffect(() => {
     if (props.onUpdate) props.onUpdate(port, session, conversationItemData)
   }, [session, conversationItemData])
 
   useEffect(() => {
-    bodyRef.current.scrollTop = bodyRef.current.scrollHeight
-  }, [session])
-
-  useEffect(() => {
-    if (config.lockWhenAnswer) bodyRef.current.scrollTop = bodyRef.current.scrollHeight
+    const { offsetHeight, scrollHeight, scrollTop } = bodyRef.current
+    if (
+      config.lockWhenAnswer &&
+      scrollHeight <= scrollTop + offsetHeight + config.answerScrollMargin
+    ) {
+      bodyRef.current.scrollTo({
+        top: scrollHeight,
+        behavior: 'instant',
+      })
+    }
   }, [conversationItemData])
 
   useEffect(() => {
@@ -195,6 +211,15 @@ function ConversationCard(props) {
     updateAnswer(`<p class="gpt-loading">${t('Waiting for response...')}</p>`, false, 'answer')
     setIsReady(false)
 
+    if (session.conversationRecords.length > 0) {
+      const lastRecord = session.conversationRecords[session.conversationRecords.length - 1]
+      if (
+        conversationItemData[conversationItemData.length - 1].done &&
+        lastRecord.question === conversationItemData[conversationItemData.length - 2].content
+      ) {
+        session.conversationRecords.pop()
+      }
+    }
     const newSession = { ...session, isRetry: true }
     setSession(newSession)
     try {
@@ -208,10 +233,19 @@ function ConversationCard(props) {
   return (
     <div className="gpt-inner">
       <div
-        className={props.draggable ? 'gpt-header draggable' : 'gpt-header'}
-        style="padding:15px;user-select:none;"
+        className={
+          props.draggable ? `gpt-header${completeDraggable ? ' draggable' : ''}` : 'gpt-header'
+        }
+        style="user-select:none;"
       >
-        <span className="gpt-util-group" style={props.notClampSize ? {} : { flexGrow: 1 }}>
+        <span
+          className="gpt-util-group"
+          style={{
+            padding: '15px 0 15px 15px',
+            ...(props.notClampSize ? {} : { flexGrow: isSafari() ? 0 : 1 }),
+            ...(isSafari() ? { maxWidth: '200px' } : {}),
+          }}
+        >
           {props.closeable ? (
             <XLg
               className="gpt-util-icon"
@@ -268,8 +302,18 @@ function ConversationCard(props) {
             })}
           </select>
         </span>
-        <span className="gpt-util-group" style={{ flexGrow: 1, justifyContent: 'flex-end' }}>
-          {session && session.conversationId && (
+        {props.draggable && !completeDraggable && (
+          <div className="draggable" style={{ flexGrow: 2, cursor: 'move', height: '55px' }} />
+        )}
+        <span
+          className="gpt-util-group"
+          style={{
+            padding: '15px 15px 15px 0',
+            justifyContent: 'flex-end',
+            flexGrow: props.draggable && !completeDraggable ? 0 : 1,
+          }}
+        >
+          {!config.disableWebModeHistory && session && session.conversationId && (
             <a
               title={t('Continue on official website')}
               href={'https://chat.openai.com/chat/' + session.conversationId}
@@ -347,6 +391,20 @@ function ConversationCard(props) {
               <ArchiveIcon size={16} />
             </span>
           )}
+          {conversationItemData.length > 0 && (
+            <span
+              title={t('Jump to bottom')}
+              className="gpt-util-icon"
+              onClick={() => {
+                bodyRef.current.scrollTo({
+                  top: bodyRef.current.scrollHeight,
+                  behavior: 'smooth',
+                })
+              }}
+            >
+              <MoveToBottomIcon size={16} />
+            </span>
+          )}
           <span
             title={t('Save Conversation')}
             className="gpt-util-icon"
@@ -361,7 +419,7 @@ function ConversationCard(props) {
               FileSaver.saveAs(blob, 'conversation.md')
             }}
           >
-            <DownloadIcon size={16} />
+            <DesktopDownloadIcon size={16} />
           </span>
         </span>
       </div>

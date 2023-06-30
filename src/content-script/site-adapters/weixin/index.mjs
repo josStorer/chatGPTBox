@@ -19,7 +19,7 @@ export default {
           sidebar.style.background = 'transparent'
         }
 
-        return cropText(
+        return await cropText(
           `以下是一篇文章,标题是:"${title}",文章来源是:"${author}公众号",内容是:\n"${description}".请以如下格式输出你的回答：
           {文章来源和文章摘要}
           ======

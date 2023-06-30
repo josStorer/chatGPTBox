@@ -232,7 +232,7 @@ async function prepareForRightClickMenu() {
         const menuItem = menuConfig[data.itemId]
         if (!menuItem.genPrompt) return
         else prompt = await menuItem.genPrompt()
-        if (prompt) prompt = cropText(`Reply in ${await getPreferredLanguage()}.\n` + prompt)
+        if (prompt) prompt = await cropText(`Reply in ${await getPreferredLanguage()}.\n` + prompt)
       }
 
       const position = data.useMenuPosition

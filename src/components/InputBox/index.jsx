@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
-import { updateRefHeight } from '../../utils'
+import { isFirefox, isMobile, isSafari, updateRefHeight } from '../../utils'
 import { useTranslation } from 'react-i18next'
 import { getUserConfig } from '../../config/index.mjs'
 
@@ -10,8 +10,15 @@ export function InputBox({ onSubmit, enabled, port, reverseResizeDir }) {
   const reverseDivRef = useRef(null)
   const inputRef = useRef(null)
   const resizedRef = useRef(false)
+  const [internalReverseResizeDir, setInternalReverseResizeDir] = useState(reverseResizeDir)
 
-  const virtualInputRef = reverseResizeDir ? reverseDivRef : inputRef
+  useEffect(() => {
+    setInternalReverseResizeDir(
+      !isSafari() && !isFirefox() && !isMobile() ? internalReverseResizeDir : false,
+    )
+  }, [])
+
+  const virtualInputRef = internalReverseResizeDir ? reverseDivRef : inputRef
 
   useEffect(() => {
     inputRef.current.focus()
@@ -31,7 +38,7 @@ export function InputBox({ onSubmit, enabled, port, reverseResizeDir }) {
 
   useEffect(() => {
     if (!resizedRef.current) {
-      if (!reverseResizeDir) {
+      if (!internalReverseResizeDir) {
         updateRefHeight(inputRef)
         virtualInputRef.current.h = virtualInputRef.current.offsetHeight
         virtualInputRef.current.style.maxHeight = '160px'
@@ -49,13 +56,12 @@ export function InputBox({ onSubmit, enabled, port, reverseResizeDir }) {
   const handleKeyDownOrClick = (e) => {
     e.stopPropagation()
     if (e.type === 'click' || (e.keyCode === 13 && e.shiftKey === false)) {
+      e.preventDefault()
       if (enabled) {
-        e.preventDefault()
         if (!value) return
         onSubmit(value)
         setValue('')
       } else {
-        e.preventDefault()
         port.postMessage({ stop: true })
       }
     }
@@ -66,7 +72,7 @@ export function InputBox({ onSubmit, enabled, port, reverseResizeDir }) {
       <div
         ref={reverseDivRef}
         style={
-          reverseResizeDir && {
+          internalReverseResizeDir && {
             transform: 'rotateX(180deg)',
             resize: 'vertical',
             overflow: 'hidden',
@@ -80,7 +86,7 @@ export function InputBox({ onSubmit, enabled, port, reverseResizeDir }) {
           disabled={false}
           className="interact-input"
           style={
-            reverseResizeDir
+            internalReverseResizeDir
               ? { transform: 'rotateX(180deg)', resize: 'none' }
               : { resize: 'vertical', minHeight: '70px' }
           }

@@ -10,10 +10,10 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
 [![license][license-image]][license-url]
 [![release][release-image]][release-url]
-[![size](https://img.shields.io/badge/minified%20size-360%20kB-blue)][release-url]
+[![size](https://img.shields.io/badge/minified%20size-370%20kB-blue)][release-url]
 [![verfiy][verify-image]][verify-url]
 
-[Inggris](README.md) | Indonesia | [简体中文](README_ZH.md)
+[Inggris](README.md) &nbsp;&nbsp;|&nbsp;&nbsp; Indonesia &nbsp;&nbsp;|&nbsp;&nbsp; [简体中文](README_ZH.md)
 
 ### Install
 
@@ -24,11 +24,7 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 [![Android][Android-image]][Android-url]
 [![Github][Github-image]][Github-url]
 
-[Panduan](https://github.com/josStorer/chatGPTBox/wiki/Guide) |
-[Pratinjau](#Pratinjau) |
-[Pengembangan & Berkontribusi][dev-url] |
-[Demonstrasi Video](https://www.youtube.com/watch?v=E1smDxJvTRs) |
-[Kredit](#Kredit)
+[Panduan](https://github.com/josStorer/chatGPTBox/wiki/Guide) &nbsp;&nbsp;|&nbsp;&nbsp; [Pratinjau](#Pratinjau) &nbsp;&nbsp;|&nbsp;&nbsp; [Pengembangan & Berkontribusi][dev-url] &nbsp;&nbsp;|&nbsp;&nbsp; [Demonstrasi Video](https://www.youtube.com/watch?v=E1smDxJvTRs) &nbsp;&nbsp;|&nbsp;&nbsp; [Kredit](#Kredit)
 
 [dev-url]: https://github.com/josStorer/chatGPTBox/wiki/Development&Contributing
 
@@ -68,49 +64,51 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
 [Github-url]: https://github.com/josStorer/chatGPTBox/wiki/Install
 
+#### Proyek baru saya [RWKV-Runner](https://github.com/josStorer/RWKV-Runner) telah dirilis, sebuah alat model bahasa besar sumber terbuka yang tersedia secara komersial dan dapat diterapkan dengan sekali klik yang dapat digunakan bersama dengan ChatGPTBox.
+
 </div>
 
 ## Berita
 
-- Ekstensi ini tidak mengumpulkan data Anda. Anda dapat memverifikasinya dengan melakukan pencarian global untuk fetch( dan XMLHttpRequest( dalam kode untuk menemukan semua panggilan permintaan jaringan. Jumlah kode tidak banyak, sehingga mudah untuk melakukannya.
+- Ekstensi ini **tidak** mengumpulkan data Anda. Anda dapat memverifikasinya dengan melakukan pencarian global untuk `fetch(` dan `XMLHttpRequest(` dalam kode untuk menemukan semua panggilan permintaan jaringan. Jumlah kode tidak banyak, jadi mudah untuk melakukannya.
 
-- Anda dapat mengatur proxy mundur gratis dalam pengaturan Lanjutan untuk menghindari cloudflare: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
+- Anda dapat mengatur proxy balik gratis di Pengaturan Lanjutan untuk menghindari cloudflare: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
 
-- Model Offline/Self-hosted (llama.cpp, ChatGLM) kini didukung, Lihat https://github.com/josStorer/selfhostedAI
+- Model Offline/Self-hosted (RWKV, llama.cpp, ChatGLM) sekarang didukung, Lihat https://github.com/josStorer/selfhostedAI
 
 ## ✨ Fitur
 
-- 🌈 Panggil kotak dialog obrolan di halaman mana saja kapan saja. (<kbd>Ctrl</kbd>+<kbd>B</kbd>)
-- 📱 Dukungan untuk perangkat seluler.
-- 📓 Ringkas halaman mana saja dengan menu klik kanan. (<kbd>Alt</kbd>+<kbd>B</kbd>)
+- 🌈 Panggil kotak dialog percakapan di halaman apa pun kapan saja. (<kbd>Ctrl</kbd>+<kbd>B</kbd>)
+- 📱 Dukungan untuk perangkat mobile.
+- 📓 Ringkaskan halaman apa pun dengan menu klik kanan. (<kbd>Alt</kbd>+<kbd>B</kbd>)
 - 📖 Halaman percakapan independen. (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>)
-- 🔗 Dukungan banyak API (API Web untuk pengguna Gratis dan Plus, GPT-3.5, GPT-4, Bing Baru, Di-hosting Sendiri, Azure, Poe dan lain-lain.).
-- 📦 Integrasi untuk berbagai situs web yang umum digunakan (Reddit, Quora, YouTube, GitHub, GitLab, StackOverflow, Zhihu, Bilibili). (Terinspirasi oleh [wimdenherder](https://github.com/wimdenherder))
-- 🔍 Integrasi ke semua mesin telusur utama, dan kueri khusus untuk mendukung situs tambahan.
-- 🧰 Alat pemilihan dan menu klik kanan untuk melakukan berbagai tugas, seperti terjemahan, peringkasan, pemolesan,
-   analisis sentimen, pembagian paragraf, penjelasan kode dan pertanyaan.
-- 🗂️ Kartu statis mendukung kotak obrolan mengambang untuk percakapan multi-cabang.
-- 🖨️ Simpan catatan obrolan lengkap Anda dengan mudah atau salin sebagian.
-- 🎨 Dukungan rendering yang kuat, baik untuk penyorotan kode atau rumus matematika yang kompleks.
+- 🔗 Dukungan untuk beberapa API (Web API untuk pengguna Gratis dan Plus, GPT-3.5, GPT-4, New Bing, Self-Hosted, Azure, Poe, dll.).
+- 📦 Integrasi untuk berbagai situs web yang umum digunakan (Reddit, Quora, YouTube, GitHub, GitLab, StackOverflow, Zhihu, Bilibili). (Terinspirasi dari [wimdenherder](https://github.com/wimdenherder))
+- 🔍 Integrasi dengan semua mesin pencari utama, dan permintaan kustom untuk mendukung situs tambahan.
+- 🧰 Alat pemilihan dan menu klik kanan untuk melakukan berbagai tugas, seperti terjemahan, ringkasan, penyempurnaan,
+  analisis sentimen, pembagian paragraf, penjelasan kode, dan permintaan.
+- 🗂️ Dukungan kartu statis untuk kotak percakapan bercabang.
+- 🖨️ Mudah menyimpan catatan percakapan lengkap atau menyalinnya sebagian.
+- 🎨 Dukungan rendering yang kuat, baik untuk penyorotan kode maupun rumus matematika kompleks.
 - 🌍 Dukungan preferensi bahasa.
-- 📝 Dukungan alamat API khusus.
-- ⚙️ Semua adaptasi situs dan alat pemilihan (gelembung) dapat diaktifkan atau dinonaktifkan secara bebas, nonaktifkan modul yang tidak Anda perlukan.
-- 💡 Alat pemilihan dan adaptasi situs mudah dikembangkan dan diperluas, lihat bagian [Pengembangan & Berkontribusi][dev-url].
-- 😉 Obrolan untuk meningkatkan kualitas jawaban.
+- 📝 Dukungan alamat API kustom.
+- ⚙️ Semua adaptasi situs dan alat pemilihan (gelembung) dapat dinonaktifkan atau diaktifkan secara bebas, nonaktifkan modul yang tidak diperlukan.
+- 💡 Alat pemilihan dan adaptasi situs mudah untuk dikembangkan dan diperluas, lihat bagian [Pengembangan & Berkontribusi][dev-url].
+- 😉 Berbicara untuk meningkatkan kualitas jawaban.
 
 ## Pratinjau
 
 <div align="center">
 
-**Integrasi Mesin Telusur, Jendela Terapung, Cabang Percakapan**
+**Integrasi Mesin Pencari, Jendela Mengapung, Percakapan Cabang**
 
 ![preview_google_floatingwindow_conversationbranch](screenshots/preview_google_floatingwindow_conversationbranch.jpg)
 
-**Integrasi dengan Situs Web yang Biasa Digunakan, Alat Seleksi**
+**Integrasi dengan Situs Web yang Umum Digunakan, Alat Pemilihan**
 
 ![preview_reddit_selectiontools](screenshots/preview_reddit_selectiontools.jpg)
 
-**Independent Conversation Page**
+**Halaman Percakapan Independen**
 
 ![preview_independentpanel](screenshots/preview_independentpanel.jpg)
 
@@ -122,7 +120,7 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
 ![preview_youtube](screenshots/preview_youtube.jpg)
 
-**Dukungan Seluler**
+**Dukungan Perangkat Mobile**
 
 ![image](https://user-images.githubusercontent.com/13366013/225529110-9221c8ce-ad41-423e-b6ec-097981e74b66.png)
 

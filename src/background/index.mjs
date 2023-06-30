@@ -15,6 +15,7 @@ import { generateAnswersWithWaylaidwandererApi } from '../services/apis/waylaidw
 import { generateAnswersWithPoeWebApi } from '../services/apis/poe-web.mjs'
 import {
   azureOpenAiApiModelKeys,
+  bardWebModelKeys,
   bingWebModelKeys,
   chatgptApiModelKeys,
   chatgptWebModelKeys,
@@ -30,12 +31,14 @@ import {
 import '../_locales/i18n'
 import { openUrl } from '../utils/open-url'
 import {
+  getBardCookies,
   getBingAccessToken,
   getChatGptAccessToken,
   registerPortListener,
 } from '../services/wrappers.mjs'
 import { refreshMenu } from './menus.mjs'
 import { registerCommands } from './commands.mjs'
+import { generateAnswersWithBardWebApi } from '../services/apis/bard-web.mjs'
 
 function setPortProxy(port, proxyTabId) {
   port.proxy = Browser.tabs.connect(proxyTabId)
@@ -117,6 +120,9 @@ async function executeApi(session, port, config) {
         session,
         Models[session.modelName].value,
       )
+  } else if (bardWebModelKeys.includes(session.modelName)) {
+    const cookies = await getBardCookies()
+    await generateAnswersWithBardWebApi(port, session.question, session, cookies)
   }
 }
 

@@ -14,7 +14,7 @@ export default {
           answers += `answer${i}:${texts[i].textContent}|`
         }
 
-      return cropText(
+      return await cropText(
         `Below is the content from a question and answer platform,giving the corresponding summary and your opinion on it.` +
           `The question is:'${title}',` +
           `Some answers are as follows:\n${answers}`,

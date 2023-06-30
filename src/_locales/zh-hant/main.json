@@ -55,6 +55,7 @@
   "Translate": "翻譯",
   "Translate (Bidirectional)": "雙向翻譯",
   "Translate (To English)": "翻譯為英文",
+  "Translate (To Chinese)": "翻譯為中文",
   "Summary": "摘要",
   "Polish": "潤飾",
   "Sentiment Analysis": "情感分析",
@@ -119,7 +120,8 @@
   "When Icon Clicked": "當圖示被點擊時",
   "Open Settings": "開啟設定",
   "Focus to input box after answering": "回答結束後自動聚焦到輸入框",
-  "Bing CaptchaChallenge": "妳必須通過必應的驗證, 打開 https://www.bing.com/search?q=Bing+AI&showconv=1&FORM=hpcodx 並發送壹條消息",
-  "Exceeded quota": "余額不足或過期, 檢查此網址: https://platform.openai.com/account/usage",
-  "Rate limit": "請求頻率過高"
+  "Bing CaptchaChallenge": "你必須通過 Bing 的驗證機制, 打開 https://www.bing.com/search?q=Bing+AI&showconv=1&FORM=hpcodx 並發送一則訊息",
+  "Exceeded quota": "您已超出目前的使用額度，請至 OpenAI Usage 頁面請確認您的方案和帳單詳細資訊: https://platform.openai.com/account/usage",
+  "Rate limit": "請求太頻繁，超過限制次數",
+  "Jump to bottom": "轉跳至底部"
 }

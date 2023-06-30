@@ -9,7 +9,7 @@ import { isEmpty } from 'lodash-es'
  * @param {Session} session
  */
 export async function generateAnswersWithWaylaidwandererApi(port, question, session) {
-  const { controller, messageListener } = setAbortController(port)
+  const { controller, messageListener, disconnectListener } = setAbortController(port)
 
   const config = await getUserConfig()
 
@@ -65,9 +65,11 @@ export async function generateAnswersWithWaylaidwandererApi(port, question, sess
     async onStart() {},
     async onEnd() {
       port.onMessage.removeListener(messageListener)
+      port.onDisconnect.removeListener(disconnectListener)
     },
     async onError(resp) {
       port.onMessage.removeListener(messageListener)
+      port.onDisconnect.removeListener(disconnectListener)
       if (resp instanceof Error) throw resp
       const error = await resp.json().catch(() => ({}))
       throw new Error(!isEmpty(error) ? JSON.stringify(error) : `${resp.status} ${resp.statusText}`)

@@ -16,7 +16,7 @@ export async function generateAnswersWithBingWebApi(
   accessToken,
   sydneyMode = false,
 ) {
-  const { controller, messageListener } = setAbortController(port)
+  const { controller, messageListener, disconnectListener } = setAbortController(port)
   const config = await getUserConfig()
   let modelMode
   if (session.modelName.includes('-')) modelMode = session.modelName.split('-')[1]
@@ -24,7 +24,7 @@ export async function generateAnswersWithBingWebApi(
 
   console.debug('mode', modelMode)
 
-  const bingAIClient = new BingAIClient({ userToken: accessToken })
+  const bingAIClient = new BingAIClient({ userToken: accessToken, features: { genImage: false } })
   if (session.bingWeb_jailbreakConversationCache)
     bingAIClient.conversationsCache.set(
       session.bingWeb_jailbreakConversationId,
@@ -59,6 +59,7 @@ export async function generateAnswersWithBingWebApi(
     })
     .catch((err) => {
       port.onMessage.removeListener(messageListener)
+      port.onDisconnect.removeListener(disconnectListener)
       throw err
     })
 
@@ -87,5 +88,6 @@ export async function generateAnswersWithBingWebApi(
   pushRecord(session, question, answer)
   console.debug('conversation history', { content: session.conversationRecords })
   port.onMessage.removeListener(messageListener)
+  port.onDisconnect.removeListener(disconnectListener)
   port.postMessage({ answer: answer, done: true, session: session })
 }

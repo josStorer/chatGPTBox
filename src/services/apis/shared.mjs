@@ -36,7 +36,7 @@ export function setAbortController(port, onStop, onDisconnect) {
   }
   port.onDisconnect.addListener(disconnectListener)
 
-  return { controller, messageListener }
+  return { controller, messageListener, disconnectListener }
 }
 
 export function pushRecord(session, question, answer) {

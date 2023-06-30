@@ -26,6 +26,13 @@ export const config = {
       return `Translate the following into English and only show me the translated content:\n${selection}`
     },
   },
+  translateToZh: {
+    icon: <Globe />,
+    label: 'Translate (To Chinese)',
+    genPrompt: async (selection) => {
+      return `Translate the following into Chinese and only show me the translated content:\n${selection}`
+    },
+  },
   translateBidi: {
     icon: <Globe />,
     label: 'Translate (Bidirectional)',

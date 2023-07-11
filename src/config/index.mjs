@@ -75,7 +75,7 @@ export const Models = {
   poeAiWebSage: { value: 'sage', desc: 'Poe AI (Web, Sage)' },
   poeAiWebGPT4: { value: 'gpt-4', desc: 'Poe AI (Web, GPT-4)' },
   poeAiWebClaude_2_100k: { value: 'claude-2-100k', desc: 'Poe AI (Web, Claude 2 100k)' },
-  poeAiWebClaude: { value: 'claude', desc: 'Poe AI (Web, Claude)' },
+  poeAiWebClaude: { value: 'claude-instant', desc: 'Poe AI (Web, Claude instant)' },
   poeAiWebClaude100k: { value: 'claude-instant-100k', desc: 'Poe AI (Web, Claude instant 100k)' },
   poeAiWebGooglePaLM: { value: 'Google-PaLM', desc: 'Poe AI (Web, Google-PaLM)' },
   chatgptApi4_8k: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k)' },

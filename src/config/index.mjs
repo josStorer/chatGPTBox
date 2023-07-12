@@ -44,6 +44,7 @@ export const githubThirdPartyApiModelKeys = ['waylaidwandererApi']
 export const poeWebModelKeys = [
   'poeAiWebSage',
   'poeAiWebGPT4',
+  'poeAiWebGPT4_32k',
   'poeAiWebClaude_2_100k',
   'poeAiWebClaude',
   'poeAiWebClaude100k',
@@ -75,6 +76,7 @@ export const Models = {
   bardWebFree: { value: '', desc: 'Bard (Web)' },
   poeAiWebSage: { value: 'sage', desc: 'Poe AI (Web, Sage)' },
   poeAiWebGPT4: { value: 'gpt-4', desc: 'Poe AI (Web, GPT-4)' },
+  poeAiWebGPT4_32k: { value: 'gpt-4-32k', desc: 'Poe AI (Web, GPT-4-32k)' },
   poeAiWebClaude_2_100k: { value: 'claude-2-100k', desc: 'Poe AI (Web, Claude 2 100k)' },
   poeAiWebClaude: { value: 'claude-instant', desc: 'Poe AI (Web, Claude instant)' },
   poeAiWebClaude100k: { value: 'claude-instant-100k', desc: 'Poe AI (Web, Claude instant 100k)' },
@@ -166,6 +168,7 @@ export const defaultConfig = {
     'bingFreeSydney',
     'poeAiWebSage',
     'poeAiWebGPT4',
+    'poeAiWebGPT4_32k',
     'poeAiWebClaude_2_100k',
     'poeAiWebClaude100k',
     'chatgptApi4_8k',

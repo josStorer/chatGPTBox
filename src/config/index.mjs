@@ -49,6 +49,7 @@ export const poeWebModelKeys = [
   'poeAiWebClaude100k',
   'poeAiWebCustom',
   'poeAiWebChatGpt',
+  'poeAiWebChatGpt_16k',
   'poeAiWebGooglePaLM',
 ]
 
@@ -86,6 +87,7 @@ export const Models = {
   waylaidwandererApi: { value: '', desc: 'Waylaidwanderer API (Github)' },
   poeAiWebCustom: { value: '', desc: 'Poe AI (Web, Custom)' },
   poeAiWebChatGpt: { value: 'chatgpt', desc: 'Poe AI (Web, ChatGPT)' },
+  poeAiWebChatGpt_16k: { value: 'chatgpt-16k', desc: 'Poe AI (Web, ChatGPT-16k)' },
 }
 
 for (const modelName in Models) {

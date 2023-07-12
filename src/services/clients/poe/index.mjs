@@ -137,9 +137,9 @@ export default class PoeAiClient {
       bot = 'beaver'
     } else if (bot === 'claude-instant-100k') {
       bot = 'a2_100k'
-    } else if (bot === 'claude+') {
+    } else if (bot === 'claude-2-100k') {
       bot = 'a2_2'
-    } else if (bot === 'claude') {
+    } else if (bot === 'claude-instant') {
       bot = 'a2'
     } else if (bot === 'chatgpt') {
       bot = 'chinchilla'

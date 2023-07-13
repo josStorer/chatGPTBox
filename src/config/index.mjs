@@ -44,11 +44,13 @@ export const githubThirdPartyApiModelKeys = ['waylaidwandererApi']
 export const poeWebModelKeys = [
   'poeAiWebSage',
   'poeAiWebGPT4',
-  'poeAiWebClaudePlus',
+  'poeAiWebGPT4_32k',
+  'poeAiWebClaude_2_100k',
   'poeAiWebClaude',
   'poeAiWebClaude100k',
   'poeAiWebCustom',
   'poeAiWebChatGpt',
+  'poeAiWebChatGpt_16k',
   'poeAiWebGooglePaLM',
 ]
 
@@ -74,8 +76,9 @@ export const Models = {
   bardWebFree: { value: '', desc: 'Bard (Web)' },
   poeAiWebSage: { value: 'sage', desc: 'Poe AI (Web, Sage)' },
   poeAiWebGPT4: { value: 'gpt-4', desc: 'Poe AI (Web, GPT-4)' },
-  poeAiWebClaudePlus: { value: 'claude+', desc: 'Poe AI (Web, Claude+)' },
-  poeAiWebClaude: { value: 'claude', desc: 'Poe AI (Web, Claude)' },
+  poeAiWebGPT4_32k: { value: 'gpt-4-32k', desc: 'Poe AI (Web, GPT-4-32k)' },
+  poeAiWebClaude_2_100k: { value: 'claude-2-100k', desc: 'Poe AI (Web, Claude 2 100k)' },
+  poeAiWebClaude: { value: 'claude-instant', desc: 'Poe AI (Web, Claude instant)' },
   poeAiWebClaude100k: { value: 'claude-instant-100k', desc: 'Poe AI (Web, Claude instant 100k)' },
   poeAiWebGooglePaLM: { value: 'Google-PaLM', desc: 'Poe AI (Web, Google-PaLM)' },
   chatgptApi4_8k: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k)' },
@@ -86,6 +89,7 @@ export const Models = {
   waylaidwandererApi: { value: '', desc: 'Waylaidwanderer API (Github)' },
   poeAiWebCustom: { value: '', desc: 'Poe AI (Web, Custom)' },
   poeAiWebChatGpt: { value: 'chatgpt', desc: 'Poe AI (Web, ChatGPT)' },
+  poeAiWebChatGpt_16k: { value: 'chatgpt-16k', desc: 'Poe AI (Web, ChatGPT-16k)' },
 }
 
 for (const modelName in Models) {
@@ -164,7 +168,8 @@ export const defaultConfig = {
     'bingFreeSydney',
     'poeAiWebSage',
     'poeAiWebGPT4',
-    'poeAiWebClaudePlus',
+    'poeAiWebGPT4_32k',
+    'poeAiWebClaude_2_100k',
     'poeAiWebClaude100k',
     'chatgptApi4_8k',
     'customModel',

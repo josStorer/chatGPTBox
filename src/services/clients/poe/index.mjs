@@ -135,14 +135,18 @@ export default class PoeAiClient {
       bot = 'capybara'
     } else if (bot === 'gpt-4') {
       bot = 'beaver'
+    } else if (bot === 'gpt-4-32k') {
+      bot = 'vizcacha'
     } else if (bot === 'claude-instant-100k') {
       bot = 'a2_100k'
-    } else if (bot === 'claude+') {
+    } else if (bot === 'claude-2-100k') {
       bot = 'a2_2'
-    } else if (bot === 'claude') {
+    } else if (bot === 'claude-instant') {
       bot = 'a2'
     } else if (bot === 'chatgpt') {
       bot = 'chinchilla'
+    } else if (bot === 'chatgpt-16k') {
+      bot = 'agouti'
     } else if (bot === 'Google-PaLM') {
       bot = 'acouchy'
     }

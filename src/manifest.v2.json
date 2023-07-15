@@ -57,7 +57,7 @@
     "newChat": {
       "suggested_key": {
         "default": "Ctrl+B",
-        "mac": "MacCtrl+B"
+        "mac": "MacCtrl+X"
       },
       "description": "Create a new chat"
     },

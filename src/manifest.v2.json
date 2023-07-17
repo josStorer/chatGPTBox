@@ -1,7 +1,7 @@
 {
   "name": "ChatGPTBox",
   "description": "Integrating ChatGPT into your browser deeply, everything you need is here",
-  "version": "2.3.9",
+  "version": "2.4.0",
   "manifest_version": 2,
   "icons": {
     "16": "logo.png",
@@ -57,7 +57,7 @@
     "newChat": {
       "suggested_key": {
         "default": "Ctrl+B",
-        "mac": "MacCtrl+B"
+        "mac": "MacCtrl+X"
       },
       "description": "Create a new chat"
     },

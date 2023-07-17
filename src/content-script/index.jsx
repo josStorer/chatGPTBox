@@ -313,9 +313,11 @@ async function prepareForForegroundRequests() {
 
   if (!chatgptWebModelKeys.some((model) => userConfig.activeApiModes.includes(model))) return
 
-  const div = document.createElement('div')
-  document.body.append(div)
-  render(<NotificationForChatGPTWeb container={div} />, div)
+  if (chatgptWebModelKeys.includes(userConfig.modelName)) {
+    const div = document.createElement('div')
+    document.body.append(div)
+    render(<NotificationForChatGPTWeb container={div} />, div)
+  }
 
   await Browser.runtime.sendMessage({
     type: 'SET_CHATGPT_TAB',

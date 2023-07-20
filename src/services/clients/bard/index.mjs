@@ -129,7 +129,7 @@ export default class Bard {
       conversation.r = parsedResponse.r
       conversation.rc = parsedResponse.rc
       const conversationObj = { c: conversation.c, r: conversation.r, rc: conversation.rc }
-      return { answer: parsedResponse.responses[0], conversationObj: conversationObj }
+      return { answer: parsedResponse.responses[3], conversationObj: conversationObj }
     } catch (e) {
       throw e
     }

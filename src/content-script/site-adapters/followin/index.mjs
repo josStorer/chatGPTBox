@@ -3,16 +3,23 @@ import { cropText } from '../../../utils'
 export default {
   inputQuery: async () => {
     try {
-      const title = document.querySelector('main article h1')?.textContent
-      const description = document.querySelector('#article-content')?.textContent
-      if (title && description) {
-        const author = document.querySelector('main article a > span')?.textContent
-        return await cropText(
-          `以下是一篇文章,标题是:"${title}",作者是:"${author}",内容是:\n"${description}".请以如下格式输出你的回答：
-          ======
-          {文章摘要}
+      const author = document.querySelector('main article a > span')?.textContent
+      const description =
+        document.querySelector('#article-content')?.textContent ||
+        document.querySelector('#thead-gallery')?.textContent
+      if (author && description) {
+        const title = document.querySelector('main article h1')?.textContent
+        if (title) {
+          return await cropText(
+            `以下是一篇文章,请给出文章的结论和3到5个要点.标题是:"${title}",作者是:"${author}",内容是:\n"${description}".
           `,
-        )
+          )
+        } else {
+          return await cropText(
+            `以下是一篇长推文,请给出文章的结论和3到5个要点.作者是:"${author}",内容是:\n"${description}".
+          `,
+          )
+        }
       }
     } catch (e) {
       console.log(e)

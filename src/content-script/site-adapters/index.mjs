@@ -190,6 +190,6 @@ export const config = {
     inputQuery: followin.inputQuery,
     sidebarContainerQuery: [],
     appendContainerQuery: [],
-    resultsContainerQuery: ['#article-content'],
+    resultsContainerQuery: ['#article-content', '#thead-gallery'],
   },
 }

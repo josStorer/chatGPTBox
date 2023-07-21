@@ -3,6 +3,7 @@
 
 [data-theme='auto'] {
   @import 'github-markdown-css/github-markdown.css';
+
   @media screen and (prefers-color-scheme: dark) {
     @import 'highlight.js/scss/github-dark.scss';
     --font-color: #c9d1d9;
@@ -13,6 +14,7 @@
     --color-neutral-muted: rgba(110, 118, 129, 0.4);
     --code-background-color: rgb(13, 17, 23);
   }
+
   @media screen and (prefers-color-scheme: light) {
     @import 'highlight.js/scss/github.scss';
     --font-color: #24292f;
@@ -98,26 +100,32 @@
       background-color: var(--theme-color);
       width: 9px;
     }
+
     ::-webkit-scrollbar-thumb {
       background-color: var(--theme-border-color);
       border-radius: 20px;
       border: transparent;
     }
+
     ::-webkit-scrollbar-corner {
       background: transparent;
     }
+
     &::-webkit-scrollbar {
       background-color: var(--theme-color);
       width: 9px;
     }
+
     &::-webkit-scrollbar-thumb {
       background-color: var(--theme-border-color);
       border-radius: 20px;
       border: transparent;
     }
+
     &::-webkit-scrollbar-corner {
       background: transparent;
     }
+
     p {
       color: var(--font-color);
     }
@@ -133,6 +141,7 @@
 
       li {
         counter-increment: item;
+        margin-bottom: 0px;
 
         &::marker {
           content: counter(item) '. ';
@@ -288,11 +297,13 @@
       background-color: var(--theme-color);
       width: 9px;
     }
+
     &::-webkit-scrollbar-thumb {
       background-color: var(--theme-border-color);
       border-radius: 20px;
       border: transparent;
     }
+
     &::-webkit-scrollbar-corner {
       background: transparent;
     }

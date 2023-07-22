@@ -188,6 +188,7 @@ export const defaultConfig = {
     'stackoverflow',
     'juejin',
     'mp.weixin.qq',
+    'followin',
   ],
   accessToken: '',
   tokenSavedOn: 0,
@@ -233,6 +234,7 @@ export const defaultConfig = {
     'stackoverflow',
     'juejin',
     'mp.weixin.qq',
+    'followin',
   ],
 }
 

@@ -55,7 +55,7 @@ export async function generateAnswersWithGptCompletionApi(
     }),
     onMessage(message) {
       console.debug('sse message', message)
-      if (message === '[DONE]') {
+      if (message.trim() === '[DONE]') {
         pushRecord(session, question, answer)
         console.debug('conversation history', { content: session.conversationRecords })
         port.postMessage({ answer: null, done: true, session: session })
@@ -73,6 +73,7 @@ export async function generateAnswersWithGptCompletionApi(
     },
     async onStart() {},
     async onEnd() {
+      port.postMessage({ done: true })
       port.onMessage.removeListener(messageListener)
       port.onDisconnect.removeListener(disconnectListener)
     },
@@ -122,7 +123,7 @@ export async function generateAnswersWithChatgptApi(port, question, session, api
     }),
     onMessage(message) {
       console.debug('sse message', message)
-      if (message === '[DONE]') {
+      if (message.trim() === '[DONE]') {
         pushRecord(session, question, answer)
         console.debug('conversation history', { content: session.conversationRecords })
         port.postMessage({ answer: null, done: true, session: session })
@@ -144,6 +145,7 @@ export async function generateAnswersWithChatgptApi(port, question, session, api
     },
     async onStart() {},
     async onEnd() {
+      port.postMessage({ done: true })
       port.onMessage.removeListener(messageListener)
       port.onDisconnect.removeListener(disconnectListener)
     },

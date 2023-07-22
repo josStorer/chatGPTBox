@@ -74,7 +74,7 @@ export const Models = {
   bingFree4: { value: '', desc: 'Bing (Web, GPT-4)' },
   bingFreeSydney: { value: '', desc: 'Bing (Web, GPT-4, Sydney)' },
   bardWebFree: { value: '', desc: 'Bard (Web)' },
-  poeAiWebSage: { value: 'sage', desc: 'Poe AI (Web, Sage)' },
+  poeAiWebSage: { value: 'Assistant', desc: 'Poe AI (Web, Assistant)' },
   poeAiWebGPT4: { value: 'gpt-4', desc: 'Poe AI (Web, GPT-4)' },
   poeAiWebGPT4_32k: { value: 'gpt-4-32k', desc: 'Poe AI (Web, GPT-4-32k)' },
   poeAiWebClaudePlus: { value: 'claude-2-100k', desc: 'Poe AI (Web, Claude 2 100k)' },

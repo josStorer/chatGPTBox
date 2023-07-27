@@ -45,7 +45,7 @@ export const customApiModelKeys = ['customModel']
 export const azureOpenAiApiModelKeys = ['azureOpenAi']
 export const githubThirdPartyApiModelKeys = ['waylaidwandererApi']
 export const poeWebModelKeys = [
-  'poeAiWebSage',
+  'poeAiWebSage', //poe.com/Assistant
   'poeAiWebGPT4',
   'poeAiWebGPT4_32k',
   'poeAiWebClaudePlus',
@@ -55,6 +55,9 @@ export const poeWebModelKeys = [
   'poeAiWebChatGpt',
   'poeAiWebChatGpt_16k',
   'poeAiWebGooglePaLM',
+  'poeAiWeb_Llama_2_7b',
+  'poeAiWeb_Llama_2_13b',
+  'poeAiWeb_Llama_2_70b',
 ]
 
 /**
@@ -88,6 +91,9 @@ export const Models = {
   poeAiWebClaude: { value: 'claude-instant', desc: 'Poe AI (Web, Claude instant)' },
   poeAiWebClaude100k: { value: 'claude-instant-100k', desc: 'Poe AI (Web, Claude instant 100k)' },
   poeAiWebGooglePaLM: { value: 'Google-PaLM', desc: 'Poe AI (Web, Google-PaLM)' },
+  poeAiWeb_Llama_2_7b: { value: 'Llama-2-7b', desc: 'Poe AI (Web, Llama-2-7b)' },
+  poeAiWeb_Llama_2_13b: { value: 'Llama-2-13b', desc: 'Poe AI (Web, Llama-2-13b)' },
+  poeAiWeb_Llama_2_70b: { value: 'Llama-2-70b', desc: 'Poe AI (Web, Llama-2-70b)' },
   chatgptApi4_8k: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k)' },
   chatgptApi4_8k_0613: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k 0613)' },
   chatgptApi4_32k: { value: 'gpt-4-32k', desc: 'ChatGPT (GPT-4-32k)' },
@@ -175,7 +181,7 @@ export const defaultConfig = {
     'chatgptApi35_16k',
     'bingFree4',
     'bingFreeSydney',
-    'poeAiWebSage',
+    'poeAiWebSage', //poe.com/Assistant
     'poeAiWebGPT4',
     'poeAiWebGPT4_32k',
     'poeAiWebClaudePlus',

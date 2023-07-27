@@ -149,6 +149,12 @@ export default class PoeAiClient {
       bot = 'agouti'
     } else if (bot === 'Google-PaLM') {
       bot = 'acouchy'
+    } else if (bot === 'Llama-2-7b') {
+      bot = 'llama_2_7b_chat'
+    } else if (bot === 'Llama-2-13b') {
+      bot = 'llama_2_13b_chat'
+    } else if (bot === 'Llama-2-70b') {
+      bot = 'llama_2_70b_chat'
     }
 
     this.bot = bot

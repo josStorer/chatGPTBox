@@ -31,7 +31,7 @@ export default class PoeAiClient {
       await this.getCredentials()
     }
     if (!this.bot) {
-      await this.initBot(model || 'sage')
+      await this.initBot(model || 'Assistant')
     }
     if (!this.chatId) {
       await this.getChatId(this.bot)
@@ -131,7 +131,7 @@ export default class PoeAiClient {
   }
 
   async initBot(bot) {
-    if (bot === 'sage') {
+    if (bot === 'Assistant') {
       bot = 'capybara'
     } else if (bot === 'gpt-4') {
       bot = 'beaver'

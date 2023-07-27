@@ -36,7 +36,7 @@ export async function generateAnswersWithWaylaidwandererApi(port, question, sess
     }),
     onMessage(message) {
       console.debug('sse message', message)
-      if (message === '[DONE]') {
+      if (message.trim() === '[DONE]') {
         pushRecord(session, question, answer)
         console.debug('conversation history', { content: session.conversationRecords })
         port.postMessage({ answer: null, done: true, session: session })
@@ -64,6 +64,7 @@ export async function generateAnswersWithWaylaidwandererApi(port, question, sess
     },
     async onStart() {},
     async onEnd() {
+      port.postMessage({ done: true })
       port.onMessage.removeListener(messageListener)
       port.onDisconnect.removeListener(disconnectListener)
     },

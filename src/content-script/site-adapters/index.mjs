@@ -9,6 +9,7 @@ import quora from './quora'
 import stackoverflow from './stackoverflow'
 import juejin from './juejin'
 import weixin from './weixin'
+import followin from './followin'
 
 /**
  * @typedef {object} SiteConfigAction
@@ -184,5 +185,11 @@ export const config = {
     sidebarContainerQuery: ['.qr_code_pc', '#js_content'],
     appendContainerQuery: [],
     resultsContainerQuery: ['#js_content'],
+  },
+  followin: {
+    inputQuery: followin.inputQuery,
+    sidebarContainerQuery: [],
+    appendContainerQuery: [],
+    resultsContainerQuery: ['#article-content', '#thead-gallery'],
   },
 }

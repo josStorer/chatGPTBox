@@ -59,6 +59,7 @@ export async function generateAnswersWithAzureOpenaiApi(port, question, session)
       },
       async onStart() {},
       async onEnd() {
+        port.postMessage({ done: true })
         port.onMessage.removeListener(messageListener)
         port.onDisconnect.removeListener(disconnectListener)
       },

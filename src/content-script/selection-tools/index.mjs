@@ -17,7 +17,7 @@ export const config = {
     label: 'Explain',
     genPrompt: async (selection) => {
       const preferredLanguage = await getPreferredLanguage()
-      return `Reply in ${preferredLanguage}.Explain the following please:\n"${selection}"`
+      return `Reply in ${preferredLanguage}.Explain the following:\n"${selection}"`
     },
   },
   translate: {

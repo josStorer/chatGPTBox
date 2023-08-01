@@ -215,6 +215,7 @@ export const defaultConfig = {
   userLanguage: getNavigatorLanguage(),
   apiModes: Object.keys(Models),
   selectionTools: [
+    'explain',
     'translate',
     'translateToEn',
     'translateToZh',
@@ -227,6 +228,7 @@ export const defaultConfig = {
     'ask',
   ],
   selectionToolsDesc: [
+    'Explain',
     'Translate',
     'Translate (To English)',
     'Translate (Bidirectional)',

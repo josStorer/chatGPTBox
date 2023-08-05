@@ -7,10 +7,19 @@ import {
   Translate,
   Braces,
   Globe,
+  ChatTextFill,
 } from 'react-bootstrap-icons'
 import { getPreferredLanguage } from '../../config/language.mjs'
 
 export const config = {
+  explain: {
+    icon: <ChatTextFill />,
+    label: 'Explain',
+    genPrompt: async (selection) => {
+      const preferredLanguage = await getPreferredLanguage()
+      return `Reply in ${preferredLanguage}.Explain the following:\n"${selection}"`
+    },
+  },
   translate: {
     icon: <Translate />,
     label: 'Translate',

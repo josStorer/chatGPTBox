@@ -123,5 +123,6 @@
   "Bing CaptchaChallenge": "你必须通过必应的验证, 打开 https://www.bing.com/search?q=Bing+AI&showconv=1&FORM=hpcodx 并发送一条消息",
   "Exceeded quota": "余额不足或过期, 检查此链接: https://platform.openai.com/account/usage",
   "Rate limit": "请求频率过高",
-  "Jump to bottom": "跳转到底部"
+  "Jump to bottom": "跳转到底部",
+  "Explain": "解释"
 }

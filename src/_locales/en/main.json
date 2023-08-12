@@ -123,5 +123,6 @@
   "Bing CaptchaChallenge": "You must pass Bing's verification. Please go to https://www.bing.com/search?q=Bing+AI&showconv=1&FORM=hpcodx and send a message",
   "Exceeded quota": "You exceeded your current quota, check https://platform.openai.com/account/usage",
   "Rate limit": "Rate limit exceeded",
-  "Jump to bottom": "Jump to bottom"
+  "Jump to bottom": "Jump to bottom",
+  "Explain": "Explain"
 }

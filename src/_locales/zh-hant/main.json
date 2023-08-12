@@ -123,5 +123,6 @@
   "Bing CaptchaChallenge": "你必須通過 Bing 的驗證機制, 打開 https://www.bing.com/search?q=Bing+AI&showconv=1&FORM=hpcodx 並發送一則訊息",
   "Exceeded quota": "您已超出目前的使用額度，請至 OpenAI Usage 頁面請確認您的方案和帳單詳細資訊: https://platform.openai.com/account/usage",
   "Rate limit": "請求太頻繁，超過限制次數",
-  "Jump to bottom": "轉跳至底部"
+  "Jump to bottom": "轉跳至底部",
+  "Explain": "解釋"
 }

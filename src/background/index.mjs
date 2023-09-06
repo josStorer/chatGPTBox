@@ -83,7 +83,7 @@ async function executeApi(session, port, config) {
       const accessToken = await getChatGptAccessToken()
       await generateAnswersWithChatgptWebApi(port, session.question, session, accessToken)
     }
-  } else if (bingWebModelKeys.some((n) => session.modelName.includes(n))) {
+  } else if (bingWebModelKeys.includes(session.modelName)) {
     const accessToken = await getBingAccessToken()
     if (session.modelName.includes('bingFreeSydney'))
       await generateAnswersWithBingWebApi(port, session.question, session, accessToken, true)
@@ -192,8 +192,48 @@ Browser.runtime.onMessage.addListener(async (message, sender) => {
       }
       break
     }
+    case 'FETCH': {
+      if (message.data.input.includes('bing.com')) {
+        const accessToken = await getBingAccessToken()
+        await setUserConfig({ bingAccessToken: accessToken })
+      }
+
+      try {
+        const response = await fetch(message.data.input, message.data.init)
+        const text = await response.text()
+        return [
+          {
+            body: text,
+            status: response.status,
+            statusText: response.statusText,
+          },
+          null,
+        ]
+      } catch (error) {
+        return [null, error]
+      }
+    }
   }
 })
+
+Browser.webRequest.onBeforeSendHeaders.addListener(
+  (details) => {
+    const headers = details.requestHeaders
+    for (let i = 0; i < headers.length; i++) {
+      if (headers[i].name === 'Origin') {
+        headers[i].value = 'https://www.bing.com'
+      } else if (headers[i].name === 'Referer') {
+        headers[i].value = 'https://www.bing.com/search?q=Bing+AI&showconv=1&FORM=hpcodx'
+      }
+    }
+    return { requestHeaders: headers }
+  },
+  {
+    urls: ['wss://sydney.bing.com/*', 'https://www.bing.com/*'],
+    types: ['xmlhttprequest', 'websocket'],
+  },
+  ['requestHeaders'],
+)
 
 registerPortListener(async (session, port, config) => await executeApi(session, port, config))
 registerCommands()

@@ -8,14 +8,14 @@
 
 Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
-[![license][license-image]][license-url]
-[![release][release-image]][release-url]
-[![size](https://img.shields.io/badge/minified%20size-370%20kB-blue)][release-url]
-[![verfiy][verify-image]][verify-url]
+[![lisensi][license-image]][license-url]
+[![rilis][release-image]][release-url]
+[![ukuran](https://img.shields.io/badge/minified%20size-370%20kB-blue)][release-url]
+[![verifikasi][verify-image]][verify-url]
 
 [Inggris](README.md) &nbsp;&nbsp;|&nbsp;&nbsp; Indonesia &nbsp;&nbsp;|&nbsp;&nbsp; [简体中文](README_ZH.md)
 
-### Install
+### Instal
 
 [![Chrome][Chrome-image]][Chrome-url]
 [![Edge][Edge-image]][Edge-url]
@@ -24,7 +24,7 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 [![Android][Android-image]][Android-url]
 [![Github][Github-image]][Github-url]
 
-[Panduan](https://github.com/josStorer/chatGPTBox/wiki/Guide) &nbsp;&nbsp;|&nbsp;&nbsp; [Pratinjau](#Pratinjau) &nbsp;&nbsp;|&nbsp;&nbsp; [Pengembangan & Berkontribusi][dev-url] &nbsp;&nbsp;|&nbsp;&nbsp; [Demonstrasi Video](https://www.youtube.com/watch?v=E1smDxJvTRs) &nbsp;&nbsp;|&nbsp;&nbsp; [Kredit](#Kredit)
+[Panduan](https://github.com/josStorer/chatGPTBox/wiki/Guide) &nbsp;&nbsp;|&nbsp;&nbsp; [Pratinjau](#Pratinjau) &nbsp;&nbsp;|&nbsp;&nbsp; [Pengembangan&Berkontribusi][dev-url] &nbsp;&nbsp;|&nbsp;&nbsp; [Demonstrasi Video](https://www.youtube.com/watch?v=E1smDxJvTRs) &nbsp;&nbsp;|&nbsp;&nbsp; [Kredit](#Kredit)
 
 [dev-url]: https://github.com/josStorer/chatGPTBox/wiki/Development&Contributing
 
@@ -64,15 +64,17 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
 [Github-url]: https://github.com/josStorer/chatGPTBox/wiki/Install
 
-#### Proyek baru saya [RWKV-Runner](https://github.com/josStorer/RWKV-Runner) telah dirilis, sebuah alat model bahasa besar sumber terbuka yang tersedia secara komersial dan dapat diterapkan dengan sekali klik yang dapat digunakan bersama dengan ChatGPTBox.
+#### Proyek baru saya [RWKV-Runner](https://github.com/josStorer/RWKV-Runner) telah dirilis, alat model bahasa besar sumber terbuka yang dapat digunakan secara komersial dan dapat dideploy dengan satu klik, yang dapat digunakan bersama dengan ChatGPTBox.
 
 </div>
 
 ## Berita
 
-- Ekstensi ini **tidak** mengumpulkan data Anda. Anda dapat memverifikasinya dengan melakukan pencarian global untuk `fetch(` dan `XMLHttpRequest(` dalam kode untuk menemukan semua panggilan permintaan jaringan. Jumlah kode tidak banyak, jadi mudah untuk melakukannya.
+- Ekstensi ini **tidak** mengumpulkan data Anda. Anda dapat memverifikasinya dengan melakukan pencarian global untuk `fetch(` dan `XMLHttpRequest(` dalam kode untuk menemukan semua panggilan permintaan jaringan. Jumlah kode tidak banyak, jadi mudah dilakukan.
 
-- Anda dapat mengatur proxy balik gratis di Pengaturan Lanjutan untuk menghindari cloudflare: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
+- Alat ini tidak akan mengirimkan data apa pun ke ChatGPT kecuali jika Anda secara eksplisit memintanya. Secara default, ekstensi harus diaktifkan secara manual. Hanya akan mengirimkan permintaan ke ChatGPT jika Anda mengklik "Ask ChatGPT" atau memicu alat seleksi mengambang — dan ini hanya berlaku saat Anda menggunakan mode API GPT. (issue #407)
+
+- Anda dapat mengatur proxy balik gratis dalam pengaturan Lanjutan untuk menghindari cloudflare: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
 
 - Model Offline/Self-hosted (RWKV, llama.cpp, ChatGLM) sekarang didukung, Lihat https://github.com/josStorer/selfhostedAI
 
@@ -87,24 +89,24 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 - 🔍 Integrasi dengan semua mesin pencari utama, dan permintaan kustom untuk mendukung situs tambahan.
 - 🧰 Alat pemilihan dan menu klik kanan untuk melakukan berbagai tugas, seperti terjemahan, ringkasan, penyempurnaan,
   analisis sentimen, pembagian paragraf, penjelasan kode, dan permintaan.
-- 🗂️ Dukungan kartu statis untuk kotak percakapan bercabang.
+- 🗂️ Dukungan kartu statis untuk kotak obrolan mengambang untuk percakapan bercabang.
 - 🖨️ Mudah menyimpan catatan percakapan lengkap atau menyalinnya sebagian.
-- 🎨 Dukungan rendering yang kuat, baik untuk penyorotan kode maupun rumus matematika kompleks.
+- 🎨 Dukungan rendering yang kuat, baik untuk penyorotan kode maupun rumus matematika yang kompleks.
 - 🌍 Dukungan preferensi bahasa.
 - 📝 Dukungan alamat API kustom.
 - ⚙️ Semua adaptasi situs dan alat pemilihan (gelembung) dapat dinonaktifkan atau diaktifkan secara bebas, nonaktifkan modul yang tidak diperlukan.
-- 💡 Alat pemilihan dan adaptasi situs mudah untuk dikembangkan dan diperluas, lihat bagian [Pengembangan & Berkontribusi][dev-url].
-- 😉 Berbicara untuk meningkatkan kualitas jawaban.
+- 💡 Alat pemilihan dan adaptasi situs mudah dikembangkan dan diperluas, lihat bagian [Pengembangan & Berkontribusi][dev-url].
+- 😉 Berbicaralah untuk meningkatkan kualitas jawaban.
 
 ## Pratinjau
 
 <div align="center">
 
-**Integrasi Mesin Pencari, Jendela Mengapung, Percakapan Cabang**
+**Integrasi Mesin Pencari, Jendela Mengambang, Percakapan Bercabang**
 
 ![preview_google_floatingwindow_conversationbranch](screenshots/preview_google_floatingwindow_conversationbranch.jpg)
 
-**Integrasi dengan Situs Web yang Umum Digunakan, Alat Pemilihan**
+**Integrasi dengan Situs Web yang Sering Digunakan, Alat Pemilihan**
 
 ![preview_reddit_selectiontools](screenshots/preview_reddit_selectiontools.jpg)
 
@@ -120,7 +122,7 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
 ![preview_youtube](screenshots/preview_youtube.jpg)
 
-**Dukungan Perangkat Mobile**
+**Dukungan untuk Perangkat Mobile**
 
 ![image](https://user-images.githubusercontent.com/13366013/225529110-9221c8ce-ad41-423e-b6ec-097981e74b66.png)
 
@@ -134,9 +136,9 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
 Proyek ini didasarkan pada salah satu repositori saya yang lain, [josStorer/chatGPT-search-engine-extension](https://github.com/josStorer/chatGPT-search-engine-extension)
 
-[josStorer/chatGPT-search-engine-extension](https://github.com/josStorer/chatGPT-search-engine-extension) bercabang
-dari [wong2/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension) (Saya belajar banyak dari situ)
-dan terlepas sejak 14 Desember 2022
+[josStorer/chatGPT-search-engine-extension](https://github.com/josStorer/chatGPT-search-engine-extension) diambil dari
+[wong2/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension) (Saya banyak belajar dari itu)
+dan terpisah sejak 14 Desember 2022
 
-[wong2/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension) terinspirasi
-oleh [ZohaibAhmed/ChatGPT-Google](https://github.com/ZohaibAhmed/ChatGPT-Google) ([upstream-c54528b](https://github.com/wong2/chatgpt-google-extension/commit/c54528b0e13058ab78bfb433c92603db017d1b6b))
+[wong2/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension) terinspirasi oleh
+[ZohaibAhmed/ChatGPT-Google](https://github.com/ZohaibAhmed/ChatGPT-Google) ([upstream-c54528b](https://github.com/wong2/chatgpt-google-extension/commit/c54528b0e13058ab78bfb433c92603db017d1b6b))

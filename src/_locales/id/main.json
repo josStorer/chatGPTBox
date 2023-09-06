@@ -55,6 +55,7 @@
   "Translate": "Terjemahkan",
   "Translate (Bidirectional)": "Terjemahkan (Dua Arah)",
   "Translate (To English)": "Terjemahkan (ke Bahasa Inggris)",
+  "Translate (To Chinese)": "Terjemahkan (ke Bahasa China)",													 
   "Summary": "Ringkasan",
   "Polish": "Perbaikan",
   "Sentiment Analysis": "Analisis Sentimen",
@@ -122,4 +123,5 @@
   "Bing CaptchaChallenge": "Anda harus melewati verifikasi Bing. Silakan pergi ke https://www.bing.com/search?q=Bing+AI&showconv=1&FORM=hpcodx dan kirim pesan",
   "Exceeded quota": "Anda telah melebihi kuota saat ini, periksa https://platform.openai.com/account/usage",
   "Rate limit": "Batas penggunaan terlampaui"
+  "Jump to bottom": "Lompat ke bawah"									
 }

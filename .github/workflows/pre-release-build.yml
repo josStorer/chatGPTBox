@@ -45,12 +45,12 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: Chromium_Build_WithoutKatex_${{ steps.current-time.outputs.formattedTime }}
-          path: build/chromium-without-katex/*
+          path: build/chromium-without-katex-and-tiktoken/*
 
       - uses: actions/upload-artifact@v3
         with:
           name: Firefox_Build_WithoutKatex_${{ steps.current-time.outputs.formattedTime }}
-          path: build/firefox-without-katex/*
+          path: build/firefox-without-katex-and-tiktoken/*
 
       - uses: marvinpinto/action-automatic-releases@v1.2.1
         with:
@@ -61,5 +61,5 @@ jobs:
           files: |
             build/chromium.zip
             build/firefox.zip
-            build/chromium-without-katex.zip
-            build/firefox-without-katex.zip
+            build/chromium-without-katex-and-tiktoken.zip
+            build/firefox-without-katex-and-tiktoken.zip

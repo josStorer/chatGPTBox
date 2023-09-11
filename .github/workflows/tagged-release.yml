@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: master
 

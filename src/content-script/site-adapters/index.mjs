@@ -91,7 +91,7 @@ export const config = {
   },
   brave: {
     inputQuery: ["input[name='q']"],
-    sidebarContainerQuery: ['#side-right'],
+    sidebarContainerQuery: ['.sidebar'],
     appendContainerQuery: [],
     resultsContainerQuery: ['#results'],
   },

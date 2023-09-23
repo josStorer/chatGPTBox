@@ -101,7 +101,7 @@ function ConversationCard(props) {
   useEffect(async () => {
     // when the page is responsive, session may accumulate redundant data and needs to be cleared after remounting and before making a new request
     if (props.question) {
-      const newSession = initSession({ question: props.question })
+      const newSession = initSession({ ...session, question: props.question })
       setSession(newSession)
       await postMessage({ session: newSession })
     }

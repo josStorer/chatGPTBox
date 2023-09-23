@@ -73,7 +73,7 @@ async function mountComponent(siteConfig, userConfig) {
   container.id = 'chatgptbox-container'
   render(
     <DecisionCard
-      session={initSession()}
+      session={initSession({ modelName: (await getUserConfig()).modelName })}
       question={question}
       siteConfig={siteConfig}
       container={container}
@@ -113,11 +113,11 @@ const deleteToolbar = () => {
     toolbarContainer.remove()
 }
 
-const createSelectionTools = (toolbarContainer, selection) => {
+const createSelectionTools = async (toolbarContainer, selection) => {
   toolbarContainer.className = 'chatgptbox-toolbar-container'
   render(
     <FloatingToolbar
-      session={initSession()}
+      session={initSession({ modelName: (await getUserConfig()).modelName })}
       selection={selection}
       container={toolbarContainer}
       dockable={true}
@@ -159,7 +159,7 @@ async function prepareForSelectionTools() {
           }
         }
         toolbarContainer = createElementAtPosition(position.x, position.y)
-        createSelectionTools(toolbarContainer, selection)
+        await createSelectionTools(toolbarContainer, selection)
       }
     })
   })

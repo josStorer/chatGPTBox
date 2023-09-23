@@ -25,6 +25,7 @@ import { v4 as uuidv4 } from 'uuid'
  * @property {Object|null} bingWeb_jailbreakConversationCache
  * @property {number|null} poe_chatId
  * @property {object|null} bard_conversationObj
+ * @property {object|null} claude_conversation
  */
 /**
  * @param {string|null} question
@@ -78,5 +79,8 @@ export function initSession({
 
     // bard
     bard_conversationObj: null,
+
+    // claude.ai
+    claude_conversation: null,
   }
 }

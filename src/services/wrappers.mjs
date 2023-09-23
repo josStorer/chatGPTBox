@@ -40,6 +40,10 @@ export async function getBardCookies() {
   return '__Secure-1PSID=' + token
 }
 
+export async function getClaudeSessionKey() {
+  return (await Browser.cookies.get({ url: 'https://claude.ai/', name: 'sessionKey' }))?.value
+}
+
 export function registerPortListener(executor) {
   Browser.runtime.onConnect.addListener((port) => {
     console.debug('connected')

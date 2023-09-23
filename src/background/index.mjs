@@ -19,6 +19,7 @@ import {
   bingWebModelKeys,
   chatgptApiModelKeys,
   chatgptWebModelKeys,
+  claudeWebModelKeys,
   customApiModelKeys,
   defaultConfig,
   getUserConfig,
@@ -34,11 +35,13 @@ import {
   getBardCookies,
   getBingAccessToken,
   getChatGptAccessToken,
+  getClaudeSessionKey,
   registerPortListener,
 } from '../services/wrappers.mjs'
 import { refreshMenu } from './menus.mjs'
 import { registerCommands } from './commands.mjs'
 import { generateAnswersWithBardWebApi } from '../services/apis/bard-web.mjs'
+import { generateAnswersWithClaudeWebApi } from '../services/apis/claude-web.mjs'
 
 function setPortProxy(port, proxyTabId) {
   port.proxy = Browser.tabs.connect(proxyTabId)
@@ -123,6 +126,9 @@ async function executeApi(session, port, config) {
   } else if (bardWebModelKeys.includes(session.modelName)) {
     const cookies = await getBardCookies()
     await generateAnswersWithBardWebApi(port, session.question, session, cookies)
+  } else if (claudeWebModelKeys.includes(session.modelName)) {
+    const sessionKey = await getClaudeSessionKey()
+    await generateAnswersWithClaudeWebApi(port, session.question, session, sessionKey)
   }
 }
 

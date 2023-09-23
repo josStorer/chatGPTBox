@@ -22,6 +22,7 @@
     "@nem035/gpt-3-encoder": "^1.1.7",
     "@picocss/pico": "^1.5.9",
     "@primer/octicons-react": "^18.3.0",
+    "claude-ai": "^1.2.2",
     "countries-list": "^2.6.1",
     "diff": "^5.1.0",
     "eventsource-parser": "^1.0.0",

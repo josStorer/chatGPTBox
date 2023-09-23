@@ -4,7 +4,7 @@ import { isFirefox, isMobile, isSafari, updateRefHeight } from '../../utils'
 import { useTranslation } from 'react-i18next'
 import { getUserConfig } from '../../config/index.mjs'
 
-export function InputBox({ onSubmit, enabled, port, reverseResizeDir }) {
+export function InputBox({ onSubmit, enabled, postMessage, reverseResizeDir }) {
   const { t } = useTranslation()
   const [value, setValue] = useState('')
   const reverseDivRef = useRef(null)
@@ -62,7 +62,7 @@ export function InputBox({ onSubmit, enabled, port, reverseResizeDir }) {
         onSubmit(value)
         setValue('')
       } else {
-        port.postMessage({ stop: true })
+        postMessage({ stop: true })
       }
     }
   }
@@ -117,7 +117,7 @@ InputBox.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   enabled: PropTypes.bool.isRequired,
   reverseResizeDir: PropTypes.bool,
-  port: PropTypes.object.isRequired,
+  postMessage: PropTypes.func.isRequired,
 }
 
 export default InputBox

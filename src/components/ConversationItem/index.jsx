@@ -9,7 +9,7 @@ import { isUsingCustomModel } from '../../config/index.mjs'
 import { useConfig } from '../../hooks/use-config.mjs'
 
 // eslint-disable-next-line
-export function ConversationItem({ type, content, session, done, port, onRetry }) {
+export function ConversationItem({ type, content, session, onRetry }) {
   const { t } = useTranslation()
   const [collapsed, setCollapsed] = useState(false)
   const config = useConfig()
@@ -129,8 +129,6 @@ ConversationItem.propTypes = {
   type: PropTypes.oneOf(['question', 'answer', 'error']).isRequired,
   content: PropTypes.string.isRequired,
   session: PropTypes.object.isRequired,
-  done: PropTypes.bool.isRequired,
-  port: PropTypes.object.isRequired,
   onRetry: PropTypes.func,
 }
 

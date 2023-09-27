@@ -4,6 +4,7 @@ import { openUrl } from '../../utils/index.mjs'
 import {
   isUsingApiKey,
   isUsingAzureOpenAi,
+  isUsingClaude2Api,
   isUsingCustomModel,
   isUsingCustomNameOnlyModel,
   isUsingGithubThirdPartyApi,
@@ -142,6 +143,7 @@ export function GeneralPart({ config, updateConfig }) {
               isUsingMultiModeModel(config) ||
               isUsingCustomModel(config) ||
               isUsingAzureOpenAi(config) ||
+              isUsingClaude2Api(config) ||
               isUsingCustomNameOnlyModel(config)
                 ? 'width: 50%;'
                 : undefined
@@ -256,6 +258,18 @@ export function GeneralPart({ config, updateConfig }) {
               onChange={(e) => {
                 const apiKey = e.target.value
                 updateConfig({ azureApiKey: apiKey })
+              }}
+            />
+          )}
+          {isUsingClaude2Api(config) && (
+            <input
+              type="password"
+              style="width: 50%;"
+              value={config.claudeApiKey}
+              placeholder={t('Claude API Key')}
+              onChange={(e) => {
+                const apiKey = e.target.value
+                updateConfig({ claudeApiKey: apiKey })
               }}
             />
           )}

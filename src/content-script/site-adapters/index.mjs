@@ -72,8 +72,8 @@ export const config = {
     },
   },
   kagi: {
-    inputQuery: ["input[name='q']"],
-    sidebarContainerQuery: ['.right-content-box._0_right_sidebar'],
+    inputQuery: ["textarea[name='q']"],
+    sidebarContainerQuery: ['.right-content-box'],
     appendContainerQuery: ['#_0_app_content'],
     resultsContainerQuery: ['#main', '#app'],
   },

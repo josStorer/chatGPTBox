@@ -8,6 +8,7 @@ import ja from './ja/main.json'
 import ko from './ko/main.json'
 import pt from './pt/main.json'
 import ru from './ru/main.json'
+import tr from './tr/main.json'
 import zhHans from './zh-hans/main.json'
 import zhHant from './zh-hant/main.json'
 
@@ -41,6 +42,9 @@ export const resources = {
   },
   ru: {
     translation: ru,
+  },
+  tr: {
+    translation: tr,
   },
   zh: {
     translation: zhHans,

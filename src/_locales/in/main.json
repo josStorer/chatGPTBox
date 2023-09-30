@@ -54,7 +54,8 @@
   "Summarize Page": "Ringkasan Halaman",
   "Translate": "Terjemahkan",
   "Translate (Bidirectional)": "Terjemahkan (Dua Arah)",
-  "Translate (To English)": "Terjemahkan (ke Bahasa Inggris)",
+  "Translate (To English)": "Terjemahkan (Ke Bahasa Inggris)",
+  "Translate (To Chinese)": "Terjemahkan (Ke Bahasa Tionghoa)",
   "Summary": "Ringkasan",
   "Polish": "Perbaikan",
   "Sentiment Analysis": "Analisis Sentimen",
@@ -121,5 +122,7 @@
   "Focus to input box after answering": "Fokus pada kotak masukan setelah menjawab",
   "Bing CaptchaChallenge": "Anda harus melewati verifikasi Bing. Silakan pergi ke https://www.bing.com/search?q=Bing+AI&showconv=1&FORM=hpcodx dan kirim pesan",
   "Exceeded quota": "Anda telah melebihi kuota saat ini, periksa https://platform.openai.com/account/usage",
-  "Rate limit": "Batas penggunaan terlampaui"
+  "Rate limit": "Batas penggunaan terlampaui",
+  "Jump to bottom": "Lompat ke bawah",
+  "Explain": "Jelaskan"
 }

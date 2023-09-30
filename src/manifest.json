@@ -12,7 +12,6 @@
   "host_permissions": [
     "https://*.openai.com/*",
     "https://*.bing.com/*",
-    "wss://*.bing.com/*",
     "https://*.poe.com/*",
     "https://*.google.com/*",
     "https://claude.ai/*",

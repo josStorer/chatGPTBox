@@ -11,6 +11,7 @@ const adapters = {
   csdn: ['#content_views'],
   bing: ['#b_results'],
   wikipedia: ['#mw-content-text'],
+  faz: ['.atc-Text'],
 }
 
 function findLargestElement(e) {

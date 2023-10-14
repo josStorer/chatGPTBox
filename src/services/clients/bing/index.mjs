@@ -118,23 +118,33 @@ export default class BingAIClient {
     // } else {
     //   fetchOptions.dispatcher = new Agent({ connect: { timeout: 20_000 } })
     // }
-    const response = await fetchBg(`${this.options.host}/turing/conversation/create`, fetchOptions)
+    const response = await fetchBg(
+      `${this.options.host}/turing/conversation/create?bundleVersion=1.864.15`,
+      fetchOptions,
+    )
     const body = await response.text()
     try {
-      return JSON.parse(body)
+      const res = JSON.parse(body)
+      res.encryptedConversationSignature =
+        response.headers.get('x-sydney-encryptedconversationsignature') ?? null
+      return res
     } catch (err) {
       throw new Error(`/turing/conversation/create: failed to parse response body.\n${body}`)
     }
   }
 
-  async createWebSocketConnection() {
+  async createWebSocketConnection(encryptedConversationSignature) {
     return new Promise((resolve, reject) => {
       // let agent
       // if (this.options.proxy) {
       //   agent = new HttpsProxyAgent(this.options.proxy)
       // }
 
-      const ws = new WebSocket('wss://sydney.bing.com/sydney/ChatHub')
+      const ws = new WebSocket(
+        `wss://sydney.bing.com/sydney/ChatHub?sec_access_token=${encodeURIComponent(
+          encryptedConversationSignature,
+        )}`,
+      )
 
       ws.onerror = (err) => {
         reject(err)
@@ -201,7 +211,7 @@ export default class BingAIClient {
     let {
       jailbreakConversationId = false, // set to `true` for the first message to enable jailbreak mode
       conversationId,
-      conversationSignature,
+      encryptedConversationSignature,
       clientId,
       onProgress,
     } = opts
@@ -219,13 +229,18 @@ export default class BingAIClient {
       onProgress = () => {}
     }
 
-    if (jailbreakConversationId || !conversationSignature || !conversationId || !clientId) {
+    if (
+      jailbreakConversationId ||
+      !encryptedConversationSignature ||
+      !conversationId ||
+      !clientId
+    ) {
       const createNewConversationResponse = await this.createNewConversation()
       if (this.debug) {
         console.debug(createNewConversationResponse)
       }
       if (
-        !createNewConversationResponse.conversationSignature ||
+        !createNewConversationResponse.encryptedConversationSignature ||
         !createNewConversationResponse.conversationId ||
         !createNewConversationResponse.clientId
       ) {
@@ -240,7 +255,8 @@ export default class BingAIClient {
         )
       }
       // eslint-disable-next-line
-      ;({ conversationSignature, conversationId, clientId } = createNewConversationResponse)
+      ;({ encryptedConversationSignature, conversationId, clientId } =
+        createNewConversationResponse)
     }
 
     // Due to this jailbreak, the AI will occasionally start responding as the user. It only happens rarely (and happens with the non-jailbroken Bing too), but since we are handling conversations ourselves now, we can use this system to ignore the part of the generated message that is replying as the user.
@@ -319,7 +335,7 @@ export default class BingAIClient {
       conversation.messages.push(userMessage)
     }
 
-    const ws = await this.createWebSocketConnection()
+    const ws = await this.createWebSocketConnection(encryptedConversationSignature)
 
     ws.onerror = (error) => {
       console.error(error)
@@ -367,7 +383,7 @@ export default class BingAIClient {
               : message,
             messageType: jailbreakConversationId ? 'SearchQuery' : 'Chat',
           },
-          conversationSignature,
+          encryptedConversationSignature,
           participant: {
             id: clientId,
           },
@@ -604,7 +620,7 @@ export default class BingAIClient {
 
     const returnData = {
       conversationId,
-      conversationSignature,
+      encryptedConversationSignature,
       clientId,
       invocationId: invocationId + 1,
       conversationExpiryTime,

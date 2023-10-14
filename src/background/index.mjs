@@ -216,6 +216,7 @@ Browser.runtime.onMessage.addListener(async (message, sender) => {
             body: text,
             status: response.status,
             statusText: response.statusText,
+            headers: Object.fromEntries(response.headers),
           },
           null,
         ]

@@ -23,9 +23,9 @@ export async function generateAnswersWithWaylaidwandererApi(port, question, sess
     body: JSON.stringify({
       message: question,
       stream: true,
-      ...(session.bingWeb_conversationSignature && {
+      ...(session.bingWeb_encryptedConversationSignature && {
         conversationId: session.bingWeb_conversationId,
-        conversationSignature: session.bingWeb_conversationSignature,
+        encryptedConversationSignature: session.bingWeb_encryptedConversationSignature,
         clientId: session.bingWeb_clientId,
         invocationId: session.bingWeb_invocationId,
       }),
@@ -51,8 +51,8 @@ export async function generateAnswersWithWaylaidwandererApi(port, question, sess
       }
       if (data.conversationId) session.conversationId = data.conversationId
       if (data.parentMessageId) session.parentMessageId = data.parentMessageId
-      if (data.conversationSignature)
-        session.bingWeb_conversationSignature = data.conversationSignature
+      if (data.encryptedConversationSignature)
+        session.bingWeb_encryptedConversationSignature = data.encryptedConversationSignature
       if (data.conversationId) session.bingWeb_conversationId = data.conversationId
       if (data.clientId) session.bingWeb_clientId = data.clientId
       if (data.invocationId) session.bingWeb_invocationId = data.invocationId

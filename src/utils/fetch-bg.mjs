@@ -22,6 +22,7 @@ export function fetchBg(input, init) {
             new Response(body, {
               status: response.status,
               statusText: response.statusText,
+              headers: new Headers(response.headers),
             }),
           )
         }

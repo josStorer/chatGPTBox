@@ -16,7 +16,7 @@ import { v4 as uuidv4 } from 'uuid'
  * @property {string|null} conversationId - chatGPT web mode
  * @property {string|null} messageId - chatGPT web mode
  * @property {string|null} parentMessageId - chatGPT web mode
- * @property {string|null} bingWeb_conversationSignature
+ * @property {string|null} bingWeb_encryptedConversationSignature
  * @property {string|null} bingWeb_conversationId
  * @property {string|null} bingWeb_clientId
  * @property {string|null} bingWeb_invocationId
@@ -64,7 +64,7 @@ export function initSession({
     parentMessageId: null,
 
     // bing
-    bingWeb_conversationSignature: null,
+    bingWeb_encryptedConversationSignature: null,
     bingWeb_conversationId: null,
     bingWeb_clientId: null,
     bingWeb_invocationId: null,

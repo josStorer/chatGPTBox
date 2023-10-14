@@ -139,7 +139,8 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
       if (data.conversation_id) session.conversationId = data.conversation_id
       if (data.message?.id) session.parentMessageId = data.message.id
 
-      answer = data.message?.content?.parts?.[0]
+      const respAns = data.message?.content?.parts?.[0]
+      if (respAns) answer = respAns
       if (answer) {
         port.postMessage({ answer: answer, done: false, session: null })
       }

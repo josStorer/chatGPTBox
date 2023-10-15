@@ -10,7 +10,6 @@
     "128": "logo.png"
   },
   "permissions": [
-    "commands",
     "cookies",
     "storage",
     "contextMenus",

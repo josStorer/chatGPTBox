@@ -88,7 +88,10 @@ async function executeApi(session, port, config) {
       const accessToken = await getChatGptAccessToken()
       await generateAnswersWithChatgptWebApi(port, session.question, session, accessToken)
     }
-  } else if (bingWebModelKeys.includes(session.modelName)) {
+  } else if (
+    // `.some` for multi mode models. e.g. bingFree4-balanced
+    bingWebModelKeys.some((n) => session.modelName.includes(n))
+  ) {
     const accessToken = await getBingAccessToken()
     if (session.modelName.includes('bingFreeSydney'))
       await generateAnswersWithBingWebApi(port, session.question, session, accessToken, true)

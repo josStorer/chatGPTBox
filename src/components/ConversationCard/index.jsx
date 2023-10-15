@@ -49,7 +49,8 @@ function ConversationCard(props) {
   const windowSize = useClampWindowSize([750, 1500], [250, 1100])
   const bodyRef = useRef(null)
   const [completeDraggable, setCompleteDraggable] = useState(false)
-  const useForegroundFetch = bingWebModelKeys.includes(session.modelName)
+  // `.some` for multi mode models. e.g. bingFree4-balanced
+  const useForegroundFetch = bingWebModelKeys.some((n) => session.modelName.includes(n))
 
   /**
    * @type {[ConversationItemData[], (conversationItemData: ConversationItemData[]) => void]}

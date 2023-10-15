@@ -24,6 +24,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { initSession } from '../../services/init-session.mjs'
 import { findLastIndex } from 'lodash-es'
 import { generateAnswersWithBingWebApi } from '../../services/apis/bing-web.mjs'
+import { handlePortError } from '../../services/wrappers.mjs'
 
 const logo = Browser.runtime.getURL('logo.png')
 
@@ -168,8 +169,11 @@ function ConversationCard(props) {
             'error',
           )
           break
-        default:
-          if (conversationItemData[conversationItemData.length - 1].content.includes('gpt-loading'))
+        default: {
+          let lastItem
+          if (conversationItemData.length > 0)
+            lastItem = conversationItemData[conversationItemData.length - 1]
+          if (lastItem && (lastItem.content.includes('gpt-loading') || lastItem.type === 'error'))
             updateAnswer(msg.error, false, 'error')
           else
             setConversationItemData([
@@ -177,6 +181,7 @@ function ConversationCard(props) {
               new ConversationItemData('error', msg.error),
             ])
           break
+        }
       }
       setIsReady(true)
     }
@@ -212,10 +217,20 @@ function ConversationCard(props) {
             removeListener: () => {},
           },
         }
-        const bingToken = (await getUserConfig()).bingAccessToken
-        if (session.modelName.includes('bingFreeSydney'))
-          await generateAnswersWithBingWebApi(fakePort, session.question, session, bingToken, true)
-        else await generateAnswersWithBingWebApi(fakePort, session.question, session, bingToken)
+        try {
+          const bingToken = (await getUserConfig()).bingAccessToken
+          if (session.modelName.includes('bingFreeSydney'))
+            await generateAnswersWithBingWebApi(
+              fakePort,
+              session.question,
+              session,
+              bingToken,
+              true,
+            )
+          else await generateAnswersWithBingWebApi(fakePort, session.question, session, bingToken)
+        } catch (err) {
+          handlePortError(session, fakePort, err)
+        }
       }
     } else {
       port.postMessage({ session, stop })

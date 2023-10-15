@@ -45,6 +45,7 @@
   "UNAUTHORIZED": "Несанкционированный",
   "Please login at https://chat.openai.com first": "Пожалуйста, сначала войдите на https://chat.openai.com",
   "Please login at https://claude.ai first": "Пожалуйста, сначала войдите на https://claude.ai",
+  "Please login at https://bing.com first": "Пожалуйста, сначала войдите на https://bing.com",
   "Then open https://chat.openai.com/api/auth/session": "Затем откройте https://chat.openai.com/api/auth/session",
   "And refresh this page or type you question again": "После этого нажмите кнопку Retry в правом верхнем углу",
   "Consider creating an api key at https://platform.openai.com/account/api-keys": "Рассмотрите возможность создания ключа API на https://platform.openai.com/account/api-keys",

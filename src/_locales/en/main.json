@@ -45,6 +45,7 @@
   "UNAUTHORIZED": "UNAUTHORIZED",
   "Please login at https://chat.openai.com first": "Please login at https://chat.openai.com first",
   "Please login at https://claude.ai first": "Please login at https://claude.ai first",
+  "Please login at https://bing.com first": "Please login at https://bing.com first",
   "Then open https://chat.openai.com/api/auth/session": "Then open https://chat.openai.com/api/auth/session",
   "And refresh this page or type you question again": "And click the retry button in the top right corner",
   "Consider creating an api key at https://platform.openai.com/account/api-keys": "Consider creating an api key at https://platform.openai.com/account/api-keys",

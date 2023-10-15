@@ -122,6 +122,7 @@ export default class BingAIClient {
       `${this.options.host}/turing/conversation/create?bundleVersion=1.864.15`,
       fetchOptions,
     )
+    if (response.status === 403) throw new Error('403 Forbidden')
     const body = await response.text()
     try {
       const res = JSON.parse(body)

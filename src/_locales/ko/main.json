@@ -44,6 +44,7 @@
   "Save Conversation": "대화 저장",
   "UNAUTHORIZED": "인증되지 않음",
   "Please login at https://chat.openai.com first": "https://chat.openai.com에서 로그인하세요.",
+  "Please login at https://claude.ai first": "https://claude.ai에서 로그인하세요.",
   "Then open https://chat.openai.com/api/auth/session": "그런 다음 https://chat.openai.com/api/auth/session을 열거나 다시 질문을 입력하세요.",
   "And refresh this page or type you question again": "그런 다음 오른쪽 상단의 재시도 버튼을 클릭합니다.",
   "Consider creating an api key at https://platform.openai.com/account/api-keys": "https://platform.openai.com/account/api-keys에서 API 키를 생성하는 것을 고려하세요.",

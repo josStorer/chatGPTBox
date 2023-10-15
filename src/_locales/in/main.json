@@ -44,6 +44,7 @@
   "Save Conversation": "Simpan Percakapan",
   "UNAUTHORIZED": "TIDAK DIIZINKAN",
   "Please login at https://chat.openai.com first": "Silakan masuk di https://chat.openai.com terlebih dahulu",
+  "Please login at https://claude.ai first": "Silakan masuk di https://claude.ai terlebih dahulu",
   "Then open https://chat.openai.com/api/auth/session": "Lalu buka https://chat.openai.com/api/auth/session",
   "And refresh this page or type you question again": "Setelah itu klik tombol Coba Lagi di sudut kanan atas",
   "Consider creating an api key at https://platform.openai.com/account/api-keys": "Pertimbangkan untuk membuat kunci API di https://platform.openai.com/account/api-keys",

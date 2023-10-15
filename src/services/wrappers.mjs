@@ -1,4 +1,10 @@
-import { clearOldAccessToken, getUserConfig, Models, setAccessToken } from '../config/index.mjs'
+import {
+  claudeWebModelKeys,
+  clearOldAccessToken,
+  getUserConfig,
+  Models,
+  setAccessToken,
+} from '../config/index.mjs'
 import Browser from 'webextension-polyfill'
 import { t } from 'i18next'
 
@@ -74,6 +80,11 @@ export function registerPortListener(executor) {
             port.postMessage({ error: t('Rate limit') + '\n\n' + err.message })
           else if (['authentication token has expired'].some((m) => err.message.includes(m)))
             port.postMessage({ error: 'UNAUTHORIZED' })
+          else if (
+            claudeWebModelKeys.includes(session.modelName) &&
+            ['Invalid authorization'].some((m) => err.message.includes(m))
+          )
+            port.postMessage({ error: t('Please login at https://claude.ai first') })
           else port.postMessage({ error: err.message })
         }
       }

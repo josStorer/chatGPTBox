@@ -44,6 +44,7 @@
   "Save Conversation": "保存对话",
   "UNAUTHORIZED": "未授权",
   "Please login at https://chat.openai.com first": "请先登录 https://chat.openai.com",
+  "Please login at https://claude.ai first": "请先登录 https://claude.ai",
   "Then open https://chat.openai.com/api/auth/session": "然后打开 https://chat.openai.com/api/auth/session",
   "And refresh this page or type you question again": "之后点击右上角的重试按钮",
   "Consider creating an api key at https://platform.openai.com/account/api-keys": "考虑在 https://platform.openai.com/account/api-keys 创建一个API Key",

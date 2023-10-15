@@ -44,6 +44,7 @@
   "Save Conversation": "Salva la conversazione",
   "UNAUTHORIZED": "Non autorizzato",
   "Please login at https://chat.openai.com first": "Effettua il login su https://chat.openai.com prima",
+  "Please login at https://claude.ai first": "Effettua il login su https://claude.ai prima",
   "Then open https://chat.openai.com/api/auth/session": "Quindi apri https://chat.openai.com/api/auth/session",
   "And refresh this page or type you question again": "Quindi fare clic sul pulsante Riprova nell'angolo in alto a destra",
   "Consider creating an api key at https://platform.openai.com/account/api-keys": "Considera la creazione di una chiave API su https://platform.openai.com/account/api-keys",

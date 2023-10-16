@@ -12,6 +12,8 @@ const adapters = {
   bing: ['#b_results'],
   wikipedia: ['#mw-content-text'],
   faz: ['.atc-Text'],
+  golem: ['article'],
+  eetimes: ['article'],
 }
 
 function findLargestElement(e) {

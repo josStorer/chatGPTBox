@@ -15,6 +15,9 @@ const adapters = {
 }
 
 function findLargestElement(e) {
+  if (!e) {
+    return null
+  }
   let maxArea = 0
   let largestElement = null
   const limitedArea = 0.8 * getArea(e)
@@ -50,14 +53,22 @@ export function getCoreContentText() {
   console.log(largestElement)
   console.log(secondLargestElement)
 
-  if (!largestElement) return
+  function getTextFrom(e) {
+    return e.innerText || e.textContent
+  }
 
   let ret
-  if (secondLargestElement && getArea(secondLargestElement) > 0.5 * getArea(largestElement)) {
-    ret = secondLargestElement.innerText || secondLargestElement.textContent
+  if (!largestElement) {
+    ret = getTextFrom(document.body)
+    console.log('use document.body')
+  } else if (
+    secondLargestElement &&
+    getArea(secondLargestElement) > 0.5 * getArea(largestElement)
+  ) {
+    ret = getTextFrom(secondLargestElement)
     console.log('use second')
   } else {
-    ret = largestElement.innerText || largestElement.textContent
+    ret = getTextFrom(largestElement)
     console.log('use first')
   }
   return ret.trim().replaceAll('  ', '').replaceAll('\n\n', '').replaceAll(',,', '')

@@ -13,30 +13,29 @@ export async function fetchSSE(resource, options) {
   }
   const parser = createParser((event) => {
     if (event.type === 'event') {
-      onMessage(event.data)
+      if (event.data === '[DONE]') {
+        onMessage(event.data)
+      } else {
+        try {
+          JSON.parse(event.data)
+          onMessage(event.data)
+        } catch (error) {
+          console.error('json error', error)
+          onMessage(
+            event.data
+              .replace(/^"|"$/g, '')
+              .replaceAll('\\"', '"')
+              .replaceAll('\\\\u', '\\u')
+              .replaceAll('\\\\n', '\\n'),
+          )
+        }
+      }
     }
   })
   let hasStarted = false
   for await (const chunk of streamAsyncIterable(resp.body)) {
     const str = new TextDecoder().decode(chunk)
-    if (!str.startsWith('{') && !str.startsWith('"{')) {
-      parser.feed(str)
-    } else {
-      try {
-        const formattedData = JSON.parse(
-          str
-            .replace(/^"|"$/g, '')
-            .replaceAll('\\"', '"')
-            .replaceAll('\\\\u', '\\u')
-            .replaceAll('\\\\n', '\\n'),
-        )
-        const formattedStr = 'data: ' + JSON.stringify(formattedData) + '\n\ndata: [DONE]\n\n'
-        parser.feed(formattedStr)
-      } catch (error) {
-        console.debug('json error', error)
-        parser.feed(str)
-      }
-    }
+    parser.feed(str)
 
     if (!hasStarted) {
       hasStarted = true

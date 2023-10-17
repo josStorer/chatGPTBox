@@ -34,6 +34,7 @@ export async function fetchSSE(resource, options) {
         parser.feed(formattedStr)
       } catch (error) {
         console.debug('json error', error)
+        parser.feed(str)
       }
     }
 

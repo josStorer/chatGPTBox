@@ -18,7 +18,6 @@
     "<all_urls>"
   ],
   "permissions": [
-    "commands",
     "cookies",
     "storage",
     "contextMenus",

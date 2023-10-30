@@ -13,7 +13,6 @@ import { generateAnswersWithCustomApi } from '../services/apis/custom-api.mjs'
 import { generateAnswersWithAzureOpenaiApi } from '../services/apis/azure-openai-api.mjs'
 import { generateAnswersWithClaudeApi } from '../services/apis/claude-api.mjs'
 import { generateAnswersWithWaylaidwandererApi } from '../services/apis/waylaidwanderer-api.mjs'
-import { generateAnswersWithPoeWebApi } from '../services/apis/poe-web.mjs'
 import {
   azureOpenAiApiModelKeys,
   claudeApiModelKeys,
@@ -121,15 +120,16 @@ async function executeApi(session, port, config) {
   } else if (githubThirdPartyApiModelKeys.includes(session.modelName)) {
     await generateAnswersWithWaylaidwandererApi(port, session.question, session)
   } else if (poeWebModelKeys.includes(session.modelName)) {
-    if (session.modelName === 'poeAiWebCustom')
-      await generateAnswersWithPoeWebApi(port, session.question, session, config.poeCustomBotName)
-    else
-      await generateAnswersWithPoeWebApi(
-        port,
-        session.question,
-        session,
-        Models[session.modelName].value,
-      )
+    throw new Error('Due to the new verification, Poe Web API is currently not supported.')
+    // if (session.modelName === 'poeAiWebCustom')
+    //   await generateAnswersWithPoeWebApi(port, session.question, session, config.poeCustomBotName)
+    // else
+    //   await generateAnswersWithPoeWebApi(
+    //     port,
+    //     session.question,
+    //     session,
+    //     Models[session.modelName].value,
+    //   )
   } else if (bardWebModelKeys.includes(session.modelName)) {
     const cookies = await getBardCookies()
     await generateAnswersWithBardWebApi(port, session.question, session, cookies)

@@ -490,8 +490,8 @@ export default class BingAIClient {
               return
             }
             // get the difference between the current text and the previous text
-            const difference = updatedText.substring(replySoFar.length)
-            onProgress(difference)
+            // const difference = updatedText.substring(replySoFar.length)
+            onProgress(updatedText)
             if (updatedText.trim().endsWith(stopToken)) {
               stopTokenFound = true
               // remove stop token from updated text

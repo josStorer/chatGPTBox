@@ -37,8 +37,8 @@ export async function generateAnswersWithBingWebApi(
       abortController: controller,
       toneStyle: modelMode,
       jailbreakConversationId: sydneyMode,
-      onProgress: (token) => {
-        answer += token
+      onProgress: (message) => {
+        answer = message
         // reference markers [^number^]
         answer = answer.replaceAll(/\[\^(\d+)\^\]/g, '<sup>$1</sup>')
         port.postMessage({ answer: answer, done: false, session: null })

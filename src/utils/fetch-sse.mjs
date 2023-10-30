@@ -1,5 +1,4 @@
-import { createParser } from 'eventsource-parser'
-import { streamAsyncIterable } from './stream-async-iterable'
+import { createParser } from './eventsource-parser.mjs'
 
 export async function fetchSSE(resource, options) {
   const { onMessage, onStart, onEnd, onError, ...fetchOptions } = options
@@ -13,34 +12,32 @@ export async function fetchSSE(resource, options) {
   }
   const parser = createParser((event) => {
     if (event.type === 'event') {
-      if (event.data === '[DONE]') {
-        onMessage(event.data)
-      } else {
-        try {
-          JSON.parse(event.data)
-          onMessage(event.data)
-        } catch (error) {
-          console.error('json error', error)
-          onMessage(
-            event.data
-              .replace(/^"|"$/g, '')
-              .replaceAll('\\"', '"')
-              .replaceAll('\\\\u', '\\u')
-              .replaceAll('\\\\n', '\\n'),
-          )
-        }
-      }
+      onMessage(event.data)
     }
   })
   let hasStarted = false
-  for await (const chunk of streamAsyncIterable(resp.body)) {
-    const str = new TextDecoder().decode(chunk)
-    parser.feed(str)
-
+  const reader = resp.body.getReader()
+  let result
+  while (!(result = await reader.read()).done) {
+    const chunk = result.value
     if (!hasStarted) {
+      const str = new TextDecoder().decode(chunk)
       hasStarted = true
       await onStart(str)
+
+      let fakeSseData
+      try {
+        const commonResponse = JSON.parse(str)
+        fakeSseData = 'data: ' + JSON.stringify(commonResponse) + '\n\ndata: [DONE]\n\n'
+      } catch (error) {
+        console.debug('not common response', error)
+      }
+      if (fakeSseData) {
+        parser.feed(new TextEncoder().encode(fakeSseData))
+        break
+      }
     }
+    parser.feed(chunk)
   }
   await onEnd()
 }

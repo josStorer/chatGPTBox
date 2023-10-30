@@ -25,7 +25,6 @@
     "claude-ai": "^1.2.2",
     "countries-list": "^2.6.1",
     "diff": "^5.1.0",
-    "eventsource-parser": "^1.0.0",
     "file-saver": "^2.0.5",
     "github-markdown-css": "^5.2.0",
     "gpt-3-encoder": "^1.1.4",

@@ -229,49 +229,53 @@ Browser.runtime.onMessage.addListener(async (message, sender) => {
   }
 })
 
-Browser.webRequest.onBeforeRequest.addListener(
-  (details) => {
-    if (
-      details.url.includes('/public_key') &&
-      !details.url.includes(defaultConfig.chatgptArkoseReqParams)
-    ) {
-      let formData = new URLSearchParams()
-      for (const k in details.requestBody.formData) {
-        formData.append(k, details.requestBody.formData[k])
+try {
+  Browser.webRequest.onBeforeRequest.addListener(
+    (details) => {
+      if (
+        details.url.includes('/public_key') &&
+        !details.url.includes(defaultConfig.chatgptArkoseReqParams)
+      ) {
+        let formData = new URLSearchParams()
+        for (const k in details.requestBody.formData) {
+          formData.append(k, details.requestBody.formData[k])
+        }
+        setUserConfig({
+          chatgptArkoseReqUrl: details.url,
+          chatgptArkoseReqForm: formData.toString(),
+        }).then(() => {
+          console.log('Arkose req url and form saved')
+        })
       }
-      setUserConfig({
-        chatgptArkoseReqUrl: details.url,
-        chatgptArkoseReqForm: formData.toString(),
-      }).then(() => {
-        console.log('Arkose req url and form saved')
-      })
-    }
-  },
-  {
-    urls: ['https://*.openai.com/*'],
-    types: ['xmlhttprequest'],
-  },
-  ['requestBody'],
-)
+    },
+    {
+      urls: ['https://*.openai.com/*'],
+      types: ['xmlhttprequest'],
+    },
+    ['requestBody'],
+  )
 
-Browser.webRequest.onBeforeSendHeaders.addListener(
-  (details) => {
-    const headers = details.requestHeaders
-    for (let i = 0; i < headers.length; i++) {
-      if (headers[i].name === 'Origin') {
-        headers[i].value = 'https://www.bing.com'
-      } else if (headers[i].name === 'Referer') {
-        headers[i].value = 'https://www.bing.com/search?q=Bing+AI&showconv=1&FORM=hpcodx'
+  Browser.webRequest.onBeforeSendHeaders.addListener(
+    (details) => {
+      const headers = details.requestHeaders
+      for (let i = 0; i < headers.length; i++) {
+        if (headers[i].name === 'Origin') {
+          headers[i].value = 'https://www.bing.com'
+        } else if (headers[i].name === 'Referer') {
+          headers[i].value = 'https://www.bing.com/search?q=Bing+AI&showconv=1&FORM=hpcodx'
+        }
       }
-    }
-    return { requestHeaders: headers }
-  },
-  {
-    urls: ['wss://sydney.bing.com/*', 'https://www.bing.com/*'],
-    types: ['xmlhttprequest', 'websocket'],
-  },
-  ['requestHeaders'],
-)
+      return { requestHeaders: headers }
+    },
+    {
+      urls: ['wss://sydney.bing.com/*', 'https://www.bing.com/*'],
+      types: ['xmlhttprequest', 'websocket'],
+    },
+    ['requestHeaders'],
+  )
+} catch (error) {
+  console.log(error)
+}
 
 registerPortListener(async (session, port, config) => await executeApi(session, port, config))
 registerCommands()

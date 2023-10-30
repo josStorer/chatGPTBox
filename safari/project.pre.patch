@@ -12,7 +12,7 @@
        "background.js"
      ],
 -    "persistent": true
-+    "persistent": false
++    "persistent": true
    },
    "browser_action": {
      "default_popup": "popup.html?popup=true"

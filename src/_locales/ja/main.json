@@ -126,5 +126,6 @@
   "Exceeded quota": "クォータを超過しました。https://platform.openai.com/account/usage で残高を確認してください",
   "Rate limit": "レート制限",
   "Jump to bottom": "最下部にジャンプ",
-  "Explain": "説明"
+  "Explain": "説明",
+  "Failed to get arkose token, please keep https://chat.openai.com open": "arkoseトークンを取得できませんでした。https://chat.openai.com を開いたままにしてください"
 }

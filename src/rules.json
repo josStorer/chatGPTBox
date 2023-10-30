@@ -20,5 +20,49 @@
       "requestDomains": ["sydney.bing.com", "www.bing.com"],
       "resourceTypes": ["xmlhttprequest", "websocket"]
     }
+  },
+  {
+    "id": 2,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        {
+          "operation": "set",
+          "header": "origin",
+          "value": "https://chat.openai.com"
+        },
+        {
+          "operation": "set",
+          "header": "referer",
+          "value": "https://chat.openai.com"
+        }
+      ]
+    },
+    "condition": {
+      "requestDomains": ["chat.openai.com"],
+      "resourceTypes": ["xmlhttprequest"]
+    }
+  },
+  {
+    "id": 3,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        {
+          "operation": "set",
+          "header": "origin",
+          "value": "https://tcr9i.chat.openai.com"
+        },
+        {
+          "operation": "set",
+          "header": "referer",
+          "value": "https://tcr9i.chat.openai.com/v2/1.5.5/enforcement.fbfc14b0d793c6ef8359e0e4b4a91f67.html"
+        }
+      ]
+    },
+    "condition": {
+      "requestDomains": ["tcr9i.chat.openai.com"],
+      "resourceTypes": ["xmlhttprequest"]
+    }
   }
 ]

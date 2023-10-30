@@ -126,5 +126,6 @@
   "Exceeded quota": "할당량 초과: https://platform.openai.com/account/usage 링크에서 잔액을 확인하세요.",
   "Rate limit": "요청 비율 제한",
   "Jump to bottom": "아래로 이동",
-  "Explain": "설명"
+  "Explain": "설명",
+  "Failed to get arkose token, please keep https://chat.openai.com open": "arkose 토큰을 가져오지 못했습니다. https://chat.openai.com 을 열어두세요."
 }

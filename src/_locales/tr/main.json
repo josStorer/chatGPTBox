@@ -126,5 +126,6 @@
   "Exceeded quota": "Mevcut kotanızı aştınız, https://platform.openai.com/account/usage adresini kontrol edin",
   "Rate limit": "Hız sınırı aşıldı",
   "Jump to bottom": "En alta git",
-  "Explain": "Açıkla"
+  "Explain": "Açıkla",
+  "Failed to get arkose token, please keep https://chat.openai.com open": "Arkose jetonu alınamadı, lütfen https://chat.openai.com adresini açık tutun"
 }

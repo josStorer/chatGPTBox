@@ -126,5 +126,6 @@
   "Exceeded quota": "Cuota superada: Verifique su saldo o fecha de vencimiento en el siguiente enlace: https://platform.openai.com/account/usage",
   "Rate limit": "Límite de velocidad alcanzado",
   "Jump to bottom": "Saltar al final",
-  "Explain": "Explicar"
+  "Explain": "Explicar",
+  "Failed to get arkose token, please keep https://chat.openai.com open": "No se pudo obtener el token de arkose, por favor mantenga https://chat.openai.com abierto"
 }

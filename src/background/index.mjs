@@ -26,7 +26,6 @@ import {
   getUserConfig,
   githubThirdPartyApiModelKeys,
   gptApiModelKeys,
-  Models,
   poeWebModelKeys,
   setUserConfig,
 } from '../config/index.mjs'
@@ -229,6 +228,31 @@ Browser.runtime.onMessage.addListener(async (message, sender) => {
     }
   }
 })
+
+Browser.webRequest.onBeforeRequest.addListener(
+  (details) => {
+    if (
+      details.url.includes('/public_key') &&
+      !details.url.includes(defaultConfig.chatgptArkoseReqParams)
+    ) {
+      let formData = new URLSearchParams()
+      for (const k in details.requestBody.formData) {
+        formData.append(k, details.requestBody.formData[k])
+      }
+      setUserConfig({
+        chatgptArkoseReqUrl: details.url,
+        chatgptArkoseReqForm: formData.toString(),
+      }).then(() => {
+        console.log('Arkose req url and form saved')
+      })
+    }
+  },
+  {
+    urls: ['https://*.openai.com/*'],
+    types: ['xmlhttprequest'],
+  },
+  ['requestBody'],
+)
 
 Browser.webRequest.onBeforeSendHeaders.addListener(
   (details) => {

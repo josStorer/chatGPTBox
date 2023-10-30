@@ -126,5 +126,6 @@
   "Exceeded quota": "Anda telah melebihi kuota saat ini, periksa https://platform.openai.com/account/usage",
   "Rate limit": "Batas penggunaan terlampaui",
   "Jump to bottom": "Lompat ke bawah",
-  "Explain": "Jelaskan"
+  "Explain": "Jelaskan",
+  "Failed to get arkose token, please keep https://chat.openai.com open": "Gagal mendapatkan token arkose, harap tetap buka https://chat.openai.com"
 }

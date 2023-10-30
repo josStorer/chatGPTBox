@@ -126,5 +126,6 @@
   "Exceeded quota": "Überschrittenes Kontingent: Prüfen Sie Ihr Guthaben oder Ablaufdatum unter folgendem Link: https://platform.openai.com/account/usage",
   "Rate limit": "Rate-Limit erreicht",
   "Jump to bottom": "Zum Ende springen",
-  "Explain": "Erklären"
+  "Explain": "Erklären",
+  "Failed to get arkose token, please keep https://chat.openai.com open": "Arkose-Token konnten nicht abgerufen werden. Bitte halten Sie https://chat.openai.com geöffnet"
 }

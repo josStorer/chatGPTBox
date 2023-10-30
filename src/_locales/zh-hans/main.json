@@ -126,5 +126,6 @@
   "Exceeded quota": "余额不足或过期, 检查此链接: https://platform.openai.com/account/usage",
   "Rate limit": "请求频率过高",
   "Jump to bottom": "跳转到底部",
-  "Explain": "解释"
+  "Explain": "解释",
+  "Failed to get arkose token, please keep https://chat.openai.com open": "获取arkose token失败, 请保持 https://chat.openai.com 打开"
 }

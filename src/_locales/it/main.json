@@ -126,5 +126,6 @@
   "Exceeded quota": "Limite superato o scaduto, controlla questo link: https://platform.openai.com/account/usage",
   "Rate limit": "Limite di frequenza delle richieste raggiunto",
   "Jump to bottom": "Salta in fondo",
-  "Explain": "Spiega"
+  "Explain": "Spiega",
+  "Failed to get arkose token, please keep https://chat.openai.com open": "Impossibile ottenere il token arkose, per favore mantieni aperto https://chat.openai.com"
 }

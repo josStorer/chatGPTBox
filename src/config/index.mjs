@@ -217,11 +217,14 @@ export const defaultConfig = {
   bingAccessToken: '',
   chatgptJumpBackTabId: 0,
   chatgptTabId: 0,
+  chatgptArkoseReqUrl: '',
+  chatgptArkoseReqForm: '',
 
   // unchangeable
 
   userLanguage: getNavigatorLanguage(),
   apiModes: Object.keys(Models),
+  chatgptArkoseReqParams: 'cgb=vhwi',
   selectionTools: [
     'explain',
     'translate',

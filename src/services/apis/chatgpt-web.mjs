@@ -83,6 +83,22 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
       })
       .join('; ')
 
+  if (!config.chatgptArkoseReqUrl) throw new Error('Please login at https://chat.openai.com first')
+  const arkoseToken = await fetch(
+    config.chatgptArkoseReqUrl + '?' + config.chatgptArkoseReqParams,
+    {
+      method: 'POST',
+      body: config.chatgptArkoseReqForm,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+    },
+  )
+    .then((resp) => resp.json())
+    .then((resp) => resp.token)
+    .catch(() => null)
+  if (!arkoseToken)
+    throw new Error('Failed to get arkose token, please keep https://chat.openai.com open')
   let answer = ''
   await fetchSSE(`${config.customChatGptWebApiUrl}${config.customChatGptWebApiPath}`, {
     method: 'POST',
@@ -111,15 +127,8 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
       model: usedModel,
       parent_message_id: session.parentMessageId,
       timezone_offset_min: new Date().getTimezoneOffset(),
-      variant_purpose: 'none',
       history_and_training_disabled: config.disableWebModeHistory,
-      arkose_token: usedModel.startsWith('gpt-4')
-        ? `${Array.from({ length: 17 }, () => Math.floor(Math.random() * 16).toString(16)).join(
-            '',
-          )}|r=ap-southeast-1|meta=3|meta_width=300|metabgclr=transparent|metaiconclr=%23555555|guitextcolor=%23000000|pk=35536E1E-65B4-4D96-9D97-6ADB7EFF8147|at=40|sup=1|rid=${
-            Math.floor(Math.random() * 99) + 1
-          }|ag=101|cdn_url=https%3A%2F%2Ftcr9i.chat.openai.com%2Fcdn%2Ffc|lurl=https%3A%2F%2Faudio-ap-southeast-1.arkoselabs.com|surl=https%3A%2F%2Ftcr9i.chat.openai.com|smurl=https%3A%2F%2Ftcr9i.chat.openai.com%2Fcdn%2Ffc%2Fassets%2Fstyle-manager`
-        : undefined,
+      arkose_token: arkoseToken,
     }),
     onMessage(message) {
       console.debug('sse message', message)

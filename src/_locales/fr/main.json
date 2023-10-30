@@ -126,5 +126,6 @@
   "Exceeded quota": "Quota dépassé : Vérifiez votre solde ou la date d'expiration à l'adresse suivante: https://platform.openai.com/account/usage",
   "Rate limit": "Limite de taux atteinte",
   "Jump to bottom": "Aller en bas",
-  "Explain": "Expliquer"
+  "Explain": "Expliquer",
+  "Failed to get arkose token, please keep https://chat.openai.com open": "Impossible d'obtenir le jeton arkose, veuillez garder https://chat.openai.com ouvert"
 }

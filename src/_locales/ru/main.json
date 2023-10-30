@@ -126,5 +126,6 @@
   "Exceeded quota": "Превышено квоту: Проверьте ваш баланс или срок годности по следующей ссылке: https://platform.openai.com/account/usage",
   "Rate limit": "Лимит запросов",
   "Jump to bottom": "Перейти вниз",
-  "Explain": "Объяснить"
+  "Explain": "Объяснить",
+  "Failed to get arkose token, please keep https://chat.openai.com open": "Не удалось получить токен arkose, пожалуйста, оставьте открытым https://chat.openai.com"
 }

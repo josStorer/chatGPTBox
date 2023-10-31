@@ -127,5 +127,6 @@
   "Rate limit": "Hız sınırı aşıldı",
   "Jump to bottom": "En alta git",
   "Explain": "Açıkla",
-  "Failed to get arkose token, please keep https://chat.openai.com open": "Arkose jetonu alınamadı, lütfen https://chat.openai.com adresini açık tutun"
+  "Failed to get arkose token, please keep https://chat.openai.com open": "Arkose jetonu alınamadı, lütfen https://chat.openai.com adresini açık tutun",
+  "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "Lütfen https://chat.openai.com adresini açık tutun ve tekrar deneyin. Hala çalışmazsa, chatgpt web sayfasının girdi kutusuna bazı karakterler yazın ve tekrar deneyin."
 }

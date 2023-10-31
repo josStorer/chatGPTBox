@@ -127,5 +127,6 @@
   "Rate limit": "Rate limit exceeded",
   "Jump to bottom": "Jump to bottom",
   "Explain": "Explain",
-  "Failed to get arkose token, please keep https://chat.openai.com open": "Failed to get arkose token, please keep https://chat.openai.com open"
+  "Failed to get arkose token, please keep https://chat.openai.com open": "Failed to get arkose token, please keep https://chat.openai.com open",
+  "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again."
 }

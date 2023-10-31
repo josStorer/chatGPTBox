@@ -127,5 +127,6 @@
   "Rate limit": "Limite di frequenza delle richieste raggiunto",
   "Jump to bottom": "Salta in fondo",
   "Explain": "Spiega",
-  "Failed to get arkose token, please keep https://chat.openai.com open": "Impossibile ottenere il token arkose, per favore mantieni aperto https://chat.openai.com"
+  "Failed to get arkose token, please keep https://chat.openai.com open": "Impossibile ottenere il token arkose, per favore mantieni aperto https://chat.openai.com",
+  "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "Per favore, mantieni aperto https://chat.openai.com e riprova. Se ancora non funziona, digita alcuni caratteri nella casella di input della pagina web di chatgpt e riprova."
 }

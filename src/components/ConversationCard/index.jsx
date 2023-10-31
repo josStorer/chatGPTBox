@@ -174,11 +174,11 @@ function ConversationCard(props) {
           if (conversationItemData.length > 0)
             lastItem = conversationItemData[conversationItemData.length - 1]
           if (lastItem && (lastItem.content.includes('gpt-loading') || lastItem.type === 'error'))
-            updateAnswer(msg.error, false, 'error')
+            updateAnswer(t(msg.error), false, 'error')
           else
             setConversationItemData([
               ...conversationItemData,
-              new ConversationItemData('error', msg.error),
+              new ConversationItemData('error', t(msg.error)),
             ])
           break
         }

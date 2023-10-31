@@ -127,5 +127,6 @@
   "Rate limit": "請求太頻繁，超過限制次數",
   "Jump to bottom": "轉跳至底部",
   "Explain": "解釋",
-  "Failed to get arkose token, please keep https://chat.openai.com open": "無法取得 arkose token，請保持 https://chat.openai.com 開啟"
+  "Failed to get arkose token, please keep https://chat.openai.com open": "無法取得 arkose token，請保持 https://chat.openai.com 開啟",
+  "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "請保持 https://chat.openai.com 開啟並重試，如果還是無法通過驗證，請在 ChatGPT 網頁版輸入框輸入一些文字後再重試"
 }

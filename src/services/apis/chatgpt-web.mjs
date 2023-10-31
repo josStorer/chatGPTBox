@@ -145,6 +145,14 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
         console.debug('json error', error)
         return
       }
+      if (data.error) {
+        if (data.error.includes('unusual activity'))
+          throw new Error(
+            "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.",
+          )
+        else throw new Error(data.error)
+      }
+
       if (data.conversation_id) session.conversationId = data.conversation_id
       if (data.message?.id) session.parentMessageId = data.message.id
 

@@ -127,6 +127,6 @@
   "Rate limit": "Batas penggunaan terlampaui",
   "Jump to bottom": "Lompat ke bawah",
   "Explain": "Jelaskan",
-  "Failed to get arkose token, please keep https://chat.openai.com open": "Gagal mendapatkan token arkose, harap tetap buka https://chat.openai.com",
+  "Failed to get arkose token.": "Gagal mendapatkan token arkose.",
   "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "Harap tetap buka https://chat.openai.com dan coba lagi. Jika masih tidak berhasil, ketik beberapa karakter di kotak masukan halaman web chatgpt dan coba lagi."
 }

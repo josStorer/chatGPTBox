@@ -6,6 +6,7 @@ import { chatgptWebModelKeys, getUserConfig, Models } from '../../config/index.m
 import { pushRecord, setAbortController } from './shared.mjs'
 import Browser from 'webextension-polyfill'
 import { v4 as uuidv4 } from 'uuid'
+import { t } from 'i18next'
 
 async function request(token, method, path, data) {
   const apiUrl = (await getUserConfig()).customChatGptWebApiUrl
@@ -83,7 +84,14 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
       })
       .join('; ')
 
-  if (!config.chatgptArkoseReqUrl) throw new Error('Please login at https://chat.openai.com first')
+  if (!config.chatgptArkoseReqUrl)
+    throw new Error(
+      t('Please login at https://chat.openai.com first') +
+        '\n\n' +
+        t(
+          "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.",
+        ),
+    )
   const arkoseToken = await fetch(
     config.chatgptArkoseReqUrl + '?' + config.chatgptArkoseReqParams,
     {
@@ -98,7 +106,13 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
     .then((resp) => resp.token)
     .catch(() => null)
   if (!arkoseToken)
-    throw new Error('Failed to get arkose token, please keep https://chat.openai.com open')
+    throw new Error(
+      t('Failed to get arkose token.') +
+        '\n\n' +
+        t(
+          "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.",
+        ),
+    )
   let answer = ''
   await fetchSSE(`${config.customChatGptWebApiUrl}${config.customChatGptWebApiPath}`, {
     method: 'POST',

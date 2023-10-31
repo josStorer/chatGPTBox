@@ -127,6 +127,6 @@
   "Rate limit": "Rate-Limit erreicht",
   "Jump to bottom": "Zum Ende springen",
   "Explain": "Erklären",
-  "Failed to get arkose token, please keep https://chat.openai.com open": "Arkose-Token konnten nicht abgerufen werden. Bitte halten Sie https://chat.openai.com geöffnet",
+  "Failed to get arkose token.": "Arkose-Token konnte nicht abgerufen werden.",
   "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "Bitte halten Sie https://chat.openai.com geöffnet und versuchen Sie es erneut. Wenn es immer noch nicht funktioniert, geben Sie einige Zeichen in das Eingabefeld der ChatGPT-Webseite ein und versuchen Sie es erneut."
 }

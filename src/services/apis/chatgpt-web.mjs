@@ -111,7 +111,7 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
     },
     body: JSON.stringify({
       action: 'next',
-      conversation_id: session.conversationId,
+      conversation_id: session.conversationId || undefined,
       messages: [
         {
           id: session.messageId,
@@ -124,6 +124,12 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
           },
         },
       ],
+      conversation_mode: {
+        kind: 'primary_assistant',
+      },
+      force_paragen: false,
+      force_rate_limit: false,
+      suggestions: [],
       model: usedModel,
       parent_message_id: session.parentMessageId,
       timezone_offset_min: new Date().getTimezoneOffset(),

@@ -528,6 +528,10 @@ function ConversationCard(props) {
           } catch (e) {
             updateAnswer(e, false, 'error')
           }
+          bodyRef.current.scrollTo({
+            top: bodyRef.current.scrollHeight,
+            behavior: 'instant',
+          })
         }}
       />
     </div>

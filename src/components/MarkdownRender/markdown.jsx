@@ -8,6 +8,7 @@ import remarkGfm from 'remark-gfm'
 import remarkBreaks from 'remark-breaks'
 import { Pre } from './Pre'
 import { Hyperlink } from './Hyperlink'
+import { memo } from 'react'
 
 export function MarkdownRender(props) {
   return (
@@ -41,4 +42,4 @@ MarkdownRender.propTypes = {
   ...ReactMarkdown.propTypes,
 }
 
-export default MarkdownRender
+export default memo(MarkdownRender)

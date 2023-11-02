@@ -1,5 +1,5 @@
 import Browser from 'webextension-polyfill'
-import { cloneElement, useEffect, useState } from 'react'
+import { cloneElement, useCallback, useEffect, useState } from 'react'
 import ConversationCard from '../ConversationCard'
 import PropTypes from 'prop-types'
 import { config as toolsConfig } from '../../content-script/selection-tools'
@@ -70,10 +70,18 @@ function FloatingToolbar(props) {
       updatePosition() // avoid jitter
     }
 
-    const onDock = () => {
+    const onClose = useCallback(() => {
+      props.container.remove()
+    }, [])
+
+    const onDock = useCallback(() => {
       props.container.className = 'chatgptbox-toolbar-container-not-queryable'
       setCloseable(true)
-    }
+    }, [])
+
+    const onUpdate = useCallback(() => {
+      updatePosition()
+    }, [position])
 
     if (config.alwaysPinWindow) onDock()
 
@@ -95,14 +103,10 @@ function FloatingToolbar(props) {
                 question={prompt}
                 draggable={true}
                 closeable={closeable}
-                onClose={() => {
-                  props.container.remove()
-                }}
+                onClose={onClose}
                 dockable={props.dockable}
                 onDock={onDock}
-                onUpdate={() => {
-                  updatePosition()
-                }}
+                onUpdate={onUpdate}
               />
             </div>
           </div>

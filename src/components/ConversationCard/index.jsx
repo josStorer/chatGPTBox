@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useMemo, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import Browser from 'webextension-polyfill'
 import InputBox from '../InputBox'
@@ -292,6 +292,8 @@ function ConversationCard(props) {
     }
   }
 
+  const retryFn = useMemo(() => getRetryFn(session), [session])
+
   return (
     <div className="gpt-inner">
       <div
@@ -500,8 +502,9 @@ function ConversationCard(props) {
             content={data.content}
             key={idx}
             type={data.type}
-            session={session}
-            onRetry={idx === conversationItemData.length - 1 ? getRetryFn(session) : null}
+            descName={data.type === 'answer' && session.aiName}
+            modelName={data.type === 'answer' && session.modelName}
+            onRetry={idx === conversationItemData.length - 1 ? retryFn : null}
           />
         ))}
       </div>
@@ -533,7 +536,7 @@ function ConversationCard(props) {
 
 ConversationCard.propTypes = {
   session: PropTypes.object.isRequired,
-  question: PropTypes.string.isRequired,
+  question: PropTypes.string,
   onUpdate: PropTypes.func,
   draggable: PropTypes.bool,
   closeable: PropTypes.bool,

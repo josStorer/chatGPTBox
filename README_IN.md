@@ -79,7 +79,7 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 ## ✨ Fitur
 
 - 🌈 Panggil kotak dialog percakapan di halaman apa pun kapan saja. (<kbd>Ctrl</kbd>+<kbd>B</kbd>)
-- 📱 Dukungan untuk perangkat mobile.
+- 📱 Dukungan untuk perangkat seluler.
 - 📓 Ringkaskan halaman apa pun dengan menu klik kanan. (<kbd>Alt</kbd>+<kbd>B</kbd>)
 - 📖 Halaman percakapan independen. (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>)
 - 🔗 Dukungan untuk beberapa API (Web API untuk pengguna Gratis dan Plus, GPT-3.5, GPT-4, New Bing, Self-Hosted, Azure, Poe, dll.).
@@ -120,7 +120,7 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
 ![preview_youtube](screenshots/preview_youtube.jpg)
 
-**Dukungan Perangkat Mobile**
+**Dukungan Perangkat Seluler**
 
 ![image](https://user-images.githubusercontent.com/13366013/225529110-9221c8ce-ad41-423e-b6ec-097981e74b66.png)
 

@@ -25,7 +25,7 @@ English &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md) &nbsp;&nbsp;|&nbsp;&
 [![Android][Android-image]][Android-url]
 [![Github][Github-image]][Github-url]
 
-[Rehber](https://github.com/josStorer/chatGPTBox/wiki/Guide) &nbsp;&nbsp;|&nbsp;&nbsp; [Önizleme](#Preview) &nbsp;&nbsp;|&nbsp;&nbsp; [Gelişim ve Katkı Sağlama][dev-url] &nbsp;&nbsp;|&nbsp;&nbsp; [Video Demonstration](https://www.youtube.com/watch?v=E1smDxJvTRs) &nbsp;&nbsp;|&nbsp;&nbsp; [Credit](#Credit)
+[Rehber](https://github.com/josStorer/chatGPTBox/wiki/Guide) &nbsp;&nbsp;|&nbsp;&nbsp; [Önizleme](#Preview) &nbsp;&nbsp;|&nbsp;&nbsp; [Gelişim ve Katkı Sağlama][dev-url] &nbsp;&nbsp;|&nbsp;&nbsp; [Video](https://www.youtube.com/watch?v=E1smDxJvTRs) &nbsp;&nbsp;|&nbsp;&nbsp; [Credit](#Credit)
 
 [dev-url]: https://github.com/josStorer/chatGPTBox/wiki/Development&Contributing
 

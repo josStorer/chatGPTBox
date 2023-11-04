@@ -298,18 +298,18 @@ function generateWebpackCallback(finishOutputFunc) {
 async function build() {
   await deleteOldDir()
   if (isProduction && !isAnalyzing) {
-    await runWebpack(
-      true,
-      false,
-      generateWebpackCallback(() => finishOutput('-without-katex')),
-    )
-    await new Promise((r) => setTimeout(r, 5000))
+    // await runWebpack(
+    //   true,
+    //   false,
+    //   generateWebpackCallback(() => finishOutput('-without-katex')),
+    // )
+    // await new Promise((r) => setTimeout(r, 5000))
     await runWebpack(
       true,
       true,
       generateWebpackCallback(() => finishOutput('-without-katex-and-tiktoken')),
     )
-    await new Promise((r) => setTimeout(r, 5000))
+    await new Promise((r) => setTimeout(r, 10000))
   }
   await runWebpack(
     false,

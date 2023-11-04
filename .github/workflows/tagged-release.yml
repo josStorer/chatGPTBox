@@ -40,11 +40,14 @@ jobs:
           git commit -am "release v${{ env.VERSION }}"
           git push
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
       - run: npm ci
 
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # for appdmg
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: 14.2

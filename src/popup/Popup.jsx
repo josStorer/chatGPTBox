@@ -27,7 +27,7 @@ function Footer({ currentVersion, latestVersion }) {
     <div className="footer">
       <div>
         {`${t('Current Version')}: ${currentVersion} `}
-        {currentVersion === latestVersion ? (
+        {currentVersion >= latestVersion ? (
           `(${t('Latest')})`
         ) : (
           <>

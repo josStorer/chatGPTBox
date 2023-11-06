@@ -41,6 +41,7 @@ export const chatgptApiModelKeys = [
   'chatgptApi4_8k_0613',
   'chatgptApi4_32k',
   'chatgptApi4_32k_0613',
+  'chatgptApi4_128k_preview',
 ]
 export const customApiModelKeys = ['customModel']
 export const azureOpenAiApiModelKeys = ['azureOpenAi']
@@ -102,6 +103,7 @@ export const Models = {
   chatgptApi4_8k_0613: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k 0613)' },
   chatgptApi4_32k: { value: 'gpt-4-32k', desc: 'ChatGPT (GPT-4-32k)' },
   chatgptApi4_32k_0613: { value: 'gpt-4-32k', desc: 'ChatGPT (GPT-4-32k 0613)' },
+  chatgptApi4_128k_preview: { value: 'gpt-4-1106-preview', desc: 'ChatGPT (GPT-4-Turbo 128k Preview)' },
   gptApiDavinci: { value: 'text-davinci-003', desc: 'GPT-3.5' },
   customModel: { value: '', desc: 'Custom Model' },
   azureOpenAi: { value: '', desc: 'ChatGPT (Azure)' },

@@ -21,6 +21,7 @@ export default {
     } catch (e) {
       /* empty */
     }
+    return true
   },
   inputQuery: async () => {
     try {

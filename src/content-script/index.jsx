@@ -274,14 +274,15 @@ async function prepareForStaticCard() {
     )
       return
 
+    let initSuccess = true
     if (siteName in siteConfig) {
       const siteAction = siteConfig[siteName].action
       if (siteAction && siteAction.init) {
-        await siteAction.init(location.hostname, userConfig, getInput, mountComponent)
+        initSuccess = await siteAction.init(location.hostname, userConfig, getInput, mountComponent)
       }
     }
 
-    mountComponent(siteConfig[siteName], userConfig)
+    if (initSuccess) mountComponent(siteConfig[siteName], userConfig)
   }
 }
 

@@ -132,6 +132,7 @@ export default {
     } catch (e) {
       /* empty */
     }
+    return (await getPatchUrl()) || isPull() || isIssue()
   },
   inputQuery: async () => {
     try {

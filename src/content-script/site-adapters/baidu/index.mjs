@@ -22,5 +22,6 @@ export default {
     } catch (e) {
       /* empty */
     }
+    return true
   },
 }

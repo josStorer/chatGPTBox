@@ -137,9 +137,9 @@ export const config = {
   },
   github: {
     inputQuery: github.inputQuery,
-    sidebarContainerQuery: ['#diff', '.commit'],
+    sidebarContainerQuery: ['#diff', '.commit', '.Layout-main'],
     appendContainerQuery: [],
-    resultsContainerQuery: ['#diff', '.commit'],
+    resultsContainerQuery: ['#diff', '.commit', '.Layout-main'],
     action: {
       init: github.init,
     },

@@ -180,8 +180,8 @@ export const defaultConfig = {
   activeApiModes: [
     // 'claude2Api',
     'chatgptFree35',
-    'chatgptFree35Mobile',
-    // 'chatgptPlus4',
+    //'chatgptFree35Mobile',
+    'chatgptPlus4',
     // 'chatgptPlus4Mobile',
     'chatgptApi35',
     'chatgptApi35_16k',

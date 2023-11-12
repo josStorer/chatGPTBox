@@ -29,6 +29,8 @@ function ReadButton({ className, contentFn, size }) {
       voice = voices.find((v) => v.name.toLowerCase().includes('microsoft aria'))
     else if (config.preferredLanguage.includes('zh') || navigator.language.includes('zh'))
       voice = voices.find((v) => v.name.toLowerCase().includes('xiaoyi'))
+    else if (config.preferredLanguage.includes('ja') || navigator.language.includes('ja'))
+      voice = voices.find((v) => v.name.toLowerCase().includes('nanami'))
     if (!voice) voice = voices.find((v) => v.lang.substring(0, 2) === config.preferredLanguage)
     if (!voice) voice = voices.find((v) => v.lang === navigator.language)
 

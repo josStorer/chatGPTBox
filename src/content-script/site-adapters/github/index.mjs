@@ -63,6 +63,9 @@ function parseGitHubIssueData() {
     return commentInput ? commentInput.value : ''
   }
 
+  // Get the issue title
+  const title = document.querySelector('.js-issue-title').textContent.trim()
+
   // Get all messages
   const messages = parseAllMessages()
 
@@ -71,6 +74,7 @@ function parseGitHubIssueData() {
 
   // Return an object with both results
   return {
+    title: title,
     messages: messages,
     commentBoxContent: commentBoxContent,
   }
@@ -78,7 +82,7 @@ function parseGitHubIssueData() {
 
 function createChatGPtSummaryPrompt(issueData, isIssue = true) {
   // Destructure the issueData object into messages and commentBoxContent
-  const { messages, commentBoxContent } = issueData
+  const { title, messages, commentBoxContent } = issueData
 
   // Start crafting the prompt
   let prompt = ''
@@ -92,6 +96,8 @@ function createChatGPtSummaryPrompt(issueData, isIssue = true) {
   }
 
   prompt += '---\n\n'
+
+  prompt += `Title:\n${title}\n\n`
 
   // Add each message to the prompt
   messages.forEach((message, index) => {

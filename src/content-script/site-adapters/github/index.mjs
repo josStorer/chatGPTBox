@@ -3,7 +3,7 @@ import { config } from '../index.mjs'
 
 const getPatchUrl = async () => {
   const patchUrl = location.origin + location.pathname + '.patch'
-  const response = await fetch(patchUrl, { method: 'HEAD' })
+  const response = await fetch(patchUrl, { method: 'HEAD' }).catch(() => ({}))
   if (response.ok) return patchUrl
   return ''
 }

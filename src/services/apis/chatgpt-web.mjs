@@ -84,7 +84,8 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
       })
       .join('; ')
 
-  if (!config.chatgptArkoseReqUrl)
+  const needArkoseToken = !usedModel.includes(Models[chatgptWebModelKeys[0]].value)
+  if (needArkoseToken && !config.chatgptArkoseReqUrl)
     throw new Error(
       t('Please login at https://chat.openai.com first') +
         '\n\n' +
@@ -92,20 +93,19 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
           "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.",
         ),
     )
-  const arkoseToken = await fetch(
-    config.chatgptArkoseReqUrl + '?' + config.chatgptArkoseReqParams,
-    {
-      method: 'POST',
-      body: config.chatgptArkoseReqForm,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-      },
-    },
-  )
-    .then((resp) => resp.json())
-    .then((resp) => resp.token)
-    .catch(() => null)
-  if (!arkoseToken)
+  const arkoseToken = config.chatgptArkoseReqUrl
+    ? await fetch(config.chatgptArkoseReqUrl + '?' + config.chatgptArkoseReqParams, {
+        method: 'POST',
+        body: config.chatgptArkoseReqForm,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+      })
+        .then((resp) => resp.json())
+        .then((resp) => resp.token)
+        .catch(() => null)
+    : null
+  if (needArkoseToken && !arkoseToken)
     throw new Error(
       t('Failed to get arkose token.') +
         '\n\n' +

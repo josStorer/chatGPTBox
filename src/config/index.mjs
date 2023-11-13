@@ -98,7 +98,10 @@ export const Models = {
   chatgptApi4_8k_0613: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k 0613)' },
   chatgptApi4_32k: { value: 'gpt-4-32k', desc: 'ChatGPT (GPT-4-32k)' },
   chatgptApi4_32k_0613: { value: 'gpt-4-32k', desc: 'ChatGPT (GPT-4-32k 0613)' },
-  chatgptApi4_128k_preview: { value: 'gpt-4-1106-preview', desc: 'ChatGPT (GPT-4-Turbo 128k Preview)' },
+  chatgptApi4_128k_preview: {
+    value: 'gpt-4-1106-preview',
+    desc: 'ChatGPT (GPT-4-Turbo 128k Preview)',
+  },
   gptApiDavinci: { value: 'text-davinci-003', desc: 'GPT-3.5' },
   customModel: { value: '', desc: 'Custom Model' },
   azureOpenAi: { value: '', desc: 'ChatGPT (Azure)' },
@@ -149,11 +152,14 @@ export const defaultConfig = {
   poeCustomBotName: '',
 
   claudeApiKey: '',
+
+  customApiKey: '',
+
   /** @type {keyof ModelMode}*/
   modelMode: 'balanced',
 
-  customModelApiUrl: 'http://localhost:8000/chat/completions',
-  customModelName: 'rwkv',
+  customModelApiUrl: 'http://localhost:8000/v1/chat/completions',
+  customModelName: 'gpt-3.5-turbo',
   githubThirdPartyUrl: 'http://127.0.0.1:3000/conversation',
 
   // advanced

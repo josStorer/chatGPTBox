@@ -9,7 +9,7 @@ import { getUserConfig } from '../../config/index.mjs'
 import { fetchSSE } from '../../utils/fetch-sse.mjs'
 import { getConversationPairs } from '../../utils/get-conversation-pairs.mjs'
 import { isEmpty } from 'lodash-es'
-import { getCustomApiPromptBase, pushRecord, setAbortController } from './shared.mjs'
+import { pushRecord, setAbortController } from './shared.mjs'
 
 /**
  * @param {Browser.Runtime.Port} port
@@ -26,7 +26,7 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
     session.conversationRecords.slice(-config.maxConversationContextLength),
     false,
   )
-  prompt.unshift({ role: 'system', content: await getCustomApiPromptBase() })
+  // prompt.unshift({ role: 'system', content: await getCustomApiPromptBase() })
   prompt.push({ role: 'user', content: question })
   const apiUrl = config.customModelApiUrl
 

@@ -285,6 +285,17 @@ export function GeneralPart({ config, updateConfig }) {
             }}
           />
         )}
+        {isUsingCustomModel(config) && (
+          <input
+            type="password"
+            value={config.customApiKey}
+            placeholder={t('API Key')}
+            onChange={(e) => {
+              const apiKey = e.target.value
+              updateConfig({ customApiKey: apiKey })
+            }}
+          />
+        )}
         {isUsingAzureOpenAi(config) && (
           <input
             type="password"

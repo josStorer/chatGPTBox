@@ -111,7 +111,13 @@ async function executeApi(session, port, config) {
       session.modelName,
     )
   } else if (customApiModelKeys.includes(session.modelName)) {
-    await generateAnswersWithCustomApi(port, session.question, session, '', config.customModelName)
+    await generateAnswersWithCustomApi(
+      port,
+      session.question,
+      session,
+      config.customApiKey,
+      config.customModelName,
+    )
   } else if (azureOpenAiApiModelKeys.includes(session.modelName)) {
     await generateAnswersWithAzureOpenaiApi(port, session.question, session)
   } else if (claudeApiModelKeys.includes(session.modelName)) {

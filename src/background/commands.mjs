@@ -2,7 +2,7 @@ import Browser from 'webextension-polyfill'
 import { config as menuConfig } from '../content-script/menu-tools/index.mjs'
 
 export function registerCommands() {
-  Browser.commands.onCommand.addListener(async (command) => {
+  Browser.commands.onCommand.addListener(async (command, tab) => {
     const message = {
       itemId: command,
       selectionText: '',
@@ -12,7 +12,7 @@ export function registerCommands() {
 
     if (command in menuConfig) {
       if (menuConfig[command].action) {
-        menuConfig[command].action(true)
+        menuConfig[command].action(true, tab)
       }
 
       if (menuConfig[command].genPrompt) {

@@ -57,7 +57,7 @@ export function refreshMenu() {
           })
         } else if (message.itemId in menuConfig) {
           if (menuConfig[message.itemId].action) {
-            menuConfig[message.itemId].action(true)
+            menuConfig[message.itemId].action(true, tab)
           }
 
           if (menuConfig[message.itemId].genPrompt) {

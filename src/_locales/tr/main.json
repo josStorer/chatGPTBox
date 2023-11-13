@@ -128,5 +128,6 @@
   "Jump to bottom": "En alta git",
   "Explain": "Açıkla",
   "Failed to get arkose token.": "Arkose jetonu alınamadı.",
-  "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "Lütfen https://chat.openai.com adresini açık tutun ve tekrar deneyin. Hala çalışmazsa, chatgpt web sayfasının girdi kutusuna bazı karakterler yazın ve tekrar deneyin."
+  "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "Lütfen https://chat.openai.com adresini açık tutun ve tekrar deneyin. Hala çalışmazsa, chatgpt web sayfasının girdi kutusuna bazı karakterler yazın ve tekrar deneyin.",
+  "Open Side Panel": "Yan Paneli Aç"
 }

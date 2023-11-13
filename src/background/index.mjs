@@ -279,6 +279,16 @@ try {
     },
     ['requestHeaders'],
   )
+
+  Browser.tabs.onUpdated.addListener(async (tabId, info, tab) => {
+    if (!tab.url) return
+    // eslint-disable-next-line no-undef
+    await chrome.sidePanel.setOptions({
+      tabId,
+      path: 'IndependentPanel.html',
+      enabled: true,
+    })
+  })
 } catch (error) {
   console.log(error)
 }

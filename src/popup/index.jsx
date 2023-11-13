@@ -17,12 +17,13 @@ getUserConfig().then(async (config) => {
     console.debug('custom icon action triggered', message)
 
     if (config.clickIconAction in menuConfig) {
+      const currentTab = (await Browser.tabs.query({ active: true, currentWindow: true }))[0]
+
       if (menuConfig[config.clickIconAction].action) {
-        menuConfig[config.clickIconAction].action(false)
+        menuConfig[config.clickIconAction].action(false, currentTab)
       }
 
       if (menuConfig[config.clickIconAction].genPrompt) {
-        const currentTab = (await Browser.tabs.query({ active: true, currentWindow: true }))[0]
         Browser.tabs.sendMessage(currentTab.id, {
           type: 'CREATE_CHAT',
           data: message,

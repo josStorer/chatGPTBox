@@ -24,7 +24,8 @@
     "unlimitedStorage",
     "tabs",
     "webRequest",
-    "declarativeNetRequestWithHostAccess"
+    "declarativeNetRequestWithHostAccess",
+    "sidePanel"
   ],
   "optional_permissions": [
     "background"
@@ -34,6 +35,9 @@
   },
   "action": {
     "default_popup": "popup.html"
+  },
+  "sidePanel": {
+    "default_path": "IndependentPanel.html"
   },
   "declarative_net_request": {
     "rule_resources": [
@@ -98,6 +102,9 @@
     },
     "openConversationWindow": {
       "description": "Open the independent conversation window"
+    },
+    "openSidePanel": {
+      "description": "Open the independent conversation side panel"
     },
     "closeAllChats": {
       "description": "Close all chats in this page"

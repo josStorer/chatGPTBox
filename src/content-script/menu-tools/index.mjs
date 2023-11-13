@@ -57,6 +57,18 @@ export const config = {
       }
     },
   },
+  openSidePanel: {
+    label: 'Open Side Panel',
+    action: async (fromBackground, tab) => {
+      console.debug('action is from background', fromBackground)
+      if (fromBackground) {
+        // eslint-disable-next-line no-undef
+        chrome.sidePanel.open({ windowId: tab.windowId, tabId: tab.id })
+      } else {
+        // side panel is not supported
+      }
+    },
+  },
   closeAllChats: {
     label: 'Close All Chats In This Page',
     action: async (fromBackground) => {

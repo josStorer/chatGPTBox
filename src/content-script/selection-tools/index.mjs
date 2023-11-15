@@ -12,13 +12,19 @@ import {
 import { getPreferredLanguage } from '../../config/language.mjs'
 
 const createGenPrompt =
-  (message, isTranslation = false, targetLanguage = '') =>
-  async (selection) => {
-    const preferredLanguage = isTranslation
-      ? targetLanguage
-      : await getPreferredLanguage()
-    return `Reply in ${preferredLanguage}.${message}:\n'''\n${selection}\n'''`
-  }
+  (message, isTranslation = false, targetLanguage = '', enableBidirectional = false) =>
+    async (selection) => {
+      const preferredLanguage = isTranslation
+        ? targetLanguage
+        : await getPreferredLanguage()
+      let fullMessage = isTranslation
+        ? `Translate the following into ${preferredLanguage} and only show me the translated content`
+        : message;
+      if (enableBidirectional) {
+        fullMessage += `. If it is already in ${preferredLanguage}, translate it into English and only show me the translated content`
+      }
+      return `Reply in ${preferredLanguage}.${fullMessage}:\n'''\n${selection}\n'''`
+    }
 
 export const config = {
   explain: {
@@ -29,36 +35,22 @@ export const config = {
   translate: {
     icon: <Translate />,
     label: 'Translate',
-    genPrompt: createGenPrompt(
-      'Translate the following into ${preferredLanguage} and only show me the translated content',
-      true
-    ),
+    genPrompt: createGenPrompt('', true),
   },
   translateToEn: {
     icon: <Globe />,
     label: 'Translate (To English)',
-    genPrompt: createGenPrompt(
-      'Translate the following into English and only show me the translated content',
-      true,
-      'English'
-    ),
+    genPrompt: createGenPrompt('', true, 'English'),
   },
   translateToZh: {
     icon: <Globe />,
     label: 'Translate (To Chinese)',
-    genPrompt: createGenPrompt(
-      'Translate the following into Chinese and only show me the translated content',
-      true,
-      'Chinese'
-    ),
+    genPrompt: createGenPrompt('', true, 'Chinese'),
   },
   translateBidi: {
     icon: <Globe />,
     label: 'Translate (Bidirectional)',
-    genPrompt: createGenPrompt(
-      'Translate the following into ${preferredLanguage} and only show me the translated content. If it is already in ${preferredLanguage}, translate it into English and only show me the translated content',
-      true
-    ),
+    genPrompt: createGenPrompt('', true, '', true),
   },
   summary: {
     icon: <CardHeading />,

@@ -12,86 +12,117 @@ import {
 import { getPreferredLanguage } from '../../config/language.mjs'
 
 const createGenPrompt =
-  (message, isTranslation = false, targetLanguage = '', enableBidirectional = false) =>
+  ({
+    message = '',
+    isTranslation = false,
+    targetLanguage = '',
+    enableBidirectional = false,
+    includeLanguagePrefix = false
+  }) =>
     async (selection) => {
       const preferredLanguage = isTranslation
         ? targetLanguage
         : await getPreferredLanguage()
       let fullMessage = isTranslation
         ? `Translate the following into ${preferredLanguage} and only show me the translated content`
-        : message;
+        : message
       if (enableBidirectional) {
         fullMessage += `. If it is already in ${preferredLanguage}, translate it into English and only show me the translated content`
       }
-      return `Reply in ${preferredLanguage}.${fullMessage}:\n'''\n${selection}\n'''`
+      const prefix = includeLanguagePrefix
+        ? `Reply in ${preferredLanguage}.`
+        : ''
+      return `${prefix}${fullMessage}:\n'''\n${selection}\n'''`
     }
 
 export const config = {
   explain: {
     icon: <ChatText />,
     label: 'Explain',
-    genPrompt: createGenPrompt('Explain the following'),
+    genPrompt: createGenPrompt({
+      message: 'Explain the following',
+      includeLanguagePrefix: true
+    }),
   },
   translate: {
     icon: <Translate />,
     label: 'Translate',
-    genPrompt: createGenPrompt('', true),
+    genPrompt: createGenPrompt({
+      isTranslation: true
+    }),
   },
   translateToEn: {
     icon: <Globe />,
     label: 'Translate (To English)',
-    genPrompt: createGenPrompt('', true, 'English'),
+    genPrompt: createGenPrompt({
+      isTranslation: true,
+      targetLanguage: 'English'
+    }),
   },
   translateToZh: {
     icon: <Globe />,
     label: 'Translate (To Chinese)',
-    genPrompt: createGenPrompt('', true, 'Chinese'),
+    genPrompt: createGenPrompt({
+      isTranslation: true,
+      targetLanguage: 'Chinese'
+    }),
   },
   translateBidi: {
     icon: <Globe />,
     label: 'Translate (Bidirectional)',
-    genPrompt: createGenPrompt('', true, '', true),
+    genPrompt: createGenPrompt({
+      isTranslation: true,
+      enableBidirectional: true
+    }),
   },
   summary: {
     icon: <CardHeading />,
     label: 'Summary',
-    genPrompt: createGenPrompt(
-      'Summarize the following as concisely as possible'
-    ),
+    genPrompt: createGenPrompt({
+      message: 'Summarize the following as concisely as possible',
+      includeLanguagePrefix: true
+    }),
   },
   polish: {
     icon: <Palette />,
     label: 'Polish',
-    genPrompt: createGenPrompt(
-      'Check the following content for possible diction and grammar problems, and polish it carefully',
-      false
-    ),
+    genPrompt: createGenPrompt({
+      message:
+        'Check the following content for possible diction and grammar problems, and polish it carefully'
+    }),
   },
   sentiment: {
     icon: <EmojiSmile />,
     label: 'Sentiment Analysis',
-    genPrompt: createGenPrompt(
-      'Analyze the sentiments expressed in the following content and make a brief summary of the sentiments'
-    ),
+    genPrompt: createGenPrompt({
+      message:
+        'Analyze the sentiments expressed in the following content and make a brief summary of the sentiments',
+      includeLanguagePrefix: true
+    }),
   },
   divide: {
     icon: <CardList />,
     label: 'Divide Paragraphs',
-    genPrompt: createGenPrompt(
-      'Divide the following into paragraphs that are easy to read and understand',
-      false
-    ),
+    genPrompt: createGenPrompt({
+      message:
+        'Divide the following into paragraphs that are easy to read and understand'
+    }),
   },
   code: {
     icon: <Braces />,
     label: 'Code Explain',
-    genPrompt: createGenPrompt('Explain the following code'),
+    genPrompt: createGenPrompt({
+      message: 'Explain the following code',
+      includeLanguagePrefix: true
+    }),
   },
   ask: {
     icon: <QuestionCircle />,
     label: 'Ask',
-    genPrompt: createGenPrompt(
-      'Analyze the following content and express your opinion, or give your answer'
-    ),
+    genPrompt: createGenPrompt({
+      message:
+        'Analyze the following content and express your opinion, or give your answer',
+      includeLanguagePrefix: true
+    }),
   },
 }

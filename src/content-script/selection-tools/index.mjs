@@ -17,7 +17,7 @@ export const config = {
     label: 'Explain',
     genPrompt: async (selection) => {
       const preferredLanguage = await getPreferredLanguage()
-      return `Reply in ${preferredLanguage}.Explain the following:\n"${selection}"`
+      return `Reply in ${preferredLanguage}.Explain the following:\n"""\n${selection}\n"""`
     },
   },
   translate: {
@@ -25,21 +25,21 @@ export const config = {
     label: 'Translate',
     genPrompt: async (selection) => {
       const preferredLanguage = await getPreferredLanguage()
-      return `Translate the following into ${preferredLanguage} and only show me the translated content:\n${selection}`
+      return `Translate the following into ${preferredLanguage} and only show me the translated content:\n"""\n${selection}\n"""`
     },
   },
   translateToEn: {
     icon: <Globe />,
     label: 'Translate (To English)',
     genPrompt: async (selection) => {
-      return `Translate the following into English and only show me the translated content:\n${selection}`
+      return `Translate the following into English and only show me the translated content:\n"""\n${selection}\n"""`
     },
   },
   translateToZh: {
     icon: <Globe />,
     label: 'Translate (To Chinese)',
     genPrompt: async (selection) => {
-      return `Translate the following into Chinese and only show me the translated content:\n${selection}`
+      return `Translate the following into Chinese and only show me the translated content:\n"""\n${selection}\n"""`
     },
   },
   translateBidi: {
@@ -50,7 +50,7 @@ export const config = {
       return (
         `Translate the following into ${preferredLanguage} and only show me the translated content.` +
         `If it is already in ${preferredLanguage},` +
-        `translate it into English and only show me the translated content:\n${selection}`
+        `translate it into English and only show me the translated content:\n"""\n${selection}\n"""`
       )
     },
   },
@@ -59,35 +59,35 @@ export const config = {
     label: 'Summary',
     genPrompt: async (selection) => {
       const preferredLanguage = await getPreferredLanguage()
-      return `Reply in ${preferredLanguage}.Summarize the following as concisely as possible:\n"${selection}"`
+      return `Reply in ${preferredLanguage}.Summarize the following as concisely as possible:\n"""\n${selection}\n"""`
     },
   },
   polish: {
     icon: <Palette />,
     label: 'Polish',
     genPrompt: async (selection) =>
-      `Check the following content for possible diction and grammar problems,and polish it carefully:\n"${selection}"`,
+      `Check the following content for possible diction and grammar problems,and polish it carefully:\n"""\n${selection}\n"""`,
   },
   sentiment: {
     icon: <EmojiSmile />,
     label: 'Sentiment Analysis',
     genPrompt: async (selection) => {
       const preferredLanguage = await getPreferredLanguage()
-      return `Reply in ${preferredLanguage}.Analyze the sentiments expressed in the following content and make a brief summary of the sentiments:\n"${selection}"`
+      return `Reply in ${preferredLanguage}.Analyze the sentiments expressed in the following content and make a brief summary of the sentiments:\n"""\n${selection}\n"""`
     },
   },
   divide: {
     icon: <CardList />,
     label: 'Divide Paragraphs',
     genPrompt: async (selection) =>
-      `Divide the following into paragraphs that are easy to read and understand:\n"${selection}"`,
+      `Divide the following into paragraphs that are easy to read and understand:\n"""\n${selection}\n"""`,
   },
   code: {
     icon: <Braces />,
     label: 'Code Explain',
     genPrompt: async (selection) => {
       const preferredLanguage = await getPreferredLanguage()
-      return `Reply in ${preferredLanguage}.Explain the following code:\n"${selection}"`
+      return `Reply in ${preferredLanguage}.Explain the following code:\n"""\n${selection}\n"""`
     },
   },
   ask: {
@@ -95,7 +95,7 @@ export const config = {
     label: 'Ask',
     genPrompt: async (selection) => {
       const preferredLanguage = await getPreferredLanguage()
-      return `Reply in ${preferredLanguage}.Analyze the following content and express your opinion,or give your answer:\n"${selection}"`
+      return `Reply in ${preferredLanguage}.Analyze the following content and express your opinion,or give your answer:\n"""\n${selection}\n"""`
     },
   },
 }

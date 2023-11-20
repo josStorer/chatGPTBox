@@ -45,6 +45,7 @@ export const chatgptApiModelKeys = [
 export const customApiModelKeys = ['customModel']
 export const azureOpenAiApiModelKeys = ['azureOpenAi']
 export const claudeApiModelKeys = ['claude2Api']
+export const chatglmApiModelKeys = ['chatglmTurbo']
 export const githubThirdPartyApiModelKeys = ['waylaidwandererApi']
 export const poeWebModelKeys = [
   'poeAiWebSage', //poe.com/Assistant
@@ -71,6 +72,7 @@ export const poeWebModelKeys = [
  * @type {Object.<string,Model>}
  */
 export const Models = {
+  chatglmTurbo: { value: 'chatglm_turbo', desc: 'ChatGLM (ChatGLM-Turbo)' },
   chatgptFree35: { value: 'text-davinci-002-render-sha', desc: 'ChatGPT (Web)' },
   chatgptFree35Mobile: { value: 'text-davinci-002-render-sha-mobile', desc: 'ChatGPT (Mobile)' },
   chatgptPlus4: { value: 'gpt-4', desc: 'ChatGPT (Web, GPT-4)' },
@@ -152,6 +154,7 @@ export const defaultConfig = {
   poeCustomBotName: '',
 
   claudeApiKey: '',
+  chatglmApiKey: '',
 
   customApiKey: '',
 
@@ -181,6 +184,7 @@ export const defaultConfig = {
 
   alwaysCreateNewConversationWindow: false,
   activeApiModes: [
+    'chatglmTurbo',
     // 'claude2Api',
     'chatgptFree35',
     //'chatgptFree35Mobile',
@@ -288,6 +292,10 @@ export function isUsingMultiModeModel(configOrSession) {
 
 export function isUsingCustomModel(configOrSession) {
   return customApiModelKeys.includes(configOrSession.modelName)
+}
+
+export function isUsingChatGLMApi(configOrSession) {
+  return chatglmApiModelKeys.includes(configOrSession.modelName)
 }
 
 export function isUsingCustomNameOnlyModel(configOrSession) {

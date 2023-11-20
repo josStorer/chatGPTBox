@@ -70,6 +70,10 @@ async function runWebpack(isWithoutKatex, isWithoutTiktoken, callback) {
       concatenateModules: !isAnalyzing,
     },
     plugins: [
+      new webpack.ProvidePlugin({
+        process: 'process/browser.js',
+        Buffer: ['buffer', 'Buffer'],
+      }),
       new ProgressBarPlugin({
         format: '  build [:bar] :percent (:elapsed seconds)',
         clear: false,
@@ -97,6 +101,10 @@ async function runWebpack(isWithoutKatex, isWithoutTiktoken, callback) {
       extensions: ['.jsx', '.mjs', '.js'],
       alias: {
         parse5: path.resolve(__dirname, 'node_modules/parse5'),
+        util: path.resolve(__dirname, 'node_modules/util'),
+        buffer: path.resolve(__dirname, 'node_modules/buffer'),
+        stream: 'stream-browserify',
+        crypto: 'crypto-browserify',
       },
     },
     module: {

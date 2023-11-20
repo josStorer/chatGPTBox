@@ -155,6 +155,12 @@ export default class PoeAiClient {
       bot = 'llama_2_13b_chat'
     } else if (bot === 'Llama-2-70b') {
       bot = 'llama_2_70b_chat'
+    } else if (bot === 'Code-Llama-7b') {
+      bot = 'code_llama_7b_instruct'
+    } else if (bot === 'Code-Llama-13b') {
+      bot = 'code_llama_13b_instruct'
+    } else if (bot === 'Code-Llama-34b') {
+      bot = 'code_llama_34b_instruct'
     }
 
     this.bot = bot

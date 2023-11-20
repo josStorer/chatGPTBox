@@ -60,6 +60,9 @@ export const poeWebModelKeys = [
   'poeAiWeb_Llama_2_7b',
   'poeAiWeb_Llama_2_13b',
   'poeAiWeb_Llama_2_70b',
+  'poeAiWeb_Code_Llama_7b',
+  'poeAiWeb_Code_Llama_13b',
+  'poeAiWeb_Code_Llama_34b',
 ]
 
 /**
@@ -94,6 +97,9 @@ export const Models = {
   poeAiWeb_Llama_2_7b: { value: 'Llama-2-7b', desc: 'Poe AI (Web, Llama-2-7b)' },
   poeAiWeb_Llama_2_13b: { value: 'Llama-2-13b', desc: 'Poe AI (Web, Llama-2-13b)' },
   poeAiWeb_Llama_2_70b: { value: 'Llama-2-70b', desc: 'Poe AI (Web, Llama-2-70b)' },
+  poeAiWeb_Code_Llama_7b: { value: 'Code-Llama-7b', desc: 'Poe AI (Web, Code-Llama-7b)' },
+  poeAiWeb_Code_Llama_13b: { value: 'Code-Llama-13b', desc: 'Poe AI (Web, Code-Llama-13b)' },
+  poeAiWeb_Code_Llama_34b: { value: 'Code-Llama-34b', desc: 'Poe AI (Web, Code-Llama-34b)' },
   chatgptApi4_8k: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k)' },
   chatgptApi4_8k_0613: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k 0613)' },
   chatgptApi4_32k: { value: 'gpt-4-32k', desc: 'ChatGPT (GPT-4-32k)' },

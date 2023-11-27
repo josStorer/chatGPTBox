@@ -79,7 +79,7 @@ export const Models = {
   chatgptApi35: { value: 'gpt-3.5-turbo', desc: 'ChatGPT (GPT-3.5-turbo)' },
   chatgptApi35_16k: { value: 'gpt-3.5-turbo-16k', desc: 'ChatGPT (GPT-3.5-turbo-16k)' },
   chatgptApi35_1106: { value: 'gpt-3.5-turbo-1106', desc: 'ChatGPT (GPT-3.5-turbo 1106)' },
-  claude2WebFree: { value: 'claude-2', desc: 'Claude.ai (Web, Claude 2)' },
+  claude2WebFree: { value: 'claude-2.1', desc: 'Claude.ai (Web, Claude 2.1)' },
   claude2Api: { value: '', desc: 'Claude.ai (API, Claude 2)' },
   bingFree4: { value: '', desc: 'Bing (Web, GPT-4)' },
   bingFreeSydney: { value: '', desc: 'Bing (Web, GPT-4, Sydney)' },

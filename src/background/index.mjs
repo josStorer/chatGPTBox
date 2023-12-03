@@ -12,10 +12,12 @@ import {
 import { generateAnswersWithCustomApi } from '../services/apis/custom-api.mjs'
 import { generateAnswersWithAzureOpenaiApi } from '../services/apis/azure-openai-api.mjs'
 import { generateAnswersWithClaudeApi } from '../services/apis/claude-api.mjs'
+import { generateAnswersWithChatGLMApi } from '../services/apis/chatglm-api.mjs'
 import { generateAnswersWithWaylaidwandererApi } from '../services/apis/waylaidwanderer-api.mjs'
 import {
   azureOpenAiApiModelKeys,
   claudeApiModelKeys,
+  chatglmApiModelKeys,
   bardWebModelKeys,
   bingWebModelKeys,
   chatgptApiModelKeys,
@@ -122,6 +124,8 @@ async function executeApi(session, port, config) {
     await generateAnswersWithAzureOpenaiApi(port, session.question, session)
   } else if (claudeApiModelKeys.includes(session.modelName)) {
     await generateAnswersWithClaudeApi(port, session.question, session)
+  } else if (chatglmApiModelKeys.includes(session.modelName)) {
+    await generateAnswersWithChatGLMApi(port, session.question, session, session.modelName)
   } else if (githubThirdPartyApiModelKeys.includes(session.modelName)) {
     await generateAnswersWithWaylaidwandererApi(port, session.question, session)
   } else if (poeWebModelKeys.includes(session.modelName)) {

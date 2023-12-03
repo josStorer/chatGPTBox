@@ -87,7 +87,7 @@ export const Models = {
     desc: 'ChatGPT (GPT-4-Turbo 128k Preview)',
   },
 
-  claude2WebFree: { value: 'claude-2', desc: 'Claude.ai (Web, Claude 2)' },
+  claude2WebFree: { value: 'claude-2.1', desc: 'Claude.ai (Web, Claude 2.1)' },
   claude2Api: { value: '', desc: 'Claude.ai (API, Claude 2)' },
 
   bingFree4: { value: '', desc: 'Bing (Web, GPT-4)' },

@@ -31,7 +31,7 @@ export const chatgptWebModelKeys = [
 export const bingWebModelKeys = ['bingFree4', 'bingFreeSydney']
 export const bardWebModelKeys = ['bardWebFree']
 export const claudeWebModelKeys = ['claude2WebFree']
-export const gptApiModelKeys = ['gptApiDavinci']
+export const gptApiModelKeys = ['gptApiInstruct', 'gptApiDavinci']
 export const chatgptApiModelKeys = [
   'chatgptApi35',
   'chatgptApi35_16k',
@@ -104,6 +104,7 @@ export const Models = {
   chatgptApi4_8k_0613: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k 0613)' },
   chatgptApi4_32k_0613: { value: 'gpt-4-32k', desc: 'ChatGPT (GPT-4-32k 0613)' },
 
+  gptApiInstruct: { value: 'gpt-3.5-turbo-instruct', desc: 'GPT-3.5-turbo Instruct' },
   gptApiDavinci: { value: 'text-davinci-003', desc: 'GPT-3.5' },
 
   customModel: { value: '', desc: 'Custom Model' },

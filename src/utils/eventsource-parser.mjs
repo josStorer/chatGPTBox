@@ -9,6 +9,7 @@ function createParser(onParse) {
   let eventId
   let eventName
   let data
+  let extra
   reset()
   return {
     feed,
@@ -78,17 +79,19 @@ function createParser(onParse) {
 
   function parseEventStreamLine(lineBuffer, index, fieldLength, lineLength) {
     if (lineLength === 0) {
-      if (data.length > 0) {
+      if (data.length > 0 || extra) {
         onParse({
           type: 'event',
           id: eventId,
           event: eventName || void 0,
           data: data.slice(0, -1),
+          extra: extra || void 0,
           // remove trailing newline
         })
 
         data = ''
         eventId = void 0
+        extra = void 0
       }
       eventName = void 0
       return
@@ -120,6 +123,10 @@ function createParser(onParse) {
           value: retry,
         })
       }
+    } else {
+      const str = `{"${field}":${value}}`
+      extra = extra ?? []
+      extra.push(JSON.parse(str))
     }
   }
 }

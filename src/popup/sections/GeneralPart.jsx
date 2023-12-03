@@ -4,6 +4,7 @@ import { openUrl } from '../../utils/index.mjs'
 import {
   isUsingApiKey,
   isUsingAzureOpenAi,
+  isUsingChatGLMApi,
   isUsingClaude2Api,
   isUsingCustomModel,
   isUsingCustomNameOnlyModel,
@@ -270,6 +271,18 @@ export function GeneralPart({ config, updateConfig }) {
               onChange={(e) => {
                 const apiKey = e.target.value
                 updateConfig({ claudeApiKey: apiKey })
+              }}
+            />
+          )}
+          {isUsingChatGLMApi(config) && (
+            <input
+              type="password"
+              style="width: 50%;"
+              value={config.chatglmApiKey}
+              placeholder={t('ChatGLM API Key')}
+              onChange={(e) => {
+                const apiKey = e.target.value
+                updateConfig({ chatglmApiKey: apiKey })
               }}
             />
           )}

@@ -36,7 +36,7 @@
   "action": {
     "default_popup": "popup.html"
   },
-  "sidePanel": {
+  "side_panel": {
     "default_path": "IndependentPanel.html"
   },
   "declarative_net_request": {

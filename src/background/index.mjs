@@ -144,7 +144,13 @@ async function executeApi(session, port, config) {
     await generateAnswersWithBardWebApi(port, session.question, session, cookies)
   } else if (claudeWebModelKeys.includes(session.modelName)) {
     const sessionKey = await getClaudeSessionKey()
-    await generateAnswersWithClaudeWebApi(port, session.question, session, sessionKey)
+    await generateAnswersWithClaudeWebApi(
+      port,
+      session.question,
+      session,
+      sessionKey,
+      session.modelName,
+    )
   }
 }
 

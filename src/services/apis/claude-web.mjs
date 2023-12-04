@@ -1,13 +1,21 @@
 import { pushRecord } from './shared.mjs'
 import Claude from 'claude-ai'
+import { Models } from '../../config/index.mjs'
 
 /**
  * @param {Runtime.Port} port
  * @param {string} question
  * @param {Session} session
  * @param {string} sessionKey
+ * @param {string} modelName
  */
-export async function generateAnswersWithClaudeWebApi(port, question, session, sessionKey) {
+export async function generateAnswersWithClaudeWebApi(
+  port,
+  question,
+  session,
+  sessionKey,
+  modelName,
+) {
   const bot = new Claude({ sessionKey })
   await bot.init()
 
@@ -28,6 +36,7 @@ export async function generateAnswersWithClaudeWebApi(port, question, session, s
       .startConversation(question, {
         progress: progressFunc,
         done: doneFunc,
+        model: Models[modelName].value,
       })
       .then((conversation) => {
         session.claude_conversation = conversation
@@ -38,5 +47,6 @@ export async function generateAnswersWithClaudeWebApi(port, question, session, s
       conversation: session.claude_conversation,
       progress: progressFunc,
       done: doneFunc,
+      model: Models[modelName].value,
     })
 }

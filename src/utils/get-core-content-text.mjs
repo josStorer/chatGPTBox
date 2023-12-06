@@ -14,6 +14,7 @@ const adapters = {
   faz: ['.atc-Text'],
   golem: ['article'],
   eetimes: ['article'],
+  'new.qq.com': ['.content-article'],
 }
 
 function findLargestElement(e) {

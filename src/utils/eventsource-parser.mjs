@@ -123,7 +123,7 @@ function createParser(onParse) {
           value: retry,
         })
       }
-    } else {
+    } else if (field === 'meta') {
       const str = `{"${field}":${value}}`
       extra = extra ?? []
       extra.push(JSON.parse(str))

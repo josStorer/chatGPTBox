@@ -72,6 +72,10 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
 - Ekstensi ini **tidak** mengumpulkan data Anda. Anda dapat memverifikasinya dengan melakukan pencarian global untuk `fetch(` dan `XMLHttpRequest(` dalam kode untuk menemukan semua panggilan permintaan jaringan. Jumlah kode tidak banyak, jadi mudah untuk melakukannya.
 
+- Anda dapat menggunakan proyek seperti https://github.com/BerriAI/litellm untuk mengkonversi API LLM ke dalam format OpenAI dan menggunakannya bersama dengan mode `Custom Model` dari ChatGPTBox
+
+- Anda juga dapat menggunakan https://openrouter.ai/docs#api-keys dengan mode `Custom Model` dari ChatGPTBox
+
 - Anda dapat mengatur proxy balik gratis di Pengaturan Lanjutan untuk menghindari cloudflare: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
 
 - Model Offline/Self-hosted (RWKV, llama.cpp, ChatGLM) sekarang didukung, Lihat https://github.com/josStorer/selfhostedAI

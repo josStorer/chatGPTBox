@@ -74,6 +74,10 @@ English &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md) &nbsp;&nbsp;|&nbsp;&
 
 - This tool will not transmit any data to ChatGPT unless you explicitly ask it to. By default, the extension must be activated manually. It will only send a request to ChatGPT if you specifically click "Ask ChatGPT" or trigger the selection floating tools — and this is applicable only when you're using GPT API modes. (issue #407)
 
+- You can use projects like https://github.com/BerriAI/litellm to convert LLM APIs into OpenAI format and use them in conjunction with ChatGPTBox's `Custom Model` mode
+
+- You can also use https://openrouter.ai/docs#api-keys with ChatGPTBox's `Custom Model` mode
+
 - You can set a free reverse proxy in the Advanced setting to bypass cloudflare: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
 
 - Offline/Self-hosted model (RWKV, llama.cpp, ChatGLM) is now supported, See https://github.com/josStorer/selfhostedAI

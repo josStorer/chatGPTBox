@@ -74,6 +74,10 @@
 
 - このツールは、あなたが明示的に要求しない限り、ChatGPT にデータを送信しません。デフォルトでは、拡張機能は手動で有効にする必要があります ChatGPT へのリクエストは、"Ask ChatGPT" をクリックするか、選択フローティングツールをトリガーした場合にのみ送信されます。(issue #407)
 
+- https://github.com/BerriAI/litellm のようなプロジェクトを使用して、LLM APIをOpenAI形式に変換し、それらをChatGPTBoxの `カスタムモデル` モードと組み合わせて使用することができます
+
+- もちろんです。ChatGPTBoxの `カスタムモデル` モードを使用する際には、https://openrouter.ai/docs#api-keys もご利用いただけます
+
 - 詳細設定で無料のリバースプロキシに設定し、cloudflare をバイパスすることができます: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
 
 - オフライン/セルフホストモデル (RWKV, llama.cpp, ChatGLM) がサポートされました。https://github.com/josStorer/selfhostedAI をご覧ください

@@ -75,6 +75,10 @@ Tarayıcınıza derin ChatGPT entegrasyonu, tamamen ücretsiz.
 
 - Bu araç ChatGPT'ye siz açıkça belirtmediğiniz sürece hiçbir veri iletmez. Varsayılan olarak, eklentinin manuel olarak aktif hale getirilmesi gerekmektedir. Özellikle, sadece "ChatGPT'ye Sor" butonuna basarsanız ChatGPT'ye istek atar veya yüzen seçim araçlarını tetiklerseniz — Bu yalnızca GPT API modlarını kullandığınızda uygulanır (konu #407)
 
+- Proje olarak https://github.com/BerriAI/litellm gibi şeyleri kullanarak LLM API'larını OpenAI formatına dönüştürebilir ve bunları ChatGPTBox'ın `Custom Model` modu ile birlikte kullanabilirsiniz
+
+- ChatGPTBox'un `Custom Model` modu ile https://openrouter.ai/docs#api-keys adresini de kullanabilirsiniz
+
 - Cloudflare korumasını geçmek için gelişmiş ayarlardan ücretsiz ters proxy'i kurabilirsiniz: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
 
 - Offline/Self-host'lu modeller (RWKV, llama.cpp, ChatGLM) artık destekleniyor, Bknz: https://github.com/josStorer/selfhostedAI

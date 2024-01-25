@@ -258,7 +258,9 @@ try {
         }
         setUserConfig({
           chatgptArkoseReqUrl: details.url,
-          chatgptArkoseReqForm: formData.toString(),
+          chatgptArkoseReqForm:
+            formData.toString() ||
+            new TextDecoder('utf-8').decode(new Uint8Array(details.requestBody.raw[0].bytes)),
         }).then(() => {
           console.log('Arkose req url and form saved')
         })

@@ -1,9 +1,11 @@
-import { cropText } from '../../../utils'
+import { cropText, waitForElementToExistAndSelect } from '../../../utils'
 import { config } from '../index.mjs'
 
 export default {
   init: async (hostname, userConfig, getInput, mountComponent) => {
     try {
+      // B站页面是SSR的，如果插入过早，页面 js 检测到实际 Dom 和期望 Dom 不一致，会导致重新渲染
+      await waitForElementToExistAndSelect('img.bili-avatar-img')
       let oldUrl = location.href
       const checkUrlChange = async () => {
         if (location.href !== oldUrl) {

@@ -114,6 +114,8 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
         ),
     )
   let answer = ''
+  let generationPrefixAnswer = ''
+  let generatedImageUrl = ''
   await fetchSSE(`${config.customChatGptWebApiUrl}${config.customChatGptWebApiPath}`, {
     method: 'POST',
     signal: controller.signal,
@@ -177,7 +179,38 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
       if (data.message?.id) session.parentMessageId = data.message.id
 
       const respAns = data.message?.content?.parts?.[0]
-      if (respAns) answer = respAns
+      const contentType = data.message?.content?.content_type
+      if (contentType === 'text' && respAns) {
+        answer =
+          generationPrefixAnswer +
+          (generatedImageUrl && `\n\n![](${generatedImageUrl})\n\n`) +
+          respAns
+      } else if (contentType === 'code' && data.message?.status === 'in_progress') {
+        const generationText = '\n\n' + t('Generating...')
+        if (answer && !answer.endsWith(generationText)) generationPrefixAnswer = answer
+        answer = generationPrefixAnswer + generationText
+      } else if (
+        contentType === 'multimodal_text' &&
+        respAns?.content_type === 'image_asset_pointer'
+      ) {
+        const imageAsset = respAns?.asset_pointer || ''
+        if (imageAsset) {
+          fetch(
+            `${config.customChatGptWebApiUrl}/backend-api/files/${imageAsset.replace(
+              'file-service://',
+              '',
+            )}/download`,
+            {
+              credentials: 'include',
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+                ...(cookie && { Cookie: cookie }),
+              },
+            },
+          ).then((r) => r.json().then((json) => (generatedImageUrl = json?.download_url)))
+        }
+      }
+
       if (answer) {
         port.postMessage({ answer: answer, done: false, session: null })
       }

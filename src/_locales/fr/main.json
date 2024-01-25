@@ -129,5 +129,6 @@
   "Explain": "Expliquer",
   "Failed to get arkose token.": "Échec de l'obtention du jeton arkose.",
   "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "Veuillez garder https://chat.openai.com ouvert et réessayer. Si cela ne fonctionne toujours pas, tapez quelques caractères dans la boîte de saisie de la page web chatgpt et réessayez.",
-  "Open Side Panel": "Ouvrir le panneau latéral"
+  "Open Side Panel": "Ouvrir le panneau latéral",
+  "Generating...": "Génération..."
 }

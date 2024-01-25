@@ -129,5 +129,6 @@
   "Explain": "解释",
   "Failed to get arkose token.": "获取arkose token失败.",
   "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "请保持 https://chat.openai.com 打开并重试. 如果仍然不起作用, 请在chatgpt网页的输入框中输入一些字符, 然后再试一次.",
-  "Open Side Panel": "打开侧边栏"
+  "Open Side Panel": "打开侧边栏",
+  "Generating...": "正在生成..."
 }

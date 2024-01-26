@@ -50,8 +50,12 @@ function App() {
     // eslint-disable-next-line
     ;(async () => {
       const sessions = await getSessions()
-      setSessions(sessions)
-      await setSessionIdSafe(sessions[0].sessionId)
+      if (sessions[0].conversationRecords && sessions[0].conversationRecords.length > 0) {
+        await createNewChat()
+      } else {
+        setSessions(sessions)
+        await setSessionIdSafe(sessions[0].sessionId)
+      }
     })()
   }, [])
 

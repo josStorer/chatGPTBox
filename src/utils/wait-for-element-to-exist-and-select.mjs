@@ -1,4 +1,4 @@
-export function waitForElementToExistAndSelect(selector) {
+export function waitForElementToExistAndSelect(selector, timeout = 0) {
   return new Promise((resolve) => {
     if (document.querySelector(selector)) {
       return resolve(document.querySelector(selector))
@@ -15,5 +15,11 @@ export function waitForElementToExistAndSelect(selector) {
       subtree: true,
       childList: true,
     })
+
+    if (timeout)
+      setTimeout(() => {
+        observer.disconnect()
+        resolve(null)
+      }, timeout)
   })
 }

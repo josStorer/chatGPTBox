@@ -10,6 +10,7 @@ import stackoverflow from './stackoverflow'
 import juejin from './juejin'
 import weixin from './weixin'
 import followin from './followin'
+import duckduckgo from './duckduckgo'
 
 /**
  * @typedef {object} SiteConfigAction
@@ -55,6 +56,9 @@ export const config = {
     sidebarContainerQuery: ['.js-react-sidebar', '.react-results--sidebar'],
     appendContainerQuery: ['#links_wrapper'],
     resultsContainerQuery: ['.react-results--main'],
+    action: {
+      init: duckduckgo.init,
+    },
   },
   startpage: {
     inputQuery: ["input[name='query']"],

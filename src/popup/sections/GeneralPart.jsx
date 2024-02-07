@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { openUrl } from '../../utils/index.mjs'
 import {
+  isSupportBalance,
   isUsingApiKey,
   isUsingAzureOpenAi,
   isUsingChatGLMApi,
@@ -81,6 +82,10 @@ async function checkBilling(apiKey, apiUrl) {
 export function GeneralPart({ config, updateConfig }) {
   const { t, i18n } = useTranslation()
   const [balance, setBalance] = useState(null)
+  const [currentModel, setCurrentModel] = useState(null)
+  const showBalance = useMemo(() => {
+    return isSupportBalance(config)
+  }, [config])
 
   const getBalance = async () => {
     const response = await fetch(`${config.customOpenAiApiUrl}/dashboard/billing/credit_grants`, {
@@ -153,6 +158,7 @@ export function GeneralPart({ config, updateConfig }) {
             onChange={(e) => {
               const modelName = e.target.value
               updateConfig({ modelName: modelName })
+              setCurrentModel(Models[modelName])
             }}
           >
             {config.activeApiModes.map((modelName) => {
@@ -207,7 +213,11 @@ export function GeneralPart({ config, updateConfig }) {
               />
               {config.apiKey.length === 0 ? (
                 <a
-                  href="https://platform.openai.com/account/api-keys"
+                  href={
+                    'keyGenerateUrl' in currentModel
+                      ? currentModel.keyGenerateUrl
+                      : 'https://platform.openai.com/account/api-keys'
+                  }
                   target="_blank"
                   rel="nofollow noopener noreferrer"
                 >
@@ -215,15 +225,17 @@ export function GeneralPart({ config, updateConfig }) {
                     {t('Get')}
                   </button>
                 </a>
-              ) : balance ? (
-                <button type="button" onClick={getBalance}>
-                  {balance}
-                </button>
-              ) : (
-                <button type="button" onClick={getBalance}>
-                  {t('Balance')}
-                </button>
-              )}
+              ) : showBalance ? (
+                balance ? (
+                  <button type="button" onClick={getBalance}>
+                    {balance}
+                  </button>
+                ) : (
+                  <button type="button" onClick={getBalance}>
+                    {t('Balance')}
+                  </button>
+                )
+              ) : null}
             </span>
           )}
           {isUsingCustomModel(config) && (

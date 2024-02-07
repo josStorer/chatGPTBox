@@ -65,11 +65,14 @@ export const poeWebModelKeys = [
   'poeAiWeb_Llama_2_13b',
   'poeAiWeb_Llama_2_70b',
 ]
+export const moonshotApiModelKeys = ['moonshot_v1_8k', 'moonshot_v1_32k', 'moonshot_v1_128k']
+const moonshotApiKeyGenerateUrl = 'https://platform.moonshot.cn/console/api-keys'
 
 /**
  * @typedef {object} Model
  * @property {string} value
  * @property {string} desc
+ * @property {string} [keyGenerateUrl]
  */
 /**
  * @type {Object.<string,Model>}
@@ -136,6 +139,22 @@ export const Models = {
   poeAiWebChatGpt: { value: 'chatgpt', desc: 'Poe AI (Web, ChatGPT)' },
   poeAiWebChatGpt_16k: { value: 'chatgpt-16k', desc: 'Poe AI (Web, ChatGPT-16k)' },
   poeAiWebCustom: { value: '', desc: 'Poe AI (Web, Custom)' },
+
+  moonshot_v1_8k: {
+    value: 'moonshot-v1-8k',
+    desc: 'Moonshot (8k)',
+    keyGenerateUrl: moonshotApiKeyGenerateUrl,
+  },
+  moonshot_v1_32k: {
+    value: 'moonshot-v1-32k',
+    desc: 'Moonshot (32k)',
+    keyGenerateUrl: moonshotApiKeyGenerateUrl,
+  },
+  moonshot_v1_128k: {
+    value: 'moonshot-v1-128k',
+    desc: 'Moonshot (128k)',
+    keyGenerateUrl: moonshotApiKeyGenerateUrl,
+  },
 }
 
 for (const modelName in Models) {
@@ -293,7 +312,8 @@ export function getNavigatorLanguage() {
 export function isUsingApiKey(configOrSession) {
   return (
     gptApiModelKeys.includes(configOrSession.modelName) ||
-    chatgptApiModelKeys.includes(configOrSession.modelName)
+    chatgptApiModelKeys.includes(configOrSession.modelName) ||
+    moonshotApiModelKeys.includes(configOrSession.modelName)
   )
 }
 
@@ -322,6 +342,14 @@ export function isUsingClaude2Api(configOrSession) {
 }
 export function isUsingGithubThirdPartyApi(configOrSession) {
   return githubThirdPartyApiModelKeys.includes(configOrSession.modelName)
+}
+
+export function isSupportBalance(configOrSession) {
+  return (
+    isUsingAzureOpenAi(configOrSession) ||
+    gptApiModelKeys.includes(configOrSession.modelName) ||
+    chatgptApiModelKeys.includes(configOrSession.modelName)
+  )
 }
 
 export async function getPreferredLanguageKey() {

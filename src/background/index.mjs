@@ -30,6 +30,7 @@ import {
   gptApiModelKeys,
   poeWebModelKeys,
   setUserConfig,
+  moonshotApiModelKeys,
 } from '../config/index.mjs'
 import '../_locales/i18n'
 import { openUrl } from '../utils/open-url'
@@ -44,6 +45,7 @@ import { refreshMenu } from './menus.mjs'
 import { registerCommands } from './commands.mjs'
 import { generateAnswersWithBardWebApi } from '../services/apis/bard-web.mjs'
 import { generateAnswersWithClaudeWebApi } from '../services/apis/claude-web.mjs'
+import { generateAnswersWithMoonshotCompletionApi } from '../services/apis/moonshot-api.mjs'
 
 function setPortProxy(port, proxyTabId) {
   port.proxy = Browser.tabs.connect(proxyTabId)
@@ -149,6 +151,14 @@ async function executeApi(session, port, config) {
       session.question,
       session,
       sessionKey,
+      session.modelName,
+    )
+  } else if (moonshotApiModelKeys.includes(session.modelName)) {
+    await generateAnswersWithMoonshotCompletionApi(
+      port,
+      session.question,
+      session,
+      config.apiKey,
       session.modelName,
     )
   }

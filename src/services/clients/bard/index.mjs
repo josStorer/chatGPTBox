@@ -64,7 +64,7 @@ export default class Bard {
 
   async GetRequestParams() {
     try {
-      const response = await fetch('https://bard.google.com', {
+      const response = await fetch('https://gemini.google.com', {
         headers: {
           Cookie: this.cookies,
         },
@@ -99,7 +99,7 @@ export default class Bard {
     try {
       let { at, bl } = await this.GetRequestParams()
       const response = await fetch(
-        'https://bard.google.com/_/BardChatUi/data/assistant.lamda.BardFrontendService/StreamGenerate?' +
+        'https://gemini.google.com/_/BardChatUi/data/assistant.lamda.BardFrontendService/StreamGenerate?' +
           new URLSearchParams({
             bl: bl,
             rt: 'c',

@@ -43,22 +43,27 @@ function findLargestElement(e) {
 }
 
 export function getCoreContentText() {
+  function getTextFrom(e) {
+    return e.innerText || e.textContent
+  }
+
   for (const [siteName, selectors] of Object.entries(adapters)) {
     if (location.hostname.includes(siteName)) {
       const element = getPossibleElementByQuerySelector(selectors)
-      if (element) return element.innerText || element.textContent
+      if (element) return getTextFrom(element)
       break
     }
+  }
+
+  const element = document.querySelector('article')
+  if (element) {
+    return getTextFrom(element)
   }
 
   const largestElement = findLargestElement(document.body)
   const secondLargestElement = findLargestElement(largestElement)
   console.log(largestElement)
   console.log(secondLargestElement)
-
-  function getTextFrom(e) {
-    return e.innerText || e.textContent
-  }
 
   let ret
   if (!largestElement) {

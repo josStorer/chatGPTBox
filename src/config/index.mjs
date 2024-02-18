@@ -36,11 +36,14 @@ export const chatgptApiModelKeys = [
   'chatgptApi35',
   'chatgptApi35_16k',
   'chatgptApi35_1106',
+  'chatgptApi35_0125',
   'chatgptApi4_8k',
   'chatgptApi4_8k_0613',
   'chatgptApi4_32k',
   'chatgptApi4_32k_0613',
   'chatgptApi4_128k_preview',
+  'chatgptApi4_128k_1106_preview',
+  'chatgptApi4_128k_0125_preview',
 ]
 export const customApiModelKeys = ['customModel']
 export const azureOpenAiApiModelKeys = ['azureOpenAi']
@@ -74,8 +77,8 @@ export const poeWebModelKeys = [
 export const Models = {
   chatgptFree35: { value: 'text-davinci-002-render-sha', desc: 'ChatGPT (Web)' },
 
-  chatgptPlus4Browsing: { value: 'gpt-4', desc: 'ChatGPT (Web, GPT-4, browsing, analysis, DALL·E)' },
-  chatgptPlus4: { value: 'gpt-4-gizmo', desc: 'ChatGPT (Web, GPT-4, ChatGPT Classic)' },
+  chatgptPlus4: { value: 'gpt-4', desc: 'ChatGPT (Web, GPT-4 All in one)' },
+  chatgptPlus4Browsing: { value: 'gpt-4-gizmo', desc: 'ChatGPT (Web, GPT-4)' },
 
   chatgptApi35: { value: 'gpt-3.5-turbo', desc: 'ChatGPT (GPT-3.5-turbo)' },
   chatgptApi35_16k: { value: 'gpt-3.5-turbo-16k', desc: 'ChatGPT (GPT-3.5-turbo-16k)' },
@@ -83,8 +86,16 @@ export const Models = {
   chatgptApi4_8k: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k)' },
   chatgptApi4_32k: { value: 'gpt-4-32k', desc: 'ChatGPT (GPT-4-32k)' },
   chatgptApi4_128k_preview: {
-    value: 'gpt-4-1106-preview',
+    value: 'gpt-4-turbo-preview',
     desc: 'ChatGPT (GPT-4-Turbo 128k Preview)',
+  },
+  chatgptApi4_128k_1106_preview: {
+    value: 'gpt-4-1106-preview',
+    desc: 'ChatGPT (GPT-4-Turbo 128k 1106 Preview)',
+  },
+  chatgptApi4_128k_0125_preview: {
+    value: 'gpt-4-0125-preview',
+    desc: 'ChatGPT (GPT-4-Turbo 128k 0125 Preview)',
   },
 
   claude2WebFree: { value: 'claude-2.1', desc: 'Claude.ai (Web, Claude 2.1)' },
@@ -101,6 +112,7 @@ export const Models = {
   chatgptPlus4Mobile: { value: 'gpt-4-mobile', desc: 'ChatGPT (Mobile, GPT-4)' },
 
   chatgptApi35_1106: { value: 'gpt-3.5-turbo-1106', desc: 'ChatGPT (GPT-3.5-turbo 1106)' },
+  chatgptApi35_0125: { value: 'gpt-3.5-turbo-0125', desc: 'ChatGPT (GPT-3.5-turbo 0125)' },
   chatgptApi4_8k_0613: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k 0613)' },
   chatgptApi4_32k_0613: { value: 'gpt-4-32k', desc: 'ChatGPT (GPT-4-32k 0613)' },
 

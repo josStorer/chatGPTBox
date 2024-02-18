@@ -90,7 +90,9 @@ async function getInput(inputQuery) {
   let input
   if (typeof inputQuery === 'function') {
     input = await inputQuery()
-    if (input) return `Reply in ${await getPreferredLanguage()}.\n` + input
+    const replyPromptBelow = `Reply in ${await getPreferredLanguage()}. Regardless of the language of content I provide below. !!This is very important!!`
+    const replyPromptAbove = `Reply in ${await getPreferredLanguage()}. Regardless of the language of content I provide above. !!This is very important!!`
+    if (input) return `${replyPromptBelow}\n\n` + input + `\n\n${replyPromptAbove}`
     return input
   }
   const searchInput = getPossibleElementByQuerySelector(inputQuery)

@@ -101,6 +101,7 @@ const urls = {
   searx: ['https://searx.tiekoetter.com/search?q=hello'],
   ecosia: [], // unknown verify method https://www.ecosia.org/search?q=hello
   neeva: [], // unknown verify method(FetchError: maximum redirect reached) https://neeva.com/search?q=hello
+  presearch: [],
 }
 
 const commonHeaders = {

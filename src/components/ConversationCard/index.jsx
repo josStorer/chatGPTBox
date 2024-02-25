@@ -170,15 +170,23 @@ function ConversationCard(props) {
           )
           break
         default: {
+          let formattedError = msg.error
+          if (typeof msg.error === 'string' && msg.error.trimStart().startsWith('{'))
+            try {
+              formattedError = JSON.stringify(JSON.parse(msg.error), null, 2)
+            } catch (e) {
+              /* empty */
+            }
+
           let lastItem
           if (conversationItemData.length > 0)
             lastItem = conversationItemData[conversationItemData.length - 1]
           if (lastItem && (lastItem.content.includes('gpt-loading') || lastItem.type === 'error'))
-            updateAnswer(t(msg.error), false, 'error')
+            updateAnswer(t(formattedError), false, 'error')
           else
             setConversationItemData([
               ...conversationItemData,
-              new ConversationItemData('error', t(msg.error)),
+              new ConversationItemData('error', t(formattedError)),
             ])
           break
         }

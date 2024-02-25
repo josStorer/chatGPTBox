@@ -1,17 +1,22 @@
-import { cropText } from '../../../utils'
+import { cropText, waitForElementToExistAndSelect } from '../../../utils'
 import { config } from '../index.mjs'
 
 export default {
   init: async (hostname, userConfig, getInput, mountComponent) => {
     try {
-      let oldUrl = location.href
-      const checkUrlChange = async () => {
-        if (location.href !== oldUrl) {
-          oldUrl = location.href
+      // B站页面是SSR的，如果插入过早，页面 js 检测到实际 Dom 和期望 Dom 不一致，会导致重新渲染
+      await waitForElementToExistAndSelect('img.bili-avatar-img')
+      const getVideoPath = () =>
+        location.pathname + `?p=${new URLSearchParams(location.search).get('p') || 1}`
+      let oldPath = getVideoPath()
+      const checkPathChange = async () => {
+        const newPath = getVideoPath()
+        if (newPath !== oldPath) {
+          oldPath = newPath
           mountComponent(config.bilibili, userConfig)
         }
       }
-      window.setInterval(checkUrlChange, 500)
+      window.setInterval(checkPathChange, 500)
     } catch (e) {
       /* empty */
     }
@@ -28,9 +33,7 @@ export default {
       const pagelistData = await pagelistResponse.json()
       const videoList = pagelistData.data
       const cid = videoList[p].cid
-      let title
-      if (p === 0) title = document.querySelector('.video-title')?.textContent || videoList[p].part
-      else title = videoList[p].part
+      const title = videoList[p].part
 
       const infoResponse = await fetch(
         `https://api.bilibili.com/x/player/v2?bvid=${bvid}&cid=${cid}`,
@@ -52,7 +55,7 @@ export default {
       }
 
       return await cropText(
-        `用尽量简练的语言,联系视频标题,对视频进行内容摘要,同时仍要保留重要细节,视频标题为:"${title}",字幕内容为:\n${subtitleContent}`,
+        `用尽量简练的语言,联系视频标题,对视频进行内容摘要,同时仍要保留重要细节和标题信息,如果可能的话,使用markdown语法将视频内容总结为结构化信息,视频标题为:"${title}",字幕内容为:\n${subtitleContent}`,
       )
     } catch (e) {
       console.log(e)

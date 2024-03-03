@@ -1,5 +1,5 @@
 import { pushRecord } from './shared.mjs'
-import Claude from 'claude-ai'
+import Claude from '../clients/claude'
 import { Models } from '../../config/index.mjs'
 
 /**

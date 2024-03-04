@@ -36,7 +36,12 @@ export function setAbortController(port, onStop, onDisconnect) {
   }
   port.onDisconnect.addListener(disconnectListener)
 
-  return { controller, messageListener, disconnectListener }
+  const cleanController = () => {
+    port.onMessage.removeListener(messageListener)
+    port.onDisconnect.removeListener(disconnectListener)
+  }
+
+  return { controller, cleanController, messageListener, disconnectListener }
 }
 
 export function pushRecord(session, question, answer) {

@@ -101,13 +101,13 @@ export const Models = {
     desc: 'ChatGPT (GPT-4-Turbo 128k 0125 Preview)',
   },
 
-  claude2WebFree: { value: 'claude-2.1', desc: 'Claude.ai (Web, Claude 2.1)' },
+  claude2WebFree: { value: '', desc: 'Claude.ai (Web)' },
   claude2Api: { value: '', desc: 'Claude.ai (API, Claude 2)' },
 
   bingFree4: { value: '', desc: 'Bing (Web, GPT-4)' },
   bingFreeSydney: { value: '', desc: 'Bing (Web, GPT-4, Sydney)' },
 
-  bardWebFree: { value: '', desc: 'Bard (Web)' },
+  bardWebFree: { value: '', desc: 'Gemini (Web)' },
 
   chatglmTurbo: { value: 'chatglm_turbo', desc: 'ChatGLM (ChatGLM-Turbo)' },
 

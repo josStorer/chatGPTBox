@@ -214,7 +214,7 @@ export function GeneralPart({ config, updateConfig }) {
               {config.apiKey.length === 0 ? (
                 <a
                   href={
-                    'keyGenerateUrl' in currentModel
+                    currentModel && 'keyGenerateUrl' in currentModel
                       ? currentModel.keyGenerateUrl
                       : 'https://platform.openai.com/account/api-keys'
                   }

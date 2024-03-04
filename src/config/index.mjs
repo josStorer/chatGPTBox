@@ -346,7 +346,6 @@ export function isUsingGithubThirdPartyApi(configOrSession) {
 
 export function isSupportBalance(configOrSession) {
   return (
-    isUsingAzureOpenAi(configOrSession) ||
     gptApiModelKeys.includes(configOrSession.modelName) ||
     chatgptApiModelKeys.includes(configOrSession.modelName)
   )

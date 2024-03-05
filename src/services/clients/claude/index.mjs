@@ -1,7 +1,7 @@
 // https://github.com/Explosion-Scratch/claude-unofficial-api
 /* eslint-disable */
 
-import { fetchSSE } from '../../../utils/index.mjs'
+import { fetchSSE } from '../../../utils/fetch-sse'
 import { isEmpty } from 'lodash-es'
 
 /**

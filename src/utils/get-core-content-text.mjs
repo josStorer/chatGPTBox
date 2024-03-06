@@ -1,9 +1,5 @@
 import { getPossibleElementByQuerySelector } from './get-possible-element-by-query-selector.mjs'
-
-function getArea(e) {
-  const rect = e.getBoundingClientRect()
-  return rect.width * rect.height
-}
+import { Readability } from "@mozilla/readability"
 
 const adapters = {
   'scholar.google': ['#gs_res_ccl_mid'],
@@ -15,31 +11,6 @@ const adapters = {
   golem: ['article'],
   eetimes: ['article'],
   'new.qq.com': ['.content-article'],
-}
-
-function findLargestElement(e) {
-  if (!e) {
-    return null
-  }
-  let maxArea = 0
-  let largestElement = null
-  const limitedArea = 0.8 * getArea(e)
-
-  function traverseDOM(node) {
-    if (node.nodeType === Node.ELEMENT_NODE) {
-      const area = getArea(node)
-
-      if (area > maxArea && area < limitedArea) {
-        maxArea = area
-        largestElement = node
-      }
-
-      Array.from(node.children).forEach(traverseDOM)
-    }
-  }
-
-  traverseDOM(e)
-  return largestElement
 }
 
 export function getCoreContentText() {
@@ -60,24 +31,10 @@ export function getCoreContentText() {
     return getTextFrom(element)
   }
 
-  const largestElement = findLargestElement(document.body)
-  const secondLargestElement = findLargestElement(largestElement)
-  console.log(largestElement)
-  console.log(secondLargestElement)
-
-  let ret
-  if (!largestElement) {
-    ret = getTextFrom(document.body)
-    console.log('use document.body')
-  } else if (
-    secondLargestElement &&
-    getArea(secondLargestElement) > 0.5 * getArea(largestElement)
-  ) {
-    ret = getTextFrom(secondLargestElement)
-    console.log('use second')
-  } else {
-    ret = getTextFrom(largestElement)
-    console.log('use first')
-  }
-  return ret.trim().replaceAll('  ', '').replaceAll('\n\n', '').replaceAll(',,', '')
+  let article = new Readability(document.cloneNode(true), {
+    keepClasses: true
+  }).parse()
+  let content = article.textContent.trim().replaceAll('  ', '').replaceAll('\t', '').replaceAll('\n\n', '').replaceAll(',,', '')
+  console.log(content)
+  return content
 }

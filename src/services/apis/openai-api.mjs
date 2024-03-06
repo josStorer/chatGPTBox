@@ -95,6 +95,25 @@ export async function generateAnswersWithGptCompletionApi(
  * @param {string} modelName
  */
 export async function generateAnswersWithChatgptApi(port, question, session, apiKey, modelName) {
+  const config = await getUserConfig()
+  return generateAnswersWithChatgptApiCompat(
+    config.customOpenAiApiUrl,
+    port,
+    question,
+    session,
+    apiKey,
+    modelName,
+  )
+}
+
+export async function generateAnswersWithChatgptApiCompat(
+  baseUrl,
+  port,
+  question,
+  session,
+  apiKey,
+  modelName,
+) {
   const { controller, messageListener, disconnectListener } = setAbortController(port)
 
   const config = await getUserConfig()
@@ -104,10 +123,9 @@ export async function generateAnswersWithChatgptApi(port, question, session, api
   )
   prompt.unshift({ role: 'system', content: await getChatSystemPromptBase() })
   prompt.push({ role: 'user', content: question })
-  const apiUrl = config.customOpenAiApiUrl
 
   let answer = ''
-  await fetchSSE(`${apiUrl}/v1/chat/completions`, {
+  await fetchSSE(`${baseUrl}/v1/chat/completions`, {
     method: 'POST',
     signal: controller.signal,
     headers: {

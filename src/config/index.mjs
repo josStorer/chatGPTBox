@@ -65,11 +65,14 @@ export const poeWebModelKeys = [
   'poeAiWeb_Llama_2_13b',
   'poeAiWeb_Llama_2_70b',
 ]
+export const moonshotApiModelKeys = ['moonshot_v1_8k', 'moonshot_v1_32k', 'moonshot_v1_128k']
+const moonshotApiKeyGenerateUrl = 'https://platform.moonshot.cn/console/api-keys'
 
 /**
  * @typedef {object} Model
  * @property {string} value
  * @property {string} desc
+ * @property {string} [keyGenerateUrl]
  */
 /**
  * @type {Object.<string,Model>}
@@ -98,13 +101,13 @@ export const Models = {
     desc: 'ChatGPT (GPT-4-Turbo 128k 0125 Preview)',
   },
 
-  claude2WebFree: { value: 'claude-2.1', desc: 'Claude.ai (Web, Claude 2.1)' },
+  claude2WebFree: { value: '', desc: 'Claude.ai (Web)' },
   claude2Api: { value: '', desc: 'Claude.ai (API, Claude 2)' },
 
   bingFree4: { value: '', desc: 'Bing (Web, GPT-4)' },
   bingFreeSydney: { value: '', desc: 'Bing (Web, GPT-4, Sydney)' },
 
-  bardWebFree: { value: '', desc: 'Bard (Web)' },
+  bardWebFree: { value: '', desc: 'Gemini (Web)' },
 
   chatglmTurbo: { value: 'chatglm_turbo', desc: 'ChatGLM (ChatGLM-Turbo)' },
 
@@ -136,6 +139,22 @@ export const Models = {
   poeAiWebChatGpt: { value: 'chatgpt', desc: 'Poe AI (Web, ChatGPT)' },
   poeAiWebChatGpt_16k: { value: 'chatgpt-16k', desc: 'Poe AI (Web, ChatGPT-16k)' },
   poeAiWebCustom: { value: '', desc: 'Poe AI (Web, Custom)' },
+
+  moonshot_v1_8k: {
+    value: 'moonshot-v1-8k',
+    desc: 'Moonshot (8k)',
+    keyGenerateUrl: moonshotApiKeyGenerateUrl,
+  },
+  moonshot_v1_32k: {
+    value: 'moonshot-v1-32k',
+    desc: 'Moonshot (32k)',
+    keyGenerateUrl: moonshotApiKeyGenerateUrl,
+  },
+  moonshot_v1_128k: {
+    value: 'moonshot-v1-128k',
+    desc: 'Moonshot (128k)',
+    keyGenerateUrl: moonshotApiKeyGenerateUrl,
+  },
 }
 
 for (const modelName in Models) {
@@ -293,7 +312,8 @@ export function getNavigatorLanguage() {
 export function isUsingApiKey(configOrSession) {
   return (
     gptApiModelKeys.includes(configOrSession.modelName) ||
-    chatgptApiModelKeys.includes(configOrSession.modelName)
+    chatgptApiModelKeys.includes(configOrSession.modelName) ||
+    moonshotApiModelKeys.includes(configOrSession.modelName)
   )
 }
 
@@ -322,6 +342,13 @@ export function isUsingClaude2Api(configOrSession) {
 }
 export function isUsingGithubThirdPartyApi(configOrSession) {
   return githubThirdPartyApiModelKeys.includes(configOrSession.modelName)
+}
+
+export function isSupportBalance(configOrSession) {
+  return (
+    gptApiModelKeys.includes(configOrSession.modelName) ||
+    chatgptApiModelKeys.includes(configOrSession.modelName)
+  )
 }
 
 export async function getPreferredLanguageKey() {

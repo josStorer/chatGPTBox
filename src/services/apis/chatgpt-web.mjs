@@ -61,14 +61,19 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
     session.parentMessageId = uuidv4()
   }
 
-  const { controller, messageListener, disconnectListener } = setAbortController(port, null, () => {
-    if (session.autoClean) deleteConversation(accessToken, session.conversationId)
-  })
+  let ws
+  const { controller, cleanController } = setAbortController(
+    port,
+    () => {
+      if (ws) ws.close()
+    },
+    () => {
+      if (session.autoClean) deleteConversation(accessToken, session.conversationId)
+      if (ws) ws.close()
+    },
+  )
 
-  const models = await getModels(accessToken).catch(() => {
-    port.onMessage.removeListener(messageListener)
-    port.onDisconnect.removeListener(disconnectListener)
-  })
+  const models = await getModels(accessToken).catch(cleanController)
   console.debug('models', models)
   const config = await getUserConfig()
   const selectedModel = Models[session.modelName].value
@@ -116,7 +121,10 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
   let answer = ''
   let generationPrefixAnswer = ''
   let generatedImageUrl = ''
-  await fetchSSE(`${config.customChatGptWebApiUrl}${config.customChatGptWebApiPath}`, {
+  let wss_url = ''
+
+  const url = `${config.customChatGptWebApiUrl}${config.customChatGptWebApiPath}`
+  const options = {
     method: 'POST',
     signal: controller.signal,
     credentials: 'include',
@@ -152,12 +160,115 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
       history_and_training_disabled: config.disableWebModeHistory,
       arkose_token: arkoseToken,
     }),
+  }
+  await fetchSSE(url, {
+    ...options,
     onMessage(message) {
-      console.debug('sse message', message)
-      if (message.trim() === '[DONE]') {
+      function handleMessage(data) {
+        if (data.error) {
+          if (data.error.includes('unusual activity'))
+            throw new Error(
+              "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.",
+            )
+          else throw new Error(data.error)
+        }
+
+        if (data.conversation_id) session.conversationId = data.conversation_id
+        if (data.message?.id) session.parentMessageId = data.message.id
+
+        const respAns = data.message?.content?.parts?.[0]
+        const contentType = data.message?.content?.content_type
+        if (contentType === 'text' && respAns) {
+          answer =
+            generationPrefixAnswer +
+            (generatedImageUrl && `\n\n![](${generatedImageUrl})\n\n`) +
+            respAns
+        } else if (contentType === 'code' && data.message?.status === 'in_progress') {
+          const generationText = '\n\n' + t('Generating...')
+          if (answer && !answer.endsWith(generationText)) generationPrefixAnswer = answer
+          answer = generationPrefixAnswer + generationText
+        } else if (
+          contentType === 'multimodal_text' &&
+          respAns?.content_type === 'image_asset_pointer'
+        ) {
+          const imageAsset = respAns?.asset_pointer || ''
+          if (imageAsset) {
+            fetch(
+              `${config.customChatGptWebApiUrl}/backend-api/files/${imageAsset.replace(
+                'file-service://',
+                '',
+              )}/download`,
+              {
+                credentials: 'include',
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                  ...(cookie && { Cookie: cookie }),
+                },
+              },
+            ).then((r) => r.json().then((json) => (generatedImageUrl = json?.download_url)))
+          }
+        }
+
+        if (answer) {
+          port.postMessage({ answer: answer, done: false, session: null })
+        }
+      }
+
+      function finishMessage() {
         pushRecord(session, question, answer)
         console.debug('conversation history', { content: session.conversationRecords })
-        port.postMessage({ answer: null, done: true, session: session })
+        port.postMessage({ answer: answer, done: true, session: session })
+      }
+
+      console.debug('sse message', message)
+      if (message.trim() === '[DONE]') {
+        if (!wss_url) {
+          finishMessage()
+        } else {
+          ws = new WebSocket(wss_url)
+          ws.onmessage = (event) => {
+            let wsData
+            try {
+              wsData = JSON.parse(event.data)
+            } catch (error) {
+              console.debug('json error', error)
+              return
+            }
+            if (wsData.type === 'http.response.body') {
+              let body
+              try {
+                body = atob(wsData.body).replace(/^data:/, '')
+                const data = JSON.parse(body)
+                console.debug('ws message', data)
+                if (wsData.conversation_id === session.conversationId) {
+                  handleMessage(data)
+                }
+              } catch (error) {
+                if (body && body.trim() === '[DONE]') {
+                  console.debug('ws message', '[DONE]')
+                  if (wsData.conversation_id === session.conversationId) {
+                    finishMessage()
+                    ws.close()
+                  }
+                } else {
+                  console.debug('json error', error)
+                }
+              }
+            }
+          }
+          ws.onopen = () => {
+            // fetch(url, options)
+          }
+          ws.onclose = () => {
+            port.postMessage({ done: true })
+            cleanController()
+          }
+          ws.onerror = (event) => {
+            console.debug('ws error', event)
+            port.postMessage({ error: event })
+            cleanController()
+          }
+        }
         return
       }
       let data
@@ -167,65 +278,20 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
         console.debug('json error', error)
         return
       }
-      if (data.error) {
-        if (data.error.includes('unusual activity'))
-          throw new Error(
-            "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.",
-          )
-        else throw new Error(data.error)
-      }
-
-      if (data.conversation_id) session.conversationId = data.conversation_id
-      if (data.message?.id) session.parentMessageId = data.message.id
-
-      const respAns = data.message?.content?.parts?.[0]
-      const contentType = data.message?.content?.content_type
-      if (contentType === 'text' && respAns) {
-        answer =
-          generationPrefixAnswer +
-          (generatedImageUrl && `\n\n![](${generatedImageUrl})\n\n`) +
-          respAns
-      } else if (contentType === 'code' && data.message?.status === 'in_progress') {
-        const generationText = '\n\n' + t('Generating...')
-        if (answer && !answer.endsWith(generationText)) generationPrefixAnswer = answer
-        answer = generationPrefixAnswer + generationText
-      } else if (
-        contentType === 'multimodal_text' &&
-        respAns?.content_type === 'image_asset_pointer'
-      ) {
-        const imageAsset = respAns?.asset_pointer || ''
-        if (imageAsset) {
-          fetch(
-            `${config.customChatGptWebApiUrl}/backend-api/files/${imageAsset.replace(
-              'file-service://',
-              '',
-            )}/download`,
-            {
-              credentials: 'include',
-              headers: {
-                Authorization: `Bearer ${accessToken}`,
-                ...(cookie && { Cookie: cookie }),
-              },
-            },
-          ).then((r) => r.json().then((json) => (generatedImageUrl = json?.download_url)))
-        }
-      }
-
-      if (answer) {
-        port.postMessage({ answer: answer, done: false, session: null })
-      }
+      if (data.wss_url) wss_url = data.wss_url
+      handleMessage(data)
     },
     async onStart() {
       // sendModerations(accessToken, question, session.conversationId, session.messageId)
     },
     async onEnd() {
-      port.postMessage({ done: true })
-      port.onMessage.removeListener(messageListener)
-      port.onDisconnect.removeListener(disconnectListener)
+      if (!wss_url) {
+        port.postMessage({ done: true })
+        cleanController()
+      }
     },
     async onError(resp) {
-      port.onMessage.removeListener(messageListener)
-      port.onDisconnect.removeListener(disconnectListener)
+      cleanController()
       if (resp instanceof Error) throw resp
       if (resp.status === 403) {
         throw new Error('CLOUDFLARE')

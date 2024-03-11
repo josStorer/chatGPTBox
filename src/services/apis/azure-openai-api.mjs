@@ -24,7 +24,7 @@ export async function generateAnswersWithAzureOpenaiApi(port, question, session)
   await fetchSSE(
     `${config.azureEndpoint.replace(/\/$/, '')}/openai/deployments/${
       config.azureDeploymentName
-    }/chat/completions?api-version=2023-03-15-preview`,
+    }/chat/completions?api-version=2023-05-15`,
     {
       method: 'POST',
       signal: controller.signal,

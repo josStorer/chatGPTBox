@@ -170,9 +170,9 @@ export const config = {
   },
   reddit: {
     inputQuery: reddit.inputQuery,
-    sidebarContainerQuery: ['#pdp-right-rail-topics div'],
+    sidebarContainerQuery: ['aside > div'],
     appendContainerQuery: [],
-    resultsContainerQuery: ['#pdp-right-rail-topics div'],
+    resultsContainerQuery: ['aside > div'],
   },
   quora: {
     inputQuery: quora.inputQuery,

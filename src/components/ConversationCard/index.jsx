@@ -454,7 +454,7 @@ function ConversationCard(props) {
                   Browser.runtime.sendMessage({
                     type: 'OPEN_URL',
                     data: {
-                      url: Browser.runtime.getURL('IndependentPanel.html'),
+                      url: Browser.runtime.getURL('IndependentPanel.html') + '?from=store',
                     },
                   }),
                 )

@@ -478,7 +478,7 @@
     margin-bottom: 0;
     font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
     font-size: 12px;
-    word-wrap: normal;
+    word-wrap: break-word;
     background-color: var(--code-background-color);
   }
 
@@ -874,8 +874,8 @@
   .markdown-body pre > code {
     padding: 0;
     margin: 0;
-    word-break: normal;
-    white-space: pre;
+    word-break: break-word;
+    white-space: pre-wrap;
     background: transparent;
     border: 0;
   }
@@ -886,7 +886,7 @@
 
   .markdown-body .highlight pre {
     margin-bottom: 0;
-    word-break: normal;
+    word-break: break-word;
   }
 
   .markdown-body .highlight pre,
@@ -906,7 +906,7 @@
     margin: 0;
     overflow: visible;
     line-height: inherit;
-    word-wrap: normal;
+    word-wrap: break-word;
     background-color: transparent;
     border: 0;
   }

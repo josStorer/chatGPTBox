@@ -15,6 +15,7 @@
     "https://*.poe.com/*",
     "https://*.google.com/*",
     "https://claude.ai/*",
+    "https://*.moonshot.cn/*",
     "<all_urls>"
   ],
   "permissions": [

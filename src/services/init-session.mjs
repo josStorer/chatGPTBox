@@ -26,6 +26,7 @@ import { v4 as uuidv4 } from 'uuid'
  * @property {number|null} poe_chatId
  * @property {object|null} bard_conversationObj
  * @property {object|null} claude_conversation
+ * @property {object|null} moonshot_conversation
  */
 /**
  * @param {string|null} question
@@ -82,5 +83,7 @@ export function initSession({
 
     // claude.ai
     claude_conversation: null,
+    // kimi.moonshot.cn
+    moonshot_conversation: null,
   }
 }

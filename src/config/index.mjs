@@ -31,6 +31,7 @@ export const chatgptWebModelKeys = [
 export const bingWebModelKeys = ['bingFree4', 'bingFreeSydney']
 export const bardWebModelKeys = ['bardWebFree']
 export const claudeWebModelKeys = ['claude2WebFree']
+export const moonshotWebModelKeys = ['moonshot2WebFree']
 export const gptApiModelKeys = ['gptApiInstruct', 'gptApiDavinci']
 export const chatgptApiModelKeys = [
   'chatgptApi35',
@@ -102,6 +103,7 @@ export const Models = {
   },
 
   claude2WebFree: { value: '', desc: 'Claude.ai (Web)' },
+  moonshot2WebFree: { value: '', desc: 'kimi.moonshot.cn (Web)-100k' },
   claude2Api: { value: '', desc: 'Claude.ai (API, Claude 2)' },
 
   bingFree4: { value: '', desc: 'Bing (Web, GPT-4)' },
@@ -201,6 +203,8 @@ export const defaultConfig = {
   chatglmApiKey: '',
 
   customApiKey: '',
+  kimiMoonShotRefreshToken: '',
+  kimiMoonShotAccessToken: '',
 
   /** @type {keyof ModelMode}*/
   modelMode: 'balanced',
@@ -233,6 +237,7 @@ export const defaultConfig = {
     'chatgptApi35',
     'chatgptApi4_8k',
     'claude2WebFree',
+    'moonshot2WebFree',
     'bingFree4',
     'chatglmTurbo',
     'customModel',
@@ -340,6 +345,11 @@ export function isUsingAzureOpenAi(configOrSession) {
 export function isUsingClaude2Api(configOrSession) {
   return claudeApiModelKeys.includes(configOrSession.modelName)
 }
+
+export function isUsingMoonShoot2Web(configOrSession) {
+  return moonshotWebModelKeys.includes(configOrSession.modelName)
+}
+
 export function isUsingGithubThirdPartyApi(configOrSession) {
   return githubThirdPartyApiModelKeys.includes(configOrSession.modelName)
 }

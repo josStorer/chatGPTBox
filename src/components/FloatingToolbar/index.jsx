@@ -1,4 +1,3 @@
-import Browser from 'webextension-polyfill'
 import { cloneElement, useCallback, useEffect, useState } from 'react'
 import ConversationCard from '../ConversationCard'
 import PropTypes from 'prop-types'
@@ -9,7 +8,7 @@ import { useClampWindowSize } from '../../hooks/use-clamp-window-size'
 import { useTranslation } from 'react-i18next'
 import { useConfig } from '../../hooks/use-config.mjs'
 
-const logo = Browser.runtime.getURL('logo.png')
+// const logo = Browser.runtime.getURL('logo.png')
 
 function FloatingToolbar(props) {
   const { t } = useTranslation()
@@ -140,13 +139,7 @@ function FloatingToolbar(props) {
 
     return (
       <div data-theme={config.themeMode}>
-        <div className="chatgptbox-selection-toolbar">
-          <img
-            src={logo}
-            style="user-select:none;width:24px;height:24px;background:rgba(0,0,0,0);filter:none;"
-          />
-          {tools}
-        </div>
+        <div className="chatgptbox-selection-toolbar">{tools}</div>
       </div>
     )
   }

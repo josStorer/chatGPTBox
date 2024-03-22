@@ -66,13 +66,11 @@ export const poeWebModelKeys = [
   'poeAiWeb_Llama_2_70b',
 ]
 export const moonshotApiModelKeys = ['moonshot_v1_8k', 'moonshot_v1_32k', 'moonshot_v1_128k']
-const moonshotApiKeyGenerateUrl = 'https://platform.moonshot.cn/console/api-keys'
 
 /**
  * @typedef {object} Model
  * @property {string} value
  * @property {string} desc
- * @property {string} [keyGenerateUrl]
  */
 /**
  * @type {Object.<string,Model>}
@@ -143,17 +141,14 @@ export const Models = {
   moonshot_v1_8k: {
     value: 'moonshot-v1-8k',
     desc: 'Moonshot (8k)',
-    keyGenerateUrl: moonshotApiKeyGenerateUrl,
   },
   moonshot_v1_32k: {
     value: 'moonshot-v1-32k',
     desc: 'Moonshot (32k)',
-    keyGenerateUrl: moonshotApiKeyGenerateUrl,
   },
   moonshot_v1_128k: {
     value: 'moonshot-v1-128k',
     desc: 'Moonshot (128k)',
-    keyGenerateUrl: moonshotApiKeyGenerateUrl,
   },
 }
 
@@ -199,6 +194,7 @@ export const defaultConfig = {
 
   claudeApiKey: '',
   chatglmApiKey: '',
+  moonshotApiKey: '',
 
   customApiKey: '',
 
@@ -309,11 +305,10 @@ export function getNavigatorLanguage() {
   return navigator.language.substring(0, 2)
 }
 
-export function isUsingApiKey(configOrSession) {
+export function isUsingOpenAiApiKey(configOrSession) {
   return (
     gptApiModelKeys.includes(configOrSession.modelName) ||
-    chatgptApiModelKeys.includes(configOrSession.modelName) ||
-    moonshotApiModelKeys.includes(configOrSession.modelName)
+    chatgptApiModelKeys.includes(configOrSession.modelName)
   )
 }
 
@@ -329,6 +324,10 @@ export function isUsingChatGLMApi(configOrSession) {
   return chatglmApiModelKeys.includes(configOrSession.modelName)
 }
 
+export function isUsingMoonshotApi(configOrSession) {
+  return moonshotApiModelKeys.includes(configOrSession.modelName)
+}
+
 export function isUsingCustomNameOnlyModel(configOrSession) {
   return configOrSession.modelName === 'poeAiWebCustom'
 }
@@ -342,13 +341,6 @@ export function isUsingClaude2Api(configOrSession) {
 }
 export function isUsingGithubThirdPartyApi(configOrSession) {
   return githubThirdPartyApiModelKeys.includes(configOrSession.modelName)
-}
-
-export function isSupportBalance(configOrSession) {
-  return (
-    gptApiModelKeys.includes(configOrSession.modelName) ||
-    chatgptApiModelKeys.includes(configOrSession.modelName)
-  )
 }
 
 export async function getPreferredLanguageKey() {

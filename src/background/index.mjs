@@ -158,7 +158,7 @@ async function executeApi(session, port, config) {
       port,
       session.question,
       session,
-      config.apiKey,
+      config.moonshotApiKey,
       session.modelName,
     )
   }

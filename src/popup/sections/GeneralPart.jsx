@@ -1,9 +1,8 @@
 import { useTranslation } from 'react-i18next'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { openUrl } from '../../utils/index.mjs'
 import {
-  isSupportBalance,
-  isUsingApiKey,
+  isUsingOpenAiApiKey,
   isUsingAzureOpenAi,
   isUsingChatGLMApi,
   isUsingClaude2Api,
@@ -15,6 +14,7 @@ import {
   Models,
   ThemeMode,
   TriggerMode,
+  isUsingMoonshotApi,
 } from '../../config/index.mjs'
 import Browser from 'webextension-polyfill'
 import { languageList } from '../../config/language.mjs'
@@ -82,10 +82,6 @@ async function checkBilling(apiKey, apiUrl) {
 export function GeneralPart({ config, updateConfig }) {
   const { t, i18n } = useTranslation()
   const [balance, setBalance] = useState(null)
-  const [currentModel, setCurrentModel] = useState(null)
-  const showBalance = useMemo(() => {
-    return isSupportBalance(config)
-  }, [config])
 
   const getBalance = async () => {
     const response = await fetch(`${config.customOpenAiApiUrl}/dashboard/billing/credit_grants`, {
@@ -145,12 +141,13 @@ export function GeneralPart({ config, updateConfig }) {
         <span style="display: flex; gap: 15px;">
           <select
             style={
-              isUsingApiKey(config) ||
+              isUsingOpenAiApiKey(config) ||
               isUsingMultiModeModel(config) ||
               isUsingCustomModel(config) ||
               isUsingAzureOpenAi(config) ||
               isUsingClaude2Api(config) ||
-              isUsingCustomNameOnlyModel(config)
+              isUsingCustomNameOnlyModel(config) ||
+              isUsingMoonshotApi(config)
                 ? 'width: 50%;'
                 : undefined
             }
@@ -158,7 +155,6 @@ export function GeneralPart({ config, updateConfig }) {
             onChange={(e) => {
               const modelName = e.target.value
               updateConfig({ modelName: modelName })
-              setCurrentModel(Models[modelName])
             }}
           >
             {config.activeApiModes.map((modelName) => {
@@ -200,7 +196,7 @@ export function GeneralPart({ config, updateConfig }) {
               })}
             </select>
           )}
-          {isUsingApiKey(config) && (
+          {isUsingOpenAiApiKey(config) && (
             <span style="width: 50%; display: flex; gap: 5px;">
               <input
                 type="password"
@@ -213,11 +209,7 @@ export function GeneralPart({ config, updateConfig }) {
               />
               {config.apiKey.length === 0 ? (
                 <a
-                  href={
-                    currentModel && 'keyGenerateUrl' in currentModel
-                      ? currentModel.keyGenerateUrl
-                      : 'https://platform.openai.com/account/api-keys'
-                  }
+                  href="https://platform.openai.com/account/api-keys"
                   target="_blank"
                   rel="nofollow noopener noreferrer"
                 >
@@ -225,17 +217,15 @@ export function GeneralPart({ config, updateConfig }) {
                     {t('Get')}
                   </button>
                 </a>
-              ) : showBalance ? (
-                balance ? (
-                  <button type="button" onClick={getBalance}>
-                    {balance}
-                  </button>
-                ) : (
-                  <button type="button" onClick={getBalance}>
-                    {t('Balance')}
-                  </button>
-                )
-              ) : null}
+              ) : balance ? (
+                <button type="button" onClick={getBalance}>
+                  {balance}
+                </button>
+              ) : (
+                <button type="button" onClick={getBalance}>
+                  {t('Balance')}
+                </button>
+              )}
             </span>
           )}
           {isUsingCustomModel(config) && (
@@ -297,6 +287,30 @@ export function GeneralPart({ config, updateConfig }) {
                 updateConfig({ chatglmApiKey: apiKey })
               }}
             />
+          )}
+          {isUsingMoonshotApi(config) && (
+            <span style="width: 50%; display: flex; gap: 5px;">
+              <input
+                type="password"
+                value={config.moonshotApiKey}
+                placeholder={t('Moonshot API Key')}
+                onChange={(e) => {
+                  const apiKey = e.target.value
+                  updateConfig({ moonshotApiKey: apiKey })
+                }}
+              />
+              {config.moonshotApiKey.length === 0 && (
+                <a
+                  href="https://platform.moonshot.cn/console/api-keys"
+                  target="_blank"
+                  rel="nofollow noopener noreferrer"
+                >
+                  <button style="white-space: nowrap;" type="button">
+                    {t('Get')}
+                  </button>
+                </a>
+              )}
+            </span>
           )}
         </span>
         {isUsingCustomModel(config) && (

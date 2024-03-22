@@ -10,7 +10,6 @@ import {
   isUsingCustomModel,
   isUsingCustomNameOnlyModel,
   isUsingGithubThirdPartyApi,
-  isUsingMoonShoot2Web,
   isUsingMultiModeModel,
   ModelMode,
   Models,
@@ -284,18 +283,6 @@ export function GeneralPart({ config, updateConfig }) {
               onChange={(e) => {
                 const apiKey = e.target.value
                 updateConfig({ claudeApiKey: apiKey })
-              }}
-            />
-          )}
-          {isUsingMoonShoot2Web(config) && (
-            <input
-              type="text"
-              style="width: 50%;"
-              value={config.kimiMoonShotRefreshToken}
-              placeholder={t('refresh_token')}
-              onChange={(e) => {
-                const token = e.target.value
-                updateConfig({ kimiMoonShotRefreshToken: token })
               }}
             />
           )}

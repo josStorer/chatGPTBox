@@ -1,6 +1,7 @@
 import { pushRecord, setAbortController } from './shared.mjs'
 import { Models, setUserConfig } from '../../config/index.mjs'
-import { fetchSSE } from '../../utils/index.mjs'
+import { fetchSSE } from '../../utils/fetch-sse'
+import { isEmpty } from 'lodash-es'
 
 export class MoonshotWeb {
   /**
@@ -313,8 +314,8 @@ export class Conversation {
     if (!this.moonshot) {
       throw new Error('moonshot not initialized')
     }
-    if (!this.moonshot.accessToken) {
-      throw new Error('moonshot token required')
+    if (!this.moonshot.refreshToken) {
+      throw new Error('moonshot token required, please login at https://kimi.moonshot.cn first')
     }
     if (!this.conversationId) {
       throw new Error('Conversation ID required, are you calling `await moonshot.init()`?')
@@ -362,10 +363,12 @@ export class Conversation {
   async sendMessage(
     message,
     {
+      // eslint-disable-next-line no-unused-vars
       retry = false,
       model = 'default',
       done = () => {},
       progress = () => {},
+      // eslint-disable-next-line no-unused-vars
       rawResponse = () => {},
       signal = null,
     } = {},
@@ -399,7 +402,7 @@ export class Conversation {
           console.debug('json error', error)
           return
         }
-        if (parsed.text) fullResponse += parsed.text
+        if (parsed.event === 'cmpl' && parsed.text) fullResponse += parsed.text
         const PROGRESS_OBJECT = {
           ...parsed,
           completion: fullResponse,

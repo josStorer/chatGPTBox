@@ -10,6 +10,7 @@ import {
   getPreferredLanguageKey,
   getUserConfig,
   setAccessToken,
+  setUserConfig,
 } from '../config/index.mjs'
 import {
   createElementAtPosition,
@@ -289,7 +290,14 @@ async function prepareForStaticCard() {
 }
 
 async function overwriteAccessToken() {
-  if (location.hostname !== 'chat.openai.com') return
+  if (location.hostname !== 'chat.openai.com') {
+    if (location.hostname === 'kimi.moonshot.cn') {
+      setUserConfig({
+        kimiMoonShotRefreshToken: window.localStorage.refresh_token,
+      })
+    }
+    return
+  }
 
   let data
   if (location.pathname === '/api/auth/session') {

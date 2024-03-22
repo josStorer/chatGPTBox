@@ -23,6 +23,7 @@ import {
   chatgptApiModelKeys,
   chatgptWebModelKeys,
   claudeWebModelKeys,
+  moonshotWebModelKeys,
   customApiModelKeys,
   defaultConfig,
   getUserConfig,
@@ -46,6 +47,7 @@ import { registerCommands } from './commands.mjs'
 import { generateAnswersWithBardWebApi } from '../services/apis/bard-web.mjs'
 import { generateAnswersWithClaudeWebApi } from '../services/apis/claude-web.mjs'
 import { generateAnswersWithMoonshotCompletionApi } from '../services/apis/moonshot-api.mjs'
+import { generateAnswersWithMoonshotWebApi } from '../services/apis/moonshot-web.mjs'
 
 function setPortProxy(port, proxyTabId) {
   port.proxy = Browser.tabs.connect(proxyTabId)
@@ -159,6 +161,14 @@ async function executeApi(session, port, config) {
       session.question,
       session,
       config.moonshotApiKey,
+      session.modelName,
+    )
+  } else if (moonshotWebModelKeys.includes(session.modelName)) {
+    await generateAnswersWithMoonshotWebApi(
+      port,
+      session.question,
+      session,
+      config,
       session.modelName,
     )
   }

@@ -122,7 +122,7 @@ function FloatingToolbar(props) {
         const toolConfig = toolsConfig[key]
         tools.push(
           cloneElement(toolConfig.icon, {
-            size: 20,
+            size: 24,
             className: 'chatgptbox-selection-toolbar-button',
             title: t(toolConfig.label),
             onClick: async () => {

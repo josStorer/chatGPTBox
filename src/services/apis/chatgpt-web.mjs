@@ -49,6 +49,15 @@ export async function getModels(token) {
   if (response.models) return response.models.map((m) => m.slug)
 }
 
+export async function getRequirementsToken(accessToken) {
+  const response = JSON.parse(
+    (await request(accessToken, 'POST', '/sentinel/chat-requirements')).responseText,
+  )
+  if (response.token) {
+    return response.token
+  }
+}
+
 /**
  * @param {Runtime.Port} port
  * @param {string} question
@@ -74,6 +83,7 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
   )
 
   const models = await getModels(accessToken).catch(cleanController)
+  const requirementsToken = await getRequirementsToken(accessToken)
   console.debug('models', models)
   const config = await getUserConfig()
   const selectedModel = Models[session.modelName].value
@@ -132,6 +142,8 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
       ...(cookie && { Cookie: cookie }),
+      'Openai-Sentinel-Arkose-Token': arkoseToken || '',
+      'Openai-Sentinel-Chat-Requirements-Token': requirementsToken || '',
     },
     body: JSON.stringify({
       action: 'next',
@@ -158,7 +170,6 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
       parent_message_id: session.parentMessageId,
       timezone_offset_min: new Date().getTimezoneOffset(),
       history_and_training_disabled: config.disableWebModeHistory,
-      arkose_token: arkoseToken,
     }),
   }
   await fetchSSE(url, {

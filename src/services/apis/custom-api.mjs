@@ -31,6 +31,7 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
   const apiUrl = config.customModelApiUrl
 
   let answer = ''
+  let finished = false
   await fetchSSE(apiUrl, {
     method: 'POST',
     signal: controller.signal,
@@ -47,7 +48,8 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
     }),
     onMessage(message) {
       console.debug('sse message', message)
-      if (message.trim() === '[DONE]') {
+      if (!finished && message.trim() === '[DONE]') {
+        finished = true
         pushRecord(session, question, answer)
         console.debug('conversation history', { content: session.conversationRecords })
         port.postMessage({ answer: null, done: true, session: session })
@@ -59,6 +61,12 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
       } catch (error) {
         console.debug('json error', error)
         return
+      }
+      if (!finished && data.choices[0]?.finish_reason) {
+        finished = true
+        pushRecord(session, question, answer)
+        console.debug('conversation history', { content: session.conversationRecords })
+        port.postMessage({ answer: null, done: true, session: session })
       }
 
       if (data.response) answer = data.response

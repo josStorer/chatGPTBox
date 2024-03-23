@@ -51,7 +51,7 @@ export async function generateAnswersWithAzureOpenaiApi(port, question, session)
           answer += data.choices[0].delta.content
           port.postMessage({ answer: answer, done: false, session: null })
         }
-        if (data.choices[0].finish_reason === 'stop') {
+        if (data.choices[0]?.finish_reason) {
           pushRecord(session, question, answer)
           console.debug('conversation history', { content: session.conversationRecords })
           port.postMessage({ answer: null, done: true, session: session })

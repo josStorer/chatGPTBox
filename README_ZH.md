@@ -72,7 +72,7 @@
 
 - 这个扩展程序不收集你的数据, 你可以通过对代码全局搜索 `fetch(` 和 `XMLHttpRequest(` 找到所有的网络请求调用. 代码量不多, 所以很容易验证.
 
-- 你可以使用像 https://github.com/BerriAI/litellm 这样的项目，将各种 大语言模型 API 转换为OpenAI格式，并与ChatGPTBox的`自定义模型`模式结合使用
+- 你可以使用像 https://github.com/BerriAI/litellm / https://github.com/songquanpeng/one-api 这样的项目，将各种 大语言模型 API 转换为OpenAI格式，并与ChatGPTBox的`自定义模型`模式结合使用
 
 - 对于国内用户, 有GPT, Midjourney, Netflix等账号需求的, 可以考虑此站点购买合租, 此链接购买的订单也会给我带来一定收益, 作为对本项目的支持: https://nf.video/yinhe/web?sharedId=84599
 
@@ -88,7 +88,7 @@
 - 📱 支持手机等移动设备
 - 📓 通过右键菜单总结任意页面 (<kbd>Alt</kbd>+<kbd>B</kbd>)
 - 📖 独立对话页面 (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>)
-- 🔗 多种API支持 (免费用户和Plus用户可用Web API, 此外还有GPT-3.5, GPT-4, NewBing, 自托管支持, Azure, Poe等)
+- 🔗 多种API支持 (免费用户和Plus用户可用Web API, 此外还有GPT-3.5, GPT-4, Claude, NewBing, Moonshot, 自托管支持, Azure等)
 - 📦 对各种常用网站的集成适配 (Reddit, Quora, YouTube, GitHub, GitLab, StackOverflow, Zhihu, Bilibili) (受到[wimdenherder](https://github.com/wimdenherder)启发)
 - 🔍 对所有主流搜索引擎的适配, 并支持自定义查询以支持额外的站点
 - 🧰 框选工具与右键菜单, 执行各种你的需求, 如翻译, 总结, 润色, 情感分析, 段落划分, 代码解释, 问询

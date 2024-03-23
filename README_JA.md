@@ -74,7 +74,7 @@
 
 - このツールは、あなたが明示的に要求しない限り、ChatGPT にデータを送信しません。デフォルトでは、拡張機能は手動で有効にする必要があります ChatGPT へのリクエストは、"Ask ChatGPT" をクリックするか、選択フローティングツールをトリガーした場合にのみ送信されます。(issue #407)
 
-- https://github.com/BerriAI/litellm のようなプロジェクトを使用して、LLM APIをOpenAI形式に変換し、それらをChatGPTBoxの `カスタムモデル` モードと組み合わせて使用することができます
+- https://github.com/BerriAI/litellm / https://github.com/songquanpeng/one-api のようなプロジェクトを使用して、LLM APIをOpenAI形式に変換し、それらをChatGPTBoxの `カスタムモデル` モードと組み合わせて使用することができます
 
 - もちろんです。ChatGPTBoxの `カスタムモデル` モードを使用する際には、https://openrouter.ai/docs#api-keys もご利用いただけます
 
@@ -88,7 +88,7 @@
 - 📱 モバイル機器のサポート。
 - 📓 右クリックメニューで任意のページを要約。 (<kbd>Alt</kbd>+<kbd>B</kbd>)
 - 📖 独立した会話ページ。 (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>)
-- 🔗 複数の API をサポート（無料および Plus ユーザー向け Web API、GPT-3.5、GPT-4、New Bing、セルフホスト、Azure、Poe など）。
+- 🔗 複数の API をサポート（無料および Plus ユーザー向け Web API、GPT-3.5、GPT-4、Claude、New Bing、Moonshot、セルフホスト、Azure など）。
 - 📦 よく使われる様々なウェブサイト（Reddit、Quora、YouTube、GitHub、GitLab、StackOverflow、Zhihu、Bilibili）の統合。 ([wimdenherder](https://github.com/wimdenherder) にインスパイアされました)
 - 🔍 すべての主要検索エンジンと統合し、追加のサイトをサポートするためのカスタムクエリ。
 - 🧰 選択ツールと右クリックメニューで、翻訳、要約、推敲、感情分析、段落分割、コード説明、クエリーなど、さまざまなタスクを実行できます。

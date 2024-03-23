@@ -58,6 +58,39 @@ export async function getRequirementsToken(accessToken) {
   }
 }
 
+export async function getArkoseToken(config) {
+  if (!config.chatgptArkoseReqUrl)
+    throw new Error(
+      t('Please login at https://chat.openai.com first') +
+        '\n\n' +
+        t(
+          "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.",
+        ),
+    )
+  const arkoseToken = await fetch(
+    config.chatgptArkoseReqUrl + '?' + config.chatgptArkoseReqParams,
+    {
+      method: 'POST',
+      body: config.chatgptArkoseReqForm,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+    },
+  )
+    .then((resp) => resp.json())
+    .then((resp) => resp.token)
+    .catch(() => null)
+  if (!arkoseToken)
+    throw new Error(
+      t('Failed to get arkose token.') +
+        '\n\n' +
+        t(
+          "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.",
+        ),
+    )
+  return arkoseToken
+}
+
 /**
  * @param {Runtime.Port} port
  * @param {string} question
@@ -82,52 +115,34 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
     },
   )
 
-  const models = await getModels(accessToken).catch(cleanController)
-  const requirementsToken = await getRequirementsToken(accessToken)
-  console.debug('models', models)
   const config = await getUserConfig()
+  const [models, requirementsToken, arkoseToken] = await Promise.all([
+    getModels(accessToken).catch(cleanController),
+    getRequirementsToken(accessToken),
+    getArkoseToken(config),
+  ])
+  console.debug('models', models)
   const selectedModel = Models[session.modelName].value
   const usedModel =
     models && models.includes(selectedModel) ? selectedModel : Models[chatgptWebModelKeys[0]].value
   console.debug('usedModel', usedModel)
 
   let cookie
-  if (Browser.cookies && Browser.cookies.getAll)
+  let oaiDeviceId
+  if (Browser.cookies && Browser.cookies.getAll) {
     cookie = (await Browser.cookies.getAll({ url: 'https://chat.openai.com/' }))
       .map((cookie) => {
         return `${cookie.name}=${cookie.value}`
       })
       .join('; ')
-
-  const needArkoseToken = !usedModel.includes(Models[chatgptWebModelKeys[0]].value)
-  if (needArkoseToken && !config.chatgptArkoseReqUrl)
-    throw new Error(
-      t('Please login at https://chat.openai.com first') +
-        '\n\n' +
-        t(
-          "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.",
-        ),
-    )
-  const arkoseToken = config.chatgptArkoseReqUrl
-    ? await fetch(config.chatgptArkoseReqUrl + '?' + config.chatgptArkoseReqParams, {
-        method: 'POST',
-        body: config.chatgptArkoseReqForm,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        },
+    oaiDeviceId = (
+      await Browser.cookies.get({
+        url: 'https://openai.com/',
+        name: 'oai-did',
       })
-        .then((resp) => resp.json())
-        .then((resp) => resp.token)
-        .catch(() => null)
-    : null
-  if (needArkoseToken && !arkoseToken)
-    throw new Error(
-      t('Failed to get arkose token.') +
-        '\n\n' +
-        t(
-          "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.",
-        ),
-    )
+    ).value
+  }
+
   let answer = ''
   let generationPrefixAnswer = ''
   let generatedImageUrl = ''
@@ -144,6 +159,8 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
       ...(cookie && { Cookie: cookie }),
       'Openai-Sentinel-Arkose-Token': arkoseToken || '',
       'Openai-Sentinel-Chat-Requirements-Token': requirementsToken || '',
+      'Oai-Device-Id': oaiDeviceId,
+      'Oai-Language': 'en-US',
     },
     body: JSON.stringify({
       action: 'next',
@@ -177,11 +194,7 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
     onMessage(message) {
       function handleMessage(data) {
         if (data.error) {
-          if (data.error.includes('unusual activity'))
-            throw new Error(
-              "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.",
-            )
-          else throw new Error(data.error)
+          throw new Error(data.error)
         }
 
         if (data.conversation_id) session.conversationId = data.conversation_id

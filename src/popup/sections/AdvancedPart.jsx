@@ -103,6 +103,17 @@ function ApiUrl({ config, updateConfig }) {
           }}
         />
       </label>
+      <label>
+        {t('Custom Claude API Url')}
+        <input
+          type="text"
+          value={config.customClaudeApiUrl}
+          onChange={(e) => {
+            const value = e.target.value
+            updateConfig({ customClaudeApiUrl: value })
+          }}
+        />
+      </label>
     </>
   )
 }

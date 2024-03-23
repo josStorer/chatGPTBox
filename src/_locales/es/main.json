@@ -132,5 +132,6 @@
   "Open Side Panel": "Abrir panel lateral",
   "Generating...": "Generando...",
   "moonshot token required, please login at https://kimi.moonshot.cn first": "se requiere un token de moonshot, por favor inicie sesión en https://kimi.moonshot.cn primero",
-  "Hide context menu of this extension": "Ocultar menú contextual de esta extensión"
+  "Hide context menu of this extension": "Ocultar menú contextual de esta extensión",
+  "Custom Claude API Url": "URL personalizada de la API de Claude"
 }

@@ -12,6 +12,7 @@ import { getConversationPairs } from '../../utils/get-conversation-pairs.mjs'
 export async function generateAnswersWithClaudeApi(port, question, session) {
   const { controller, messageListener, disconnectListener } = setAbortController(port)
   const config = await getUserConfig()
+  const apiUrl = config.customClaudeApiUrl
   const modelName = session.modelName
 
   const prompt = getConversationPairs(
@@ -21,7 +22,7 @@ export async function generateAnswersWithClaudeApi(port, question, session) {
   prompt.push({ role: 'user', content: question })
 
   let answer = ''
-  await fetchSSE(`https://api.anthropic.com/v1/messages`, {
+  await fetchSSE(`${apiUrl}/v1/messages`, {
     method: 'POST',
     signal: controller.signal,
     headers: {

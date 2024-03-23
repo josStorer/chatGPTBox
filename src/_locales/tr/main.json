@@ -132,5 +132,6 @@
   "Open Side Panel": "Yan Paneli Aç",
   "Generating...": "Üretiliyor...",
   "moonshot token required, please login at https://kimi.moonshot.cn first": "moonshot jetonu gerekiyor, lütfen önce https://kimi.moonshot.cn adresinde oturum açın",
-  "Hide context menu of this extension": "Bu uzantının bağlam menüsünü gizle"
+  "Hide context menu of this extension": "Bu uzantının bağlam menüsünü gizle",
+  "Custom Claude API Url": "Özel Claude API Url'si"
 }

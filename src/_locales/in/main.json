@@ -132,5 +132,6 @@
   "Open Side Panel": "Buka Panel Samping",
   "Generating...": "Menghasilkan...",
   "moonshot token required, please login at https://kimi.moonshot.cn first": "diperlukan token moonshot, silakan masuk di https://kimi.moonshot.cn terlebih dahulu",
-  "Hide context menu of this extension": "Sembunyikan menu konteks ekstensi ini"
+  "Hide context menu of this extension": "Sembunyikan menu konteks ekstensi ini",
+  "Custom Claude API Url": "URL API Claude Kustom"
 }

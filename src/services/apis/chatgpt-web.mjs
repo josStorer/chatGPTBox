@@ -91,6 +91,47 @@ export async function getArkoseToken(config) {
   return arkoseToken
 }
 
+export async function isNeedWebsocket(accessToken) {
+  return (await request(accessToken, 'GET', '/accounts/check/v4-2023-04-27')).responseText.includes(
+    'shared_websocket',
+  )
+}
+
+export async function stopWebsocketConversation(accessToken, conversationId, wsRequestId) {
+  await request(accessToken, 'POST', '/stop_conversation', {
+    conversation_id: conversationId,
+    websocket_request_id: wsRequestId,
+  })
+}
+
+/**
+ * @type {WebSocket}
+ */
+let websocket
+/**
+ * @type {Date}
+ */
+let expired_at
+let wsCallbacks = []
+
+export async function registerWebsocket(accessToken) {
+  if (websocket && new Date() < expired_at - 300000) return
+
+  const response = JSON.parse(
+    (await request(accessToken, 'POST', '/register-websocket')).responseText,
+  )
+  if (response.wss_url) {
+    websocket = new WebSocket(response.wss_url)
+    websocket.onclose = () => {
+      websocket = null
+    }
+    websocket.onmessage = (event) => {
+      wsCallbacks.forEach((cb) => cb(event))
+    }
+    expired_at = new Date(response.expired_at)
+  }
+}
+
 /**
  * @param {Runtime.Port} port
  * @param {string} question
@@ -98,11 +139,6 @@ export async function getArkoseToken(config) {
  * @param {string} accessToken
  */
 export async function generateAnswersWithChatgptWebApi(port, question, session, accessToken) {
-  session.messageId = uuidv4()
-  if (session.parentMessageId == null) {
-    session.parentMessageId = uuidv4()
-  }
-
   let ws
   const { controller, cleanController } = setAbortController(
     port,
@@ -116,11 +152,16 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
   )
 
   const config = await getUserConfig()
-  const [models, requirementsToken, arkoseToken] = await Promise.all([
-    getModels(accessToken).catch(cleanController),
+  // eslint-disable-next-line no-unused-vars
+  const [models, requirementsToken, arkoseToken, useWebsocket] = await Promise.all([
+    getModels(accessToken).catch(cleanController), // don't throw error here
     getRequirementsToken(accessToken),
     getArkoseToken(config),
-  ])
+    isNeedWebsocket(accessToken).catch(cleanController), // don't throw error here
+  ]).catch((e) => {
+    cleanController()
+    throw e
+  })
   console.debug('models', models)
   const selectedModel = Models[session.modelName].value
   const usedModel =
@@ -149,6 +190,10 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
   let wss_url = ''
 
   const url = `${config.customChatGptWebApiUrl}${config.customChatGptWebApiPath}`
+  session.messageId = uuidv4()
+  if (session.parentMessageId == null) {
+    session.parentMessageId = uuidv4()
+  }
   const options = {
     method: 'POST',
     signal: controller.signal,

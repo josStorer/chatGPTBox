@@ -37,8 +37,12 @@ export function setAbortController(port, onStop, onDisconnect) {
   port.onDisconnect.addListener(disconnectListener)
 
   const cleanController = () => {
-    port.onMessage.removeListener(messageListener)
-    port.onDisconnect.removeListener(disconnectListener)
+    try {
+      port.onMessage.removeListener(messageListener)
+      port.onDisconnect.removeListener(disconnectListener)
+    } catch (e) {
+      // ignore
+    }
   }
 
   return { controller, cleanController, messageListener, disconnectListener }

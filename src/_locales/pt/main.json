@@ -130,5 +130,6 @@
   "Failed to get arkose token.": "Falha ao obter o token arkose.",
   "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "Por favor, mantenha https://chat.openai.com aberto e tente novamente. Se ainda não funcionar, digite alguns caracteres na caixa de entrada da página da web do chatgpt e tente novamente.",
   "Open Side Panel": "Abrir Painel Lateral",
-  "Generating...": "Gerando..."
+  "Generating...": "Gerando...",
+  "moonshot token required, please login at https://kimi.moonshot.cn first": "token moonshot necessário, por favor faça login em https://kimi.moonshot.cn primeiro"
 }

@@ -130,5 +130,6 @@
   "Failed to get arkose token.": "無法取得 arkose token.",
   "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "請保持 https://chat.openai.com 開啟並重試，如果還是無法通過驗證，請在 ChatGPT 網頁版輸入框輸入一些文字後再重試",
   "Open Side Panel": "開啟側邊面板",
-  "Generating...": "產生中..."
+  "Generating...": "產生中...",
+  "moonshot token required, please login at https://kimi.moonshot.cn first": "需要 moonshot token，請先在 https://kimi.moonshot.cn 登入"
 }

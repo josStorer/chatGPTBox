@@ -154,11 +154,16 @@ export async function generateAnswersWithChatgptApiCompat(
         console.debug('json error', error)
         return
       }
-      answer +=
-        data.choices[0]?.delta?.content ||
-        data.choices[0]?.message?.content ||
-        data.choices[0]?.text ||
-        ''
+      const delta = data.choices[0]?.delta?.content
+      const content = data.choices[0]?.message?.content
+      const text = data.choices[0]?.text
+      if (delta !== undefined) {
+        answer += delta
+      } else if (content) {
+        answer = content
+      } else if (text) {
+        answer += text
+      }
       port.postMessage({ answer: answer, done: false, session: null })
     },
     async onStart() {},

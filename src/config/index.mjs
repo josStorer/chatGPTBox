@@ -48,7 +48,14 @@ export const chatgptApiModelKeys = [
 ]
 export const customApiModelKeys = ['customModel']
 export const azureOpenAiApiModelKeys = ['azureOpenAi']
-export const claudeApiModelKeys = ['claude2Api']
+export const claudeApiModelKeys = [
+  'claude12Api',
+  'claude2Api',
+  'claude21Api',
+  'claude3HaikuApi',
+  'claude3SonnetApi',
+  'claude3OpusApi',
+]
 export const chatglmApiModelKeys = ['chatglmTurbo']
 export const githubThirdPartyApiModelKeys = ['waylaidwandererApi']
 export const poeWebModelKeys = [
@@ -101,7 +108,15 @@ export const Models = {
   },
 
   claude2WebFree: { value: '', desc: 'Claude.ai (Web)' },
-  claude2Api: { value: '', desc: 'Claude.ai (API, Claude 2)' },
+  claude12Api: { value: 'claude-instant-1.2', desc: 'Claude.ai (API, Claude Instant 1.2)' },
+  claude2Api: { value: 'claude-2.0', desc: 'Claude.ai (API, Claude 2)' },
+  claude21Api: { value: 'claude-2.1', desc: 'Claude.ai (API, Claude 2.1)' },
+  claude3HaikuApi: {
+    value: 'claude-3-haiku-20240307',
+    desc: 'Claude.ai (API, Claude 3 Haiku)',
+  },
+  claude3SonnetApi: { value: 'claude-3-sonnet-20240229', desc: 'Claude.ai (API, Claude 3 Sonnet)' },
+  claude3OpusApi: { value: 'claude-3-opus-20240229', desc: 'Claude.ai (API, Claude 3 Opus)' },
 
   bingFree4: { value: '', desc: 'Bing (Web, GPT-4)' },
   bingFreeSydney: { value: '', desc: 'Bing (Web, GPT-4, Sydney)' },
@@ -343,7 +358,7 @@ export function isUsingAzureOpenAi(configOrSession) {
   return azureOpenAiApiModelKeys.includes(configOrSession.modelName)
 }
 
-export function isUsingClaude2Api(configOrSession) {
+export function isUsingClaudeApi(configOrSession) {
   return claudeApiModelKeys.includes(configOrSession.modelName)
 }
 

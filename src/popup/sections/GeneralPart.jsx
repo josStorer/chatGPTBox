@@ -5,7 +5,7 @@ import {
   isUsingOpenAiApiKey,
   isUsingAzureOpenAi,
   isUsingChatGLMApi,
-  isUsingClaude2Api,
+  isUsingClaudeApi,
   isUsingCustomModel,
   isUsingCustomNameOnlyModel,
   isUsingGithubThirdPartyApi,
@@ -145,7 +145,7 @@ export function GeneralPart({ config, updateConfig }) {
               isUsingMultiModeModel(config) ||
               isUsingCustomModel(config) ||
               isUsingAzureOpenAi(config) ||
-              isUsingClaude2Api(config) ||
+              isUsingClaudeApi(config) ||
               isUsingCustomNameOnlyModel(config) ||
               isUsingMoonshotApi(config)
                 ? 'width: 50%;'
@@ -264,7 +264,7 @@ export function GeneralPart({ config, updateConfig }) {
               }}
             />
           )}
-          {isUsingClaude2Api(config) && (
+          {isUsingClaudeApi(config) && (
             <input
               type="password"
               style="width: 50%;"

@@ -5,6 +5,8 @@
   @media screen and (prefers-color-scheme: dark) {
     @import 'highlight.js/scss/github-dark.scss';
     --font-color: #c9d1d9;
+    --toolbar-color: #e6edf3;
+    --hover-toolbar-color: #565454;
     --theme-color: #202124;
     --question-bg-color: #2d2e33;
     --theme-border-color: #3c4043;
@@ -16,6 +18,8 @@
   @media screen and (prefers-color-scheme: light) {
     @import 'highlight.js/scss/github.scss';
     --font-color: #24292f;
+    --toolbar-color: #24292f;
+    --hover-toolbar-color: #d4d5da;
     --theme-color: #ffffff;
     --question-bg-color: #f7f7f7;
     --theme-border-color: #dbdbde;
@@ -29,6 +33,8 @@
   @import 'highlight.js/scss/github-dark.scss';
 
   --font-color: #c9d1d9;
+  --toolbar-color: #e6edf3;
+  --hover-toolbar-color: #565454;
   --theme-color: #202124;
   --question-bg-color: #2d2e33;
   --theme-border-color: #3c4043;
@@ -41,6 +47,8 @@
   @import 'highlight.js/scss/github.scss';
 
   --font-color: #24292f;
+  --toolbar-color: #24292f;
+  --hover-toolbar-color: #d4d5da;
   --theme-color: #ffffff;
   --question-bg-color: #f7f7f7;
   --theme-border-color: #dbdbde;
@@ -1407,7 +1415,7 @@
   align-items: center;
   border-radius: 15px;
   padding: 2px;
-  background-color: #ffffff;
+  background-color: var(--theme-color);
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -1415,13 +1423,13 @@
   margin: 0 2px 0 0;
   padding: 2px;
   border-radius: 30px;
-  background-color: #ffffff;
-  color: #24292f;
+  background-color: var(--theme-color);
+  color: var(--toolbar-color);
   cursor: pointer;
 }
 
 .chatgptbox-selection-toolbar-button:hover {
-  background-color: #d4d5da;
+  background-color: var(--hover-toolbar-color);
 }
 
 .chatgptbox-selection-window {

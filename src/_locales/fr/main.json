@@ -131,5 +131,6 @@
   "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "Veuillez garder https://chat.openai.com ouvert et réessayer. Si cela ne fonctionne toujours pas, tapez quelques caractères dans la boîte de saisie de la page web chatgpt et réessayez.",
   "Open Side Panel": "Ouvrir le panneau latéral",
   "Generating...": "Génération...",
-  "moonshot token required, please login at https://kimi.moonshot.cn first": "jeton moonshot requis, veuillez vous connecter d'abord sur https://kimi.moonshot.cn"
+  "moonshot token required, please login at https://kimi.moonshot.cn first": "jeton moonshot requis, veuillez vous connecter d'abord sur https://kimi.moonshot.cn",
+  "Hide context menu of this extension": "Masquer le menu contextuel de cette extension"
 }

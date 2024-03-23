@@ -131,5 +131,6 @@
   "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "https://chat.openai.com 을 열어두고 다시 시도하세요. 여전히 작동하지 않으면 chatgpt 웹 페이지의 입력 상자에 몇 가지 문자를 입력한 다음 다시 시도하세요.",
   "Open Side Panel": "사이드 패널 열기",
   "Generating...": "생성 중...",
-  "moonshot token required, please login at https://kimi.moonshot.cn first": "moonshot 토큰이 필요합니다. https://kimi.moonshot.cn 에서 로그인하세요."
+  "moonshot token required, please login at https://kimi.moonshot.cn first": "moonshot 토큰이 필요합니다. https://kimi.moonshot.cn 에서 로그인하세요.",
+  "Hide context menu of this extension": "이 확장 프로그램의 컨텍스트 메뉴 숨기기"
 }

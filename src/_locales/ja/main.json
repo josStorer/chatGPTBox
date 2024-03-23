@@ -131,5 +131,6 @@
   "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "https://chat.openai.com を開いたままにして、もう一度試してください。それでもうまくいかない場合は、chatgpt webページの入力ボックスにいくつかの文字を入力してからもう一度試してください。",
   "Open Side Panel": "サイドパネルを開く",
   "Generating...": "生成中...",
-  "moonshot token required, please login at https://kimi.moonshot.cn first": "moonshotトークンが必要です。最初にhttps://kimi.moonshot.cnにログインしてください"
+  "moonshot token required, please login at https://kimi.moonshot.cn first": "moonshotトークンが必要です。最初にhttps://kimi.moonshot.cnにログインしてください",
+  "Hide context menu of this extension": "この拡張機能のコンテキストメニューを非表示"
 }

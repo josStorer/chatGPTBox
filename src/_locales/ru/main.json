@@ -131,5 +131,6 @@
   "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "Пожалуйста, оставьте открытым https://chat.openai.com и попробуйте еще раз. Если это все еще не работает, введите несколько символов в поле ввода веб-страницы chatgpt и попробуйте еще раз.",
   "Open Side Panel": "Открыть боковую панель",
   "Generating...": "Генерация...",
-  "moonshot token required, please login at https://kimi.moonshot.cn first": "требуется токен moonshot, пожалуйста, сначала войдите на https://kimi.moonshot.cn"
+  "moonshot token required, please login at https://kimi.moonshot.cn first": "требуется токен moonshot, пожалуйста, сначала войдите на https://kimi.moonshot.cn",
+  "Hide context menu of this extension": "Скрыть контекстное меню этого расширения"
 }

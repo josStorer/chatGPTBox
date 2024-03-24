@@ -67,6 +67,7 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
         pushRecord(session, question, answer)
         console.debug('conversation history', { content: session.conversationRecords })
         port.postMessage({ answer: null, done: true, session: session })
+        return
       }
 
       if (data.response) answer = data.response

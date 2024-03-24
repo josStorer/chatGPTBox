@@ -75,6 +75,7 @@ export async function generateAnswersWithGptCompletionApi(
         pushRecord(session, question, answer)
         console.debug('conversation history', { content: session.conversationRecords })
         port.postMessage({ answer: null, done: true, session: session })
+        return
       }
 
       answer += data.choices[0].text
@@ -170,6 +171,7 @@ export async function generateAnswersWithChatgptApiCompat(
         pushRecord(session, question, answer)
         console.debug('conversation history', { content: session.conversationRecords })
         port.postMessage({ answer: null, done: true, session: session })
+        return
       }
 
       const delta = data.choices[0]?.delta?.content

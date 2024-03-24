@@ -127,8 +127,13 @@ export async function registerWebsocket(accessToken) {
   const response = JSON.parse(
     (await request(accessToken, 'POST', '/register-websocket')).responseText,
   )
+  let resolve
   if (response.wss_url) {
     websocket = new WebSocket(response.wss_url)
+    websocket.onopen = () => {
+      console.debug('global websocket opened')
+      resolve()
+    }
     websocket.onclose = () => {
       websocket = null
       expires_at = null
@@ -139,6 +144,7 @@ export async function registerWebsocket(accessToken) {
     }
     expires_at = new Date(response.expires_at)
   }
+  return new Promise((r) => (resolve = r))
 }
 
 /**

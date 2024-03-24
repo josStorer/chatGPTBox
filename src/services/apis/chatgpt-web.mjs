@@ -160,21 +160,22 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
   )
 
   const config = await getUserConfig()
-  // eslint-disable-next-line no-unused-vars
+  let arkoseError
   const [models, requirementsToken, arkoseToken, useWebsocket] = await Promise.all([
-    getModels(accessToken).catch(cleanController), // don't throw error here
-    getRequirementsToken(accessToken),
-    getArkoseToken(config),
-    isNeedWebsocket(accessToken).catch(cleanController), // don't throw error here
-  ]).catch((e) => {
-    cleanController()
-    throw e
-  })
+    getModels(accessToken).catch(() => undefined),
+    getRequirementsToken(accessToken).catch(() => undefined),
+    getArkoseToken(config).catch((e) => {
+      arkoseError = e
+    }),
+    isNeedWebsocket(accessToken).catch(() => undefined),
+  ])
   console.debug('models', models)
   const selectedModel = Models[session.modelName].value
   const usedModel =
     models && models.includes(selectedModel) ? selectedModel : Models[chatgptWebModelKeys[0]].value
   console.debug('usedModel', usedModel)
+  const needArkoseToken = !usedModel.includes(Models[chatgptWebModelKeys[0]].value)
+  if (arkoseError && needArkoseToken) throw arkoseError
 
   let cookie
   let oaiDeviceId

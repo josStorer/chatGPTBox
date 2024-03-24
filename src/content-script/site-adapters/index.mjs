@@ -11,6 +11,7 @@ import juejin from './juejin'
 import weixin from './weixin'
 import followin from './followin'
 import duckduckgo from './duckduckgo'
+import brave from './brave'
 
 /**
  * @typedef {object} SiteConfigAction
@@ -98,6 +99,9 @@ export const config = {
     sidebarContainerQuery: ['.sidebar'],
     appendContainerQuery: [],
     resultsContainerQuery: ['#results'],
+    action: {
+      init: brave.init,
+    },
   },
   searx: {
     inputQuery: ["input[name='q']"],

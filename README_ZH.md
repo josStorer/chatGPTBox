@@ -64,8 +64,6 @@
 
 [Github-url]: https://github.com/josStorer/chatGPTBox/wiki/Install
 
-#### 我的新项目[RWKV-Runner](https://github.com/josStorer/RWKV-Runner)现已发布，一个一键部署的开源可商用大语言模型工具，能够与ChatGPTBox配合使用
-
 </div>
 
 ## 新闻
@@ -76,11 +74,9 @@
 
 - 对于国内用户, 有GPT, Midjourney, Netflix等账号需求的, 可以考虑此站点购买合租, 此链接购买的订单也会给我带来一定收益, 作为对本项目的支持: https://nf.video/yinhe/web?sharedId=84599
 
-- 三方API服务兼容, 查看 https://api2d.com/r/193934 和 https://openrouter.ai/docs#api-keys, 该服务并不是由我提供的, 但对于获取账号困难的用户可以考虑, 使用方法: [视频](https://www.bilibili.com/video/BV1bo4y1h7Hb/) [图文](https://github.com/josStorer/chatGPTBox/issues/166#issuecomment-1504704489)
+- 三方API服务兼容, 查看 https://api2d.com/r/193934 和 https://openrouter.ai/docs#models, 该服务并不是由我提供的, 但对于获取账号困难的用户可以考虑, 使用方法: [视频](https://www.bilibili.com/video/BV1bo4y1h7Hb/) [图文](https://github.com/josStorer/chatGPTBox/issues/166#issuecomment-1504704489)
 
-- 你可以通过这个链接获取免费的反向代理, 并在高级设置中填写来绕过cloudflare验证: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
-
-- 离线/自托管模型 (RWKV, ChatGLM, llama.cpp) 现已支持, 查看 https://github.com/josStorer/selfhostedAI, 你还可以部署wenda (https://github.com/wenda-LLM/wenda), 配合自定义模型模式使用, 从而调用各类本地模型, 参考 [#397](https://github.com/josStorer/chatGPTBox/issues/397) 修改API URL
+- 离线/自托管模型 现已支持, 在`自定义模型`模式下使用, 具体查看 [Ollama](https://github.com/josStorer/chatGPTBox/issues/616#issuecomment-1975186467) / [RWKV-Runner](https://github.com/josStorer/RWKV-Runner), 你还可以部署wenda (https://github.com/wenda-LLM/wenda), 配合自定义模型模式使用, 从而调用各类本地模型, 参考 [#397](https://github.com/josStorer/chatGPTBox/issues/397) 修改API URL
 
 ## ✨ Features
 

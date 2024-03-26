@@ -65,8 +65,6 @@ Tarayıcınıza derin ChatGPT entegrasyonu, tamamen ücretsiz.
 
 [Github-url]: https://github.com/josStorer/chatGPTBox/wiki/Install
 
-#### Yeni projem olan [RWKV-Runner](https://github.com/josStorer/RWKV-Runner) yayında, tek tıkla deploy edilebilen açık kaynaklı, ChatGPTBox ile birlikte kullanılabilen, ticari amaçlarla kullanılabilen, tek tıklamayla deploy edilebilir açık kaynaklı büyük dil modeli aracı.
-
 </div>
 
 ## Bilgilendirme
@@ -77,11 +75,7 @@ Tarayıcınıza derin ChatGPT entegrasyonu, tamamen ücretsiz.
 
 - Proje olarak https://github.com/BerriAI/litellm / https://github.com/songquanpeng/one-api gibi şeyleri kullanarak LLM API'larını OpenAI formatına dönüştürebilir ve bunları ChatGPTBox'ın `Custom Model` modu ile birlikte kullanabilirsiniz
 
-- ChatGPTBox'un `Custom Model` modu ile https://openrouter.ai/docs#api-keys adresini de kullanabilirsiniz
-
-- Cloudflare korumasını geçmek için gelişmiş ayarlardan ücretsiz ters proxy'i kurabilirsiniz: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
-
-- Offline/Self-host'lu modeller (RWKV, llama.cpp, ChatGLM) artık destekleniyor, Bknz: https://github.com/josStorer/selfhostedAI
+- ChatGPTBox'un `Custom Model` modu ile [Ollama](https://github.com/josStorer/chatGPTBox/issues/616#issuecomment-1975186467) / https://openrouter.ai/docs#models adresini de kullanabilirsiniz
 
 ## ✨ Özellikler
 

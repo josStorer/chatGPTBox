@@ -64,8 +64,6 @@ English &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md) &nbsp;&nbsp;|&nbsp;&
 
 [Github-url]: https://github.com/josStorer/chatGPTBox/wiki/Install
 
-#### My new project [RWKV-Runner](https://github.com/josStorer/RWKV-Runner) has been released, a one-click deployable open-source commercially usable large language model tool that can be used in conjunction with ChatGPTBox.
-
 </div>
 
 ## News
@@ -76,11 +74,7 @@ English &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md) &nbsp;&nbsp;|&nbsp;&
 
 - You can use projects like https://github.com/BerriAI/litellm / https://github.com/songquanpeng/one-api to convert LLM APIs into OpenAI format and use them in conjunction with ChatGPTBox's `Custom Model` mode
 
-- You can also use https://openrouter.ai/docs#api-keys with ChatGPTBox's `Custom Model` mode
-
-- You can set a free reverse proxy in the Advanced setting to bypass cloudflare: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
-
-- Offline/Self-hosted model (RWKV, llama.cpp, ChatGLM) is now supported, See https://github.com/josStorer/selfhostedAI
+- You can also use [Ollama](https://github.com/josStorer/chatGPTBox/issues/616#issuecomment-1975186467) / https://openrouter.ai/docs#models with ChatGPTBox's `Custom Model` mode
 
 ## ✨ Features
 

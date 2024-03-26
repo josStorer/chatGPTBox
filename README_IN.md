@@ -64,8 +64,6 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
 [Github-url]: https://github.com/josStorer/chatGPTBox/wiki/Install
 
-#### Proyek baru saya [RWKV-Runner](https://github.com/josStorer/RWKV-Runner) telah dirilis, sebuah alat model bahasa besar sumber terbuka yang tersedia secara komersial dan dapat diterapkan dengan sekali klik yang dapat digunakan bersama dengan ChatGPTBox.
-
 </div>
 
 ## Berita
@@ -74,11 +72,7 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
 - Anda dapat menggunakan proyek seperti https://github.com/BerriAI/litellm / https://github.com/songquanpeng/one-api untuk mengkonversi API LLM ke dalam format OpenAI dan menggunakannya bersama dengan mode `Custom Model` dari ChatGPTBox
 
-- Anda juga dapat menggunakan https://openrouter.ai/docs#api-keys dengan mode `Custom Model` dari ChatGPTBox
-
-- Anda dapat mengatur proxy balik gratis di Pengaturan Lanjutan untuk menghindari cloudflare: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
-
-- Model Offline/Self-hosted (RWKV, llama.cpp, ChatGLM) sekarang didukung, Lihat https://github.com/josStorer/selfhostedAI
+- Anda juga dapat menggunakan [Ollama](https://github.com/josStorer/chatGPTBox/issues/616#issuecomment-1975186467) / https://openrouter.ai/docs#models dengan mode `Custom Model` dari ChatGPTBox
 
 ## ✨ Fitur
 

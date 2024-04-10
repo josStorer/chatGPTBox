@@ -42,6 +42,7 @@ export const chatgptApiModelKeys = [
   'chatgptApi4_8k_0613',
   'chatgptApi4_32k',
   'chatgptApi4_32k_0613',
+  'chatgptApi4_128k',
   'chatgptApi4_128k_preview',
   'chatgptApi4_128k_1106_preview',
   'chatgptApi4_128k_0125_preview',
@@ -94,6 +95,10 @@ export const Models = {
 
   chatgptApi4_8k: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k)' },
   chatgptApi4_32k: { value: 'gpt-4-32k', desc: 'ChatGPT (GPT-4-32k)' },
+  chatgptApi4_128k: {
+    value: 'gpt-4-turbo',
+    desc: 'ChatGPT (GPT-4-Turbo 128k)',
+  },
   chatgptApi4_128k_preview: {
     value: 'gpt-4-turbo-preview',
     desc: 'ChatGPT (GPT-4-Turbo 128k Preview)',

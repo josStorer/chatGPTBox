@@ -39,6 +39,12 @@ export async function generateAnswersWithGptCompletionApi(
 
   let answer = ''
   let finished = false
+  const finish = () => {
+    finished = true
+    pushRecord(session, question, answer)
+    console.debug('conversation history', { content: session.conversationRecords })
+    port.postMessage({ answer: null, done: true, session: session })
+  }
   await fetchSSE(`${apiUrl}/v1/completions`, {
     method: 'POST',
     signal: controller.signal,
@@ -56,11 +62,9 @@ export async function generateAnswersWithGptCompletionApi(
     }),
     onMessage(message) {
       console.debug('sse message', message)
-      if (!finished && message.trim() === '[DONE]') {
-        finished = true
-        pushRecord(session, question, answer)
-        console.debug('conversation history', { content: session.conversationRecords })
-        port.postMessage({ answer: null, done: true, session: session })
+      if (finished) return
+      if (message.trim() === '[DONE]') {
+        finish()
         return
       }
       let data
@@ -70,16 +74,14 @@ export async function generateAnswersWithGptCompletionApi(
         console.debug('json error', error)
         return
       }
-      if (!finished && data.choices[0]?.finish_reason) {
-        finished = true
-        pushRecord(session, question, answer)
-        console.debug('conversation history', { content: session.conversationRecords })
-        port.postMessage({ answer: null, done: true, session: session })
-        return
-      }
 
       answer += data.choices[0].text
       port.postMessage({ answer: answer, done: false, session: null })
+
+      if (data.choices[0]?.finish_reason) {
+        finish()
+        return
+      }
     },
     async onStart() {},
     async onEnd() {
@@ -136,6 +138,12 @@ export async function generateAnswersWithChatgptApiCompat(
 
   let answer = ''
   let finished = false
+  const finish = () => {
+    finished = true
+    pushRecord(session, question, answer)
+    console.debug('conversation history', { content: session.conversationRecords })
+    port.postMessage({ answer: null, done: true, session: session })
+  }
   await fetchSSE(`${baseUrl}/v1/chat/completions`, {
     method: 'POST',
     signal: controller.signal,
@@ -152,11 +160,9 @@ export async function generateAnswersWithChatgptApiCompat(
     }),
     onMessage(message) {
       console.debug('sse message', message)
-      if (!finished && message.trim() === '[DONE]') {
-        finished = true
-        pushRecord(session, question, answer)
-        console.debug('conversation history', { content: session.conversationRecords })
-        port.postMessage({ answer: null, done: true, session: session })
+      if (finished) return
+      if (message.trim() === '[DONE]') {
+        finish()
         return
       }
       let data
@@ -164,13 +170,6 @@ export async function generateAnswersWithChatgptApiCompat(
         data = JSON.parse(message)
       } catch (error) {
         console.debug('json error', error)
-        return
-      }
-      if (!finished && data.choices[0]?.finish_reason) {
-        finished = true
-        pushRecord(session, question, answer)
-        console.debug('conversation history', { content: session.conversationRecords })
-        port.postMessage({ answer: null, done: true, session: session })
         return
       }
 
@@ -185,6 +184,11 @@ export async function generateAnswersWithChatgptApiCompat(
         answer += text
       }
       port.postMessage({ answer: answer, done: false, session: null })
+
+      if (data.choices[0]?.finish_reason) {
+        finish()
+        return
+      }
     },
     async onStart() {},
     async onEnd() {

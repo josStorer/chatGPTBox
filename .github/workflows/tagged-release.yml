@@ -21,14 +21,14 @@ jobs:
           ref: master
 
       - name: Update manifest.json version
-        uses: jossef/action-set-json-field@v2.1
+        uses: jossef/action-set-json-field@v2.2
         with:
           file: src/manifest.json
           field: version
           value: ${{ env.VERSION }}
 
       - name: Update manifest.v2.json version
-        uses: jossef/action-set-json-field@v2.1
+        uses: jossef/action-set-json-field@v2.2
         with:
           file: src/manifest.v2.json
           field: version

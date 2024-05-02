@@ -222,6 +222,7 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
     proofToken = generateProofToken(
       requirements.proofofwork.seed,
       requirements.proofofwork.difficulty,
+      navigator.userAgent,
     )
   }
 

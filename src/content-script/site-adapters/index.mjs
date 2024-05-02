@@ -49,7 +49,6 @@ export const config = {
       '#main-algo',
       '.searchCenterMiddle',
       '.Contents__inner.Contents__inner--main',
-      '#contents',
     ],
   },
   duckduckgo: {

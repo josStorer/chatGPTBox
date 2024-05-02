@@ -602,6 +602,8 @@ export async function generateAnswersWithMoonshotWebApi(
     await bot
       .startConversation(question, params)
       .then((conversation) => {
+        conversation.request = null
+        conversation.moonshot = null
         session.moonshot_conversation = conversation
         port.postMessage({ answer: answer, done: true, session: session })
         cleanController()

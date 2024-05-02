@@ -43,6 +43,8 @@ export async function generateAnswersWithClaudeWebApi(
     await bot
       .startConversation(question, params)
       .then((conversation) => {
+        conversation.request = null
+        conversation.claude = null
         session.claude_conversation = conversation
         port.postMessage({ answer: answer, done: true, session: session })
         cleanController()

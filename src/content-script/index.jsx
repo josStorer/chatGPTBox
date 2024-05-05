@@ -290,7 +290,7 @@ async function prepareForStaticCard() {
 }
 
 async function overwriteAccessToken() {
-  if (location.hostname !== 'chat.openai.com') {
+  if (location.hostname !== 'chatgpt.com') {
     if (location.hostname === 'kimi.moonshot.cn') {
       setUserConfig({
         kimiMoonShotRefreshToken: window.localStorage.refresh_token,
@@ -308,7 +308,7 @@ async function overwriteAccessToken() {
       console.error('json error', error)
     }
   } else {
-    const resp = await fetch('https://chat.openai.com/api/auth/session')
+    const resp = await fetch('https://chatgpt.com/api/auth/session')
     data = await resp.json().catch(() => ({}))
   }
   if (data && data.accessToken) {
@@ -318,7 +318,7 @@ async function overwriteAccessToken() {
 }
 
 async function prepareForForegroundRequests() {
-  if (location.hostname !== 'chat.openai.com' || location.pathname === '/auth/login') return
+  if (location.hostname !== 'chatgpt.com' || location.pathname === '/auth/login') return
 
   const userConfig = await getUserConfig()
 

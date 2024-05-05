@@ -63,10 +63,10 @@ export async function getRequirements(accessToken) {
 export async function getArkoseToken(config) {
   if (!config.chatgptArkoseReqUrl)
     throw new Error(
-      t('Please login at https://chat.openai.com first') +
+      t('Please login at https://chatgpt.com first') +
         '\n\n' +
         t(
-          "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.",
+          "Please keep https://chatgpt.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.",
         ),
     )
   const arkoseToken = await fetch(
@@ -87,7 +87,7 @@ export async function getArkoseToken(config) {
       t('Failed to get arkose token.') +
         '\n\n' +
         t(
-          "Please keep https://chat.openai.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.",
+          "Please keep https://chatgpt.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.",
         ),
     )
   return arkoseToken
@@ -229,7 +229,7 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
   let cookie
   let oaiDeviceId
   if (Browser.cookies && Browser.cookies.getAll) {
-    cookie = (await Browser.cookies.getAll({ url: 'https://chat.openai.com/' }))
+    cookie = (await Browser.cookies.getAll({ url: 'https://chatgpt.com/' }))
       .map((cookie) => {
         return `${cookie.name}=${cookie.value}`
       })

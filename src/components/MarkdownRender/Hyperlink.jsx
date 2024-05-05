@@ -8,7 +8,7 @@ export function Hyperlink({ href, children }) {
     rel: 'nofollow noopener noreferrer',
   }
 
-  return href.includes('chat.openai.com') ? (
+  return href.includes('chatgpt.com') ? (
     <span
       {...linkProperties}
       onClick={() => {

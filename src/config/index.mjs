@@ -389,6 +389,8 @@ export async function getPreferredLanguageKey() {
  */
 export async function getUserConfig() {
   const options = await Browser.storage.local.get(Object.keys(defaultConfig))
+  if (options.customChatGptWebApiUrl === 'https://chat.openai.com')
+    options.customChatGptWebApiUrl = 'https://chatgpt.com'
   return defaults(options, defaultConfig)
 }
 

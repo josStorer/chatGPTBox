@@ -287,7 +287,7 @@ try {
       }
     },
     {
-      urls: ['https://*.openai.com/*'],
+      urls: ['https://*.openai.com/*', 'https://*.chatgpt.com/*'],
       types: ['xmlhttprequest'],
     },
     ['requestBody'],

@@ -236,7 +236,7 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
       .join('; ')
     oaiDeviceId = (
       await Browser.cookies.get({
-        url: 'https://openai.com/',
+        url: 'https://chatgpt.com/',
         name: 'oai-did',
       })
     ).value

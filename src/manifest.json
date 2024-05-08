@@ -10,6 +10,7 @@
     "128": "logo.png"
   },
   "host_permissions": [
+    "https://*.chatgpt.com/*",
     "https://*.openai.com/*",
     "https://*.bing.com/*",
     "https://*.poe.com/*",

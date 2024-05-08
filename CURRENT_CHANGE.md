@@ -1,18 +1,10 @@
 # Changes
 
 ## Upgrades
-- upgrade chatgpt web (proofToken) (#677, #678, #681, #682)
-
-## Improvements
-- improve fetch onmessage
-- improve registerWebsocket
+- upgrade chatgpt web (Change "chat.openai.com" to "chatgpt.com") (#688, #687, #677, #678, #681, #682)
 
 ## Fixes
-- fix #669
-- small fix (#668, #676)
-- small fix for bing web mode (1fe4befa)
+- fix a style issue (#692)
 
 ## Chores
-- Update Azure OpenAI API version version to 2024-02-01
-- Add generally available GPT-4 Turbo via API
-- Update Italy translation (#665)
+- update enforcement rule

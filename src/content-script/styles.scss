@@ -1312,6 +1312,11 @@
     margin-bottom: 5px;
     color: var(--font-color);
 
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+
     p {
       font-weight: bold;
       margin: 0;

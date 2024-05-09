@@ -1264,11 +1264,11 @@
     white-space: nowrap;
   }
 
-  .question {
+  .chatgptbox-question {
     background: var(--question-bg-color);
   }
 
-  :is(.answer, .question, .error) {
+  :is(.chatgptbox-answer, .chatgptbox-question, .chatgptbox-error) {
     font-size: 15px;
     line-height: 1.6;
     padding: 4px 15px;
@@ -1332,7 +1332,7 @@
     }
   }
 
-  .error {
+  .chatgptbox-error {
     p {
       color: #ec4336;
     }

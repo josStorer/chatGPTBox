@@ -38,6 +38,7 @@ export const chatgptApiModelKeys = [
   'chatgptApi35_16k',
   'chatgptApi35_1106',
   'chatgptApi35_0125',
+  'chatgptApi4o_128k',
   'chatgptApi4_8k',
   'chatgptApi4_8k_0613',
   'chatgptApi4_32k',
@@ -111,6 +112,7 @@ export const Models = {
     value: 'gpt-4-0125-preview',
     desc: 'ChatGPT (GPT-4-Turbo 128k 0125 Preview)',
   },
+  chatgptApi4o_128k: { value: 'gpt-4o', desc: 'ChatGPT (GPT-4o)' },
 
   claude2WebFree: { value: '', desc: 'Claude.ai (Web)' },
   claude12Api: { value: 'claude-instant-1.2', desc: 'Claude.ai (API, Claude Instant 1.2)' },

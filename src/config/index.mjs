@@ -23,6 +23,7 @@ export const ModelMode = {
 
 export const chatgptWebModelKeys = [
   'chatgptFree35',
+  'chatgptFree4o',
   'chatgptPlus4',
   'chatgptFree35Mobile',
   'chatgptPlus4Browsing',
@@ -87,6 +88,8 @@ export const moonshotApiModelKeys = ['moonshot_v1_8k', 'moonshot_v1_32k', 'moons
  */
 export const Models = {
   chatgptFree35: { value: 'text-davinci-002-render-sha', desc: 'ChatGPT (Web)' },
+
+  chatgptFree4o: { value: 'gpt-4o', desc: 'ChatGPT (Web, GPT-4o)' },
 
   chatgptPlus4: { value: 'gpt-4', desc: 'ChatGPT (Web, GPT-4 All in one)' },
   chatgptPlus4Browsing: { value: 'gpt-4-gizmo', desc: 'ChatGPT (Web, GPT-4)' },

@@ -86,7 +86,7 @@ export const moonshotApiModelKeys = ['moonshot_v1_8k', 'moonshot_v1_32k', 'moons
  * @type {Object.<string,Model>}
  */
 export const Models = {
-  chatgptFree35: { value: 'text-davinci-002-render-sha', desc: 'ChatGPT (Web)' },
+  chatgptFree35: { value: 'text-davinci-002-render-sha', desc: 'ChatGPT (Web, GPT-3.5)' },
 
   chatgptFree4o: { value: 'gpt-4o', desc: 'ChatGPT (Web, GPT-4o)' },
 

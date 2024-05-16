@@ -97,6 +97,7 @@ export const Models = {
   chatgptApi35: { value: 'gpt-3.5-turbo', desc: 'ChatGPT (GPT-3.5-turbo)' },
   chatgptApi35_16k: { value: 'gpt-3.5-turbo-16k', desc: 'ChatGPT (GPT-3.5-turbo-16k)' },
 
+  chatgptApi4o_128k: { value: 'gpt-4o', desc: 'ChatGPT (GPT-4o)' },
   chatgptApi4_8k: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k)' },
   chatgptApi4_32k: { value: 'gpt-4-32k', desc: 'ChatGPT (GPT-4-32k)' },
   chatgptApi4_128k: {
@@ -115,7 +116,6 @@ export const Models = {
     value: 'gpt-4-0125-preview',
     desc: 'ChatGPT (GPT-4-Turbo 128k 0125 Preview)',
   },
-  chatgptApi4o_128k: { value: 'gpt-4o', desc: 'ChatGPT (GPT-4o)' },
 
   claude2WebFree: { value: '', desc: 'Claude.ai (Web)' },
   claude12Api: { value: 'claude-instant-1.2', desc: 'Claude.ai (API, Claude Instant 1.2)' },
@@ -255,9 +255,9 @@ export const defaultConfig = {
   alwaysCreateNewConversationWindow: false,
   activeApiModes: [
     'chatgptFree35',
+    'chatgptFree4o',
     'chatgptPlus4',
     'chatgptApi35',
-    'chatgptApi4_8k',
     'chatgptApi4_128k',
     'claude2WebFree',
     'bingFree4',

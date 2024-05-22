@@ -12,6 +12,7 @@ import weixin from './weixin'
 import followin from './followin'
 import duckduckgo from './duckduckgo'
 import brave from './brave'
+import arxiv from './arxiv'
 
 /**
  * @typedef {object} SiteConfigAction
@@ -207,5 +208,11 @@ export const config = {
     sidebarContainerQuery: [],
     appendContainerQuery: [],
     resultsContainerQuery: ['#article-content', '#thead-gallery'],
+  },
+  arxiv: {
+    inputQuery: arxiv.inputQuery,
+    sidebarContainerQuery: ['.extra-services'],
+    appendContainerQuery: [],
+    resultsContainerQuery: ['.extra-services'],
   },
 }

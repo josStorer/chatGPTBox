@@ -145,8 +145,8 @@ function ConversationCard(props) {
       switch (msg.error) {
         case 'UNAUTHORIZED':
           updateAnswer(
-            `${t('UNAUTHORIZED')}<br>${t('Please login at https://chat.openai.com first')}${
-              isSafari() ? `<br>${t('Then open https://chat.openai.com/api/auth/session')}` : ''
+            `${t('UNAUTHORIZED')}<br>${t('Please login at https://chatgpt.com first')}${
+              isSafari() ? `<br>${t('Then open https://chatgpt.com/api/auth/session')}` : ''
             }<br>${t('And refresh this page or type you question again')}` +
               `<br><br>${t(
                 'Consider creating an api key at https://platform.openai.com/account/api-keys',
@@ -159,8 +159,8 @@ function ConversationCard(props) {
           updateAnswer(
             `${t('OpenAI Security Check Required')}<br>${
               isSafari()
-                ? t('Please open https://chat.openai.com/api/auth/session')
-                : t('Please open https://chat.openai.com')
+                ? t('Please open https://chatgpt.com/api/auth/session')
+                : t('Please open https://chatgpt.com')
             }<br>${t('And refresh this page or type you question again')}` +
               `<br><br>${t(
                 'Consider creating an api key at https://platform.openai.com/account/api-keys',
@@ -388,7 +388,7 @@ function ConversationCard(props) {
           {!config.disableWebModeHistory && session && session.conversationId && (
             <a
               title={t('Continue on official website')}
-              href={'https://chat.openai.com/chat/' + session.conversationId}
+              href={'https://chatgpt.com/chat/' + session.conversationId}
               target="_blank"
               rel="nofollow noopener noreferrer"
               className="gpt-util-icon"
@@ -454,7 +454,7 @@ function ConversationCard(props) {
                   Browser.runtime.sendMessage({
                     type: 'OPEN_URL',
                     data: {
-                      url: Browser.runtime.getURL('IndependentPanel.html'),
+                      url: Browser.runtime.getURL('IndependentPanel.html') + '?from=store',
                     },
                   }),
                 )

@@ -64,9 +64,9 @@ function Popup() {
   const [latestVersion, setLatestVersion] = useState('')
   const theme = useWindowTheme()
 
-  const updateConfig = (value) => {
+  const updateConfig = async (value) => {
     setConfig({ ...config, ...value })
-    setUserConfig(value)
+    await setUserConfig(value)
   }
 
   useEffect(() => {

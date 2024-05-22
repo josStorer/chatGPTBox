@@ -35,7 +35,7 @@ export function ConversationItem({ type, content, descName, modelName, onRetry }
   switch (type) {
     case 'question':
       return (
-        <div className={type} dir="auto">
+        <div className={'chatgptbox-' + type} dir="auto">
           <div className="gpt-header">
             <p>{t('You')}:</p>
             <div className="gpt-util-group">
@@ -65,7 +65,7 @@ export function ConversationItem({ type, content, descName, modelName, onRetry }
       )
     case 'answer':
       return (
-        <div className={type} dir="auto">
+        <div className={'chatgptbox-' + type} dir="auto">
           <div className="gpt-header">
             <AnswerTitle descName={descName} modelName={modelName} />
             <div className="gpt-util-group">
@@ -102,7 +102,7 @@ export function ConversationItem({ type, content, descName, modelName, onRetry }
       )
     case 'error':
       return (
-        <div className={type} dir="auto">
+        <div className={'chatgptbox-' + type} dir="auto">
           <div className="gpt-header">
             <p>{t('Error')}:</p>
             <div className="gpt-util-group">

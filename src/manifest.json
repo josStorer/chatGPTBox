@@ -1,7 +1,7 @@
 {
   "name": "ChatGPTBox",
   "description": "Integrating ChatGPT into your browser deeply, everything you need is here",
-  "version": "2.4.9",
+  "version": "2.5.5",
   "manifest_version": 3,
   "icons": {
     "16": "logo.png",
@@ -10,11 +10,13 @@
     "128": "logo.png"
   },
   "host_permissions": [
+    "https://*.chatgpt.com/*",
     "https://*.openai.com/*",
     "https://*.bing.com/*",
     "https://*.poe.com/*",
     "https://*.google.com/*",
     "https://claude.ai/*",
+    "https://*.moonshot.cn/*",
     "<all_urls>"
   ],
   "permissions": [

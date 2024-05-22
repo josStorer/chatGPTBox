@@ -2,10 +2,10 @@ import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
 import { openUrl } from '../../utils/index.mjs'
 import {
-  isUsingApiKey,
+  isUsingOpenAiApiKey,
   isUsingAzureOpenAi,
   isUsingChatGLMApi,
-  isUsingClaude2Api,
+  isUsingClaudeApi,
   isUsingCustomModel,
   isUsingCustomNameOnlyModel,
   isUsingGithubThirdPartyApi,
@@ -14,6 +14,7 @@ import {
   Models,
   ThemeMode,
   TriggerMode,
+  isUsingMoonshotApi,
 } from '../../config/index.mjs'
 import Browser from 'webextension-polyfill'
 import { languageList } from '../../config/language.mjs'
@@ -140,12 +141,13 @@ export function GeneralPart({ config, updateConfig }) {
         <span style="display: flex; gap: 15px;">
           <select
             style={
-              isUsingApiKey(config) ||
+              isUsingOpenAiApiKey(config) ||
               isUsingMultiModeModel(config) ||
               isUsingCustomModel(config) ||
               isUsingAzureOpenAi(config) ||
-              isUsingClaude2Api(config) ||
-              isUsingCustomNameOnlyModel(config)
+              isUsingClaudeApi(config) ||
+              isUsingCustomNameOnlyModel(config) ||
+              isUsingMoonshotApi(config)
                 ? 'width: 50%;'
                 : undefined
             }
@@ -194,7 +196,7 @@ export function GeneralPart({ config, updateConfig }) {
               })}
             </select>
           )}
-          {isUsingApiKey(config) && (
+          {isUsingOpenAiApiKey(config) && (
             <span style="width: 50%; display: flex; gap: 5px;">
               <input
                 type="password"
@@ -262,7 +264,7 @@ export function GeneralPart({ config, updateConfig }) {
               }}
             />
           )}
-          {isUsingClaude2Api(config) && (
+          {isUsingClaudeApi(config) && (
             <input
               type="password"
               style="width: 50%;"
@@ -285,6 +287,30 @@ export function GeneralPart({ config, updateConfig }) {
                 updateConfig({ chatglmApiKey: apiKey })
               }}
             />
+          )}
+          {isUsingMoonshotApi(config) && (
+            <span style="width: 50%; display: flex; gap: 5px;">
+              <input
+                type="password"
+                value={config.moonshotApiKey}
+                placeholder={t('Moonshot API Key')}
+                onChange={(e) => {
+                  const apiKey = e.target.value
+                  updateConfig({ moonshotApiKey: apiKey })
+                }}
+              />
+              {config.moonshotApiKey.length === 0 && (
+                <a
+                  href="https://platform.moonshot.cn/console/api-keys"
+                  target="_blank"
+                  rel="nofollow noopener noreferrer"
+                >
+                  <button style="white-space: nowrap;" type="button">
+                    {t('Get')}
+                  </button>
+                </a>
+              )}
+            </span>
           )}
         </span>
         {isUsingCustomModel(config) && (

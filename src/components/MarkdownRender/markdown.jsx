@@ -1,4 +1,4 @@
-import 'katex/dist/katex.min.css'
+import './mykatex.min.css'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import rehypeHighlight from 'rehype-highlight'

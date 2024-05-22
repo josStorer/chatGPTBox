@@ -3,11 +3,11 @@ import { cropText } from '../../../utils'
 export default {
   inputQuery: async () => {
     try {
-      const title = document.querySelector('.main shreddit-post div:nth-child(4)').textContent
+      const title = document.querySelector('[id*="post-title"]')?.textContent
       const description = document.querySelector(
-        '.main shreddit-post div:nth-child(6) div',
-      ).textContent
-      const texts = document.querySelectorAll('shreddit-comment div:nth-child(2)')
+        'shreddit-post > div.text-neutral-content',
+      )?.textContent
+      const texts = document.querySelectorAll('shreddit-comment div.md')
       let answers = ''
       for (let i = 0; i < texts.length; i++) {
         answers += `answer${i}:${texts[i].textContent}|`

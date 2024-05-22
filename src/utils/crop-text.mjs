@@ -35,7 +35,7 @@ export async function cropText(
   tiktoken = true,
 ) {
   const userConfig = await getUserConfig()
-  const k = Models[userConfig.modelName].desc.match(/[- ]*([0-9]+)k/)?.[1]
+  const k = Models[userConfig.modelName].desc.match(/[- (]*([0-9]+)k/)?.[1]
   if (k) {
     maxLength = Number(k) * 1000
     maxLength -= 100 + clamp(userConfig.maxResponseTokenLength, 1, maxLength - 1000)

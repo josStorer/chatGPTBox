@@ -22,7 +22,7 @@ const config = {
       '#main-algo',
       '.searchCenterMiddle',
       '.Contents__inner.Contents__inner--main',
-      '#contents',
+      '#contentsInner',
     ],
   },
   duckduckgo: {
@@ -97,7 +97,7 @@ const urls = {
   kagi: [], // need login https://kagi.com/search?q=hello
   yandex: [], // need cookie https://yandex.com/search/?text=hello
   naver: ['https://search.naver.com/search.naver?query=hello'],
-  brave: ['https://search.brave.com/search?q=hello'],
+  brave: [],
   searx: ['https://searx.tiekoetter.com/search?q=hello'],
   ecosia: [], // unknown verify method https://www.ecosia.org/search?q=hello
   neeva: [], // unknown verify method(FetchError: maximum redirect reached) https://neeva.com/search?q=hello

@@ -38,6 +38,13 @@ export async function generateAnswersWithGptCompletionApi(
   const apiUrl = config.customOpenAiApiUrl
 
   let answer = ''
+  let finished = false
+  const finish = () => {
+    finished = true
+    pushRecord(session, question, answer)
+    console.debug('conversation history', { content: session.conversationRecords })
+    port.postMessage({ answer: null, done: true, session: session })
+  }
   await fetchSSE(`${apiUrl}/v1/completions`, {
     method: 'POST',
     signal: controller.signal,
@@ -55,10 +62,9 @@ export async function generateAnswersWithGptCompletionApi(
     }),
     onMessage(message) {
       console.debug('sse message', message)
+      if (finished) return
       if (message.trim() === '[DONE]') {
-        pushRecord(session, question, answer)
-        console.debug('conversation history', { content: session.conversationRecords })
-        port.postMessage({ answer: null, done: true, session: session })
+        finish()
         return
       }
       let data
@@ -68,8 +74,14 @@ export async function generateAnswersWithGptCompletionApi(
         console.debug('json error', error)
         return
       }
+
       answer += data.choices[0].text
       port.postMessage({ answer: answer, done: false, session: null })
+
+      if (data.choices[0]?.finish_reason) {
+        finish()
+        return
+      }
     },
     async onStart() {},
     async onEnd() {
@@ -95,6 +107,25 @@ export async function generateAnswersWithGptCompletionApi(
  * @param {string} modelName
  */
 export async function generateAnswersWithChatgptApi(port, question, session, apiKey, modelName) {
+  const config = await getUserConfig()
+  return generateAnswersWithChatgptApiCompat(
+    config.customOpenAiApiUrl,
+    port,
+    question,
+    session,
+    apiKey,
+    modelName,
+  )
+}
+
+export async function generateAnswersWithChatgptApiCompat(
+  baseUrl,
+  port,
+  question,
+  session,
+  apiKey,
+  modelName,
+) {
   const { controller, messageListener, disconnectListener } = setAbortController(port)
 
   const config = await getUserConfig()
@@ -104,10 +135,16 @@ export async function generateAnswersWithChatgptApi(port, question, session, api
   )
   prompt.unshift({ role: 'system', content: await getChatSystemPromptBase() })
   prompt.push({ role: 'user', content: question })
-  const apiUrl = config.customOpenAiApiUrl
 
   let answer = ''
-  await fetchSSE(`${apiUrl}/v1/chat/completions`, {
+  let finished = false
+  const finish = () => {
+    finished = true
+    pushRecord(session, question, answer)
+    console.debug('conversation history', { content: session.conversationRecords })
+    port.postMessage({ answer: null, done: true, session: session })
+  }
+  await fetchSSE(`${baseUrl}/v1/chat/completions`, {
     method: 'POST',
     signal: controller.signal,
     headers: {
@@ -123,10 +160,9 @@ export async function generateAnswersWithChatgptApi(port, question, session, api
     }),
     onMessage(message) {
       console.debug('sse message', message)
+      if (finished) return
       if (message.trim() === '[DONE]') {
-        pushRecord(session, question, answer)
-        console.debug('conversation history', { content: session.conversationRecords })
-        port.postMessage({ answer: null, done: true, session: session })
+        finish()
         return
       }
       let data
@@ -136,12 +172,23 @@ export async function generateAnswersWithChatgptApi(port, question, session, api
         console.debug('json error', error)
         return
       }
-      answer +=
-        data.choices[0]?.delta?.content ||
-        data.choices[0]?.message?.content ||
-        data.choices[0]?.text ||
-        ''
+
+      const delta = data.choices[0]?.delta?.content
+      const content = data.choices[0]?.message?.content
+      const text = data.choices[0]?.text
+      if (delta !== undefined) {
+        answer += delta
+      } else if (content) {
+        answer = content
+      } else if (text) {
+        answer += text
+      }
       port.postMessage({ answer: answer, done: false, session: null })
+
+      if (data.choices[0]?.finish_reason) {
+        finish()
+        return
+      }
     },
     async onStart() {},
     async onEnd() {

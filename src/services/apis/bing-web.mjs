@@ -76,7 +76,7 @@ export async function generateAnswersWithBingWebApi(
     )
   }
 
-  if (response.details.sourceAttributions.length > 0) {
+  if (response.details.sourceAttributions && response.details.sourceAttributions.length > 0) {
     const footnotes =
       '\n\\-\n' +
       response.details.sourceAttributions

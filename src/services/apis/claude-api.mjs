@@ -1,7 +1,8 @@
-import { getUserConfig } from '../../config/index.mjs'
+import { getUserConfig, Models } from '../../config/index.mjs'
 import { pushRecord, setAbortController } from './shared.mjs'
 import { fetchSSE } from '../../utils/fetch-sse.mjs'
 import { isEmpty } from 'lodash-es'
+import { getConversationPairs } from '../../utils/get-conversation-pairs.mjs'
 
 /**
  * @param {Runtime.Port} port
@@ -11,28 +12,29 @@ import { isEmpty } from 'lodash-es'
 export async function generateAnswersWithClaudeApi(port, question, session) {
   const { controller, messageListener, disconnectListener } = setAbortController(port)
   const config = await getUserConfig()
+  const apiUrl = config.customClaudeApiUrl
+  const modelName = session.modelName
 
-  let prompt = ''
-  for (const record of session.conversationRecords.slice(-config.maxConversationContextLength)) {
-    prompt += '\n\nHuman: ' + record.question + '\n\nAssistant: ' + record.answer
-  }
-  prompt += `\n\nHuman: ${question}\n\nAssistant:`
+  const prompt = getConversationPairs(
+    session.conversationRecords.slice(-config.maxConversationContextLength),
+    false,
+  )
+  prompt.push({ role: 'user', content: question })
 
   let answer = ''
-  await fetchSSE(`https://api.anthropic.com/v1/complete`, {
+  await fetchSSE(`${apiUrl}/v1/messages`, {
     method: 'POST',
     signal: controller.signal,
     headers: {
       'Content-Type': 'application/json',
-      accept: 'application/json',
       'anthropic-version': '2023-06-01',
       'x-api-key': config.claudeApiKey,
     },
     body: JSON.stringify({
-      model: 'claude-2',
-      prompt: prompt,
+      model: Models[modelName].value,
+      messages: prompt,
       stream: true,
-      max_tokens_to_sample: config.maxResponseTokenLength,
+      max_tokens: config.maxResponseTokenLength,
       temperature: config.temperature,
     }),
     onMessage(message) {
@@ -45,22 +47,17 @@ export async function generateAnswersWithClaudeApi(port, question, session) {
         console.debug('json error', error)
         return
       }
-
-      // The Claude v2 API may send metadata fields, handle them here
-      if (data.conversationId) session.conversationId = data.conversationId
-      if (data.parentMessageId) session.parentMessageId = data.parentMessageId
-
-      // In Claude's case, the "completion" key holds the text
-      if (data.completion) {
-        answer += data.completion
-        port.postMessage({ answer: answer, done: false, session: null })
-      }
-
-      // Check if the message indicates that Claude is done
-      if (data.stop_reason === 'stop_sequence') {
+      if (data?.type === 'message_stop') {
         pushRecord(session, question, answer)
         console.debug('conversation history', { content: session.conversationRecords })
         port.postMessage({ answer: null, done: true, session: session })
+        return
+      }
+
+      const delta = data?.delta?.text
+      if (delta) {
+        answer += delta
+        port.postMessage({ answer: answer, done: false, session: null })
       }
     },
     async onStart() {},

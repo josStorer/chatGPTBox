@@ -29,17 +29,17 @@
         {
           "operation": "set",
           "header": "origin",
-          "value": "https://chat.openai.com"
+          "value": "https://chatgpt.com"
         },
         {
           "operation": "set",
           "header": "referer",
-          "value": "https://chat.openai.com"
+          "value": "https://chatgpt.com"
         }
       ]
     },
     "condition": {
-      "requestDomains": ["chat.openai.com"],
+      "requestDomains": ["chatgpt.com"],
       "resourceTypes": ["xmlhttprequest"]
     }
   },
@@ -56,12 +56,12 @@
         {
           "operation": "set",
           "header": "referer",
-          "value": "https://tcr9i.chat.openai.com/v2/2.4.0/enforcement.2e633b2c7bb736a0ee9965af3d9393cb.html"
+          "value": "https://tcr9i.chat.openai.com/v2/2.5.0/enforcement.13af146b6f5532afc450f0718859ea0f.html"
         }
       ]
     },
     "condition": {
-      "requestDomains": ["tcr9i.chat.openai.com"],
+      "requestDomains": ["https://tcr9i.chat.openai.com"],
       "resourceTypes": ["xmlhttprequest"]
     }
   }

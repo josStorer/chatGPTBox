@@ -65,8 +65,6 @@ Tarayıcınıza derin ChatGPT entegrasyonu, tamamen ücretsiz.
 
 [Github-url]: https://github.com/josStorer/chatGPTBox/wiki/Install
 
-#### Yeni projem olan [RWKV-Runner](https://github.com/josStorer/RWKV-Runner) yayında, tek tıkla deploy edilebilen açık kaynaklı, ChatGPTBox ile birlikte kullanılabilen, ticari amaçlarla kullanılabilen, tek tıklamayla deploy edilebilir açık kaynaklı büyük dil modeli aracı.
-
 </div>
 
 ## Bilgilendirme
@@ -75,13 +73,9 @@ Tarayıcınıza derin ChatGPT entegrasyonu, tamamen ücretsiz.
 
 - Bu araç ChatGPT'ye siz açıkça belirtmediğiniz sürece hiçbir veri iletmez. Varsayılan olarak, eklentinin manuel olarak aktif hale getirilmesi gerekmektedir. Özellikle, sadece "ChatGPT'ye Sor" butonuna basarsanız ChatGPT'ye istek atar veya yüzen seçim araçlarını tetiklerseniz — Bu yalnızca GPT API modlarını kullandığınızda uygulanır (konu #407)
 
-- Proje olarak https://github.com/BerriAI/litellm gibi şeyleri kullanarak LLM API'larını OpenAI formatına dönüştürebilir ve bunları ChatGPTBox'ın `Custom Model` modu ile birlikte kullanabilirsiniz
+- Proje olarak https://github.com/BerriAI/litellm / https://github.com/songquanpeng/one-api gibi şeyleri kullanarak LLM API'larını OpenAI formatına dönüştürebilir ve bunları ChatGPTBox'ın `Custom Model` modu ile birlikte kullanabilirsiniz
 
-- ChatGPTBox'un `Custom Model` modu ile https://openrouter.ai/docs#api-keys adresini de kullanabilirsiniz
-
-- Cloudflare korumasını geçmek için gelişmiş ayarlardan ücretsiz ters proxy'i kurabilirsiniz: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
-
-- Offline/Self-host'lu modeller (RWKV, llama.cpp, ChatGLM) artık destekleniyor, Bknz: https://github.com/josStorer/selfhostedAI
+- ChatGPTBox'un `Custom Model` modu ile [Ollama](https://github.com/josStorer/chatGPTBox/issues/616#issuecomment-1975186467) / https://openrouter.ai/docs#models adresini de kullanabilirsiniz
 
 ## ✨ Özellikler
 
@@ -89,7 +83,7 @@ Tarayıcınıza derin ChatGPT entegrasyonu, tamamen ücretsiz.
 - 📱 Mobil cihaz desteği.
 - 📓 Herhangi bir sayfayı sağ tık menüsüyle özetleme (<kbd>Alt</kbd>+<kbd>B</kbd>)
 - 📖 Bağımsız konuşma sayfası. (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>)
-- 🔗 Çoklu API desteği (Ücretsiz ve Plus kullanıcıları için Web API , GPT-3.5, GPT-4, New Bing, Self-Hosted, Azure, Poe vs.).
+- 🔗 Çoklu API desteği (Ücretsiz ve Plus kullanıcıları için Web API , GPT-3.5, GPT-4, Claude, New Bing, Moonshot, Self-Hosted, Azure vs.).
 - 📦 Çeşitli olarak yaygın kullanılan websiteler için entegrasyon (Reddit, Quora, YouTube, GitHub, GitLab, StackOverflow, Zhihu, Bilibili). ([wimdenherder](https://github.com/wimdenherder)'den esinlenilmiştir)
 - 🔍 Tüm popüler arama motorlarına entegrasyon ve ek siteleri desteklemek için özel sorgu desteği 
 - 🧰 Çeşitli görevleri yerine getirmek için, seçim aracı ve sağ tık menüsü (Çeviri, Özetleme,Polishing, Duygu Analizi, Paragraf Bölme, Kod Açıklama ve Sorgular gibi.)

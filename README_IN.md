@@ -64,21 +64,15 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 
 [Github-url]: https://github.com/josStorer/chatGPTBox/wiki/Install
 
-#### Proyek baru saya [RWKV-Runner](https://github.com/josStorer/RWKV-Runner) telah dirilis, sebuah alat model bahasa besar sumber terbuka yang tersedia secara komersial dan dapat diterapkan dengan sekali klik yang dapat digunakan bersama dengan ChatGPTBox.
-
 </div>
 
 ## Berita
 
 - Ekstensi ini **tidak** mengumpulkan data Anda. Anda dapat memverifikasinya dengan melakukan pencarian global untuk `fetch(` dan `XMLHttpRequest(` dalam kode untuk menemukan semua panggilan permintaan jaringan. Jumlah kode tidak banyak, jadi mudah untuk melakukannya.
 
-- Anda dapat menggunakan proyek seperti https://github.com/BerriAI/litellm untuk mengkonversi API LLM ke dalam format OpenAI dan menggunakannya bersama dengan mode `Custom Model` dari ChatGPTBox
+- Anda dapat menggunakan proyek seperti https://github.com/BerriAI/litellm / https://github.com/songquanpeng/one-api untuk mengkonversi API LLM ke dalam format OpenAI dan menggunakannya bersama dengan mode `Custom Model` dari ChatGPTBox
 
-- Anda juga dapat menggunakan https://openrouter.ai/docs#api-keys dengan mode `Custom Model` dari ChatGPTBox
-
-- Anda dapat mengatur proxy balik gratis di Pengaturan Lanjutan untuk menghindari cloudflare: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
-
-- Model Offline/Self-hosted (RWKV, llama.cpp, ChatGLM) sekarang didukung, Lihat https://github.com/josStorer/selfhostedAI
+- Anda juga dapat menggunakan [Ollama](https://github.com/josStorer/chatGPTBox/issues/616#issuecomment-1975186467) / https://openrouter.ai/docs#models dengan mode `Custom Model` dari ChatGPTBox
 
 ## ✨ Fitur
 
@@ -86,7 +80,7 @@ Integrasi Deep ChatGPT di browser Anda, sepenuhnya gratis.
 - 📱 Dukungan untuk perangkat seluler.
 - 📓 Ringkaskan halaman apa pun dengan menu klik kanan. (<kbd>Alt</kbd>+<kbd>B</kbd>)
 - 📖 Halaman percakapan independen. (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>)
-- 🔗 Dukungan untuk beberapa API (Web API untuk pengguna Gratis dan Plus, GPT-3.5, GPT-4, New Bing, Self-Hosted, Azure, Poe, dll.).
+- 🔗 Dukungan untuk beberapa API (Web API untuk pengguna Gratis dan Plus, GPT-3.5, GPT-4, Claude, New Bing, Moonshot, Self-Hosted, Azure, dll.).
 - 📦 Integrasi untuk berbagai situs web yang umum digunakan (Reddit, Quora, YouTube, GitHub, GitLab, StackOverflow, Zhihu, Bilibili). (Terinspirasi dari [wimdenherder](https://github.com/wimdenherder))
 - 🔍 Integrasi dengan semua mesin pencari utama, dan permintaan kustom untuk mendukung situs tambahan.
 - 🧰 Alat pemilihan dan menu klik kanan untuk melakukan berbagai tugas, seperti terjemahan, ringkasan, penyempurnaan,

@@ -11,6 +11,7 @@ import juejin from './juejin'
 import weixin from './weixin'
 import followin from './followin'
 import duckduckgo from './duckduckgo'
+import brave from './brave'
 
 /**
  * @typedef {object} SiteConfigAction
@@ -48,7 +49,7 @@ export const config = {
       '#main-algo',
       '.searchCenterMiddle',
       '.Contents__inner.Contents__inner--main',
-      '#contents',
+      '#contentsInner',
     ],
   },
   duckduckgo: {
@@ -98,6 +99,9 @@ export const config = {
     sidebarContainerQuery: ['.sidebar'],
     appendContainerQuery: [],
     resultsContainerQuery: ['#results'],
+    action: {
+      init: brave.init,
+    },
   },
   searx: {
     inputQuery: ["input[name='q']"],
@@ -170,9 +174,9 @@ export const config = {
   },
   reddit: {
     inputQuery: reddit.inputQuery,
-    sidebarContainerQuery: ['#pdp-right-rail-topics div'],
+    sidebarContainerQuery: ['aside > div'],
     appendContainerQuery: [],
-    resultsContainerQuery: ['#pdp-right-rail-topics div'],
+    resultsContainerQuery: ['aside > div'],
   },
   quora: {
     inputQuery: quora.inputQuery,

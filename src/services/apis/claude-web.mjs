@@ -1,5 +1,5 @@
-import { pushRecord } from './shared.mjs'
-import Claude from 'claude-ai'
+import { pushRecord, setAbortController } from './shared.mjs'
+import Claude from '../clients/claude'
 import { Models } from '../../config/index.mjs'
 
 /**
@@ -18,6 +18,7 @@ export async function generateAnswersWithClaudeWebApi(
 ) {
   const bot = new Claude({ sessionKey })
   await bot.init()
+  const { controller, cleanController } = setAbortController(port)
 
   let answer = ''
   const progressFunc = ({ completion }) => {
@@ -31,22 +32,36 @@ export async function generateAnswersWithClaudeWebApi(
     port.postMessage({ answer: answer, done: true, session: session })
   }
 
+  const params = {
+    progress: progressFunc,
+    done: doneFunc,
+    model: Models[modelName].value,
+    signal: controller.signal,
+  }
+
   if (!session.claude_conversation)
     await bot
-      .startConversation(question, {
-        progress: progressFunc,
-        done: doneFunc,
-        model: Models[modelName].value,
-      })
+      .startConversation(question, params)
       .then((conversation) => {
+        conversation.request = null
+        conversation.claude = null
         session.claude_conversation = conversation
         port.postMessage({ answer: answer, done: true, session: session })
+        cleanController()
+      })
+      .catch((err) => {
+        cleanController()
+        throw err
       })
   else
-    await bot.sendMessage(question, {
-      conversation: session.claude_conversation,
-      progress: progressFunc,
-      done: doneFunc,
-      model: Models[modelName].value,
-    })
+    await bot
+      .sendMessage(question, {
+        conversation: session.claude_conversation,
+        ...params,
+      })
+      .then(cleanController)
+      .catch((err) => {
+        cleanController()
+        throw err
+      })
 }

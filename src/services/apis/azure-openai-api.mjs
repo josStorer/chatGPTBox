@@ -24,7 +24,7 @@ export async function generateAnswersWithAzureOpenaiApi(port, question, session)
   await fetchSSE(
     `${config.azureEndpoint.replace(/\/$/, '')}/openai/deployments/${
       config.azureDeploymentName
-    }/chat/completions?api-version=2023-03-15-preview`,
+    }/chat/completions?api-version=2024-02-01`,
     {
       method: 'POST',
       signal: controller.signal,
@@ -47,11 +47,18 @@ export async function generateAnswersWithAzureOpenaiApi(port, question, session)
           console.debug('json error', error)
           return
         }
-        if ('content' in data.choices[0].delta) {
+        if (
+          data.choices &&
+          data.choices.length > 0 &&
+          data.choices[0] &&
+          data.choices[0].delta &&
+          'content' in data.choices[0].delta
+        ) {
           answer += data.choices[0].delta.content
           port.postMessage({ answer: answer, done: false, session: null })
         }
-        if (data.choices[0].finish_reason === 'stop') {
+
+        if (data.choices && data.choices.length > 0 && data.choices[0]?.finish_reason) {
           pushRecord(session, question, answer)
           console.debug('conversation history', { content: session.conversationRecords })
           port.postMessage({ answer: null, done: true, session: session })

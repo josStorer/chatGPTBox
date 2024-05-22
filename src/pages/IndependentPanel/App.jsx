@@ -49,8 +49,13 @@ function App() {
   useEffect(() => {
     // eslint-disable-next-line
     ;(async () => {
+      const urlFrom = new URLSearchParams(window.location.search).get('from')
       const sessions = await getSessions()
-      if (sessions[0].conversationRecords && sessions[0].conversationRecords.length > 0) {
+      if (
+        urlFrom !== 'store' &&
+        sessions[0].conversationRecords &&
+        sessions[0].conversationRecords.length > 0
+      ) {
         await createNewChat()
       } else {
         setSessions(sessions)

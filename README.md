@@ -64,8 +64,6 @@ English &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md) &nbsp;&nbsp;|&nbsp;&
 
 [Github-url]: https://github.com/josStorer/chatGPTBox/wiki/Install
 
-#### My new project [RWKV-Runner](https://github.com/josStorer/RWKV-Runner) has been released, a one-click deployable open-source commercially usable large language model tool that can be used in conjunction with ChatGPTBox.
-
 </div>
 
 ## News
@@ -74,13 +72,9 @@ English &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md) &nbsp;&nbsp;|&nbsp;&
 
 - This tool will not transmit any data to ChatGPT unless you explicitly ask it to. By default, the extension must be activated manually. It will only send a request to ChatGPT if you specifically click "Ask ChatGPT" or trigger the selection floating tools — and this is applicable only when you're using GPT API modes. (issue #407)
 
-- You can use projects like https://github.com/BerriAI/litellm to convert LLM APIs into OpenAI format and use them in conjunction with ChatGPTBox's `Custom Model` mode
+- You can use projects like https://github.com/BerriAI/litellm / https://github.com/songquanpeng/one-api to convert LLM APIs into OpenAI format and use them in conjunction with ChatGPTBox's `Custom Model` mode
 
-- You can also use https://openrouter.ai/docs#api-keys with ChatGPTBox's `Custom Model` mode
-
-- You can set a free reverse proxy in the Advanced setting to bypass cloudflare: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
-
-- Offline/Self-hosted model (RWKV, llama.cpp, ChatGLM) is now supported, See https://github.com/josStorer/selfhostedAI
+- You can also use [Ollama](https://github.com/josStorer/chatGPTBox/issues/616#issuecomment-1975186467) / https://openrouter.ai/docs#models with ChatGPTBox's `Custom Model` mode
 
 ## ✨ Features
 
@@ -88,7 +82,7 @@ English &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md) &nbsp;&nbsp;|&nbsp;&
 - 📱 Support for mobile devices.
 - 📓 Summarize any page with right-click menu. (<kbd>Alt</kbd>+<kbd>B</kbd>)
 - 📖 Independent conversation page. (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>)
-- 🔗 Multiple API support (Web API for Free and Plus users, GPT-3.5, GPT-4, New Bing, Self-Hosted, Azure, Poe etc.).
+- 🔗 Multiple API support (Web API for Free and Plus users, GPT-3.5, GPT-4, Claude, New Bing, Moonshot, Self-Hosted, Azure etc.).
 - 📦 Integration for various commonly used websites (Reddit, Quora, YouTube, GitHub, GitLab, StackOverflow, Zhihu, Bilibili). (Inspired by [wimdenherder](https://github.com/wimdenherder))
 - 🔍 Integration to all mainstream search engines, and custom queries to support additional sites.
 - 🧰 Selection tool and right-click menu to perform various tasks, such as translation, summarization, polishing,

@@ -324,7 +324,11 @@ async function prepareForForegroundRequests() {
 
   if (!chatgptWebModelKeys.some((model) => userConfig.activeApiModes.includes(model))) return
 
-  if (chatgptWebModelKeys.includes(userConfig.modelName)) {
+  const url = new URL(window.location.href)
+  if (
+    url.searchParams.has('chatgptbox_notification') &&
+    chatgptWebModelKeys.includes(userConfig.modelName)
+  ) {
     const div = document.createElement('div')
     document.body.append(div)
     render(<NotificationForChatGPTWeb container={div} />, div)

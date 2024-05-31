@@ -71,7 +71,7 @@ const NotificationForChatGPTWeb = () => {
       style={{
         width: '440px',
       }}
-      position="top-right"
+      position="top-center"
       autoClose={7000}
       newestOnTop={false}
       closeOnClick={false}

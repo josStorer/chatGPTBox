@@ -9,7 +9,7 @@ export default {
 
       return await cropText(
         `Below is the paper abstract from a preprint site, summarize the key findings, methodology, and conclusions, especially highlight the contributions.` +
-          `${title}\n${authors}\n${abstract}`,
+          `\n${title}\n${authors}\n${abstract}`,
       )
     } catch (e) {
       console.log(e)

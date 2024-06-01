@@ -133,5 +133,14 @@
   "Generating...": "생성 중...",
   "moonshot token required, please login at https://kimi.moonshot.cn first": "moonshot 토큰이 필요합니다. https://kimi.moonshot.cn 에서 로그인하세요.",
   "Hide context menu of this extension": "이 확장 프로그램의 컨텍스트 메뉴 숨기기",
-  "Custom Claude API Url": "사용자 정의 Claude API URL"
+  "Custom Claude API Url": "사용자 정의 Claude API URL",
+  "Cancel": "취소",
+  "Name is required": "이름은 필수입니다",
+  "Prompt template should include {{selection}}": "프롬프트 템플릿에는 {{selection}} 이 포함되어야 합니다",
+  "Save": "저장",
+  "Name": "이름",
+  "Icon": "아이콘",
+  "Prompt Template": "프롬프트 템플릿",
+  "Explain this: {{selection}}": "이것을 설명하세요: {{selection}}",
+  "New": "새로 만들기"
 }

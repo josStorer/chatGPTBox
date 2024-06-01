@@ -267,6 +267,14 @@ export const defaultConfig = {
     'azureOpenAi',
   ],
   activeSelectionTools: ['translate', 'summary', 'polish', 'code', 'ask'],
+  customSelectionTools: [
+    {
+      name: '',
+      iconKey: 'explain',
+      prompt: 'sample prompt: {{selection}}',
+      active: false,
+    },
+  ],
   activeSiteAdapters: [
     'bilibili',
     'github',

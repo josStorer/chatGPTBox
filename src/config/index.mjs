@@ -263,7 +263,7 @@ export const defaultConfig = {
     'chatgptFree4o',
     'chatgptPlus4',
     'chatgptApi35',
-    'chatgptApi4_128k',
+    'chatgptApi4o_128k',
     'claude2WebFree',
     'bingFree4',
     'moonshotWebFree',

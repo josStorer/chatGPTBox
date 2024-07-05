@@ -1,4 +1,3 @@
-import Browser from 'webextension-polyfill'
 import { cloneElement, useCallback, useEffect, useState } from 'react'
 import ConversationCard from '../ConversationCard'
 import PropTypes from 'prop-types'
@@ -9,7 +8,7 @@ import { useClampWindowSize } from '../../hooks/use-clamp-window-size'
 import { useTranslation } from 'react-i18next'
 import { useConfig } from '../../hooks/use-config.mjs'
 
-const logo = Browser.runtime.getURL('logo.png')
+// const logo = Browser.runtime.getURL('logo.png')
 
 function FloatingToolbar(props) {
   const { t } = useTranslation()
@@ -114,39 +113,47 @@ function FloatingToolbar(props) {
       </div>
     )
   } else {
-    if (config.activeSelectionTools.length === 0) return <div />
+    if (
+      config.activeSelectionTools.length === 0 &&
+      config.customSelectionTools.reduce((count, tool) => count + (tool.active ? 1 : 0), 0) === 0
+    )
+      return <div />
 
     const tools = []
+    const pushTool = (iconKey, name, genPrompt) => {
+      tools.push(
+        cloneElement(toolsConfig[iconKey].icon, {
+          size: 24,
+          className: 'chatgptbox-selection-toolbar-button',
+          title: name,
+          onClick: async () => {
+            const p = getClientPosition(props.container)
+            props.container.style.position = 'fixed'
+            setPosition(p)
+            setPrompt(await genPrompt(selection))
+            setTriggered(true)
+          },
+        }),
+      )
+    }
 
     for (const key in toolsConfig) {
       if (config.activeSelectionTools.includes(key)) {
         const toolConfig = toolsConfig[key]
-        tools.push(
-          cloneElement(toolConfig.icon, {
-            size: 20,
-            className: 'chatgptbox-selection-toolbar-button',
-            title: t(toolConfig.label),
-            onClick: async () => {
-              const p = getClientPosition(props.container)
-              props.container.style.position = 'fixed'
-              setPosition(p)
-              setPrompt(await toolConfig.genPrompt(selection))
-              setTriggered(true)
-            },
-          }),
-        )
+        pushTool(key, t(toolConfig.label), toolConfig.genPrompt)
+      }
+    }
+    for (const tool of config.customSelectionTools) {
+      if (tool.active) {
+        pushTool(tool.iconKey, tool.name, async (selection) => {
+          return tool.prompt.replace('{{selection}}', selection)
+        })
       }
     }
 
     return (
       <div data-theme={config.themeMode}>
-        <div className="chatgptbox-selection-toolbar">
-          <img
-            src={logo}
-            style="user-select:none;width:24px;height:24px;background:rgba(0,0,0,0);filter:none;"
-          />
-          {tools}
-        </div>
+        <div className="chatgptbox-selection-toolbar">{tools}</div>
       </div>
     )
   }

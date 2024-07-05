@@ -8,14 +8,16 @@ export function Hyperlink({ href, children }) {
     rel: 'nofollow noopener noreferrer',
   }
 
-  return href.includes('chat.openai.com') ? (
+  return href.includes('chatgpt.com') ? (
     <span
       {...linkProperties}
       onClick={() => {
+        const url = new URL(href)
+        url.searchParams.set('chatgptbox_notification', 'true')
         Browser.runtime.sendMessage({
           type: 'NEW_URL',
           data: {
-            url: href,
+            url: url.toString(),
             pinned: false,
             saveAsChatgptConfig: true,
           },

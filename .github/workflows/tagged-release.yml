@@ -7,6 +7,8 @@ on:
 permissions:
   id-token: "write"
   contents: "write"
+env:
+  GH_TOKEN: ${{ github.token }}
 
 jobs:
   build_and_release:
@@ -19,14 +21,14 @@ jobs:
           ref: master
 
       - name: Update manifest.json version
-        uses: jossef/action-set-json-field@v2.1
+        uses: jossef/action-set-json-field@v2.2
         with:
           file: src/manifest.json
           field: version
           value: ${{ env.VERSION }}
 
       - name: Update manifest.v2.json version
-        uses: jossef/action-set-json-field@v2.1
+        uses: jossef/action-set-json-field@v2.2
         with:
           file: src/manifest.v2.json
           field: version
@@ -39,6 +41,9 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git commit -am "release v${{ env.VERSION }}"
           git push
+
+      - run: |
+          gh release create ${{github.ref_name}} -d -F CURRENT_CHANGE.md -t ${{github.ref_name}}
 
       - uses: actions/setup-node@v4
         with:
@@ -55,13 +60,12 @@ jobs:
       - run: sed -i '' "s/0.0.0/${{ env.VERSION }}/g" safari/project.patch
       - run: npm run build:safari
 
-      - uses: marvinpinto/action-automatic-releases@v1.2.1
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
-          files: |
-            build/chromium.zip
-            build/firefox.zip
-            build/safari.dmg
-            build/chromium-without-katex-and-tiktoken.zip
-            build/firefox-without-katex-and-tiktoken.zip
+      - run: |
+          gh release upload ${{github.ref_name}} build/chromium.zip
+          gh release upload ${{github.ref_name}} build/firefox.zip
+          gh release upload ${{github.ref_name}} build/safari.dmg
+          gh release upload ${{github.ref_name}} build/chromium-without-katex-and-tiktoken.zip
+          gh release upload ${{github.ref_name}} build/firefox-without-katex-and-tiktoken.zip
+
+      - run: |
+          gh release edit ${{github.ref_name}} --draft=false

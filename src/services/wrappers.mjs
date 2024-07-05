@@ -15,12 +15,12 @@ export async function getChatGptAccessToken() {
   if (userConfig.accessToken) {
     return userConfig.accessToken
   } else {
-    const cookie = (await Browser.cookies.getAll({ url: 'https://chat.openai.com/' }))
+    const cookie = (await Browser.cookies.getAll({ url: 'https://chatgpt.com/' }))
       .map((cookie) => {
         return `${cookie.name}=${cookie.value}`
       })
       .join('; ')
-    const resp = await fetch('https://chat.openai.com/api/auth/session', {
+    const resp = await fetch('https://chatgpt.com/api/auth/session', {
       headers: {
         Cookie: cookie,
       },

@@ -16,6 +16,7 @@ import { v4 as uuidv4 } from 'uuid'
  * @property {string|null} conversationId - chatGPT web mode
  * @property {string|null} messageId - chatGPT web mode
  * @property {string|null} parentMessageId - chatGPT web mode
+ * @property {string|null} wsRequestId - chatGPT web mode
  * @property {string|null} bingWeb_encryptedConversationSignature
  * @property {string|null} bingWeb_conversationId
  * @property {string|null} bingWeb_clientId
@@ -26,6 +27,7 @@ import { v4 as uuidv4 } from 'uuid'
  * @property {number|null} poe_chatId
  * @property {object|null} bard_conversationObj
  * @property {object|null} claude_conversation
+ * @property {object|null} moonshot_conversation
  */
 /**
  * @param {string|null} question
@@ -62,6 +64,7 @@ export function initSession({
     conversationId: null,
     messageId: null,
     parentMessageId: null,
+    wsRequestId: null,
 
     // bing
     bingWeb_encryptedConversationSignature: null,
@@ -82,5 +85,7 @@ export function initSession({
 
     // claude.ai
     claude_conversation: null,
+    // kimi.moonshot.cn
+    moonshot_conversation: null,
   }
 }

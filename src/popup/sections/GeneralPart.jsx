@@ -14,6 +14,7 @@ import {
   Models,
   ThemeMode,
   TriggerMode,
+  DisplayMode,
   isUsingMoonshotApi,
 } from '../../config/index.mjs'
 import Browser from 'webextension-polyfill'
@@ -112,6 +113,24 @@ export function GeneralPart({ config, updateConfig }) {
           {Object.entries(TriggerMode).map(([key, desc]) => {
             return (
               <option value={key} key={key} selected={key === config.triggerMode}>
+                {t(desc)}
+              </option>
+            )
+          })}
+        </select>
+      </label>
+      <label>
+        <legend>{t('DisplayMode')}</legend>
+        <select
+          required
+          onChange={(e) => {
+            const mode = e.target.value
+            updateConfig({ displayMode: mode })
+          }}
+        >
+          {Object.entries(DisplayMode).map(([key, desc]) => {
+            return (
+              <option value={key} key={key} selected={key === config.displayMode}>
                 {t(desc)}
               </option>
             )

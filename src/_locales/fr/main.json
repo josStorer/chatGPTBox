@@ -133,5 +133,14 @@
   "Generating...": "Génération...",
   "moonshot token required, please login at https://kimi.moonshot.cn first": "jeton moonshot requis, veuillez vous connecter d'abord sur https://kimi.moonshot.cn",
   "Hide context menu of this extension": "Masquer le menu contextuel de cette extension",
-  "Custom Claude API Url": "URL API Claude personnalisée"
+  "Custom Claude API Url": "URL API Claude personnalisée",
+  "Cancel": "Annuler",
+  "Name is required": "Le nom est requis",
+  "Prompt template should include {{selection}}": "Le modèle de suggestion doit inclure {{selection}}",
+  "Save": "Enregistrer",
+  "Name": "Nom",
+  "Icon": "Icône",
+  "Prompt Template": "Modèle de suggestion",
+  "Explain this: {{selection}}": "Expliquer ceci : {{selection}}",
+  "New": "Nouveau"
 }

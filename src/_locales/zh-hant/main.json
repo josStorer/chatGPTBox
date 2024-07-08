@@ -133,5 +133,14 @@
   "Generating...": "產生中...",
   "moonshot token required, please login at https://kimi.moonshot.cn first": "需要 moonshot token，請先在 https://kimi.moonshot.cn 登入",
   "Hide context menu of this extension": "隱藏此擴充功能的右鍵選單",
-  "Custom Claude API Url": "自訂 Claude API 網址"
+  "Custom Claude API Url": "自訂 Claude API 網址",
+  "Cancel": "取消",
+  "Name is required": "名稱是必填的",
+  "Prompt template should include {{selection}}": "提示模板應該包含 {{selection}}",
+  "Save": "儲存",
+  "Name": "名稱",
+  "Icon": "圖示",
+  "Prompt Template": "提示模板",
+  "Explain this: {{selection}}": "解釋這個: {{selection}}",
+  "New": "新增"
 }

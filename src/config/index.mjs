@@ -56,6 +56,7 @@ export const claudeApiModelKeys = [
   'claude2Api',
   'claude21Api',
   'claude3HaikuApi',
+  'claude35SonnetApi',
   'claude3SonnetApi',
   'claude3OpusApi',
 ]
@@ -127,6 +128,10 @@ export const Models = {
   },
   claude3SonnetApi: { value: 'claude-3-sonnet-20240229', desc: 'Claude.ai (API, Claude 3 Sonnet)' },
   claude3OpusApi: { value: 'claude-3-opus-20240229', desc: 'Claude.ai (API, Claude 3 Opus)' },
+  claude35SonnetApi: {
+    value: 'claude-3-5-sonnet-20240620',
+    desc: 'Claude.ai (API, Claude 3.5 Sonnet)',
+  },
 
   bingFree4: { value: '', desc: 'Bing (Web, GPT-4)' },
   bingFreeSydney: { value: '', desc: 'Bing (Web, GPT-4, Sydney)' },
@@ -258,7 +263,7 @@ export const defaultConfig = {
     'chatgptFree4o',
     'chatgptPlus4',
     'chatgptApi35',
-    'chatgptApi4_128k',
+    'chatgptApi4o_128k',
     'claude2WebFree',
     'bingFree4',
     'moonshotWebFree',
@@ -267,6 +272,14 @@ export const defaultConfig = {
     'azureOpenAi',
   ],
   activeSelectionTools: ['translate', 'summary', 'polish', 'code', 'ask'],
+  customSelectionTools: [
+    {
+      name: '',
+      iconKey: 'explain',
+      prompt: 'sample prompt: {{selection}}',
+      active: false,
+    },
+  ],
   activeSiteAdapters: [
     'bilibili',
     'github',
@@ -279,6 +292,7 @@ export const defaultConfig = {
     'juejin',
     'mp.weixin.qq',
     'followin',
+    'arxiv',
   ],
   accessToken: '',
   tokenSavedOn: 0,
@@ -330,6 +344,7 @@ export const defaultConfig = {
     'juejin',
     'mp.weixin.qq',
     'followin',
+    'arxiv',
   ],
 }
 

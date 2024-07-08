@@ -133,5 +133,14 @@
   "Generating...": "Üretiliyor...",
   "moonshot token required, please login at https://kimi.moonshot.cn first": "moonshot jetonu gerekiyor, lütfen önce https://kimi.moonshot.cn adresinde oturum açın",
   "Hide context menu of this extension": "Bu uzantının bağlam menüsünü gizle",
-  "Custom Claude API Url": "Özel Claude API Url'si"
+  "Custom Claude API Url": "Özel Claude API Url'si",
+  "Cancel": "İptal",
+  "Name is required": "İsim gereklidir",
+  "Prompt template should include {{selection}}": "Prompt şablonu {{selection}} içermelidir",
+  "Save": "Kaydet",
+  "Name": "İsim",
+  "Icon": "Simge",
+  "Prompt Template": "Prompt Şablonu",
+  "Explain this: {{selection}}": "Bunu açıkla: {{selection}}",
+  "New": "Yeni"
 }

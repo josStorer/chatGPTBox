@@ -8,6 +8,11 @@ export const TriggerMode = {
   manually: 'Manually',
 }
 
+export const DisplayMode = {
+  sidebar: 'Display in sidebar',
+  floatingToolbar: 'Display in floating toolbar',
+}
+
 export const ThemeMode = {
   light: 'Light',
   dark: 'Dark',
@@ -202,6 +207,8 @@ export const defaultConfig = {
 
   /** @type {keyof TriggerMode}*/
   triggerMode: 'manually',
+  /** @type {keyof DisplayMode}*/
+  displayMode: 'sidebar',
   /** @type {keyof ThemeMode}*/
   themeMode: 'auto',
   /** @type {keyof Models}*/

@@ -70,11 +70,33 @@ async function mountComponent(siteConfig, userConfig) {
     unmountComponentAtNode(e)
     e.remove()
   })
+
+  const position = {
+    x: window.innerWidth - 300 - (Math.floor((20 / 100) * window.innerWidth)),
+    y: window.innerHeight / 2 - 200,
+  }
+  const toolbarContainer = createElementAtPosition(position.x, position.y)
+  toolbarContainer.className = 'chatgptbox-toolbar-container-not-queryable'
+  if (userConfig.displayMode === 'floatingToolbar') {
+    render(
+      <FloatingToolbar
+        session={initSession({ modelName: userConfig.modelName })}
+        selection={question}
+        container={toolbarContainer}
+        dockable={true}
+        triggered={true}
+        closeable={true}
+        prompt={question}
+      />,
+      toolbarContainer,
+    )
+    return
+  }
   const container = document.createElement('div')
   container.id = 'chatgptbox-container'
   render(
     <DecisionCard
-      session={initSession({ modelName: (await getUserConfig()).modelName })}
+      session={initSession({ modelName: userConfig.modelName })}
       question={question}
       siteConfig={siteConfig}
       container={container}

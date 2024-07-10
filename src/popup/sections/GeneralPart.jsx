@@ -8,6 +8,7 @@ import {
   isUsingClaudeApi,
   isUsingCustomModel,
   isUsingCustomNameOnlyModel,
+  isUsingOllamaModel,
   isUsingGithubThirdPartyApi,
   isUsingMultiModeModel,
   ModelMode,
@@ -163,6 +164,7 @@ export function GeneralPart({ config, updateConfig }) {
               isUsingOpenAiApiKey(config) ||
               isUsingMultiModeModel(config) ||
               isUsingCustomModel(config) ||
+              isUsingOllamaModel(config) ||
               isUsingAzureOpenAi(config) ||
               isUsingClaudeApi(config) ||
               isUsingCustomNameOnlyModel(config) ||
@@ -271,6 +273,18 @@ export function GeneralPart({ config, updateConfig }) {
               }}
             />
           )}
+          {isUsingOllamaModel(config) && (
+            <input
+              style="width: 50%;"
+              type="text"
+              value={config.ollamaModelName}
+              placeholder={t('Model Name')}
+              onChange={(e) => {
+                const ollamaModelName = e.target.value
+                updateConfig({ ollamaModelName: ollamaModelName })
+              }}
+            />
+          )}
           {isUsingAzureOpenAi(config) && (
             <input
               type="password"
@@ -351,6 +365,28 @@ export function GeneralPart({ config, updateConfig }) {
             onChange={(e) => {
               const apiKey = e.target.value
               updateConfig({ customApiKey: apiKey })
+            }}
+          />
+        )}
+        {isUsingOllamaModel(config) && (
+          <input
+            type="text"
+            value={config.ollamaEndpoint}
+            placeholder={t('Ollama Endpoint')}
+            onChange={(e) => {
+              const value = e.target.value
+              updateConfig({ ollamaEndpoint: value })
+            }}
+          />
+        )}
+        {isUsingOllamaModel(config) && (
+          <input
+            type="password"
+            value={config.ollamaApiKey}
+            placeholder={t('API Key')}
+            onChange={(e) => {
+              const apiKey = e.target.value
+              updateConfig({ ollamaApiKey: apiKey })
             }}
           />
         )}

@@ -55,6 +55,7 @@ export const chatgptApiModelKeys = [
   'chatgptApi4_128k_0125_preview',
 ]
 export const customApiModelKeys = ['customModel']
+export const ollamaApiModelKeys = ['ollamaModel']
 export const azureOpenAiApiModelKeys = ['azureOpenAi']
 export const claudeApiModelKeys = [
   'claude12Api',
@@ -159,6 +160,7 @@ export const Models = {
   gptApiDavinci: { value: 'text-davinci-003', desc: 'GPT-3.5' },
 
   customModel: { value: '', desc: 'Custom Model' },
+  ollamaModel: { value: '', desc: 'Ollama API' },
   azureOpenAi: { value: '', desc: 'ChatGPT (Azure)' },
   waylaidwandererApi: { value: '', desc: 'Waylaidwanderer API (Github)' },
 
@@ -245,6 +247,10 @@ export const defaultConfig = {
   customModelName: 'gpt-3.5-turbo',
   githubThirdPartyUrl: 'http://127.0.0.1:3000/conversation',
 
+  ollamaEndpoint: 'http://127.0.0.1:11434',
+  ollamaModelName: 'gemma2',
+  keepAliveTime: '5m',
+
   // advanced
 
   maxResponseTokenLength: 1000,
@@ -276,6 +282,7 @@ export const defaultConfig = {
     'moonshotWebFree',
     'chatglmTurbo',
     'customModel',
+    'ollamaModel',
     'azureOpenAi',
   ],
   activeSelectionTools: ['translate', 'summary', 'polish', 'code', 'ask'],
@@ -374,6 +381,10 @@ export function isUsingMultiModeModel(configOrSession) {
 
 export function isUsingCustomModel(configOrSession) {
   return customApiModelKeys.includes(configOrSession.modelName)
+}
+
+export function isUsingOllamaModel(configOrSession) {
+  return ollamaApiModelKeys.includes(configOrSession.modelName)
 }
 
 export function isUsingChatGLMApi(configOrSession) {

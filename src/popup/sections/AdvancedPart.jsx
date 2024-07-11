@@ -90,8 +90,8 @@ function ApiParams({ config, updateConfig }) {
               <input
                 type="radio"
                 name="keepAliveTime"
-                value={-1}
-                checked={config.keepAliveTime == -1}
+                value="-1"
+                checked={config.keepAliveTime === '-1'}
                 onChange={(e) => {
                   updateConfig({ keepAliveTime: e.target.value })
                 }}

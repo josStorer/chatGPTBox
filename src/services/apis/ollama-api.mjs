@@ -49,7 +49,7 @@ export async function generateAnswersWithOllamaApi(port, question, session, apiK
       messages: prompt,
       model: modelName,
       stream: true,
-      keep_alive: config.keepAliveTime,
+      keep_alive: config.keepAliveTime === '-1' ? -1 : config.keepAliveTime,
     }),
     onMessage(message) {
       console.debug('sse message', message)

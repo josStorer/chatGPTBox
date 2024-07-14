@@ -136,11 +136,11 @@
   "Custom Claude API Url": "自訂 Claude API 網址",
   "Cancel": "取消",
   "Name is required": "名稱是必填的",
-  "Prompt template should include {{selection}}": "提示模板應該包含 {{selection}}",
+  "Prompt template should include {{selection}}": "提示範本應該包含 {{selection}}",
   "Save": "儲存",
   "Name": "名稱",
   "Icon": "圖示",
-  "Prompt Template": "提示模板",
+  "Prompt Template": "提示範本",
   "Explain this: {{selection}}": "解釋這個: {{selection}}",
   "New": "新增"
 }

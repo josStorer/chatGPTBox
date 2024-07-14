@@ -142,5 +142,8 @@
   "Icon": "Simge",
   "Prompt Template": "Prompt Şablonu",
   "Explain this: {{selection}}": "Bunu açıkla: {{selection}}",
-  "New": "Yeni"
+  "New": "Yeni",
+  "DisplayMode": "Görüntüleme Modu",
+  "Display in sidebar": "Kenar çubuğunda görüntüle",
+  "Display in floating toolbar": "Kayan araç çubuğunda görüntüle"
 }

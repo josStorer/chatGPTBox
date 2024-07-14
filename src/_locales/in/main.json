@@ -142,5 +142,8 @@
   "Icon": "Ikon",
   "Prompt Template": "Template Prompt",
   "Explain this: {{selection}}": "Jelaskan ini: {{selection}}",
-  "New": "Baru"
+  "New": "Baru",
+  "DisplayMode": "Mode Tampilan",
+  "Display in sidebar": "Tampilkan di bilah sisi",
+  "Display in floating toolbar": "Tampilkan di bilah alat mengambang"
 }

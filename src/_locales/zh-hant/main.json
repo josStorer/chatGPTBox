@@ -142,5 +142,8 @@
   "Icon": "圖示",
   "Prompt Template": "提示模板",
   "Explain this: {{selection}}": "解釋這個: {{selection}}",
-  "New": "新增"
+  "New": "新增",
+  "DisplayMode": "顯示模式",
+  "Display in sidebar": "在側邊欄顯示",
+  "Display in floating toolbar": "在浮動工具列顯示"
 }

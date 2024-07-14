@@ -142,5 +142,8 @@
   "Icon": "아이콘",
   "Prompt Template": "프롬프트 템플릿",
   "Explain this: {{selection}}": "이것을 설명하세요: {{selection}}",
-  "New": "새로 만들기"
+  "New": "새로 만들기",
+  "DisplayMode": "디스플레이 모드",
+  "Display in sidebar": "사이드바에 표시",
+  "Display in floating toolbar": "떠다니는 도구 모음에 표시"
 }

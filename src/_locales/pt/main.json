@@ -142,5 +142,8 @@
   "Icon": "Ícone",
   "Prompt Template": "Modelo de Prompt",
   "Explain this: {{selection}}": "Explique isso: {{selection}}",
-  "New": "Novo"
+  "New": "Novo",
+  "DisplayMode": "Modo de Exibição",
+  "Display in sidebar": "Exibir na barra lateral",
+  "Display in floating toolbar": "Exibir na barra de ferramentas flutuante"
 }

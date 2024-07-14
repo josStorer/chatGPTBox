@@ -142,5 +142,8 @@
   "Icon": "Icono",
   "Prompt Template": "Plantilla de sugerencias",
   "Explain this: {{selection}}": "Explicar esto: {{selection}}",
-  "New": "Nuevo"
+  "New": "Nuevo",
+  "DisplayMode": "Modo de visualización",
+  "Display in sidebar": "Mostrar en la barra lateral",
+  "Display in floating toolbar": "Mostrar en la barra de herramientas flotante"
 }

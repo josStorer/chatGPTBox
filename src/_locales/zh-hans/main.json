@@ -77,6 +77,7 @@
   "ChatGPT (GPT-4-8k)": "ChatGPT (GPT-4-8k)",
   "ChatGPT (GPT-4-32k)": "ChatGPT (GPT-4-32k)",
   "GPT-3.5": "GPT-3.5",
+  "Ollama API": "Ollama API",
   "Custom Model": "自定义模型",
   "Balanced": "平衡",
   "Creative": "有创造力",
@@ -143,7 +144,12 @@
   "Prompt Template": "提示模板",
   "Explain this: {{selection}}": "解释这个: {{selection}}",
   "New": "新建",
-  "DisplayMode": "显示模式",
+  "DisplayMode": "显示方式",
   "Display in sidebar": "在侧边栏显示",
-  "Display in floating toolbar": "在浮动工具栏显示"
+  "Display in floating toolbar": "在浮动工具栏显示",
+  "Temperature": "温度",
+  "keep-alive Time": "保活时间",
+  "5m": "5分钟",
+  "30m": "半小时",
+  "Forever": "永久"
 }

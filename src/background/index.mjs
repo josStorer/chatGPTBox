@@ -10,6 +10,7 @@ import {
   generateAnswersWithGptCompletionApi,
 } from '../services/apis/openai-api'
 import { generateAnswersWithCustomApi } from '../services/apis/custom-api.mjs'
+import { generateAnswersWithOllamaApi } from '../services/apis/ollama-api.mjs'
 import { generateAnswersWithAzureOpenaiApi } from '../services/apis/azure-openai-api.mjs'
 import { generateAnswersWithClaudeApi } from '../services/apis/claude-api.mjs'
 import { generateAnswersWithChatGLMApi } from '../services/apis/chatglm-api.mjs'
@@ -25,6 +26,7 @@ import {
   claudeWebModelKeys,
   moonshotWebModelKeys,
   customApiModelKeys,
+  ollamaApiModelKeys,
   defaultConfig,
   getUserConfig,
   githubThirdPartyApiModelKeys,
@@ -123,6 +125,14 @@ async function executeApi(session, port, config) {
       session,
       config.customApiKey,
       config.customModelName,
+    )
+  } else if (ollamaApiModelKeys.includes(session.modelName)) {
+    await generateAnswersWithOllamaApi(
+      port,
+      session.question,
+      session,
+      config.ollamaApiKey,
+      config.ollamaModelName,
     )
   } else if (azureOpenAiApiModelKeys.includes(session.modelName)) {
     await generateAnswersWithAzureOpenaiApi(port, session.question, session)

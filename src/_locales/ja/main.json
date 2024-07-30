@@ -142,5 +142,8 @@
   "Icon": "アイコン",
   "Prompt Template": "プロンプトテンプレート",
   "Explain this: {{selection}}": "これを説明する: {{selection}}",
-  "New": "新規"
+  "New": "新規",
+  "DisplayMode": "表示モード",
+  "Display in sidebar": "サイドバーに表示",
+  "Display in floating toolbar": "フローティングツールバーに表示"
 }

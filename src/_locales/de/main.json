@@ -142,5 +142,8 @@
   "Icon": "Symbol",
   "Prompt Template": "Vorlagen-Template",
   "Explain this: {{selection}}": "Erkläre das: {{selection}}",
-  "New": "Neu"
+  "New": "Neu",
+  "DisplayMode": "Anzeigemodus",
+  "Display in sidebar": "In der Seitenleiste anzeigen",
+  "Display in floating toolbar": "In der schwebenden Symbolleiste anzeigen"
 }

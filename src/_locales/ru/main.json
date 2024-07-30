@@ -142,5 +142,8 @@
   "Icon": "Иконка",
   "Prompt Template": "Шаблон запроса",
   "Explain this: {{selection}}": "Объяснить это: {{selection}}",
-  "New": "Новый"
+  "New": "Новый",
+  "DisplayMode": "Режим отображения",
+  "Display in sidebar": "Отображать в боковой панели",
+  "Display in floating toolbar": "Отображать в плавающей панели инструментов"
 }

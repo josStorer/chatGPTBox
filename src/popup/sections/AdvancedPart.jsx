@@ -1,5 +1,7 @@
+import '../styles.scss'
 import { useTranslation } from 'react-i18next'
 import { parseFloatWithClamp, parseIntWithClamp } from '../../utils/index.mjs'
+import { isUsingOllamaModel } from '../../config/index.mjs'
 import PropTypes from 'prop-types'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import Browser from 'webextension-polyfill'
@@ -56,6 +58,49 @@ function ApiParams({ config, updateConfig }) {
           }}
         />
       </label>
+      {isUsingOllamaModel(config) && (
+        <label>
+          {`${t('keep-alive Time')}: `}
+          <div className="label-group">
+            <label>
+              <input
+                type="radio"
+                name="keepAliveTime"
+                value="5m"
+                checked={config.keepAliveTime === '5m'}
+                onChange={(e) => {
+                  updateConfig({ keepAliveTime: e.target.value })
+                }}
+              />
+              {t('5m')}
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="keepAliveTime"
+                value="30m"
+                checked={config.keepAliveTime === '30m'}
+                onChange={(e) => {
+                  updateConfig({ keepAliveTime: e.target.value })
+                }}
+              />
+              {t('30m')}
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="keepAliveTime"
+                value="-1"
+                checked={config.keepAliveTime === '-1'}
+                onChange={(e) => {
+                  updateConfig({ keepAliveTime: e.target.value })
+                }}
+              />
+              {t('Forever')}
+            </label>
+          </div>
+        </label>
+      )}
     </>
   )
 }

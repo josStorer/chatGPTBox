@@ -72,7 +72,7 @@ async function mountComponent(siteConfig, userConfig) {
   })
 
   const position = {
-    x: window.innerWidth - 300 - (Math.floor((20 / 100) * window.innerWidth)),
+    x: window.innerWidth - 300 - Math.floor((20 / 100) * window.innerWidth),
     y: window.innerHeight / 2 - 200,
   }
   const toolbarContainer = createElementAtPosition(position.x, position.y)

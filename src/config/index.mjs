@@ -182,15 +182,15 @@ export const Models = {
 
   moonshot_v1_8k: {
     value: 'moonshot-v1-8k',
-    desc: 'Moonshot (8k)',
+    desc: 'Kimi.Moonshot (8k)',
   },
   moonshot_v1_32k: {
     value: 'moonshot-v1-32k',
-    desc: 'Moonshot (32k)',
+    desc: 'Kimi.Moonshot (32k)',
   },
   moonshot_v1_128k: {
     value: 'moonshot-v1-128k',
-    desc: 'Moonshot (128k)',
+    desc: 'Kimi.Moonshot (128k)',
   },
 }
 
@@ -249,7 +249,7 @@ export const defaultConfig = {
   githubThirdPartyUrl: 'http://127.0.0.1:3000/conversation',
 
   ollamaEndpoint: 'http://127.0.0.1:11434',
-  ollamaModelName: 'gemma2',
+  ollamaModelName: 'llama3.1',
   keepAliveTime: '5m',
 
   // advanced
@@ -275,13 +275,14 @@ export const defaultConfig = {
   activeApiModes: [
     'chatgptFree35',
     'chatgptFree4o',
-    'chatgptFree4oMini',
     'chatgptPlus4',
     'chatgptApi35',
     'chatgptApi4o_128k',
     'claude2WebFree',
+    'claude35SonnetApi',
     'bingFree4',
     'moonshotWebFree',
+    'moonshot_v1_8k',
     'chatglmTurbo',
     'customModel',
     'ollamaModel',

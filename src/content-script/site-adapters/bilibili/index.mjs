@@ -43,7 +43,9 @@ export default {
         },
       )
       const infoData = await infoResponse.json()
-      const subtitleUrl = infoData.data.subtitle.subtitles[0].subtitle_url
+      let subtitleUrl = infoData.data.subtitle.subtitles[0].subtitle_url
+      if (subtitleUrl.startsWith('//')) subtitleUrl = 'https:' + subtitleUrl
+      else if (!subtitleUrl.startsWith('http')) subtitleUrl = 'https://' + subtitleUrl
 
       const subtitleResponse = await fetch(subtitleUrl)
       const subtitleData = await subtitleResponse.json()

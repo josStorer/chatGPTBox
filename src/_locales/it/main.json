@@ -143,5 +143,6 @@
   "Prompt Template": "Modello di prompt",
   "Explain this: {{selection}}": "Spiega questo: {{selection}}",
   "New": "Nuovo",
-  "Always display floating window, disable sidebar for all site adapters": "Mostra sempre la finestra flottante, disabilita la barra laterale per tutti gli adattatori del sito"
+  "Always display floating window, disable sidebar for all site adapters": "Mostra sempre la finestra flottante, disabilita la barra laterale per tutti gli adattatori del sito",
+  "Allow ESC to close all floating windows": "Consenti ESC per chiudere tutte le finestre flottanti"
 }

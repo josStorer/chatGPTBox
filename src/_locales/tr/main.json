@@ -143,5 +143,6 @@
   "Prompt Template": "Prompt Şablonu",
   "Explain this: {{selection}}": "Bunu açıkla: {{selection}}",
   "New": "Yeni",
-  "Always display floating window, disable sidebar for all site adapters": "Her zaman kayan pencereyi görüntüle, tüm site adaptörleri için kenar çubuğunu devre dışı bırak"
+  "Always display floating window, disable sidebar for all site adapters": "Her zaman kayan pencereyi görüntüle, tüm site adaptörleri için kenar çubuğunu devre dışı bırak",
+  "Allow ESC to close all floating windows": "ESC tuşuyla tüm kayan pencereleri kapatmaya izin ver"
 }

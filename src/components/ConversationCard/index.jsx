@@ -253,17 +253,30 @@ function ConversationCard(props) {
       setIsReady(true)
     }
 
-    const closeChatsListener = (message) => {
+    const closeChatsMessageListener = (message) => {
       if (message.type === 'CLOSE_CHATS') {
         port.disconnect()
+        Browser.runtime.onMessage.removeListener(closeChatsMessageListener)
+        window.removeEventListener('keydown', closeChatsEscListener)
         if (props.onClose) props.onClose()
       }
     }
+    const closeChatsEscListener = async (e) => {
+      if (e.key === 'Escape' && (await getUserConfig()).allowEscToCloseAll) {
+        closeChatsMessageListener({ type: 'CLOSE_CHATS' })
+      }
+    }
 
-    if (props.closeable) Browser.runtime.onMessage.addListener(closeChatsListener)
+    if (props.closeable) {
+      Browser.runtime.onMessage.addListener(closeChatsMessageListener)
+      window.addEventListener('keydown', closeChatsEscListener)
+    }
     port.onDisconnect.addListener(portListener)
     return () => {
-      if (props.closeable) Browser.runtime.onMessage.removeListener(closeChatsListener)
+      if (props.closeable) {
+        Browser.runtime.onMessage.removeListener(closeChatsMessageListener)
+        window.removeEventListener('keydown', closeChatsEscListener)
+      }
       port.onDisconnect.removeListener(portListener)
     }
   }, [port])

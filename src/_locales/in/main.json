@@ -143,5 +143,6 @@
   "Prompt Template": "Template Prompt",
   "Explain this: {{selection}}": "Jelaskan ini: {{selection}}",
   "New": "Baru",
-  "Always display floating window, disable sidebar for all site adapters": "Selalu tampilkan jendela mengambang, nonaktifkan sidebar untuk semua adapter situs"
+  "Always display floating window, disable sidebar for all site adapters": "Selalu tampilkan jendela mengambang, nonaktifkan sidebar untuk semua adapter situs",
+  "Allow ESC to close all floating windows": "Izinkan ESC untuk menutup semua jendela mengambang"
 }

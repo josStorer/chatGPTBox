@@ -220,6 +220,7 @@ export const defaultConfig = {
   clickIconAction: 'popup',
   insertAtTop: isMobile(),
   alwaysFloatingSidebar: false,
+  allowEscToCloseAll: false,
   lockWhenAnswer: true,
   answerScrollMargin: 200,
   autoRegenAfterSwitchModel: false,

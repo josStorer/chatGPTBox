@@ -487,6 +487,17 @@ export function GeneralPart({ config, updateConfig }) {
       <label>
         <input
           type="checkbox"
+          checked={config.allowEscToCloseAll}
+          onChange={(e) => {
+            const checked = e.target.checked
+            updateConfig({ allowEscToCloseAll: checked })
+          }}
+        />
+        {t('Allow ESC to close all floating windows')}
+      </label>
+      <label>
+        <input
+          type="checkbox"
           checked={config.lockWhenAnswer}
           onChange={(e) => {
             const checked = e.target.checked

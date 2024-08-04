@@ -143,5 +143,6 @@
   "Prompt Template": "プロンプトテンプレート",
   "Explain this: {{selection}}": "これを説明する: {{selection}}",
   "New": "新規",
-  "Always display floating window, disable sidebar for all site adapters": "常にフローティングウィンドウを表示し、すべてのサイトアダプターでサイドバーを無効にします"
+  "Always display floating window, disable sidebar for all site adapters": "常にフローティングウィンドウを表示し、すべてのサイトアダプターでサイドバーを無効にします",
+  "Allow ESC to close all floating windows": "ESCキーですべてのフローティングウィンドウを閉じる"
 }

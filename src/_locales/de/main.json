@@ -143,5 +143,6 @@
   "Prompt Template": "Vorlagen-Template",
   "Explain this: {{selection}}": "Erkläre das: {{selection}}",
   "New": "Neu",
-  "Always display floating window, disable sidebar for all site adapters": "Immer das schwebende Fenster anzeigen, die Seitenleiste für alle Website-Adapter deaktivieren"
+  "Always display floating window, disable sidebar for all site adapters": "Immer das schwebende Fenster anzeigen, die Seitenleiste für alle Website-Adapter deaktivieren",
+  "Allow ESC to close all floating windows": "ESC-Taste zum Schließen aller schwebenden Fenster zulassen"
 }

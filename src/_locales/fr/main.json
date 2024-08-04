@@ -143,5 +143,6 @@
   "Prompt Template": "Modèle de suggestion",
   "Explain this: {{selection}}": "Expliquer ceci : {{selection}}",
   "New": "Nouveau",
-  "Always display floating window, disable sidebar for all site adapters": "Toujours afficher la fenêtre flottante, désactiver la barre latérale pour tous les adaptateurs de site"
+  "Always display floating window, disable sidebar for all site adapters": "Toujours afficher la fenêtre flottante, désactiver la barre latérale pour tous les adaptateurs de site",
+  "Allow ESC to close all floating windows": "Autoriser la touche ESC pour fermer toutes les fenêtres flottantes"
 }

@@ -143,5 +143,6 @@
   "Prompt Template": "Шаблон запроса",
   "Explain this: {{selection}}": "Объяснить это: {{selection}}",
   "New": "Новый",
-  "Always display floating window, disable sidebar for all site adapters": "Всегда отображать плавающее окно, отключить боковую панель для всех адаптеров сайтов"
+  "Always display floating window, disable sidebar for all site adapters": "Всегда отображать плавающее окно, отключить боковую панель для всех адаптеров сайтов",
+  "Allow ESC to close all floating windows": "Разрешить ESC для закрытия всех плавающих окон"
 }

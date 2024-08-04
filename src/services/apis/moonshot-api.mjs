@@ -14,6 +14,6 @@ export async function generateAnswersWithMoonshotCompletionApi(
   apiKey,
   modelName,
 ) {
-  const baseUrl = 'https://api.moonshot.cn'
+  const baseUrl = 'https://api.moonshot.cn/v1'
   return generateAnswersWithChatgptApiCompat(baseUrl, port, question, session, apiKey, modelName)
 }

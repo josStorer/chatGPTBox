@@ -63,7 +63,7 @@ export const claudeApiModelKeys = [
   'claude3SonnetApi',
   'claude3OpusApi',
 ]
-export const chatglmApiModelKeys = ['chatglmTurbo']
+export const chatglmApiModelKeys = ['chatglmTurbo', 'chatglm4', 'chatglmEmohaa', 'chatglmCharGLM3']
 export const githubThirdPartyApiModelKeys = ['waylaidwandererApi']
 export const poeWebModelKeys = [
   'poeAiWebSage', //poe.com/Assistant
@@ -145,7 +145,10 @@ export const Models = {
 
   bardWebFree: { value: '', desc: 'Gemini (Web)' },
 
-  chatglmTurbo: { value: 'chatglm_turbo', desc: 'ChatGLM (ChatGLM-Turbo)' },
+  chatglmTurbo: { value: 'GLM-4-Air', desc: 'ChatGLM (GLM-4-Air)' },
+  chatglm4: { value: 'GLM-4-0520', desc: 'ChatGLM (GLM-4-0520)' },
+  chatglmEmohaa: { value: 'Emohaa', desc: 'ChatGLM (Emohaa)' },
+  chatglmCharGLM3: { value: 'CharGLM-3', desc: 'ChatGLM (CharGLM-3)' },
 
   chatgptFree35Mobile: { value: 'text-davinci-002-render-sha-mobile', desc: 'ChatGPT (Mobile)' },
   chatgptPlus4Mobile: { value: 'gpt-4-mobile', desc: 'ChatGPT (Mobile, GPT-4)' },

@@ -109,7 +109,7 @@ export async function generateAnswersWithGptCompletionApi(
 export async function generateAnswersWithChatgptApi(port, question, session, apiKey, modelName) {
   const config = await getUserConfig()
   return generateAnswersWithChatgptApiCompat(
-    config.customOpenAiApiUrl,
+    config.customOpenAiApiUrl + '/v1',
     port,
     question,
     session,
@@ -144,7 +144,7 @@ export async function generateAnswersWithChatgptApiCompat(
     console.debug('conversation history', { content: session.conversationRecords })
     port.postMessage({ answer: null, done: true, session: session })
   }
-  await fetchSSE(`${baseUrl}/v1/chat/completions`, {
+  await fetchSSE(`${baseUrl}/chat/completions`, {
     method: 'POST',
     signal: controller.signal,
     headers: {

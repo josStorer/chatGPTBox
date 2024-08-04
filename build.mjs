@@ -250,14 +250,6 @@ async function runWebpack(isWithoutKatex, isWithoutTiktoken, minimal, callback) 
                     search: 'await generateAnswersWithChatGLMApi',
                     replace: '//',
                   },
-                  {
-                    search: 'chatglmTurbo',
-                    replace: '//',
-                  },
-                  {
-                    search: "'chatglmTurbo",
-                    replace: '//',
-                  },
                 ],
               },
             }

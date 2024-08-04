@@ -15,6 +15,7 @@ import {
 import {
   createElementAtPosition,
   cropText,
+  endsWithQuestionMark,
   getClientPosition,
   getPossibleElementByQuerySelector,
 } from '../utils'
@@ -33,28 +34,30 @@ import NotificationForChatGPTWeb from '../components/NotificationForChatGPTWeb'
  * @param {UserConfig} userConfig
  */
 async function mountComponent(siteConfig, userConfig) {
-  const retry = 10
-  let oldUrl = location.href
-  for (let i = 1; i <= retry; i++) {
-    if (location.href !== oldUrl) {
-      console.log(`SiteAdapters Retry ${i}/${retry}: stop`)
-      return
-    }
-    const e =
-      (siteConfig &&
-        (getPossibleElementByQuerySelector(siteConfig.sidebarContainerQuery) ||
-          getPossibleElementByQuerySelector(siteConfig.appendContainerQuery) ||
-          getPossibleElementByQuerySelector(siteConfig.resultsContainerQuery))) ||
-      getPossibleElementByQuerySelector([userConfig.prependQuery]) ||
-      getPossibleElementByQuerySelector([userConfig.appendQuery])
-    if (e) {
-      console.log(`SiteAdapters Retry ${i}/${retry}: found`)
-      console.log(e)
-      break
-    } else {
-      console.log(`SiteAdapters Retry ${i}/${retry}: not found`)
-      if (i === retry) return
-      else await new Promise((r) => setTimeout(r, 500))
+  if (!userConfig.alwaysFloatingSidebar) {
+    const retry = 10
+    let oldUrl = location.href
+    for (let i = 1; i <= retry; i++) {
+      if (location.href !== oldUrl) {
+        console.log(`SiteAdapters Retry ${i}/${retry}: stop`)
+        return
+      }
+      const e =
+        (siteConfig &&
+          (getPossibleElementByQuerySelector(siteConfig.sidebarContainerQuery) ||
+            getPossibleElementByQuerySelector(siteConfig.appendContainerQuery) ||
+            getPossibleElementByQuerySelector(siteConfig.resultsContainerQuery))) ||
+        getPossibleElementByQuerySelector([userConfig.prependQuery]) ||
+        getPossibleElementByQuerySelector([userConfig.appendQuery])
+      if (e) {
+        console.log(`SiteAdapters Retry ${i}/${retry}: found`)
+        console.log(e)
+        break
+      } else {
+        console.log(`SiteAdapters Retry ${i}/${retry}: not found`)
+        if (i === retry) return
+        else await new Promise((r) => setTimeout(r, 500))
+      }
     }
   }
   document.querySelectorAll('.chatgptbox-container,#chatgptbox-container').forEach((e) => {
@@ -77,14 +80,17 @@ async function mountComponent(siteConfig, userConfig) {
   }
   const toolbarContainer = createElementAtPosition(position.x, position.y)
   toolbarContainer.className = 'chatgptbox-toolbar-container-not-queryable'
-  if (userConfig.displayMode === 'floatingToolbar') {
+  if (userConfig.alwaysFloatingSidebar && question) {
+    let triggered = false
+    if (userConfig.triggerMode === 'always') triggered = true
+    else if (userConfig.triggerMode === 'questionMark' && endsWithQuestionMark(question.trim()))
+      triggered = true
     render(
       <FloatingToolbar
         session={initSession({ modelName: userConfig.modelName })}
-        selection={question}
+        selection=""
         container={toolbarContainer}
-        dockable={true}
-        triggered={true}
+        triggered={triggered}
         closeable={true}
         prompt={question}
       />,

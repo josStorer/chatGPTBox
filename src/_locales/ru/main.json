@@ -143,7 +143,5 @@
   "Prompt Template": "Шаблон запроса",
   "Explain this: {{selection}}": "Объяснить это: {{selection}}",
   "New": "Новый",
-  "DisplayMode": "Режим отображения",
-  "Display in sidebar": "Отображать в боковой панели",
-  "Display in floating toolbar": "Отображать в плавающей панели инструментов"
+  "Always display floating window, disable sidebar for all site adapters": "Всегда отображать плавающее окно, отключить боковую панель для всех адаптеров сайтов"
 }

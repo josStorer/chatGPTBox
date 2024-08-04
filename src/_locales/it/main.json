@@ -143,7 +143,5 @@
   "Prompt Template": "Modello di prompt",
   "Explain this: {{selection}}": "Spiega questo: {{selection}}",
   "New": "Nuovo",
-  "DisplayMode": "Modalità di visualizzazione",
-  "Display in sidebar": "Visualizza nella barra laterale",
-  "Display in floating toolbar": "Visualizza nella barra degli strumenti flottante"
+  "Always display floating window, disable sidebar for all site adapters": "Mostra sempre la finestra flottante, disabilita la barra laterale per tutti gli adattatori del sito"
 }

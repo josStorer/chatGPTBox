@@ -143,7 +143,5 @@
   "Prompt Template": "Modelo de Prompt",
   "Explain this: {{selection}}": "Explique isso: {{selection}}",
   "New": "Novo",
-  "DisplayMode": "Modo de Exibição",
-  "Display in sidebar": "Exibir na barra lateral",
-  "Display in floating toolbar": "Exibir na barra de ferramentas flutuante"
+  "Always display floating window, disable sidebar for all site adapters": "Sempre exibir janela flutuante, desativar barra lateral para todos os adaptadores de site"
 }

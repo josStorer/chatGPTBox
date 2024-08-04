@@ -15,7 +15,6 @@ import {
   Models,
   ThemeMode,
   TriggerMode,
-  DisplayMode,
   isUsingMoonshotApi,
 } from '../../config/index.mjs'
 import Browser from 'webextension-polyfill'
@@ -114,24 +113,6 @@ export function GeneralPart({ config, updateConfig }) {
           {Object.entries(TriggerMode).map(([key, desc]) => {
             return (
               <option value={key} key={key} selected={key === config.triggerMode}>
-                {t(desc)}
-              </option>
-            )
-          })}
-        </select>
-      </label>
-      <label>
-        <legend>{t('DisplayMode')}</legend>
-        <select
-          required
-          onChange={(e) => {
-            const mode = e.target.value
-            updateConfig({ displayMode: mode })
-          }}
-        >
-          {Object.entries(DisplayMode).map(([key, desc]) => {
-            return (
-              <option value={key} key={key} selected={key === config.displayMode}>
                 {t(desc)}
               </option>
             )
@@ -491,6 +472,17 @@ export function GeneralPart({ config, updateConfig }) {
           }}
         />
         {t('Insert ChatGPT at the top of search results')}
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={config.alwaysFloatingSidebar}
+          onChange={(e) => {
+            const checked = e.target.checked
+            updateConfig({ alwaysFloatingSidebar: checked })
+          }}
+        />
+        {t('Always display floating window, disable sidebar for all site adapters')}
       </label>
       <label>
         <input

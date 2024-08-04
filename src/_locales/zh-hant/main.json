@@ -143,7 +143,5 @@
   "Prompt Template": "提示範本",
   "Explain this: {{selection}}": "解釋這個: {{selection}}",
   "New": "新增",
-  "DisplayMode": "顯示模式",
-  "Display in sidebar": "在側邊欄顯示",
-  "Display in floating toolbar": "在浮動工具列顯示"
+  "Always display floating window, disable sidebar for all site adapters": "總是顯示浮動視窗，停用所有網站適配器的側邊欄"
 }

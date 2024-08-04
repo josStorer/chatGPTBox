@@ -143,7 +143,5 @@
   "Prompt Template": "Vorlagen-Template",
   "Explain this: {{selection}}": "Erkläre das: {{selection}}",
   "New": "Neu",
-  "DisplayMode": "Anzeigemodus",
-  "Display in sidebar": "In der Seitenleiste anzeigen",
-  "Display in floating toolbar": "In der schwebenden Symbolleiste anzeigen"
+  "Always display floating window, disable sidebar for all site adapters": "Immer das schwebende Fenster anzeigen, die Seitenleiste für alle Website-Adapter deaktivieren"
 }

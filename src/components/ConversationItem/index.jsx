@@ -5,7 +5,7 @@ import ReadButton from '../ReadButton'
 import PropTypes from 'prop-types'
 import MarkdownRender from '../MarkdownRender/markdown.jsx'
 import { useTranslation } from 'react-i18next'
-import { isUsingCustomModel, isUsingOllamaModel } from '../../config/index.mjs'
+import { isUsingCustomModel } from '../../config/index.mjs'
 import { useConfig } from '../../hooks/use-config.mjs'
 
 function AnswerTitle({ descName, modelName }) {

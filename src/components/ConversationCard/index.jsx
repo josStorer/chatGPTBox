@@ -9,6 +9,7 @@ import {
   DesktopDownloadIcon,
   LinkExternalIcon,
   MoveToBottomIcon,
+  SearchIcon,
 } from '@primer/octicons-react'
 import { Pin, WindowDesktop, XLg } from 'react-bootstrap-icons'
 import FileSaver from 'file-saver'
@@ -46,6 +47,7 @@ function ConversationCard(props) {
   const { t } = useTranslation()
   const [isReady, setIsReady] = useState(!props.question)
   const [port, setPort] = useState(() => Browser.runtime.connect())
+  const [triggered, setTriggered] = useState(!props.waitForTrigger)
   const [session, setSession] = useState(props.session)
   const windowSize = useClampWindowSize([750, 1500], [250, 1100])
   const bodyRef = useRef(null)
@@ -59,7 +61,7 @@ function ConversationCard(props) {
   const [conversationItemData, setConversationItemData] = useState(
     (() => {
       if (session.conversationRecords.length === 0)
-        if (props.question)
+        if (props.question && triggered)
           return [
             new ConversationItemData(
               'answer',
@@ -102,12 +104,12 @@ function ConversationCard(props) {
 
   useEffect(async () => {
     // when the page is responsive, session may accumulate redundant data and needs to be cleared after remounting and before making a new request
-    if (props.question) {
+    if (props.question && triggered) {
       const newSession = initSession({ ...session, question: props.question })
       setSession(newSession)
       await postMessage({ session: newSession })
     }
-  }, [props.question]) // usually only triggered once
+  }, [props.question, triggered]) // usually only triggered once
 
   /**
    * @param {string} value
@@ -516,32 +518,53 @@ function ConversationCard(props) {
           />
         ))}
       </div>
-      <InputBox
-        enabled={isReady}
-        postMessage={postMessage}
-        reverseResizeDir={props.pageMode}
-        onSubmit={async (question) => {
-          const newQuestion = new ConversationItemData('question', question)
-          const newAnswer = new ConversationItemData(
-            'answer',
-            `<p class="gpt-loading">${t('Waiting for response...')}</p>`,
-          )
-          setConversationItemData([...conversationItemData, newQuestion, newAnswer])
-          setIsReady(false)
+      {props.waitForTrigger && !triggered ? (
+        <p
+          className="manual-btn"
+          style={{ display: 'flex', justifyContent: 'center' }}
+          onClick={() => {
+            setConversationItemData([
+              new ConversationItemData(
+                'answer',
+                `<p class="gpt-loading">${t(`Waiting for response...`)}</p>`,
+              ),
+            ])
+            setTriggered(true)
+            setIsReady(false)
+          }}
+        >
+          <span className="icon-and-text">
+            <SearchIcon size="small" /> {t('Ask ChatGPT')}
+          </span>
+        </p>
+      ) : (
+        <InputBox
+          enabled={isReady}
+          postMessage={postMessage}
+          reverseResizeDir={props.pageMode}
+          onSubmit={async (question) => {
+            const newQuestion = new ConversationItemData('question', question)
+            const newAnswer = new ConversationItemData(
+              'answer',
+              `<p class="gpt-loading">${t('Waiting for response...')}</p>`,
+            )
+            setConversationItemData([...conversationItemData, newQuestion, newAnswer])
+            setIsReady(false)
 
-          const newSession = { ...session, question, isRetry: false }
-          setSession(newSession)
-          try {
-            await postMessage({ session: newSession })
-          } catch (e) {
-            updateAnswer(e, false, 'error')
-          }
-          bodyRef.current.scrollTo({
-            top: bodyRef.current.scrollHeight,
-            behavior: 'instant',
-          })
-        }}
-      />
+            const newSession = { ...session, question, isRetry: false }
+            setSession(newSession)
+            try {
+              await postMessage({ session: newSession })
+            } catch (e) {
+              updateAnswer(e, false, 'error')
+            }
+            bodyRef.current.scrollTo({
+              top: bodyRef.current.scrollHeight,
+              behavior: 'instant',
+            })
+          }}
+        />
+      )}
     </div>
   )
 }
@@ -557,6 +580,7 @@ ConversationCard.propTypes = {
   onDock: PropTypes.func,
   notClampSize: PropTypes.bool,
   pageMode: PropTypes.bool,
+  waitForTrigger: PropTypes.bool,
 }
 
 export default memo(ConversationCard)

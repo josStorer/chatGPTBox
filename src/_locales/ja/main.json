@@ -143,7 +143,5 @@
   "Prompt Template": "プロンプトテンプレート",
   "Explain this: {{selection}}": "これを説明する: {{selection}}",
   "New": "新規",
-  "DisplayMode": "表示モード",
-  "Display in sidebar": "サイドバーに表示",
-  "Display in floating toolbar": "フローティングツールバーに表示"
+  "Always display floating window, disable sidebar for all site adapters": "常にフローティングウィンドウを表示し、すべてのサイトアダプターでサイドバーを無効にします"
 }

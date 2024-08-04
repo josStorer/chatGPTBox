@@ -143,7 +143,5 @@
   "Prompt Template": "Prompt Şablonu",
   "Explain this: {{selection}}": "Bunu açıkla: {{selection}}",
   "New": "Yeni",
-  "DisplayMode": "Görüntüleme Modu",
-  "Display in sidebar": "Kenar çubuğunda görüntüle",
-  "Display in floating toolbar": "Kayan araç çubuğunda görüntüle"
+  "Always display floating window, disable sidebar for all site adapters": "Her zaman kayan pencereyi görüntüle, tüm site adaptörleri için kenar çubuğunu devre dışı bırak"
 }

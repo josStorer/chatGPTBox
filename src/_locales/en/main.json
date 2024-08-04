@@ -143,7 +143,5 @@
   "Prompt Template": "Prompt Template",
   "Explain this: {{selection}}": "Explain this: {{selection}}",
   "New": "New",
-  "DisplayMode": "DisplayMode",
-  "Display in sidebar": "Display in sidebar",
-  "Display in floating toolbar": "Display in floating toolbar"
+  "Always display floating window, disable sidebar for all site adapters": "Always display floating window, disable sidebar for all site adapters"
 }

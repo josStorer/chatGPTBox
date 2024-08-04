@@ -334,24 +334,26 @@ function ConversationCard(props) {
           }}
         >
           {props.closeable ? (
-            <XLg
+            <span
               className="gpt-util-icon"
               title={t('Close the Window')}
-              size={16}
               onClick={() => {
                 port.disconnect()
                 if (props.onClose) props.onClose()
               }}
-            />
+            >
+              <XLg size={16} />
+            </span>
           ) : props.dockable ? (
-            <Pin
+            <span
               className="gpt-util-icon"
               title={t('Pin the Window')}
-              size={16}
               onClick={() => {
                 if (props.onDock) props.onDock()
               }}
-            />
+            >
+              <Pin size={16} />
+            </span>
           ) : (
             <img src={logo} style="user-select:none;width:20px;height:20px;" />
           )}
@@ -412,10 +414,9 @@ function ConversationCard(props) {
               <LinkExternalIcon size={16} />
             </a>
           )}
-          <WindowDesktop
+          <span
             className="gpt-util-icon"
             title={t('Float the Window')}
-            size={16}
             onClick={() => {
               const position = { x: window.innerWidth / 2 - 300, y: window.innerHeight / 2 - 200 }
               const toolbarContainer = createElementAtPosition(position.x, position.y)
@@ -431,7 +432,9 @@ function ConversationCard(props) {
                 toolbarContainer,
               )
             }}
-          />
+          >
+            <WindowDesktop size={16} />
+          </span>
           <DeleteButton
             size={16}
             text={t('Clear Conversation')}

@@ -31,9 +31,10 @@ import NotificationForChatGPTWeb from '../components/NotificationForChatGPTWeb'
 
 /**
  * @param {SiteConfig} siteConfig
- * @param {UserConfig} userConfig
  */
-async function mountComponent(siteConfig, userConfig) {
+async function mountComponent(siteConfig) {
+  const userConfig = await getUserConfig()
+
   if (!userConfig.alwaysFloatingSidebar) {
     const retry = 10
     let oldUrl = location.href
@@ -74,17 +75,19 @@ async function mountComponent(siteConfig, userConfig) {
     e.remove()
   })
 
-  const position = {
-    x: window.innerWidth - 300 - Math.floor((20 / 100) * window.innerWidth),
-    y: window.innerHeight / 2 - 200,
-  }
-  const toolbarContainer = createElementAtPosition(position.x, position.y)
-  toolbarContainer.className = 'chatgptbox-toolbar-container-not-queryable'
   if (userConfig.alwaysFloatingSidebar && question) {
+    const position = {
+      x: window.innerWidth - 300 - Math.floor((20 / 100) * window.innerWidth),
+      y: window.innerHeight / 2 - 200,
+    }
+    const toolbarContainer = createElementAtPosition(position.x, position.y)
+    toolbarContainer.className = 'chatgptbox-toolbar-container-not-queryable'
+
     let triggered = false
     if (userConfig.triggerMode === 'always') triggered = true
     else if (userConfig.triggerMode === 'questionMark' && endsWithQuestionMark(question.trim()))
       triggered = true
+
     render(
       <FloatingToolbar
         session={initSession({ modelName: userConfig.modelName })}
@@ -98,6 +101,7 @@ async function mountComponent(siteConfig, userConfig) {
     )
     return
   }
+
   const container = document.createElement('div')
   container.id = 'chatgptbox-container'
   render(
@@ -313,7 +317,7 @@ async function prepareForStaticCard() {
       }
     }
 
-    if (initSuccess) mountComponent(siteConfig[siteName], userConfig)
+    if (initSuccess) mountComponent(siteConfig[siteName])
   }
 }
 

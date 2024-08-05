@@ -146,6 +146,8 @@
   "New": "新建",
   "Always display floating window, disable sidebar for all site adapters": "总是显示浮动窗口, 禁用所有站点适配器的侧边栏",
   "Allow ESC to close all floating windows": "允许按ESC关闭所有浮动窗口",
+  "Export All Data": "导出所有数据",
+  "Import All Data": "导入所有数据",
   "Temperature": "温度",
   "keep-alive Time": "保活时间",
   "5m": "5分钟",

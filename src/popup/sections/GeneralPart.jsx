@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
+import FileSaver from 'file-saver'
 import { openUrl } from '../../utils/index.mjs'
 import {
   isUsingOpenAiApiKey,
@@ -551,6 +552,44 @@ export function GeneralPart({ config, updateConfig }) {
         {t('Focus to input box after answering')}
       </label>
       <br />
+      <div style={{ display: 'flex', gap: '10px' }}>
+        <button
+          className="secondary"
+          onClick={async (e) => {
+            e.preventDefault()
+            const file = await new Promise((resolve) => {
+              const input = document.createElement('input')
+              input.type = 'file'
+              input.accept = '.json'
+              input.onchange = (e) => resolve(e.target.files[0])
+              input.click()
+            })
+            if (!file) return
+            const data = await new Promise((resolve) => {
+              const reader = new FileReader()
+              reader.onload = (e) => resolve(JSON.parse(e.target.result))
+              reader.readAsText(file)
+            })
+            await Browser.storage.local.set(data)
+            window.location.reload()
+          }}
+        >
+          {t('Import All Data')}
+        </button>
+        <button
+          className="secondary"
+          onClick={async (e) => {
+            e.preventDefault()
+            const blob = new Blob(
+              [JSON.stringify(await Browser.storage.local.get(null), null, 2)],
+              { type: 'text/json;charset=utf-8' },
+            )
+            FileSaver.saveAs(blob, 'chatgptbox-data.json')
+          }}
+        >
+          {t('Export All Data')}
+        </button>
+      </div>
     </>
   )
 }

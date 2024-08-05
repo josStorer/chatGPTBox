@@ -144,5 +144,7 @@
   "Explain this: {{selection}}": "Explique isso: {{selection}}",
   "New": "Novo",
   "Always display floating window, disable sidebar for all site adapters": "Sempre exibir janela flutuante, desativar barra lateral para todos os adaptadores de site",
-  "Allow ESC to close all floating windows": "Permitir ESC para fechar todas as janelas flutuantes"
+  "Allow ESC to close all floating windows": "Permitir ESC para fechar todas as janelas flutuantes",
+  "Export All Data": "Exportar Todos os Dados",
+  "Import All Data": "Importar Todos os Dados"
 }

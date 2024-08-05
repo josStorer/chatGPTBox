@@ -144,5 +144,7 @@
   "Explain this: {{selection}}": "이것을 설명하세요: {{selection}}",
   "New": "새로 만들기",
   "Always display floating window, disable sidebar for all site adapters": "항상 떠다니는 창을 표시하고 모든 사이트 어댑터의 사이드바를 비활성화합니다",
-  "Allow ESC to close all floating windows": "ESC를 눌러 모든 떠다니는 창을 닫도록 허용"
+  "Allow ESC to close all floating windows": "ESC를 눌러 모든 떠다니는 창을 닫도록 허용",
+  "Export All Data": "모든 데이터 내보내기",
+  "Import All Data": "모든 데이터 가져오기"
 }

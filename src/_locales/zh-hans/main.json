@@ -150,5 +150,10 @@
   "Keep-Alive Time": "保活时间",
   "5m": "5分钟",
   "30m": "半小时",
-  "Forever": "永久"
+  "Forever": "永久",
+  "Kimi.Moonshot (Web, 100k)": "Kimi.Moonshot (网页版, 100k)",
+  "ChatGLM (GLM-4-Air, 128k)": "ChatGLM (GLM4Air, 性价比, 128k)",
+  "ChatGLM (GLM-4-0520, 128k)": "ChatGLM (GLM4-0520, 最智能, 128k)",
+  "ChatGLM (Emohaa)": "ChatGLM (Emohaa, 专业情绪咨询)",
+  "ChatGLM (CharGLM-3)": "ChatGLM (CharGLM-3, 角色扮演)"
 }

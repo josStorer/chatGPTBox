@@ -145,8 +145,8 @@ export const Models = {
 
   bardWebFree: { value: '', desc: 'Gemini (Web)' },
 
-  chatglmTurbo: { value: 'GLM-4-Air', desc: 'ChatGLM (GLM-4-Air)' },
-  chatglm4: { value: 'GLM-4-0520', desc: 'ChatGLM (GLM-4-0520)' },
+  chatglmTurbo: { value: 'GLM-4-Air', desc: 'ChatGLM (GLM-4-Air, 128k)' },
+  chatglm4: { value: 'GLM-4-0520', desc: 'ChatGLM (GLM-4-0520, 128k)' },
   chatglmEmohaa: { value: 'Emohaa', desc: 'ChatGLM (Emohaa)' },
   chatglmCharGLM3: { value: 'CharGLM-3', desc: 'ChatGLM (CharGLM-3)' },
 

@@ -127,13 +127,7 @@ async function executeApi(session, port, config) {
       config.customModelName,
     )
   } else if (ollamaApiModelKeys.includes(session.modelName)) {
-    await generateAnswersWithOllamaApi(
-      port,
-      session.question,
-      session,
-      config.ollamaApiKey,
-      config.ollamaModelName,
-    )
+    await generateAnswersWithOllamaApi(port, session.question, session)
   } else if (azureOpenAiApiModelKeys.includes(session.modelName)) {
     await generateAnswersWithAzureOpenaiApi(port, session.question, session)
   } else if (claudeApiModelKeys.includes(session.modelName)) {

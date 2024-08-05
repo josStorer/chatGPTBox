@@ -251,7 +251,8 @@ export const defaultConfig = {
 
   ollamaEndpoint: 'http://127.0.0.1:11434',
   ollamaModelName: 'llama3.1',
-  keepAliveTime: '5m',
+  ollamaApiKey: '',
+  ollamaKeepAliveTime: '5m',
 
   // advanced
 

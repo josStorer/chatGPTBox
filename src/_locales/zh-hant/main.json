@@ -146,5 +146,9 @@
   "Always display floating window, disable sidebar for all site adapters": "總是顯示浮動視窗，停用所有網站適配器的側邊欄",
   "Allow ESC to close all floating windows": "允許按 ESC 關閉所有浮動視窗",
   "Export All Data": "匯出所有資料",
-  "Import All Data": "匯入所有資料"
+  "Import All Data": "匯入所有資料",
+  "Keep-Alive Time": "保持連線時間",
+  "5m": "5 分鐘",
+  "30m": "30 分鐘",
+  "Forever": "永遠"
 }

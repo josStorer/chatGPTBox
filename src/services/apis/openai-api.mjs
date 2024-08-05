@@ -125,6 +125,7 @@ export async function generateAnswersWithChatgptApiCompat(
   session,
   apiKey,
   modelName,
+  extraBody = {},
 ) {
   const { controller, messageListener, disconnectListener } = setAbortController(port)
 
@@ -157,6 +158,7 @@ export async function generateAnswersWithChatgptApiCompat(
       stream: true,
       max_tokens: config.maxResponseTokenLength,
       temperature: config.temperature,
+      ...extraBody,
     }),
     onMessage(message) {
       console.debug('sse message', message)

@@ -33,7 +33,6 @@ export async function fetchSSE(resource, options) {
         console.debug('not common response', error)
       }
       if (fakeSseData) {
-        console.log('FAKE')
         parser.feed(new TextEncoder().encode(fakeSseData))
         break
       }

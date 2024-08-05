@@ -351,6 +351,47 @@ export function GeneralPart({ config, updateConfig }) {
           />
         )}
         {isUsingOllamaModel(config) && (
+          <div style={{ display: 'flex', gap: '10px' }}>
+            {t('Keep-Alive Time') + ':'}
+            <label>
+              <input
+                type="radio"
+                name="ollamaKeepAliveTime"
+                value="5m"
+                checked={config.ollamaKeepAliveTime === '5m'}
+                onChange={(e) => {
+                  updateConfig({ ollamaKeepAliveTime: e.target.value })
+                }}
+              />
+              {t('5m')}
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="ollamaKeepAliveTime"
+                value="30m"
+                checked={config.ollamaKeepAliveTime === '30m'}
+                onChange={(e) => {
+                  updateConfig({ ollamaKeepAliveTime: e.target.value })
+                }}
+              />
+              {t('30m')}
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="ollamaKeepAliveTime"
+                value="-1"
+                checked={config.ollamaKeepAliveTime === '-1'}
+                onChange={(e) => {
+                  updateConfig({ ollamaKeepAliveTime: e.target.value })
+                }}
+              />
+              {t('Forever')}
+            </label>
+          </div>
+        )}
+        {isUsingOllamaModel(config) && (
           <input
             type="text"
             value={config.ollamaEndpoint}

@@ -23,11 +23,6 @@
   --active-color: #eaecf0;
 }
 
-#app {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
 .container-page-mode {
   display: flex;
   flex-direction: column;
@@ -63,7 +58,6 @@
 }
 
 .footer {
-  max-width: 580px;
   width: 90%;
   position: fixed;
   bottom: 10px;
@@ -93,13 +87,4 @@
   &--selected {
     background: var(--active-color);
   }
-}
-
-.label-group {
-  display: flex;
-  align-items: center;
-}
-
-.label-group label {
-  margin-right: 10px;
 }

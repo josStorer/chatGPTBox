@@ -146,5 +146,9 @@
   "Always display floating window, disable sidebar for all site adapters": "Mostrar siempre la ventana flotante, desactivar la barra lateral para todos los adaptadores de sitios",
   "Allow ESC to close all floating windows": "Permitir que ESC cierre todas las ventanas flotantes",
   "Export All Data": "Exportar todos los datos",
-  "Import All Data": "Importar todos los datos"
+  "Import All Data": "Importar todos los datos",
+  "Keep-Alive Time": "Tiempo de mantenimiento de la conexión",
+  "5m": "5m",
+  "30m": "30m",
+  "Forever": "Siempre"
 }

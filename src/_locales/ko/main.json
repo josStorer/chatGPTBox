@@ -146,5 +146,9 @@
   "Always display floating window, disable sidebar for all site adapters": "항상 떠다니는 창을 표시하고 모든 사이트 어댑터의 사이드바를 비활성화합니다",
   "Allow ESC to close all floating windows": "ESC를 눌러 모든 떠다니는 창을 닫도록 허용",
   "Export All Data": "모든 데이터 내보내기",
-  "Import All Data": "모든 데이터 가져오기"
+  "Import All Data": "모든 데이터 가져오기",
+  "Keep-Alive Time": "Keep-Alive 시간",
+  "5m": "5분",
+  "30m": "30분",
+  "Forever": "영원히"
 }

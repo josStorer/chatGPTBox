@@ -315,7 +315,9 @@ export class Conversation {
       throw new Error('moonshot not initialized')
     }
     if (!this.moonshot.refreshToken) {
-      throw new Error('moonshot token required, please login at https://kimi.moonshot.cn first')
+      throw new Error(
+        'moonshot token required, please login at https://kimi.moonshot.cn first, and then click the retry button',
+      )
     }
     if (!this.conversationId) {
       throw new Error('Conversation ID required, are you calling `await moonshot.init()`?')

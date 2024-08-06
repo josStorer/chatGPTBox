@@ -195,10 +195,9 @@ Browser.runtime.onMessage.addListener(async (message, sender) => {
         url: message.data.url,
         pinned: message.data.pinned,
       })
-      if (message.data.saveAsChatgptConfig) {
+      if (message.data.jumpBack) {
         await setUserConfig({
-          chatgptTabId: newTab.id,
-          chatgptJumpBackTabId: sender.tab.id,
+          notificationJumpBackTabId: sender.tab.id,
         })
       }
       break
@@ -265,6 +264,9 @@ Browser.runtime.onMessage.addListener(async (message, sender) => {
       } catch (error) {
         return [null, error]
       }
+    }
+    case 'GET_COOKIE': {
+      return (await Browser.cookies.get({ url: message.data.url, name: message.data.name }))?.value
     }
   }
 })

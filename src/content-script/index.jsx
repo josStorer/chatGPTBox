@@ -27,7 +27,7 @@ import { changeLanguage } from 'i18next'
 import { initSession } from '../services/init-session.mjs'
 import { getChatGptAccessToken, registerPortListener } from '../services/wrappers.mjs'
 import { generateAnswersWithChatgptWebApi } from '../services/apis/chatgpt-web.mjs'
-import NotificationForChatGPTWeb from '../components/NotificationForChatGPTWeb'
+import WebJumpBackNotification from '../components/WebJumpBackNotification'
 
 /**
  * @param {SiteConfig} siteConfig
@@ -356,16 +356,6 @@ async function prepareForForegroundRequests() {
 
   if (!chatgptWebModelKeys.some((model) => userConfig.activeApiModes.includes(model))) return
 
-  const url = new URL(window.location.href)
-  if (
-    url.searchParams.has('chatgptbox_notification') &&
-    chatgptWebModelKeys.includes(userConfig.modelName)
-  ) {
-    const div = document.createElement('div')
-    document.body.append(div)
-    render(<NotificationForChatGPTWeb container={div} />, div)
-  }
-
   if (location.pathname === '/') {
     const input = document.querySelector('#prompt-textarea')
     if (input) {
@@ -391,6 +381,71 @@ async function prepareForForegroundRequests() {
   })
 }
 
+async function getClaudeSessionKey() {
+  return Browser.runtime.sendMessage({
+    type: 'GET_COOKIE',
+    data: { url: 'https://claude.ai/', name: 'sessionKey' },
+  })
+}
+
+async function prepareForJumpBackNotification() {
+  if (
+    location.hostname === 'chatgpt.com' &&
+    document.querySelector('button[data-testid=login-button]')
+  ) {
+    console.log('chatgpt not logged in')
+    return
+  }
+
+  const url = new URL(window.location.href)
+  if (url.searchParams.has('chatgptbox_notification')) {
+    if (location.hostname === 'claude.ai' && !(await getClaudeSessionKey())) {
+      console.log('claude not logged in')
+
+      await new Promise((resolve) => {
+        const timer = setInterval(async () => {
+          const token = await getClaudeSessionKey()
+          if (token) {
+            clearInterval(timer)
+            resolve()
+          }
+        }, 500)
+      })
+    }
+
+    if (location.hostname === 'kimi.moonshot.cn' && !window.localStorage.refresh_token) {
+      console.log('kimi not logged in')
+      setTimeout(() => {
+        document.querySelectorAll('button').forEach((button) => {
+          if (button.textContent === '立即登录') {
+            button.click()
+          }
+        })
+      }, 1000)
+
+      await new Promise((resolve) => {
+        const timer = setInterval(() => {
+          const token = window.localStorage.refresh_token
+          if (token) {
+            setUserConfig({
+              kimiMoonShotRefreshToken: token,
+            })
+            clearInterval(timer)
+            resolve()
+          }
+        }, 500)
+      })
+    }
+
+    const div = document.createElement('div')
+    document.body.append(div)
+    render(
+      <WebJumpBackNotification container={div} chatgptMode={location.hostname === 'chatgpt.com'} />,
+      div,
+    )
+  }
+}
+
 async function run() {
   await getPreferredLanguageKey().then((lang) => {
     changeLanguage(lang)
@@ -409,6 +464,7 @@ async function run() {
   prepareForSelectionToolsTouch()
   prepareForStaticCard()
   prepareForRightClickMenu()
+  prepareForJumpBackNotification()
 }
 
 run()

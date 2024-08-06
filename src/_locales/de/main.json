@@ -44,7 +44,7 @@
   "Save Conversation": "Konversation speichern",
   "UNAUTHORIZED": "Unbefugt",
   "Please login at https://chatgpt.com first": "Bitte zuerst bei https://chatgpt.com anmelden",
-  "Please login at https://claude.ai first": "Bitte zuerst bei https://claude.ai anmelden",
+  "Please login at https://claude.ai first, and then click the retry button": "Bitte zuerst bei https://claude.ai anmelden und dann auf die Schaltfläche Wiederholen klicken",
   "Please login at https://bing.com first": "Bitte zuerst bei https://bing.com anmelden",
   "Then open https://chatgpt.com/api/auth/session": "Dann öffne https://chatgpt.com/api/auth/session",
   "And refresh this page or type you question again": "Klicken Sie anschließend auf die Schaltfläche Wiederholen in der oberen rechten Ecke",
@@ -131,7 +131,7 @@
   "Please keep https://chatgpt.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "Bitte halten Sie https://chatgpt.com geöffnet und versuchen Sie es erneut. Wenn es immer noch nicht funktioniert, geben Sie einige Zeichen in das Eingabefeld der ChatGPT-Webseite ein und versuchen Sie es erneut.",
   "Open Side Panel": "Seitenleiste öffnen",
   "Generating...": "Generieren...",
-  "moonshot token required, please login at https://kimi.moonshot.cn first": "Moonshot-Token erforderlich, bitte zuerst bei https://kimi.moonshot.cn anmelden",
+  "moonshot token required, please login at https://kimi.moonshot.cn first, and then click the retry button": "Moonshot-Token erforderlich, bitte zuerst bei https://kimi.moonshot.cn anmelden und dann auf die Schaltfläche Wiederholen klicken",
   "Hide context menu of this extension": "Kontextmenü dieser Erweiterung ausblenden",
   "Custom Claude API Url": "Benutzerdefinierte Claude-API-URL",
   "Cancel": "Abbrechen",
@@ -150,5 +150,6 @@
   "Keep-Alive Time": "Keep-Alive-Zeit",
   "5m": "5m",
   "30m": "30m",
-  "Forever": "Für immer"
+  "Forever": "Für immer",
+  "You have successfully logged in for ChatGPTBox and can now return": "Sie haben sich erfolgreich für ChatGPTBox angemeldet und können jetzt zurückkehren"
 }

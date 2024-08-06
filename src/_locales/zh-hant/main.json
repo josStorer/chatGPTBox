@@ -44,7 +44,7 @@
   "Save Conversation": "儲存對話",
   "UNAUTHORIZED": "未授權",
   "Please login at https://chatgpt.com first": "請先在 https://chatgpt.com 登入",
-  "Please login at https://claude.ai first": "請先在 https://claude.ai 登入",
+  "Please login at https://claude.ai first, and then click the retry button": "請先在 https://claude.ai 登入，然後點擊重試按鈕",
   "Please login at https://bing.com first": "請先在 https://bing.com 登入",
   "Then open https://chatgpt.com/api/auth/session": "然後開啟 https://chatgpt.com/api/auth/session",
   "And refresh this page or type you question again": "接著點擊右上角的「重試」按鈕",
@@ -131,7 +131,7 @@
   "Please keep https://chatgpt.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "請保持 https://chatgpt.com 開啟並重試，如果還是無法通過驗證，請在 ChatGPT 網頁版輸入框輸入一些文字後再重試",
   "Open Side Panel": "開啟側邊面板",
   "Generating...": "產生中...",
-  "moonshot token required, please login at https://kimi.moonshot.cn first": "需要 moonshot token，請先在 https://kimi.moonshot.cn 登入",
+  "moonshot token required, please login at https://kimi.moonshot.cn first, and then click the retry button": "需要 moonshot token，請先在 https://kimi.moonshot.cn 登入，然後點擊重試按鈕",
   "Hide context menu of this extension": "隱藏此擴充功能的右鍵選單",
   "Custom Claude API Url": "自訂 Claude API 網址",
   "Cancel": "取消",
@@ -150,5 +150,6 @@
   "Keep-Alive Time": "保持連線時間",
   "5m": "5 分鐘",
   "30m": "30 分鐘",
-  "Forever": "永遠"
+  "Forever": "永遠",
+  "You have successfully logged in for ChatGPTBox and can now return": "您已成功為ChatGPTBox登入，現在可以返回"
 }

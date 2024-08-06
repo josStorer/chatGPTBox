@@ -316,7 +316,7 @@ export const defaultConfig = {
   accessToken: '',
   tokenSavedOn: 0,
   bingAccessToken: '',
-  chatgptJumpBackTabId: 0,
+  notificationJumpBackTabId: 0,
   chatgptTabId: 0,
   chatgptArkoseReqUrl: '',
   chatgptArkoseReqForm: '',

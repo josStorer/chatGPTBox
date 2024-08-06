@@ -73,7 +73,9 @@ export function handlePortError(session, port, err) {
         claudeWebModelKeys.includes(session.modelName) &&
         ['Invalid authorization', 'Session key required'].some((m) => err.message.includes(m))
       )
-        port.postMessage({ error: t('Please login at https://claude.ai first') })
+        port.postMessage({
+          error: t('Please login at https://claude.ai first, and then click the retry button'),
+        })
       else if (
         // `.some` for multi mode models. e.g. bingFree4-balanced
         bingWebModelKeys.some((n) => session.modelName.includes(n)) &&

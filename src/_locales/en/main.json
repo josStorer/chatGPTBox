@@ -44,7 +44,7 @@
   "Save Conversation": "Save Conversation",
   "UNAUTHORIZED": "UNAUTHORIZED",
   "Please login at https://chatgpt.com first": "Please login at https://chatgpt.com first",
-  "Please login at https://claude.ai first": "Please login at https://claude.ai first",
+  "Please login at https://claude.ai first, and then click the retry button": "Please login at https://claude.ai first, and then click the retry button",
   "Please login at https://bing.com first": "Please login at https://bing.com first",
   "Then open https://chatgpt.com/api/auth/session": "Then open https://chatgpt.com/api/auth/session",
   "And refresh this page or type you question again": "And click the retry button in the top right corner",
@@ -131,7 +131,7 @@
   "Please keep https://chatgpt.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "Please keep https://chatgpt.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.",
   "Open Side Panel": "Open Side Panel",
   "Generating...": "Generating...",
-  "moonshot token required, please login at https://kimi.moonshot.cn first": "moonshot token required, please login at https://kimi.moonshot.cn first",
+  "moonshot token required, please login at https://kimi.moonshot.cn first, and then click the retry button": "moonshot token required, please login at https://kimi.moonshot.cn first, and then click the retry button",
   "Hide context menu of this extension": "Hide context menu of this extension",
   "Custom Claude API Url": "Custom Claude API Url",
   "Cancel": "Cancel",
@@ -150,5 +150,6 @@
   "Keep-Alive Time": "Keep-Alive Time",
   "5m": "5m",
   "30m": "30m",
-  "Forever": "Forever"
+  "Forever": "Forever",
+  "You have successfully logged in for ChatGPTBox and can now return": "You have successfully logged in for ChatGPTBox and can now return"
 }

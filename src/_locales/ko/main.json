@@ -44,7 +44,7 @@
   "Save Conversation": "대화 저장",
   "UNAUTHORIZED": "인증되지 않음",
   "Please login at https://chatgpt.com first": "https://chatgpt.com 에서 로그인하세요.",
-  "Please login at https://claude.ai first": "https://claude.ai 에서 로그인하세요.",
+  "Please login at https://claude.ai first, and then click the retry button": "https://claude.ai 에서 로그인한 다음 재시도 버튼을 클릭하세요.",
   "Please login at https://bing.com first": "https://bing.com 에서 로그인하세요.",
   "Then open https://chatgpt.com/api/auth/session": "그런 다음 https://chatgpt.com/api/auth/session 을 열거나 다시 질문을 입력하세요.",
   "And refresh this page or type you question again": "그런 다음 오른쪽 상단의 재시도 버튼을 클릭합니다.",
@@ -131,7 +131,7 @@
   "Please keep https://chatgpt.com open and try again. If it still doesn't work, type some characters in the input box of chatgpt web page and try again.": "https://chatgpt.com 을 열어두고 다시 시도하세요. 여전히 작동하지 않으면 chatgpt 웹 페이지의 입력 상자에 몇 가지 문자를 입력한 다음 다시 시도하세요.",
   "Open Side Panel": "사이드 패널 열기",
   "Generating...": "생성 중...",
-  "moonshot token required, please login at https://kimi.moonshot.cn first": "moonshot 토큰이 필요합니다. https://kimi.moonshot.cn 에서 로그인하세요.",
+  "moonshot token required, please login at https://kimi.moonshot.cn first, and then click the retry button": "moonshot 토큰이 필요합니다. https://kimi.moonshot.cn 에서 로그인한 다음 재시도 버튼을 클릭하세요.",
   "Hide context menu of this extension": "이 확장 프로그램의 컨텍스트 메뉴 숨기기",
   "Custom Claude API Url": "사용자 정의 Claude API URL",
   "Cancel": "취소",
@@ -150,5 +150,6 @@
   "Keep-Alive Time": "Keep-Alive 시간",
   "5m": "5분",
   "30m": "30분",
-  "Forever": "영원히"
+  "Forever": "영원히",
+  "You have successfully logged in for ChatGPTBox and can now return": "ChatGPTBox에 성공적으로 로그인하였으며 이제 돌아갈 수 있습니다"
 }

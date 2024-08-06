@@ -8,7 +8,9 @@ export function Hyperlink({ href, children }) {
     rel: 'nofollow noopener noreferrer',
   }
 
-  return href.includes('chatgpt.com') ? (
+  return href.includes('chatgpt.com') ||
+    href.includes('claude.ai') ||
+    href.includes('kimi.moonshot.cn') ? (
     <span
       {...linkProperties}
       onClick={() => {
@@ -19,7 +21,7 @@ export function Hyperlink({ href, children }) {
           data: {
             url: url.toString(),
             pinned: false,
-            saveAsChatgptConfig: true,
+            jumpBack: true,
           },
         })
       }}

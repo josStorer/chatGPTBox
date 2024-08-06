@@ -3,7 +3,13 @@ import PropTypes from 'prop-types'
 import Browser from 'webextension-polyfill'
 import InputBox from '../InputBox'
 import ConversationItem from '../ConversationItem'
-import { createElementAtPosition, isFirefox, isMobile, isSafari } from '../../utils'
+import {
+  createElementAtPosition,
+  isFirefox,
+  isMobile,
+  isSafari,
+  modelNameToDesc,
+} from '../../utils'
 import {
   ArchiveIcon,
   DesktopDownloadIcon,
@@ -16,7 +22,7 @@ import FileSaver from 'file-saver'
 import { render } from 'preact'
 import FloatingToolbar from '../FloatingToolbar'
 import { useClampWindowSize } from '../../hooks/use-clamp-window-size'
-import { bingWebModelKeys, getUserConfig, ModelMode, Models } from '../../config/index.mjs'
+import { bingWebModelKeys, getUserConfig, Models } from '../../config/index.mjs'
 import { useTranslation } from 'react-i18next'
 import DeleteButton from '../DeleteButton'
 import { useConfig } from '../../hooks/use-config.mjs'
@@ -370,14 +376,7 @@ function ConversationCard(props) {
             }}
           >
             {config.activeApiModes.map((modelName) => {
-              let desc
-              if (modelName.includes('-')) {
-                const splits = modelName.split('-')
-                if (splits[0] in Models)
-                  desc = `${t(Models[splits[0]].desc)} (${t(ModelMode[splits[1]])})`
-              } else {
-                if (modelName in Models) desc = t(Models[modelName].desc)
-              }
+              const desc = modelNameToDesc(modelName, t)
               if (desc)
                 return (
                   <option

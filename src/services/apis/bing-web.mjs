@@ -1,6 +1,7 @@
 import BingAIClient from '../clients/bing/index.mjs'
 import { getUserConfig } from '../../config/index.mjs'
 import { pushRecord, setAbortController } from './shared.mjs'
+import { isCustomModelName, modelNameToCustomPart } from '../../utils/model-name-convert.mjs'
 
 /**
  * @param {Runtime.Port} port
@@ -19,7 +20,7 @@ export async function generateAnswersWithBingWebApi(
   const { controller, messageListener, disconnectListener } = setAbortController(port)
   const config = await getUserConfig()
   let modelMode
-  if (session.modelName.includes('-')) modelMode = session.modelName.split('-')[1]
+  if (isCustomModelName(session.modelName)) modelMode = modelNameToCustomPart(session.modelName)
   else modelMode = config.modelMode
 
   console.debug('mode', modelMode)

@@ -3,11 +3,11 @@ import {
   claudeWebModelKeys,
   clearOldAccessToken,
   getUserConfig,
-  Models,
   setAccessToken,
 } from '../config/index.mjs'
 import Browser from 'webextension-polyfill'
 import { t } from 'i18next'
+import { modelNameToDesc } from '../utils/model-name-convert.mjs'
 
 export async function getChatGptAccessToken() {
   await clearOldAccessToken()
@@ -103,7 +103,7 @@ export function registerPortListener(executor) {
       if (!session) return
       const config = await getUserConfig()
       if (!session.modelName) session.modelName = config.modelName
-      if (!session.aiName) session.aiName = Models[session.modelName].desc
+      if (!session.aiName) session.aiName = modelNameToDesc(session.modelName)
       port.postMessage({ session })
       try {
         await executor(session, port, config)

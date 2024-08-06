@@ -1,8 +1,9 @@
-import { getUserConfig, Models } from '../../config/index.mjs'
+import { getUserConfig } from '../../config/index.mjs'
 import { pushRecord, setAbortController } from './shared.mjs'
 import { fetchSSE } from '../../utils/fetch-sse.mjs'
 import { isEmpty } from 'lodash-es'
 import { getConversationPairs } from '../../utils/get-conversation-pairs.mjs'
+import { modelNameToValue } from '../../utils/model-name-convert.mjs'
 
 /**
  * @param {Runtime.Port} port
@@ -31,7 +32,7 @@ export async function generateAnswersWithClaudeApi(port, question, session) {
       'x-api-key': config.claudeApiKey,
     },
     body: JSON.stringify({
-      model: Models[modelName].value,
+      model: modelNameToValue(modelName),
       messages: prompt,
       stream: true,
       max_tokens: config.maxResponseTokenLength,

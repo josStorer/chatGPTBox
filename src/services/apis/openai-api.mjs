@@ -1,6 +1,6 @@
 // api version
 
-import { Models, getUserConfig } from '../../config/index.mjs'
+import { getUserConfig } from '../../config/index.mjs'
 import { fetchSSE } from '../../utils/fetch-sse.mjs'
 import { getConversationPairs } from '../../utils/get-conversation-pairs.mjs'
 import { isEmpty } from 'lodash-es'
@@ -10,6 +10,7 @@ import {
   pushRecord,
   setAbortController,
 } from './shared.mjs'
+import { modelNameToValue } from '../../utils/model-name-convert.mjs'
 
 /**
  * @param {Browser.Runtime.Port} port
@@ -54,7 +55,7 @@ export async function generateAnswersWithGptCompletionApi(
     },
     body: JSON.stringify({
       prompt: prompt,
-      model: Models[modelName].value,
+      model: modelNameToValue(modelName),
       stream: true,
       max_tokens: config.maxResponseTokenLength,
       temperature: config.temperature,
@@ -154,7 +155,7 @@ export async function generateAnswersWithChatgptApiCompat(
     },
     body: JSON.stringify({
       messages: prompt,
-      model: Models[modelName].value,
+      model: modelNameToValue(modelName),
       stream: true,
       max_tokens: config.maxResponseTokenLength,
       temperature: config.temperature,

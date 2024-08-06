@@ -1,5 +1,5 @@
-import { Models } from '../config/index.mjs'
 import { v4 as uuidv4 } from 'uuid'
+import { modelNameToDesc } from '../utils/model-name-convert.mjs'
 
 /**
  * @typedef {object} Session
@@ -54,7 +54,7 @@ export function initSession({
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
 
-    aiName: modelName ? Models[modelName].desc : null,
+    aiName: modelName ? modelNameToDesc(modelName) : null,
     modelName,
 
     autoClean,

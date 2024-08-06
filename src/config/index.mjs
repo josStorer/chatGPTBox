@@ -82,6 +82,73 @@ export const poeWebModelKeys = [
 ]
 export const moonshotApiModelKeys = ['moonshot_v1_8k', 'moonshot_v1_32k', 'moonshot_v1_128k']
 
+export const AlwaysCustomGroups = [
+  'ollamaApiModelKeys',
+  'customApiModelKeys',
+  'azureOpenAiApiModelKeys',
+]
+export const CustomUrlGroups = ['customApiModelKeys']
+export const CustomApiKeyGroups = ['customApiModelKeys']
+export const ModelGroups = {
+  chatgptWebModelKeys: {
+    value: chatgptWebModelKeys,
+    desc: 'ChatGPT (Web)',
+  },
+  claudeWebModelKeys: {
+    value: claudeWebModelKeys,
+    desc: 'Claude.ai (Web)',
+  },
+  moonshotWebModelKeys: {
+    value: moonshotWebModelKeys,
+    desc: 'Kimi.Moonshot (Web)',
+  },
+  bingWebModelKeys: {
+    value: bingWebModelKeys,
+    desc: 'Bing (Web)',
+  },
+  bardWebModelKeys: {
+    value: bardWebModelKeys,
+    desc: 'Gemini (Web)',
+  },
+
+  chatgptApiModelKeys: {
+    value: chatgptApiModelKeys,
+    desc: 'ChatGPT (API)',
+  },
+  claudeApiModelKeys: {
+    value: claudeApiModelKeys,
+    desc: 'Claude.ai (API)',
+  },
+  moonshotApiModelKeys: {
+    value: moonshotApiModelKeys,
+    desc: 'Kimi.Moonshot (API)',
+  },
+  chatglmApiModelKeys: {
+    value: chatglmApiModelKeys,
+    desc: 'ChatGLM (API)',
+  },
+  ollamaApiModelKeys: {
+    value: ollamaApiModelKeys,
+    desc: 'Ollama (API)',
+  },
+  azureOpenAiApiModelKeys: {
+    value: azureOpenAiApiModelKeys,
+    desc: 'ChatGPT (Azure API)',
+  },
+  gptApiModelKeys: {
+    value: gptApiModelKeys,
+    desc: 'GPT Completion (API)',
+  },
+  githubThirdPartyApiModelKeys: {
+    value: githubThirdPartyApiModelKeys,
+    desc: 'Github Third Party Waylaidwanderer (API)',
+  },
+  customApiModelKeys: {
+    value: customApiModelKeys,
+    desc: 'Custom Model',
+  },
+}
+
 /**
  * @typedef {object} Model
  * @property {string} value
@@ -289,6 +356,17 @@ export const defaultConfig = {
     'customModel',
     'ollamaModel',
     'azureOpenAi',
+  ],
+  customApiModes: [
+    {
+      groupName: '',
+      itemName: '',
+      isCustom: false,
+      customName: '',
+      customUrl: '',
+      apiKey: '',
+      active: false,
+    },
   ],
   activeSelectionTools: ['translate', 'summary', 'polish', 'code', 'ask'],
   customSelectionTools: [

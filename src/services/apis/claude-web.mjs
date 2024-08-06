@@ -1,6 +1,6 @@
 import { pushRecord, setAbortController } from './shared.mjs'
 import Claude from '../clients/claude'
-import { Models } from '../../config/index.mjs'
+import { modelNameToValue } from '../../utils/model-name-convert.mjs'
 
 /**
  * @param {Runtime.Port} port
@@ -35,7 +35,7 @@ export async function generateAnswersWithClaudeWebApi(
   const params = {
     progress: progressFunc,
     done: doneFunc,
-    model: Models[modelName].value,
+    model: modelNameToValue(modelName),
     signal: controller.signal,
   }
 

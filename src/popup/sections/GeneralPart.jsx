@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
 import FileSaver from 'file-saver'
-import { openUrl } from '../../utils/index.mjs'
+import { openUrl, modelNameToDesc } from '../../utils/index.mjs'
 import {
   isUsingOpenAiApiKey,
   isUsingAzureOpenAi,
@@ -13,7 +13,6 @@ import {
   isUsingGithubThirdPartyApi,
   isUsingMultiModeModel,
   ModelMode,
-  Models,
   ThemeMode,
   TriggerMode,
   isUsingMoonshotApi,
@@ -161,14 +160,7 @@ export function GeneralPart({ config, updateConfig }) {
             }}
           >
             {config.activeApiModes.map((modelName) => {
-              let desc
-              if (modelName.includes('-')) {
-                const splits = modelName.split('-')
-                if (splits[0] in Models)
-                  desc = `${t(Models[splits[0]].desc)} (${t(ModelMode[splits[1]])})`
-              } else {
-                if (modelName in Models) desc = t(Models[modelName].desc)
-              }
+              const desc = modelNameToDesc(modelName, t)
               if (desc)
                 return (
                   <option

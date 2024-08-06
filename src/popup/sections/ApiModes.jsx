@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
-import { apiModeToModelName, modelNameToDesc } from '../../utils/index.mjs'
+import { apiModeToModelName, modelNameToApiMode, modelNameToDesc } from '../../utils/index.mjs'
 import { PencilIcon, TrashIcon } from '@primer/octicons-react'
 import { useState } from 'react'
 import {
@@ -31,6 +31,20 @@ export function ApiModes({ config, updateConfig }) {
   const [editingApiMode, setEditingApiMode] = useState(defaultApiMode)
   const [editingIndex, setEditingIndex] = useState(-1)
 
+  const stringApiModes = config.customApiModes.map(apiModeToModelName)
+  const originalApiModes = config.activeApiModes
+    .map((modelName) => {
+      // 'customModel' is always active
+      if (stringApiModes.includes(modelName) || modelName === 'customModel') {
+        return
+      }
+      if (modelName === 'azureOpenAi') modelName += '-' + config.azureDeploymentName
+      if (modelName === 'ollama') modelName += '-' + config.ollamaModelName
+      return modelNameToApiMode(modelName)
+    })
+    .filter((apiMode) => apiMode)
+  const apiModes = [...originalApiModes, ...config.customApiModes]
+
   const editingComponent = (
     <div style={{ display: 'flex', flexDirection: 'column', '--spacing': '4px' }}>
       <div style={{ display: 'flex', gap: '12px' }}>
@@ -47,12 +61,13 @@ export function ApiModes({ config, updateConfig }) {
             e.preventDefault()
             if (editingIndex === -1) {
               updateConfig({
-                customApiModes: [...config.customApiModes, editingApiMode],
+                activeApiModes: [],
+                customApiModes: [...apiModes, editingApiMode],
               })
             } else {
-              const customApiModes = [...config.customApiModes]
+              const customApiModes = [...apiModes]
               customApiModes[editingIndex] = editingApiMode
-              updateConfig({ customApiModes })
+              updateConfig({ activeApiModes: [], customApiModes })
             }
             setEditing(false)
           }}
@@ -128,7 +143,7 @@ export function ApiModes({ config, updateConfig }) {
 
   return (
     <>
-      {config.customApiModes.map(
+      {apiModes.map(
         (apiMode, index) =>
           apiMode.groupName &&
           apiMode.itemName &&
@@ -140,9 +155,9 @@ export function ApiModes({ config, updateConfig }) {
                 type="checkbox"
                 checked={apiMode.active}
                 onChange={(e) => {
-                  const customApiModes = [...config.customApiModes]
+                  const customApiModes = [...apiModes]
                   customApiModes[index] = { ...apiMode, active: e.target.checked }
-                  updateConfig({ customApiModes })
+                  updateConfig({ activeApiModes: [], customApiModes })
                 }}
               />
               {modelNameToDesc(apiModeToModelName(apiMode), t)}
@@ -163,9 +178,9 @@ export function ApiModes({ config, updateConfig }) {
                   style={{ cursor: 'pointer' }}
                   onClick={(e) => {
                     e.preventDefault()
-                    const customApiModes = [...config.customApiModes]
+                    const customApiModes = [...apiModes]
                     customApiModes.splice(index, 1)
-                    updateConfig({ customApiModes })
+                    updateConfig({ activeApiModes: [], customApiModes })
                   }}
                 >
                   <TrashIcon />

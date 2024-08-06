@@ -169,7 +169,7 @@ export const Models = {
   chatgptApi35: { value: 'gpt-3.5-turbo', desc: 'ChatGPT (GPT-3.5-turbo)' },
   chatgptApi35_16k: { value: 'gpt-3.5-turbo-16k', desc: 'ChatGPT (GPT-3.5-turbo-16k)' },
 
-  chatgptApi4o_128k: { value: 'gpt-4o', desc: 'ChatGPT (GPT-4o)' },
+  chatgptApi4o_128k: { value: 'gpt-4o', desc: 'ChatGPT (GPT-4o, 128k)' },
   chatgptApi4oMini: { value: 'gpt-4o-mini', desc: 'ChatGPT (GPT-4o mini)' },
   chatgptApi4_8k: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k)' },
   chatgptApi4_32k: { value: 'gpt-4-32k', desc: 'ChatGPT (GPT-4-32k)' },
@@ -341,10 +341,13 @@ export const defaultConfig = {
   // others
 
   alwaysCreateNewConversationWindow: false,
+  // The handling of activeApiModes and customApiModes is somewhat complex.
+  // It does not directly convert activeApiModes into customApiModes, which is for compatibility considerations.
+  // It allows the content of activeApiModes to change with version updates when the user has not customized ApiModes.
+  // If it were directly written into customApiModes, the value would become fixed, even if the user has not made any customizations.
   activeApiModes: [
     'chatgptFree35',
     'chatgptFree4o',
-    'chatgptPlus4',
     'chatgptApi35',
     'chatgptApi4o_128k',
     'claude2WebFree',
@@ -354,7 +357,6 @@ export const defaultConfig = {
     'moonshot_v1_8k',
     'chatglmTurbo',
     'customModel',
-    'ollamaModel',
     'azureOpenAi',
   ],
   customApiModes: [

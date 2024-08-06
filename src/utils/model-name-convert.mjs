@@ -42,19 +42,19 @@ export function modelNameToValue(modelName) {
 }
 
 export function isCustomModelName(modelName) {
-  return modelName.includes('-')
+  return modelName ? modelName.includes('-') : false
 }
 
 export function modelNameToApiMode(modelName) {
   const presetPart = modelNameToPresetPart(modelName)
   const found =
     Object.entries(ModelGroups).find(([k]) => presetPart === k) ||
-    Object.entries(ModelGroups).find(([, g]) => presetPart in g.value)
+    Object.entries(ModelGroups).find(([, g]) => g.value.includes(presetPart))
   if (found) {
     const [groupName] = found
     const isCustom = isCustomModelName(modelName)
     let customName = ''
-    if (isCustom) customName = modelNameToCustomPart()
+    if (isCustom) customName = modelNameToCustomPart(modelName)
     return {
       groupName,
       itemName: presetPart,

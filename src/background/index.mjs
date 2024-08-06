@@ -191,7 +191,7 @@ Browser.runtime.onMessage.addListener(async (message, sender) => {
       break
     }
     case 'NEW_URL': {
-      const newTab = await Browser.tabs.create({
+      await Browser.tabs.create({
         url: message.data.url,
         pinned: message.data.pinned,
       })

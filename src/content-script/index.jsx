@@ -16,6 +16,7 @@ import {
   createElementAtPosition,
   cropText,
   endsWithQuestionMark,
+  getApiModesStringArrayFromConfig,
   getClientPosition,
   getPossibleElementByQuerySelector,
 } from '../utils'
@@ -354,7 +355,12 @@ async function prepareForForegroundRequests() {
 
   const userConfig = await getUserConfig()
 
-  if (!chatgptWebModelKeys.some((model) => userConfig.activeApiModes.includes(model))) return
+  if (
+    !chatgptWebModelKeys.some((model) =>
+      getApiModesStringArrayFromConfig(userConfig, true).includes(model),
+    )
+  )
+    return
 
   if (location.pathname === '/') {
     const input = document.querySelector('#prompt-textarea')

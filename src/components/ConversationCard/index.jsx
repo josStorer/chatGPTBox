@@ -5,6 +5,7 @@ import InputBox from '../InputBox'
 import ConversationItem from '../ConversationItem'
 import {
   createElementAtPosition,
+  getApiModesStringArrayFromConfig,
   isFirefox,
   isMobile,
   isSafari,
@@ -375,7 +376,7 @@ function ConversationCard(props) {
               else setSession(newSession)
             }}
           >
-            {config.activeApiModes.map((modelName) => {
+            {getApiModesStringArrayFromConfig(config, true).map((modelName) => {
               const desc = modelNameToDesc(modelName, t)
               if (desc)
                 return (

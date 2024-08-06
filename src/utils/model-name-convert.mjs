@@ -78,3 +78,30 @@ export function apiModeToModelName(apiMode) {
 
   return apiMode.itemName
 }
+
+export function getApiModesFromConfig(config, onlyActive) {
+  const stringApiModes = config.customApiModes
+    .map((apiMode) => {
+      if (onlyActive) {
+        if (apiMode.active) return apiModeToModelName(apiMode)
+      } else return apiModeToModelName(apiMode)
+      return false
+    })
+    .filter((apiMode) => apiMode)
+  const originalApiModes = config.activeApiModes
+    .map((modelName) => {
+      // 'customModel' is always active
+      if (stringApiModes.includes(modelName) || modelName === 'customModel') {
+        return
+      }
+      if (modelName === 'azureOpenAi') modelName += '-' + config.azureDeploymentName
+      if (modelName === 'ollama') modelName += '-' + config.ollamaModelName
+      return modelNameToApiMode(modelName)
+    })
+    .filter((apiMode) => apiMode)
+  return [...originalApiModes, ...config.customApiModes]
+}
+
+export function getApiModesStringArrayFromConfig(config, onlyActive) {
+  return getApiModesFromConfig(config, onlyActive).map(apiModeToModelName)
+}

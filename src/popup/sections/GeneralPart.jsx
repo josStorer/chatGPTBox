@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
 import FileSaver from 'file-saver'
-import { openUrl, modelNameToDesc } from '../../utils/index.mjs'
+import { openUrl, modelNameToDesc, getApiModesStringArrayFromConfig } from '../../utils/index.mjs'
 import {
   isUsingOpenAiApiKey,
   isUsingAzureOpenAi,
@@ -159,7 +159,7 @@ export function GeneralPart({ config, updateConfig }) {
               updateConfig({ modelName: modelName })
             }}
           >
-            {config.activeApiModes.map((modelName) => {
+            {getApiModesStringArrayFromConfig(config, true).map((modelName) => {
               const desc = modelNameToDesc(modelName, t)
               if (desc)
                 return (

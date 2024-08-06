@@ -25,7 +25,7 @@ import FileSaver from 'file-saver'
 import { render } from 'preact'
 import FloatingToolbar from '../FloatingToolbar'
 import { useClampWindowSize } from '../../hooks/use-clamp-window-size'
-import { bingWebModelKeys, getUserConfig } from '../../config/index.mjs'
+import { bingWebModelKeys, getUserConfig, Models } from '../../config/index.mjs'
 import { useTranslation } from 'react-i18next'
 import DeleteButton from '../DeleteButton'
 import { useConfig } from '../../hooks/use-config.mjs'
@@ -380,8 +380,12 @@ function ConversationCard(props) {
             className="normal-button"
             required
             onChange={(e) => {
-              const apiMode = apiModes[e.target.value]
-              const modelName = apiModeToModelName(apiMode)
+              let apiMode = null
+              let modelName = 'customModel'
+              if (e.target.value !== -1) {
+                apiMode = apiModes[e.target.value]
+                modelName = apiModeToModelName(apiMode)
+              }
               const newSession = {
                 ...session,
                 modelName,
@@ -407,6 +411,9 @@ function ConversationCard(props) {
                 )
               }
             })}
+            <option value={-1} selected={!config.apiMode && config.modelName === 'customModel'}>
+              {t(Models.customModel.desc)}
+            </option>
           </select>
         </span>
         {props.draggable && !completeDraggable && (

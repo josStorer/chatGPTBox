@@ -2,7 +2,7 @@
 
 import { fetchSSE } from '../../utils/fetch-sse.mjs'
 import { isEmpty } from 'lodash-es'
-import { chatgptWebModelKeys, getUserConfig, Models } from '../../config/index.mjs'
+import { getUserConfig, Models } from '../../config/index.mjs'
 import { pushRecord, setAbortController } from './shared.mjs'
 import Browser from 'webextension-polyfill'
 import { v4 as uuidv4 } from 'uuid'
@@ -236,7 +236,7 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
   console.debug('models', models)
   const selectedModel = modelNameToValue(session.modelName)
   const usedModel =
-    models && models.includes(selectedModel) ? selectedModel : Models[chatgptWebModelKeys[0]].value
+    models && models.includes(selectedModel) ? selectedModel : Models.chatgptFree35.value
   console.debug('usedModel', usedModel)
   const needArkoseToken = requirements && requirements.arkose?.required
   if (arkoseError && needArkoseToken) throw arkoseError

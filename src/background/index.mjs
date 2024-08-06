@@ -76,6 +76,7 @@ function setPortProxy(port, proxyTabId) {
 
 async function executeApi(session, port, config) {
   console.debug('modelName', session.modelName)
+  console.debug('apiMode', session.apiMode)
   if (chatgptWebModelKeys.includes(session.modelName)) {
     let tabId
     if (

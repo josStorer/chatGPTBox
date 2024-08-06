@@ -22,6 +22,7 @@ import {
   ThemeMode,
   TriggerMode,
   isUsingMoonshotApi,
+  Models,
 } from '../../config/index.mjs'
 import Browser from 'webextension-polyfill'
 import { languageList } from '../../config/language.mjs'
@@ -184,6 +185,10 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
             }
             required
             onChange={(e) => {
+              if (e.target.value === -1) {
+                updateConfig({ modelName: 'customModel', apiMode: null })
+                return
+              }
               const apiMode = apiModes[e.target.value]
               updateConfig({ apiMode: apiMode })
             }}
@@ -202,6 +207,9 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
                 )
               }
             })}
+            <option value={-1} selected={!config.apiMode && config.modelName === 'customModel'}>
+              {t(Models.customModel.desc)}
+            </option>
           </select>
           {isUsingMultiModeModel(config) && (
             <select

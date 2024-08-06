@@ -27,10 +27,12 @@ import Browser from 'webextension-polyfill'
 import { languageList } from '../../config/language.mjs'
 import PropTypes from 'prop-types'
 import { config as menuConfig } from '../../content-script/menu-tools'
+import { PencilIcon } from '@primer/octicons-react'
 
 GeneralPart.propTypes = {
   config: PropTypes.object.isRequired,
   updateConfig: PropTypes.func.isRequired,
+  setTabIndex: PropTypes.func.isRequired,
 }
 
 function formatDate(date) {
@@ -86,7 +88,7 @@ async function checkBilling(apiKey, apiUrl) {
   }
 }
 
-export function GeneralPart({ config, updateConfig }) {
+export function GeneralPart({ config, updateConfig, setTabIndex }) {
   const { t, i18n } = useTranslation()
   const [balance, setBalance] = useState(null)
   const [apiModes, setApiModes] = useState([])
@@ -154,7 +156,18 @@ export function GeneralPart({ config, updateConfig }) {
         </select>
       </label>
       <label>
-        <legend>{t('API Mode')}</legend>
+        <legend style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {t('API Mode')}
+          <div
+            style={{ cursor: 'pointer' }}
+            onClick={(e) => {
+              e.preventDefault()
+              setTabIndex(2)
+            }}
+          >
+            <PencilIcon />
+          </div>
+        </legend>
         <span style="display: flex; gap: 15px;">
           <select
             style={

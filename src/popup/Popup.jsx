@@ -62,6 +62,7 @@ function Popup() {
   const [config, setConfig] = useState(defaultConfig)
   const [currentVersion, setCurrentVersion] = useState('')
   const [latestVersion, setLatestVersion] = useState('')
+  const [tabIndex, setTabIndex] = useState(0)
   const theme = useWindowTheme()
 
   const updateConfig = async (value) => {
@@ -94,7 +95,13 @@ function Popup() {
   return (
     <div className={popup === 'true' ? 'container-popup-mode' : 'container-page-mode'}>
       <form style="width:100%;">
-        <Tabs selectedTabClassName="popup-tab--selected">
+        <Tabs
+          selectedTabClassName="popup-tab--selected"
+          selectedIndex={tabIndex}
+          onSelect={(index) => {
+            setTabIndex(index)
+          }}
+        >
           <TabList>
             <Tab className="popup-tab">{t('General')}</Tab>
             <Tab className="popup-tab">{t('Feature Pages')}</Tab>
@@ -103,7 +110,7 @@ function Popup() {
           </TabList>
 
           <TabPanel>
-            <GeneralPart config={config} updateConfig={updateConfig} />
+            <GeneralPart config={config} updateConfig={updateConfig} setTabIndex={setTabIndex} />
           </TabPanel>
           <TabPanel>
             <FeaturePages config={config} updateConfig={updateConfig} />

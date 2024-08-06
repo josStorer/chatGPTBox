@@ -1,11 +1,13 @@
-import { memo, useEffect, useMemo, useRef, useState } from 'react'
+import { memo, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import Browser from 'webextension-polyfill'
 import InputBox from '../InputBox'
 import ConversationItem from '../ConversationItem'
 import {
+  apiModeToModelName,
   createElementAtPosition,
-  getApiModesStringArrayFromConfig,
+  getApiModesFromConfig,
+  isApiModeSelected,
   isFirefox,
   isMobile,
   isSafari,
@@ -61,32 +63,32 @@ function ConversationCard(props) {
   const [completeDraggable, setCompleteDraggable] = useState(false)
   // `.some` for multi mode models. e.g. bingFree4-balanced
   const useForegroundFetch = bingWebModelKeys.some((n) => session.modelName.includes(n))
+  const [apiModes, setApiModes] = useState([])
 
   /**
    * @type {[ConversationItemData[], (conversationItemData: ConversationItemData[]) => void]}
    */
-  const [conversationItemData, setConversationItemData] = useState(
-    (() => {
-      if (session.conversationRecords.length === 0)
-        if (props.question && triggered)
-          return [
-            new ConversationItemData(
-              'answer',
-              `<p class="gpt-loading">${t(`Waiting for response...`)}</p>`,
-            ),
-          ]
-        else return []
-      else {
-        const ret = []
-        for (const record of session.conversationRecords) {
-          ret.push(new ConversationItemData('question', record.question, true))
-          ret.push(new ConversationItemData('answer', record.answer, true))
-        }
-        return ret
-      }
-    })(),
-  )
+  const [conversationItemData, setConversationItemData] = useState([])
   const config = useConfig()
+
+  useLayoutEffect(() => {
+    if (session.conversationRecords.length === 0) {
+      if (props.question && triggered)
+        setConversationItemData([
+          new ConversationItemData(
+            'answer',
+            `<p class="gpt-loading">${t(`Waiting for response...`)}</p>`,
+          ),
+        ])
+    } else {
+      const ret = []
+      for (const record of session.conversationRecords) {
+        ret.push(new ConversationItemData('question', record.question, true))
+        ret.push(new ConversationItemData('answer', record.answer, true))
+      }
+      setConversationItemData(ret)
+    }
+  }, [])
 
   useEffect(() => {
     setCompleteDraggable(!isSafari() && !isFirefox() && !isMobile())
@@ -117,6 +119,15 @@ function ConversationCard(props) {
       await postMessage({ session: newSession })
     }
   }, [props.question, triggered]) // usually only triggered once
+
+  useLayoutEffect(() => {
+    setApiModes(getApiModesFromConfig(config, true))
+  }, [
+    config.activeApiModes,
+    config.customApiModes,
+    config.azureDeploymentName,
+    config.ollamaModelName,
+  ])
 
   /**
    * @param {string} value
@@ -369,25 +380,32 @@ function ConversationCard(props) {
             className="normal-button"
             required
             onChange={(e) => {
-              const modelName = e.target.value
-              const newSession = { ...session, modelName, aiName: modelNameToDesc(modelName, t) }
+              const apiMode = apiModes[e.target.value]
+              const modelName = apiModeToModelName(apiMode)
+              const newSession = {
+                ...session,
+                modelName,
+                apiMode,
+                aiName: modelNameToDesc(modelName, t),
+              }
               if (config.autoRegenAfterSwitchModel && conversationItemData.length > 0)
                 getRetryFn(newSession)()
               else setSession(newSession)
             }}
           >
-            {getApiModesStringArrayFromConfig(config, true).map((modelName) => {
+            {apiModes.map((apiMode, index) => {
+              const modelName = apiModeToModelName(apiMode)
               const desc = modelNameToDesc(modelName, t)
-              if (desc)
+              if (desc) {
+                let selected
+                if (isApiModeSelected(apiMode, session)) selected = true
+                else selected = session.modelName === modelName
                 return (
-                  <option
-                    value={modelName}
-                    key={modelName}
-                    selected={modelName === session.modelName}
-                  >
+                  <option value={index} key={index} selected={selected}>
                     {desc}
                   </option>
                 )
+              }
             })}
           </select>
         </span>

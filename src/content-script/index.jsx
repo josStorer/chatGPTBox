@@ -91,7 +91,7 @@ async function mountComponent(siteConfig) {
 
     render(
       <FloatingToolbar
-        session={initSession({ modelName: userConfig.modelName })}
+        session={initSession({ modelName: userConfig.modelName, apiMode: userConfig.apiMode })}
         selection=""
         container={toolbarContainer}
         triggered={triggered}
@@ -107,7 +107,7 @@ async function mountComponent(siteConfig) {
   container.id = 'chatgptbox-container'
   render(
     <DecisionCard
-      session={initSession({ modelName: userConfig.modelName })}
+      session={initSession({ modelName: userConfig.modelName, apiMode: userConfig.apiMode })}
       question={question}
       siteConfig={siteConfig}
       container={container}
@@ -151,9 +151,10 @@ const deleteToolbar = () => {
 
 const createSelectionTools = async (toolbarContainer, selection) => {
   toolbarContainer.className = 'chatgptbox-toolbar-container'
+  const userConfig = await getUserConfig()
   render(
     <FloatingToolbar
-      session={initSession({ modelName: (await getUserConfig()).modelName })}
+      session={initSession({ modelName: userConfig.modelName, apiMode: userConfig.apiMode })}
       selection={selection}
       container={toolbarContainer}
       dockable={true}
@@ -276,9 +277,10 @@ async function prepareForRightClickMenu() {
         : { x: window.innerWidth / 2 - 300, y: window.innerHeight / 2 - 200 }
       const container = createElementAtPosition(position.x, position.y)
       container.className = 'chatgptbox-toolbar-container-not-queryable'
+      const userConfig = await getUserConfig()
       render(
         <FloatingToolbar
-          session={initSession({ modelName: (await getUserConfig()).modelName })}
+          session={initSession({ modelName: userConfig.modelName, apiMode: userConfig.apiMode })}
           selection={data.selectionText}
           container={container}
           triggered={true}

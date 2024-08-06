@@ -286,6 +286,7 @@ export const defaultConfig = {
   themeMode: 'auto',
   /** @type {keyof Models}*/
   modelName: getNavigatorLanguage() === 'zh' ? 'moonshotWebFree' : 'claude2WebFree',
+  apiMode: null,
 
   preferredLanguage: getNavigatorLanguage(),
   clickIconAction: 'popup',

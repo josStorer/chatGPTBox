@@ -1,8 +1,13 @@
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
-import { apiModeToModelName, getApiModesFromConfig, modelNameToDesc } from '../../utils/index.mjs'
+import {
+  apiModeToModelName,
+  getApiModesFromConfig,
+  isApiModeSelected,
+  modelNameToDesc,
+} from '../../utils/index.mjs'
 import { PencilIcon, TrashIcon } from '@primer/octicons-react'
-import { useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import {
   AlwaysCustomGroups,
   CustomApiKeyGroups,
@@ -30,7 +35,31 @@ export function ApiModes({ config, updateConfig }) {
   const [editing, setEditing] = useState(false)
   const [editingApiMode, setEditingApiMode] = useState(defaultApiMode)
   const [editingIndex, setEditingIndex] = useState(-1)
-  const apiModes = getApiModesFromConfig(config)
+  const [apiModes, setApiModes] = useState([])
+  const [apiModeStringArray, setApiModeStringArray] = useState([])
+
+  useLayoutEffect(() => {
+    const apiModes = getApiModesFromConfig(config)
+    setApiModes(apiModes)
+    setApiModeStringArray(apiModes.map(apiModeToModelName))
+  }, [
+    config.activeApiModes,
+    config.customApiModes,
+    config.azureDeploymentName,
+    config.ollamaModelName,
+  ])
+
+  const updateWhenApiModeDisabled = (apiMode) => {
+    if (isApiModeSelected(apiMode, config) || config.modelName === apiModeToModelName(apiMode))
+      updateConfig({
+        modelName:
+          apiModeStringArray.includes(config.modelName) &&
+          config.modelName !== apiModeToModelName(apiMode)
+            ? config.modelName
+            : 'customModel',
+        apiMode: null,
+      })
+  }
 
   const editingComponent = (
     <div style={{ display: 'flex', flexDirection: 'column', '--spacing': '4px' }}>
@@ -52,6 +81,12 @@ export function ApiModes({ config, updateConfig }) {
                 customApiModes: [...apiModes, editingApiMode],
               })
             } else {
+              const apiMode = apiModes[editingIndex]
+              if (
+                isApiModeSelected(apiMode, config) ||
+                config.modelName === apiModeToModelName(apiMode) // there is a minor bug here, but it's not a big issue
+              )
+                updateConfig({ apiMode: editingApiMode })
               const customApiModes = [...apiModes]
               customApiModes[editingIndex] = editingApiMode
               updateConfig({ activeApiModes: [], customApiModes })
@@ -142,6 +177,7 @@ export function ApiModes({ config, updateConfig }) {
                 type="checkbox"
                 checked={apiMode.active}
                 onChange={(e) => {
+                  if (!e.target.checked) updateWhenApiModeDisabled(apiMode)
                   const customApiModes = [...apiModes]
                   customApiModes[index] = { ...apiMode, active: e.target.checked }
                   updateConfig({ activeApiModes: [], customApiModes })
@@ -165,6 +201,7 @@ export function ApiModes({ config, updateConfig }) {
                   style={{ cursor: 'pointer' }}
                   onClick={(e) => {
                     e.preventDefault()
+                    updateWhenApiModeDisabled(apiMode)
                     const customApiModes = [...apiModes]
                     customApiModes.splice(index, 1)
                     updateConfig({ activeApiModes: [], customApiModes })

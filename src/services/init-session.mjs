@@ -36,6 +36,7 @@ import { t } from 'i18next'
  * @param {string|null} sessionName
  * @param {string|null} modelName
  * @param {boolean|null} autoClean
+ * @param {Object|null} apiMode
  * @returns {Session}
  */
 export function initSession({
@@ -44,6 +45,7 @@ export function initSession({
   sessionName = null,
   modelName = null,
   autoClean = false,
+  apiMode = null,
 } = {}) {
   return {
     // common
@@ -57,6 +59,7 @@ export function initSession({
 
     aiName: modelName ? modelNameToDesc(modelName, t) : null,
     modelName,
+    apiMode,
 
     autoClean,
     isRetry: false,

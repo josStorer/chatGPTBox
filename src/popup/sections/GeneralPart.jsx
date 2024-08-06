@@ -1,7 +1,13 @@
 import { useTranslation } from 'react-i18next'
-import { useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import FileSaver from 'file-saver'
-import { openUrl, modelNameToDesc, getApiModesStringArrayFromConfig } from '../../utils/index.mjs'
+import {
+  openUrl,
+  modelNameToDesc,
+  isApiModeSelected,
+  getApiModesFromConfig,
+  apiModeToModelName,
+} from '../../utils/index.mjs'
 import {
   isUsingOpenAiApiKey,
   isUsingAzureOpenAi,
@@ -83,6 +89,16 @@ async function checkBilling(apiKey, apiUrl) {
 export function GeneralPart({ config, updateConfig }) {
   const { t, i18n } = useTranslation()
   const [balance, setBalance] = useState(null)
+  const [apiModes, setApiModes] = useState([])
+
+  useLayoutEffect(() => {
+    setApiModes(getApiModesFromConfig(config, true))
+  }, [
+    config.activeApiModes,
+    config.customApiModes,
+    config.azureDeploymentName,
+    config.ollamaModelName,
+  ])
 
   const getBalance = async () => {
     const response = await fetch(`${config.customOpenAiApiUrl}/dashboard/billing/credit_grants`, {
@@ -155,22 +171,23 @@ export function GeneralPart({ config, updateConfig }) {
             }
             required
             onChange={(e) => {
-              const modelName = e.target.value
-              updateConfig({ modelName: modelName })
+              const apiMode = apiModes[e.target.value]
+              updateConfig({ apiMode: apiMode })
             }}
           >
-            {getApiModesStringArrayFromConfig(config, true).map((modelName) => {
+            {apiModes.map((apiMode, index) => {
+              const modelName = apiModeToModelName(apiMode)
               const desc = modelNameToDesc(modelName, t)
-              if (desc)
+              if (desc) {
+                let selected
+                if (isApiModeSelected(apiMode, config)) selected = true
+                else selected = config.modelName === modelName
                 return (
-                  <option
-                    value={modelName}
-                    key={modelName}
-                    selected={modelName === config.modelName}
-                  >
+                  <option value={index} key={index} selected={selected}>
                     {desc}
                   </option>
                 )
+              }
             })}
           </select>
           {isUsingMultiModeModel(config) && (

@@ -105,3 +105,9 @@ export function getApiModesFromConfig(config, onlyActive) {
 export function getApiModesStringArrayFromConfig(config, onlyActive) {
   return getApiModesFromConfig(config, onlyActive).map(apiModeToModelName)
 }
+
+export function isApiModeSelected(apiMode, configOrSession) {
+  return (
+    configOrSession.apiMode && JSON.stringify(configOrSession.apiMode) === JSON.stringify(apiMode)
+  )
+}

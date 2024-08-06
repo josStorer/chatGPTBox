@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import { modelNameToDesc } from '../utils/model-name-convert.mjs'
+import { t } from 'i18next'
 
 /**
  * @typedef {object} Session
@@ -54,7 +55,7 @@ export function initSession({
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
 
-    aiName: modelName ? modelNameToDesc(modelName) : null,
+    aiName: modelName ? modelNameToDesc(modelName, t) : null,
     modelName,
 
     autoClean,

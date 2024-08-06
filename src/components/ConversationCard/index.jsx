@@ -22,7 +22,7 @@ import FileSaver from 'file-saver'
 import { render } from 'preact'
 import FloatingToolbar from '../FloatingToolbar'
 import { useClampWindowSize } from '../../hooks/use-clamp-window-size'
-import { bingWebModelKeys, getUserConfig, Models } from '../../config/index.mjs'
+import { bingWebModelKeys, getUserConfig } from '../../config/index.mjs'
 import { useTranslation } from 'react-i18next'
 import DeleteButton from '../DeleteButton'
 import { useConfig } from '../../hooks/use-config.mjs'
@@ -369,7 +369,7 @@ function ConversationCard(props) {
             required
             onChange={(e) => {
               const modelName = e.target.value
-              const newSession = { ...session, modelName, aiName: Models[modelName].desc }
+              const newSession = { ...session, modelName, aiName: modelNameToDesc(modelName, t) }
               if (config.autoRegenAfterSwitchModel && conversationItemData.length > 0)
                 getRetryFn(newSession)()
               else setSession(newSession)

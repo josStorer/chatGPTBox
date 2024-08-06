@@ -103,7 +103,7 @@ export function registerPortListener(executor) {
       if (!session) return
       const config = await getUserConfig()
       if (!session.modelName) session.modelName = config.modelName
-      if (!session.aiName) session.aiName = modelNameToDesc(session.modelName)
+      if (!session.aiName) session.aiName = modelNameToDesc(session.modelName, t)
       port.postMessage({ session })
       try {
         await executor(session, port, config)

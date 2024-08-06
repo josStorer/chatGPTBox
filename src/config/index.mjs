@@ -1,6 +1,8 @@
 import { defaults } from 'lodash-es'
 import Browser from 'webextension-polyfill'
 import { isMobile } from '../utils/is-mobile.mjs'
+import { modelNameToDesc } from '../utils/model-name-convert.mjs'
+import { t } from 'i18next'
 
 export const TriggerMode = {
   always: 'Always',
@@ -263,11 +265,13 @@ export const Models = {
 
 for (const modelName in Models) {
   if (isUsingMultiModeModel({ modelName }))
-    for (const mode in ModelMode)
-      Models[`${modelName}-${mode}`] = {
+    for (const mode in ModelMode) {
+      const key = `${modelName}-${mode}`
+      Models[key] = {
         value: mode,
-        desc: `${Models[modelName].desc} (${ModelMode[mode]})`,
+        desc: modelNameToDesc(key, t),
       }
+    }
 }
 
 /**

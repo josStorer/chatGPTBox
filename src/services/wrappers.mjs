@@ -102,7 +102,7 @@ export function registerPortListener(executor) {
       if (!session) return
       const config = await getUserConfig()
       if (!session.modelName) session.modelName = config.modelName
-      if (!session.apiMode) session.apiMode = config.apiMode
+      if (!session.apiMode && session.modelName !== 'customModel') session.apiMode = config.apiMode
       if (!session.aiName)
         session.aiName = modelNameToDesc(
           session.apiMode ? apiModeToModelName(session.apiMode) : session.modelName,

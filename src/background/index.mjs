@@ -83,7 +83,7 @@ async function executeApi(session, port, config) {
         port,
         session.question,
         session,
-        config.customModelApiUrl,
+        config.customModelApiUrl.trim() || 'http://localhost:8000/v1/chat/completions',
         config.customApiKey,
         config.customModelName,
       )
@@ -92,7 +92,7 @@ async function executeApi(session, port, config) {
         port,
         session.question,
         session,
-        session.apiMode.customUrl,
+        session.apiMode.customUrl.trim() || 'http://localhost:8000/v1/chat/completions',
         session.apiMode.apiKey,
         session.apiMode.customName,
       )

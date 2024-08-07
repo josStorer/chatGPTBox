@@ -88,6 +88,10 @@ async function checkBilling(apiKey, apiUrl) {
   }
 }
 
+function isUsingSpecialCustomModel(configOrSession) {
+  return isUsingCustomModel(configOrSession) && !configOrSession.apiMode
+}
+
 export function GeneralPart({ config, updateConfig, setTabIndex }) {
   const { t, i18n } = useTranslation()
   const [balance, setBalance] = useState(null)
@@ -173,7 +177,7 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
             style={
               isUsingOpenAiApiModel(config) ||
               isUsingMultiModeModel(config) ||
-              isUsingCustomModel(config) ||
+              isUsingSpecialCustomModel(config) ||
               isUsingAzureOpenAiApiModel(config) ||
               isUsingClaudeApiModel(config) ||
               isUsingMoonshotApiModel(config)
@@ -255,7 +259,7 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
               )}
             </span>
           )}
-          {isUsingCustomModel(config) && (
+          {isUsingSpecialCustomModel(config) && (
             <input
               style="width: 50%;"
               type="text"
@@ -328,7 +332,7 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
             </span>
           )}
         </span>
-        {isUsingCustomModel(config) && (
+        {isUsingSpecialCustomModel(config) && (
           <input
             type="text"
             value={config.customModelApiUrl}
@@ -339,7 +343,7 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
             }}
           />
         )}
-        {isUsingCustomModel(config) && (
+        {isUsingSpecialCustomModel(config) && (
           <input
             type="password"
             value={config.customApiKey}
@@ -421,17 +425,6 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
             onChange={(e) => {
               const endpoint = e.target.value
               updateConfig({ azureEndpoint: endpoint })
-            }}
-          />
-        )}
-        {isUsingAzureOpenAiApiModel(config) && (
-          <input
-            type="text"
-            value={config.azureDeploymentName}
-            placeholder={t('Azure Deployment Name')}
-            onChange={(e) => {
-              const deploymentName = e.target.value
-              updateConfig({ azureDeploymentName: deploymentName })
             }}
           />
         )}

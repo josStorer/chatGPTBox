@@ -97,7 +97,10 @@ export function getApiModesFromConfig(config, onlyActive) {
       return modelNameToApiMode(modelName)
     })
     .filter((apiMode) => apiMode)
-  return [...originalApiModes, ...config.customApiModes]
+  return [
+    ...originalApiModes,
+    ...config.customApiModes.filter((apiMode) => (onlyActive ? apiMode.active : true)),
+  ]
 }
 
 export function getApiModesStringArrayFromConfig(config, onlyActive) {

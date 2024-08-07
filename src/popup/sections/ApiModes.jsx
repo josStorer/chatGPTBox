@@ -25,7 +25,7 @@ const defaultApiMode = {
   itemName: 'chatgptFree35',
   isCustom: false,
   customName: '',
-  customUrl: '',
+  customUrl: 'http://localhost:8000/v1/chat/completions',
   apiKey: '',
   active: true,
 }
@@ -99,8 +99,11 @@ export function ApiModes({ config, updateConfig }) {
           value={editingApiMode.groupName}
           onChange={(e) => {
             const groupName = e.target.value
-            const itemName = ModelGroups[groupName].value[0]
-            setEditingApiMode({ ...editingApiMode, groupName, itemName })
+            let itemName = ModelGroups[groupName].value[0]
+            const isCustom =
+              editingApiMode.itemName === 'custom' && !AlwaysCustomGroups.includes(groupName)
+            if (isCustom) itemName = 'custom'
+            setEditingApiMode({ ...editingApiMode, groupName, itemName, isCustom })
           }}
         >
           {Object.entries(ModelGroups).map(([groupName, { desc }]) => (

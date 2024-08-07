@@ -14,7 +14,6 @@ import {
   isUsingChatGLMApiModel,
   isUsingClaudeApiModel,
   isUsingCustomModel,
-  isUsingCustomNameOnlyModel,
   isUsingOllamaApiModel,
   isUsingGithubThirdPartyApiModel,
   isUsingMultiModeModel,
@@ -175,10 +174,8 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
               isUsingOpenAiApiModel(config) ||
               isUsingMultiModeModel(config) ||
               isUsingCustomModel(config) ||
-              isUsingOllamaApiModel(config) ||
               isUsingAzureOpenAiApiModel(config) ||
               isUsingClaudeApiModel(config) ||
-              isUsingCustomNameOnlyModel(config) ||
               isUsingMoonshotApiModel(config)
                 ? 'width: 50%;'
                 : undefined
@@ -267,30 +264,6 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
               onChange={(e) => {
                 const customModelName = e.target.value
                 updateConfig({ customModelName: customModelName })
-              }}
-            />
-          )}
-          {isUsingCustomNameOnlyModel(config) && (
-            <input
-              style="width: 50%;"
-              type="text"
-              value={config.poeCustomBotName}
-              placeholder={t('Bot Name')}
-              onChange={(e) => {
-                const customName = e.target.value
-                updateConfig({ poeCustomBotName: customName })
-              }}
-            />
-          )}
-          {isUsingOllamaApiModel(config) && (
-            <input
-              style="width: 50%;"
-              type="text"
-              value={config.ollamaModelName}
-              placeholder={t('Model Name')}
-              onChange={(e) => {
-                const ollamaModelName = e.target.value
-                updateConfig({ ollamaModelName: ollamaModelName })
               }}
             />
           )}

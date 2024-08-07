@@ -160,6 +160,6 @@ export function isInApiModeGroup(apiModeGroup, configOrSession) {
   else foundGroup = getModelNameGroup(configOrSession.modelName)
 
   if (!foundGroup) return false
-  const [, groupValue] = foundGroup
+  const [, { value: groupValue }] = foundGroup
   return groupValue === apiModeGroup
 }

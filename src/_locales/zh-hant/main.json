@@ -151,5 +151,12 @@
   "5m": "5 分鐘",
   "30m": "30 分鐘",
   "Forever": "永遠",
-  "You have successfully logged in for ChatGPTBox and can now return": "您已成功為ChatGPTBox登入，現在可以返回"
+  "You have successfully logged in for ChatGPTBox and can now return": "您已成功為ChatGPTBox登入，現在可以返回",
+  "Claude.ai is not available in your region": "Claude.ai 在您的地區不可用",
+  "Claude.ai (Web)": "Claude.ai (網頁版)",
+  "Kimi.Moonshot (Web)": "Kimi.Moonshot (網頁版)",
+  "Bing (Web)": "Bing (網頁版)",
+  "Gemini (Web)": "Gemini (網頁版)",
+  "Type": "類型",
+  "Mode": "模式"
 }

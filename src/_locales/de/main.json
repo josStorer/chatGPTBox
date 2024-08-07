@@ -151,5 +151,12 @@
   "5m": "5m",
   "30m": "30m",
   "Forever": "Für immer",
-  "You have successfully logged in for ChatGPTBox and can now return": "Sie haben sich erfolgreich für ChatGPTBox angemeldet und können jetzt zurückkehren"
+  "You have successfully logged in for ChatGPTBox and can now return": "Sie haben sich erfolgreich für ChatGPTBox angemeldet und können jetzt zurückkehren",
+  "Claude.ai is not available in your region": "Claude.ai ist in Ihrer Region nicht verfügbar",
+  "Claude.ai (Web)": "Claude.ai (Web)",
+  "Kimi.Moonshot (Web)": "Kimi.Moonshot (Web)",
+  "Bing (Web)": "Bing (Web)",
+  "Gemini (Web)": "Gemini (Web)",
+  "Type": "Typ",
+  "Mode": "Modus"
 }

@@ -151,5 +151,12 @@
   "5m": "5m",
   "30m": "30m",
   "Forever": "Sonsuza dek",
-  "You have successfully logged in for ChatGPTBox and can now return": "ChatGPTBox için başarıyla giriş yaptınız ve şimdi geri dönebilirsiniz"
+  "You have successfully logged in for ChatGPTBox and can now return": "ChatGPTBox için başarıyla giriş yaptınız ve şimdi geri dönebilirsiniz",
+  "Claude.ai is not available in your region": "Claude.ai bölgenizde mevcut değil",
+  "Claude.ai (Web)": "Claude.ai (Web)",
+  "Kimi.Moonshot (Web)": "Kimi.Moonshot (Web)",
+  "Bing (Web)": "Bing (Web)",
+  "Gemini (Web)": "Gemini (Web)",
+  "Type": "Tür",
+  "Mode": "Mod"
 }

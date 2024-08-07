@@ -151,5 +151,12 @@
   "5m": "5분",
   "30m": "30분",
   "Forever": "영원히",
-  "You have successfully logged in for ChatGPTBox and can now return": "ChatGPTBox에 성공적으로 로그인하였으며 이제 돌아갈 수 있습니다"
+  "You have successfully logged in for ChatGPTBox and can now return": "ChatGPTBox에 성공적으로 로그인하였으며 이제 돌아갈 수 있습니다",
+  "Claude.ai is not available in your region": "Claude.ai는 귀하의 지역에서 사용할 수 없습니다",
+  "Claude.ai (Web)": "Claude.ai (웹)",
+  "Kimi.Moonshot (Web)": "Kimi.Moonshot (웹)",
+  "Bing (Web)": "Bing (웹)",
+  "Gemini (Web)": "Gemini (웹)",
+  "Type": "유형",
+  "Mode": "모드"
 }

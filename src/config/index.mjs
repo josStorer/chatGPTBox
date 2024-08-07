@@ -65,9 +65,9 @@ export const claudeApiModelKeys = [
   'claude2Api',
   'claude21Api',
   'claude3HaikuApi',
-  'claude35SonnetApi',
   'claude3SonnetApi',
   'claude3OpusApi',
+  'claude35SonnetApi',
 ]
 export const chatglmApiModelKeys = ['chatglmTurbo', 'chatglm4', 'chatglmEmohaa', 'chatglmCharGLM3']
 export const githubThirdPartyApiModelKeys = ['waylaidwandererApi']

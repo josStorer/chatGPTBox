@@ -151,5 +151,12 @@
   "5m": "5分",
   "30m": "30分",
   "Forever": "永久",
-  "You have successfully logged in for ChatGPTBox and can now return": "ChatGPTBoxに正常にログインしました。これで戻ることができます"
+  "You have successfully logged in for ChatGPTBox and can now return": "ChatGPTBoxに正常にログインしました。これで戻ることができます",
+  "Claude.ai is not available in your region": "Claude.ai はあなたの地域では利用できません",
+  "Claude.ai (Web)": "Claude.ai (Web)",
+  "Kimi.Moonshot (Web)": "Kimi.Moonshot (Web)",
+  "Bing (Web)": "Bing (Web)",
+  "Gemini (Web)": "Gemini (Web)",
+  "Type": "タイプ",
+  "Mode": "モード"
 }

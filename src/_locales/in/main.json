@@ -151,5 +151,12 @@
   "5m": "5m",
   "30m": "30m",
   "Forever": "Selamanya",
-  "You have successfully logged in for ChatGPTBox and can now return": "Anda telah berhasil masuk untuk ChatGPTBox dan sekarang dapat kembali"
+  "You have successfully logged in for ChatGPTBox and can now return": "Anda telah berhasil masuk untuk ChatGPTBox dan sekarang dapat kembali",
+  "Claude.ai is not available in your region": "Claude.ai tidak tersedia di wilayah Anda",
+  "Claude.ai (Web)": "Claude.ai (Web)",
+  "Kimi.Moonshot (Web)": "Kimi.Moonshot (Web)",
+  "Bing (Web)": "Bing (Web)",
+  "Gemini (Web)": "Gemini (Web)",
+  "Type": "Jenis",
+  "Mode": "Mode"
 }

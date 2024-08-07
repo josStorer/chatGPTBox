@@ -16,24 +16,23 @@ import { generateAnswersWithClaudeApi } from '../services/apis/claude-api.mjs'
 import { generateAnswersWithChatGLMApi } from '../services/apis/chatglm-api.mjs'
 import { generateAnswersWithWaylaidwandererApi } from '../services/apis/waylaidwanderer-api.mjs'
 import {
-  azureOpenAiApiModelKeys,
-  claudeApiModelKeys,
-  chatglmApiModelKeys,
-  bardWebModelKeys,
-  bingWebModelKeys,
-  chatgptApiModelKeys,
-  chatgptWebModelKeys,
-  claudeWebModelKeys,
-  moonshotWebModelKeys,
-  customApiModelKeys,
-  ollamaApiModelKeys,
   defaultConfig,
   getUserConfig,
-  githubThirdPartyApiModelKeys,
-  gptApiModelKeys,
-  poeWebModelKeys,
   setUserConfig,
-  moonshotApiModelKeys,
+  isUsingChatgptWebModel,
+  isUsingBingWebModel,
+  isUsingGptCompletionApiModel,
+  isUsingChatgptApiModel,
+  isUsingCustomModel,
+  isUsingOllamaApiModel,
+  isUsingAzureOpenAiApiModel,
+  isUsingClaudeApiModel,
+  isUsingChatGLMApiModel,
+  isUsingGithubThirdPartyApiModel,
+  isUsingGeminiWebModel,
+  isUsingClaudeWebModel,
+  isUsingMoonshotApiModel,
+  isUsingMoonshotWebModel,
 } from '../config/index.mjs'
 import '../_locales/i18n'
 import { openUrl } from '../utils/open-url'
@@ -50,6 +49,7 @@ import { generateAnswersWithBardWebApi } from '../services/apis/bard-web.mjs'
 import { generateAnswersWithClaudeWebApi } from '../services/apis/claude-web.mjs'
 import { generateAnswersWithMoonshotCompletionApi } from '../services/apis/moonshot-api.mjs'
 import { generateAnswersWithMoonshotWebApi } from '../services/apis/moonshot-web.mjs'
+import { isUsingModelName } from '../utils/model-name-convert.mjs'
 
 function setPortProxy(port, proxyTabId) {
   port.proxy = Browser.tabs.connect(proxyTabId)
@@ -77,7 +77,26 @@ function setPortProxy(port, proxyTabId) {
 async function executeApi(session, port, config) {
   console.debug('modelName', session.modelName)
   console.debug('apiMode', session.apiMode)
-  if (chatgptWebModelKeys.includes(session.modelName)) {
+  if (isUsingCustomModel(session)) {
+    if (!session.apiMode)
+      await generateAnswersWithCustomApi(
+        port,
+        session.question,
+        session,
+        config.customModelApiUrl,
+        config.customApiKey,
+        config.customModelName,
+      )
+    else
+      await generateAnswersWithCustomApi(
+        port,
+        session.question,
+        session,
+        session.apiMode.customUrl,
+        session.apiMode.apiKey,
+        session.apiMode.customName,
+      )
+  } else if (isUsingChatgptWebModel(session)) {
     let tabId
     if (
       config.chatgptTabId &&
@@ -95,87 +114,40 @@ async function executeApi(session, port, config) {
       const accessToken = await getChatGptAccessToken()
       await generateAnswersWithChatgptWebApi(port, session.question, session, accessToken)
     }
-  } else if (
-    // `.some` for multi mode models. e.g. bingFree4-balanced
-    bingWebModelKeys.some((n) => session.modelName.includes(n))
-  ) {
+  } else if (isUsingClaudeWebModel(session)) {
+    const sessionKey = await getClaudeSessionKey()
+    await generateAnswersWithClaudeWebApi(port, session.question, session, sessionKey)
+  } else if (isUsingMoonshotWebModel(session)) {
+    await generateAnswersWithMoonshotWebApi(port, session.question, session, config)
+  } else if (isUsingBingWebModel(session)) {
     const accessToken = await getBingAccessToken()
-    if (session.modelName.includes('bingFreeSydney'))
+    if (isUsingModelName('bingFreeSydney', session))
       await generateAnswersWithBingWebApi(port, session.question, session, accessToken, true)
     else await generateAnswersWithBingWebApi(port, session.question, session, accessToken)
-  } else if (gptApiModelKeys.includes(session.modelName)) {
-    await generateAnswersWithGptCompletionApi(
-      port,
-      session.question,
-      session,
-      config.apiKey,
-      session.modelName,
-    )
-  } else if (chatgptApiModelKeys.includes(session.modelName)) {
-    await generateAnswersWithChatgptApi(
-      port,
-      session.question,
-      session,
-      config.apiKey,
-      session.modelName,
-    )
-  } else if (customApiModelKeys.includes(session.modelName)) {
-    await generateAnswersWithCustomApi(
-      port,
-      session.question,
-      session,
-      config.customApiKey,
-      config.customModelName,
-    )
-  } else if (ollamaApiModelKeys.includes(session.modelName)) {
-    await generateAnswersWithOllamaApi(port, session.question, session)
-  } else if (azureOpenAiApiModelKeys.includes(session.modelName)) {
-    await generateAnswersWithAzureOpenaiApi(port, session.question, session)
-  } else if (claudeApiModelKeys.includes(session.modelName)) {
-    await generateAnswersWithClaudeApi(port, session.question, session)
-  } else if (chatglmApiModelKeys.includes(session.modelName)) {
-    await generateAnswersWithChatGLMApi(port, session.question, session, session.modelName)
-  } else if (githubThirdPartyApiModelKeys.includes(session.modelName)) {
-    await generateAnswersWithWaylaidwandererApi(port, session.question, session)
-  } else if (poeWebModelKeys.includes(session.modelName)) {
-    throw new Error('Due to the new verification, Poe Web API is currently not supported.')
-    // if (session.modelName === 'poeAiWebCustom')
-    //   await generateAnswersWithPoeWebApi(port, session.question, session, config.poeCustomBotName)
-    // else
-    //   await generateAnswersWithPoeWebApi(
-    //     port,
-    //     session.question,
-    //     session,
-    //     Models[session.modelName].value,
-    //   )
-  } else if (bardWebModelKeys.includes(session.modelName)) {
+  } else if (isUsingGeminiWebModel(session)) {
     const cookies = await getBardCookies()
     await generateAnswersWithBardWebApi(port, session.question, session, cookies)
-  } else if (claudeWebModelKeys.includes(session.modelName)) {
-    const sessionKey = await getClaudeSessionKey()
-    await generateAnswersWithClaudeWebApi(
-      port,
-      session.question,
-      session,
-      sessionKey,
-      session.modelName,
-    )
-  } else if (moonshotApiModelKeys.includes(session.modelName)) {
+  } else if (isUsingChatgptApiModel(session)) {
+    await generateAnswersWithChatgptApi(port, session.question, session, config.apiKey)
+  } else if (isUsingClaudeApiModel(session)) {
+    await generateAnswersWithClaudeApi(port, session.question, session)
+  } else if (isUsingMoonshotApiModel(session)) {
     await generateAnswersWithMoonshotCompletionApi(
       port,
       session.question,
       session,
       config.moonshotApiKey,
-      session.modelName,
     )
-  } else if (moonshotWebModelKeys.includes(session.modelName)) {
-    await generateAnswersWithMoonshotWebApi(
-      port,
-      session.question,
-      session,
-      config,
-      session.modelName,
-    )
+  } else if (isUsingChatGLMApiModel(session)) {
+    await generateAnswersWithChatGLMApi(port, session.question, session)
+  } else if (isUsingOllamaApiModel(session)) {
+    await generateAnswersWithOllamaApi(port, session.question, session)
+  } else if (isUsingAzureOpenAiApiModel(session)) {
+    await generateAnswersWithAzureOpenaiApi(port, session.question, session)
+  } else if (isUsingGptCompletionApiModel(session)) {
+    await generateAnswersWithGptCompletionApi(port, session.question, session, config.apiKey)
+  } else if (isUsingGithubThirdPartyApiModel(session)) {
+    await generateAnswersWithWaylaidwandererApi(port, session.question, session)
   }
 }
 

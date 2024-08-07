@@ -99,9 +99,8 @@ export async function generateAnswersWithGptCompletionApi(port, question, sessio
  * @param {string} question
  * @param {Session} session
  * @param {string} apiKey
- * @param {string} modelName
  */
-export async function generateAnswersWithChatgptApi(port, question, session, apiKey, modelName) {
+export async function generateAnswersWithChatgptApi(port, question, session, apiKey) {
   const config = await getUserConfig()
   return generateAnswersWithChatgptApiCompat(
     config.customOpenAiApiUrl + '/v1',
@@ -109,7 +108,6 @@ export async function generateAnswersWithChatgptApi(port, question, session, api
     question,
     session,
     apiKey,
-    modelName,
   )
 }
 
@@ -119,7 +117,6 @@ export async function generateAnswersWithChatgptApiCompat(
   question,
   session,
   apiKey,
-  modelName,
   extraBody = {},
 ) {
   const { controller, messageListener, disconnectListener } = setAbortController(port)

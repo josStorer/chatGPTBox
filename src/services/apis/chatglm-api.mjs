@@ -6,9 +6,8 @@ import { generateAnswersWithChatgptApiCompat } from './openai-api.mjs'
  * @param {Runtime.Port} port
  * @param {string} question
  * @param {Session} session
- * @param {string} modelName
  */
-export async function generateAnswersWithChatGLMApi(port, question, session, modelName) {
+export async function generateAnswersWithChatGLMApi(port, question, session) {
   const baseUrl = 'https://open.bigmodel.cn/api/paas/v4'
   const config = await getUserConfig()
   return generateAnswersWithChatgptApiCompat(
@@ -17,6 +16,5 @@ export async function generateAnswersWithChatGLMApi(port, question, session, mod
     question,
     session,
     getToken(config.chatglmApiKey),
-    modelName,
   )
 }

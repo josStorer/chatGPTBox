@@ -3,6 +3,7 @@ import { getChatSystemPromptBase, pushRecord, setAbortController } from './share
 import { getConversationPairs } from '../../utils/get-conversation-pairs.mjs'
 import { fetchSSE } from '../../utils/fetch-sse.mjs'
 import { isEmpty } from 'lodash-es'
+import { getModelValue } from '../../utils/model-name-convert.mjs'
 
 /**
  * @param {Runtime.Port} port
@@ -12,6 +13,8 @@ import { isEmpty } from 'lodash-es'
 export async function generateAnswersWithAzureOpenaiApi(port, question, session) {
   const { controller, messageListener, disconnectListener } = setAbortController(port)
   const config = await getUserConfig()
+  let model = getModelValue(session)
+  if (!model) model = config.azureDeploymentName
 
   const prompt = getConversationPairs(
     session.conversationRecords.slice(-config.maxConversationContextLength),
@@ -22,9 +25,10 @@ export async function generateAnswersWithAzureOpenaiApi(port, question, session)
 
   let answer = ''
   await fetchSSE(
-    `${config.azureEndpoint.replace(/\/$/, '')}/openai/deployments/${
-      config.azureDeploymentName
-    }/chat/completions?api-version=2024-02-01`,
+    `${config.azureEndpoint.replace(
+      /\/$/,
+      '',
+    )}/openai/deployments/${model}/chat/completions?api-version=2024-02-01`,
     {
       method: 'POST',
       signal: controller.signal,

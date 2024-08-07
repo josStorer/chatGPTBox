@@ -14,10 +14,6 @@ export async function generateAnswersWithOllamaApi(port, question, session) {
     question,
     session,
     config.ollamaApiKey,
-    'ollamaModel',
-    {
-      model: config.ollamaModelName,
-    },
   ).then(() =>
     fetch(config.ollamaEndpoint + '/api/generate', {
       method: 'POST',

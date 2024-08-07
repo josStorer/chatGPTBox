@@ -9,19 +9,19 @@ import {
   apiModeToModelName,
 } from '../../utils/index.mjs'
 import {
-  isUsingOpenAiApiKey,
-  isUsingAzureOpenAi,
-  isUsingChatGLMApi,
-  isUsingClaudeApi,
+  isUsingOpenAiApiModel,
+  isUsingAzureOpenAiApiModel,
+  isUsingChatGLMApiModel,
+  isUsingClaudeApiModel,
   isUsingCustomModel,
   isUsingCustomNameOnlyModel,
-  isUsingOllamaModel,
-  isUsingGithubThirdPartyApi,
+  isUsingOllamaApiModel,
+  isUsingGithubThirdPartyApiModel,
   isUsingMultiModeModel,
   ModelMode,
   ThemeMode,
   TriggerMode,
-  isUsingMoonshotApi,
+  isUsingMoonshotApiModel,
   Models,
 } from '../../config/index.mjs'
 import Browser from 'webextension-polyfill'
@@ -172,20 +172,20 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
         <span style="display: flex; gap: 15px;">
           <select
             style={
-              isUsingOpenAiApiKey(config) ||
+              isUsingOpenAiApiModel(config) ||
               isUsingMultiModeModel(config) ||
               isUsingCustomModel(config) ||
-              isUsingOllamaModel(config) ||
-              isUsingAzureOpenAi(config) ||
-              isUsingClaudeApi(config) ||
+              isUsingOllamaApiModel(config) ||
+              isUsingAzureOpenAiApiModel(config) ||
+              isUsingClaudeApiModel(config) ||
               isUsingCustomNameOnlyModel(config) ||
-              isUsingMoonshotApi(config)
+              isUsingMoonshotApiModel(config)
                 ? 'width: 50%;'
                 : undefined
             }
             required
             onChange={(e) => {
-              if (e.target.value === -1) {
+              if (e.target.value === '-1') {
                 updateConfig({ modelName: 'customModel', apiMode: null })
                 return
               }
@@ -197,11 +197,8 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
               const modelName = apiModeToModelName(apiMode)
               const desc = modelNameToDesc(modelName, t)
               if (desc) {
-                let selected
-                if (isApiModeSelected(apiMode, config)) selected = true
-                else selected = config.modelName === modelName
                 return (
-                  <option value={index} key={index} selected={selected}>
+                  <option value={index} key={index} selected={isApiModeSelected(apiMode, config)}>
                     {desc}
                   </option>
                 )
@@ -229,7 +226,7 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
               })}
             </select>
           )}
-          {isUsingOpenAiApiKey(config) && (
+          {isUsingOpenAiApiModel(config) && (
             <span style="width: 50%; display: flex; gap: 5px;">
               <input
                 type="password"
@@ -285,7 +282,7 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
               }}
             />
           )}
-          {isUsingOllamaModel(config) && (
+          {isUsingOllamaApiModel(config) && (
             <input
               style="width: 50%;"
               type="text"
@@ -297,7 +294,7 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
               }}
             />
           )}
-          {isUsingAzureOpenAi(config) && (
+          {isUsingAzureOpenAiApiModel(config) && (
             <input
               type="password"
               style="width: 50%;"
@@ -309,7 +306,7 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
               }}
             />
           )}
-          {isUsingClaudeApi(config) && (
+          {isUsingClaudeApiModel(config) && (
             <input
               type="password"
               style="width: 50%;"
@@ -321,7 +318,7 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
               }}
             />
           )}
-          {isUsingChatGLMApi(config) && (
+          {isUsingChatGLMApiModel(config) && (
             <input
               type="password"
               style="width: 50%;"
@@ -333,7 +330,7 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
               }}
             />
           )}
-          {isUsingMoonshotApi(config) && (
+          {isUsingMoonshotApiModel(config) && (
             <span style="width: 50%; display: flex; gap: 5px;">
               <input
                 type="password"
@@ -380,7 +377,7 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
             }}
           />
         )}
-        {isUsingOllamaModel(config) && (
+        {isUsingOllamaApiModel(config) && (
           <div style={{ display: 'flex', gap: '10px' }}>
             {t('Keep-Alive Time') + ':'}
             <label>
@@ -421,7 +418,7 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
             </label>
           </div>
         )}
-        {isUsingOllamaModel(config) && (
+        {isUsingOllamaApiModel(config) && (
           <input
             type="text"
             value={config.ollamaEndpoint}
@@ -432,7 +429,7 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
             }}
           />
         )}
-        {isUsingOllamaModel(config) && (
+        {isUsingOllamaApiModel(config) && (
           <input
             type="password"
             value={config.ollamaApiKey}
@@ -443,7 +440,7 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
             }}
           />
         )}
-        {isUsingAzureOpenAi(config) && (
+        {isUsingAzureOpenAiApiModel(config) && (
           <input
             type="password"
             value={config.azureEndpoint}
@@ -454,7 +451,7 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
             }}
           />
         )}
-        {isUsingAzureOpenAi(config) && (
+        {isUsingAzureOpenAiApiModel(config) && (
           <input
             type="text"
             value={config.azureDeploymentName}
@@ -465,7 +462,7 @@ export function GeneralPart({ config, updateConfig, setTabIndex }) {
             }}
           />
         )}
-        {isUsingGithubThirdPartyApi(config) && (
+        {isUsingGithubThirdPartyApiModel(config) && (
           <input
             type="text"
             value={config.githubThirdPartyUrl}

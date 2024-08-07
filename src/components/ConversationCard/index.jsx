@@ -382,7 +382,7 @@ function ConversationCard(props) {
             onChange={(e) => {
               let apiMode = null
               let modelName = 'customModel'
-              if (e.target.value !== -1) {
+              if (e.target.value !== '-1') {
                 apiMode = apiModes[e.target.value]
                 modelName = apiModeToModelName(apiMode)
               }
@@ -390,7 +390,7 @@ function ConversationCard(props) {
                 ...session,
                 modelName,
                 apiMode,
-                aiName: modelNameToDesc(modelName, t),
+                aiName: modelNameToDesc(apiMode ? apiModeToModelName(apiMode) : modelName, t),
               }
               if (config.autoRegenAfterSwitchModel && conversationItemData.length > 0)
                 getRetryFn(newSession)()
@@ -401,17 +401,14 @@ function ConversationCard(props) {
               const modelName = apiModeToModelName(apiMode)
               const desc = modelNameToDesc(modelName, t)
               if (desc) {
-                let selected
-                if (isApiModeSelected(apiMode, session)) selected = true
-                else selected = session.modelName === modelName
                 return (
-                  <option value={index} key={index} selected={selected}>
+                  <option value={index} key={index} selected={isApiModeSelected(apiMode, session)}>
                     {desc}
                   </option>
                 )
               }
             })}
-            <option value={-1} selected={!config.apiMode && config.modelName === 'customModel'}>
+            <option value={-1} selected={!session.apiMode && session.modelName === 'customModel'}>
               {t(Models.customModel.desc)}
             </option>
           </select>

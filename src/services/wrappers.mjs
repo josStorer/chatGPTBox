@@ -7,7 +7,7 @@ import {
 } from '../config/index.mjs'
 import Browser from 'webextension-polyfill'
 import { t } from 'i18next'
-import { modelNameToDesc } from '../utils/model-name-convert.mjs'
+import { apiModeToModelName, modelNameToDesc } from '../utils/model-name-convert.mjs'
 
 export async function getChatGptAccessToken() {
   await clearOldAccessToken()
@@ -103,7 +103,12 @@ export function registerPortListener(executor) {
       if (!session) return
       const config = await getUserConfig()
       if (!session.modelName) session.modelName = config.modelName
-      if (!session.aiName) session.aiName = modelNameToDesc(session.modelName, t)
+      if (!session.apiMode) session.apiMode = config.apiMode
+      if (!session.aiName)
+        session.aiName = modelNameToDesc(
+          session.apiMode ? apiModeToModelName(session.apiMode) : session.modelName,
+          t,
+        )
       port.postMessage({ session })
       try {
         await executor(session, port, config)

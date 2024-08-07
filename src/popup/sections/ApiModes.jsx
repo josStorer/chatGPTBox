@@ -50,7 +50,7 @@ export function ApiModes({ config, updateConfig }) {
   ])
 
   const updateWhenApiModeDisabled = (apiMode) => {
-    if (isApiModeSelected(apiMode, config) || config.modelName === apiModeToModelName(apiMode))
+    if (isApiModeSelected(apiMode, config))
       updateConfig({
         modelName:
           apiModeStringArray.includes(config.modelName) &&
@@ -82,11 +82,7 @@ export function ApiModes({ config, updateConfig }) {
               })
             } else {
               const apiMode = apiModes[editingIndex]
-              if (
-                isApiModeSelected(apiMode, config) ||
-                config.modelName === apiModeToModelName(apiMode) // there is a minor bug here, but it's not a big issue
-              )
-                updateConfig({ apiMode: editingApiMode })
+              if (isApiModeSelected(apiMode, config)) updateConfig({ apiMode: editingApiMode })
               const customApiModes = [...apiModes]
               customApiModes[editingIndex] = editingApiMode
               updateConfig({ activeApiModes: [], customApiModes })

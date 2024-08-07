@@ -47,9 +47,7 @@ export function isCustomModelName(modelName) {
 
 export function modelNameToApiMode(modelName) {
   const presetPart = modelNameToPresetPart(modelName)
-  const found =
-    Object.entries(ModelGroups).find(([k]) => presetPart === k) ||
-    Object.entries(ModelGroups).find(([, g]) => g.value.includes(presetPart))
+  const found = getModelNameGroup(presetPart)
   if (found) {
     const [groupName] = found
     const isCustom = isCustomModelName(modelName)
@@ -107,7 +105,29 @@ export function getApiModesStringArrayFromConfig(config, onlyActive) {
 }
 
 export function isApiModeSelected(apiMode, configOrSession) {
+  return configOrSession.apiMode
+    ? JSON.stringify(configOrSession.apiMode) === JSON.stringify(apiMode)
+    : configOrSession.modelName === apiModeToModelName(apiMode)
+}
+
+export function getModelNameGroup(modelName) {
+  const presetPart = modelNameToPresetPart(modelName)
   return (
-    configOrSession.apiMode && JSON.stringify(configOrSession.apiMode) === JSON.stringify(apiMode)
+    Object.entries(ModelGroups).find(([k]) => presetPart === k) ||
+    Object.entries(ModelGroups).find(([, g]) => g.value.includes(presetPart))
   )
+}
+
+export function getApiModeGroup(apiMode) {
+  return getModelNameGroup(apiModeToModelName(apiMode))
+}
+
+export function isInApiModeGroup(apiModeGroup, configOrSession) {
+  let foundGroup
+  if (configOrSession.apiMode) foundGroup = getApiModeGroup(configOrSession.apiMode)
+  else foundGroup = getModelNameGroup(configOrSession.modelName)
+
+  if (!foundGroup) return false
+  const [, groupValue] = foundGroup
+  return groupValue === apiModeGroup
 }

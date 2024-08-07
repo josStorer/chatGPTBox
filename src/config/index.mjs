@@ -1,7 +1,7 @@
 import { defaults } from 'lodash-es'
 import Browser from 'webextension-polyfill'
 import { isMobile } from '../utils/is-mobile.mjs'
-import { modelNameToDesc } from '../utils/model-name-convert.mjs'
+import { isInApiModeGroup, modelNameToDesc } from '../utils/model-name-convert.mjs'
 import { t } from 'i18next'
 
 export const TriggerMode = {
@@ -458,51 +458,75 @@ export function getNavigatorLanguage() {
   return navigator.language.substring(0, 2)
 }
 
-export function isUsingOpenAiApiKey(configOrSession) {
-  return (
-    gptApiModelKeys.includes(configOrSession.modelName) ||
-    chatgptApiModelKeys.includes(configOrSession.modelName)
-  )
+export function isUsingChatgptWebModel(configOrSession) {
+  return isInApiModeGroup(chatgptWebModelKeys, configOrSession)
+}
+
+export function isUsingClaudeWebModel(configOrSession) {
+  return isInApiModeGroup(claudeWebModelKeys, configOrSession)
+}
+
+export function isUsingMoonshotWebModel(configOrSession) {
+  return isInApiModeGroup(moonshotWebModelKeys, configOrSession)
+}
+
+export function isUsingBingWebModel(configOrSession) {
+  return isInApiModeGroup(bingWebModelKeys, configOrSession)
 }
 
 export function isUsingMultiModeModel(configOrSession) {
-  return bingWebModelKeys.includes(configOrSession.modelName)
+  return isInApiModeGroup(bingWebModelKeys, configOrSession)
+}
+
+export function isUsingGeminiWebModel(configOrSession) {
+  return isInApiModeGroup(bardWebModelKeys, configOrSession)
+}
+
+export function isUsingChatgptApiModel(configOrSession) {
+  return isInApiModeGroup(chatgptApiModelKeys, configOrSession)
+}
+
+export function isUsingGptCompletionApiModel(configOrSession) {
+  return isInApiModeGroup(gptApiModelKeys, configOrSession)
+}
+
+export function isUsingOpenAiApiModel(configOrSession) {
+  return isUsingChatgptApiModel(configOrSession) || isUsingGptCompletionApiModel(configOrSession)
+}
+
+export function isUsingClaudeApiModel(configOrSession) {
+  return isInApiModeGroup(claudeApiModelKeys, configOrSession)
+}
+
+export function isUsingMoonshotApiModel(configOrSession) {
+  return isInApiModeGroup(moonshotApiModelKeys, configOrSession)
+}
+
+export function isUsingChatGLMApiModel(configOrSession) {
+  return isInApiModeGroup(chatglmApiModelKeys, configOrSession)
+}
+
+export function isUsingOllamaApiModel(configOrSession) {
+  return isInApiModeGroup(ollamaApiModelKeys, configOrSession)
+}
+
+export function isUsingAzureOpenAiApiModel(configOrSession) {
+  return isInApiModeGroup(azureOpenAiApiModelKeys, configOrSession)
+}
+
+export function isUsingGithubThirdPartyApiModel(configOrSession) {
+  return isInApiModeGroup(githubThirdPartyApiModelKeys, configOrSession)
 }
 
 export function isUsingCustomModel(configOrSession) {
-  return customApiModelKeys.includes(configOrSession.modelName)
+  return isInApiModeGroup(customApiModelKeys, configOrSession)
 }
 
-export function isUsingOllamaModel(configOrSession) {
-  return ollamaApiModelKeys.includes(configOrSession.modelName)
-}
-
-export function isUsingChatGLMApi(configOrSession) {
-  return chatglmApiModelKeys.includes(configOrSession.modelName)
-}
-
-export function isUsingMoonshotApi(configOrSession) {
-  return moonshotApiModelKeys.includes(configOrSession.modelName)
-}
-
+/**
+ * @deprecated
+ */
 export function isUsingCustomNameOnlyModel(configOrSession) {
   return configOrSession.modelName === 'poeAiWebCustom'
-}
-
-export function isUsingAzureOpenAi(configOrSession) {
-  return azureOpenAiApiModelKeys.includes(configOrSession.modelName)
-}
-
-export function isUsingClaudeApi(configOrSession) {
-  return claudeApiModelKeys.includes(configOrSession.modelName)
-}
-
-export function isUsingMoonshotWeb(configOrSession) {
-  return moonshotWebModelKeys.includes(configOrSession.modelName)
-}
-
-export function isUsingGithubThirdPartyApi(configOrSession) {
-  return githubThirdPartyApiModelKeys.includes(configOrSession.modelName)
 }
 
 export async function getPreferredLanguageKey() {

@@ -22,7 +22,7 @@
 
 import { encode } from '@nem035/gpt-3-encoder'
 import { getUserConfig } from '../config/index.mjs'
-import { modelNameToDesc } from './model-name-convert.mjs'
+import { apiModeToModelName, modelNameToDesc } from './model-name-convert.mjs'
 
 const clamp = (v, min, max) => {
   return Math.min(Math.max(v, min), max)
@@ -36,7 +36,9 @@ export async function cropText(
   tiktoken = true,
 ) {
   const userConfig = await getUserConfig()
-  const k = modelNameToDesc(userConfig.modelName).match(/[- (]*([0-9]+)k/)?.[1]
+  const k = modelNameToDesc(
+    userConfig.apiMode ? apiModeToModelName(userConfig.apiMode) : userConfig.modelName,
+  ).match(/[- (]*([0-9]+)k/)?.[1]
   if (k) {
     maxLength = Number(k) * 1000
     maxLength -= 100 + clamp(userConfig.maxResponseTokenLength, 1, maxLength - 1000)

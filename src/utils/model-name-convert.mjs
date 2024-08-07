@@ -1,8 +1,13 @@
 import { AlwaysCustomGroups, ModelGroups, ModelMode, Models } from '../config/index.mjs'
 
-export function modelNameToDesc(modelName, t) {
+export function modelNameToDesc(modelName, t, extraCustomModelName = '') {
   if (!t) t = (x) => x
-  if (modelName in Models) return t(Models[modelName].desc)
+  if (modelName in Models) {
+    const desc = t(Models[modelName].desc)
+    if (modelName === 'customModel' && extraCustomModelName)
+      return `${desc} (${extraCustomModelName})`
+    return desc
+  }
 
   let desc = modelName
   if (isCustomModelName(modelName)) {
@@ -39,6 +44,13 @@ export function modelNameToValue(modelName) {
   if (modelName in Models) return Models[modelName].value
 
   return modelNameToCustomPart(modelName)
+}
+
+export function getModelValue(configOrSession) {
+  let value
+  if (configOrSession.apiMode) value = modelNameToValue(apiModeToModelName(configOrSession.apiMode))
+  else value = modelNameToValue(configOrSession.modelName)
+  return value
 }
 
 export function isCustomModelName(modelName) {
@@ -111,6 +123,23 @@ export function isApiModeSelected(apiMode, configOrSession) {
   return configOrSession.apiMode
     ? JSON.stringify(configOrSession.apiMode) === JSON.stringify(apiMode)
     : configOrSession.modelName === apiModeToModelName(apiMode)
+}
+
+// also match custom modelName, e.g. when modelName is bingFree4, configOrSession model is bingFree4-fast, it returns true
+export function isUsingModelName(modelName, configOrSession) {
+  let configOrSessionModelName = configOrSession.apiMode
+    ? apiModeToModelName(configOrSession.apiMode)
+    : configOrSession.modelName
+  if (modelName === configOrSessionModelName) {
+    return true
+  }
+
+  if (isCustomModelName(configOrSessionModelName)) {
+    const presetPart = modelNameToPresetPart(configOrSessionModelName)
+    if (presetPart in Models) configOrSessionModelName = presetPart
+    else if (presetPart in ModelGroups) configOrSessionModelName = ModelGroups[presetPart].value[0]
+  }
+  return configOrSessionModelName === modelName
 }
 
 export function getModelNameGroup(modelName) {

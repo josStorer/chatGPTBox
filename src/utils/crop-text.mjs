@@ -38,6 +38,7 @@ export async function cropText(
   const userConfig = await getUserConfig()
   const k = modelNameToDesc(
     userConfig.apiMode ? apiModeToModelName(userConfig.apiMode) : userConfig.modelName,
+    userConfig.customModelName,
   ).match(/[- (]*([0-9]+)k/)?.[1]
   if (k) {
     maxLength = Number(k) * 1000

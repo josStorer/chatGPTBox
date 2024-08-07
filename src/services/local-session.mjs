@@ -9,6 +9,7 @@ export const initDefaultSession = async () => {
     modelName: config.modelName,
     apiMode: config.apiMode,
     autoClean: false,
+    extraCustomModelName: config.customModelName,
   })
 }
 

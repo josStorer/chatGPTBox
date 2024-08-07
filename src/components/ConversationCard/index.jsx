@@ -11,6 +11,7 @@ import {
   isFirefox,
   isMobile,
   isSafari,
+  isUsingModelName,
   modelNameToDesc,
 } from '../../utils'
 import {
@@ -25,7 +26,7 @@ import FileSaver from 'file-saver'
 import { render } from 'preact'
 import FloatingToolbar from '../FloatingToolbar'
 import { useClampWindowSize } from '../../hooks/use-clamp-window-size'
-import { bingWebModelKeys, getUserConfig, Models } from '../../config/index.mjs'
+import { getUserConfig, isUsingBingWebModel, Models } from '../../config/index.mjs'
 import { useTranslation } from 'react-i18next'
 import DeleteButton from '../DeleteButton'
 import { useConfig } from '../../hooks/use-config.mjs'
@@ -61,8 +62,7 @@ function ConversationCard(props) {
   const windowSize = useClampWindowSize([750, 1500], [250, 1100])
   const bodyRef = useRef(null)
   const [completeDraggable, setCompleteDraggable] = useState(false)
-  // `.some` for multi mode models. e.g. bingFree4-balanced
-  const useForegroundFetch = bingWebModelKeys.some((n) => session.modelName.includes(n))
+  const useForegroundFetch = isUsingBingWebModel(session)
   const [apiModes, setApiModes] = useState([])
 
   /**
@@ -247,7 +247,7 @@ function ConversationCard(props) {
         }
         try {
           const bingToken = (await getUserConfig()).bingAccessToken
-          if (session.modelName.includes('bingFreeSydney'))
+          if (isUsingModelName('bingFreeSydney', session))
             await generateAnswersWithBingWebApi(
               fakePort,
               session.question,
@@ -390,7 +390,11 @@ function ConversationCard(props) {
                 ...session,
                 modelName,
                 apiMode,
-                aiName: modelNameToDesc(apiMode ? apiModeToModelName(apiMode) : modelName, t),
+                aiName: modelNameToDesc(
+                  apiMode ? apiModeToModelName(apiMode) : modelName,
+                  t,
+                  config.customModelName,
+                ),
               }
               if (config.autoRegenAfterSwitchModel && conversationItemData.length > 0)
                 getRetryFn(newSession)()
@@ -399,7 +403,7 @@ function ConversationCard(props) {
           >
             {apiModes.map((apiMode, index) => {
               const modelName = apiModeToModelName(apiMode)
-              const desc = modelNameToDesc(modelName, t)
+              const desc = modelNameToDesc(modelName, t, config.customModelName)
               if (desc) {
                 return (
                   <option value={index} key={index} selected={isApiModeSelected(apiMode, session)}>
@@ -551,7 +555,6 @@ function ConversationCard(props) {
             key={idx}
             type={data.type}
             descName={data.type === 'answer' && session.aiName}
-            modelName={data.type === 'answer' && session.modelName}
             onRetry={idx === conversationItemData.length - 1 ? retryFn : null}
           />
         ))}

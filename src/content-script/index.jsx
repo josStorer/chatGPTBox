@@ -9,6 +9,7 @@ import {
   chatgptWebModelKeys,
   getPreferredLanguageKey,
   getUserConfig,
+  isUsingChatgptWebModel,
   setAccessToken,
   setUserConfig,
 } from '../config/index.mjs'
@@ -91,7 +92,11 @@ async function mountComponent(siteConfig) {
 
     render(
       <FloatingToolbar
-        session={initSession({ modelName: userConfig.modelName, apiMode: userConfig.apiMode })}
+        session={initSession({
+          modelName: userConfig.modelName,
+          apiMode: userConfig.apiMode,
+          extraCustomModelName: userConfig.customModelName,
+        })}
         selection=""
         container={toolbarContainer}
         triggered={triggered}
@@ -107,7 +112,11 @@ async function mountComponent(siteConfig) {
   container.id = 'chatgptbox-container'
   render(
     <DecisionCard
-      session={initSession({ modelName: userConfig.modelName, apiMode: userConfig.apiMode })}
+      session={initSession({
+        modelName: userConfig.modelName,
+        apiMode: userConfig.apiMode,
+        extraCustomModelName: userConfig.customModelName,
+      })}
       question={question}
       siteConfig={siteConfig}
       container={container}
@@ -154,7 +163,11 @@ const createSelectionTools = async (toolbarContainer, selection) => {
   const userConfig = await getUserConfig()
   render(
     <FloatingToolbar
-      session={initSession({ modelName: userConfig.modelName, apiMode: userConfig.apiMode })}
+      session={initSession({
+        modelName: userConfig.modelName,
+        apiMode: userConfig.apiMode,
+        extraCustomModelName: userConfig.customModelName,
+      })}
       selection={selection}
       container={toolbarContainer}
       dockable={true}
@@ -280,7 +293,11 @@ async function prepareForRightClickMenu() {
       const userConfig = await getUserConfig()
       render(
         <FloatingToolbar
-          session={initSession({ modelName: userConfig.modelName, apiMode: userConfig.apiMode })}
+          session={initSession({
+            modelName: userConfig.modelName,
+            apiMode: userConfig.apiMode,
+            extraCustomModelName: userConfig.customModelName,
+          })}
           selection={data.selectionText}
           container={container}
           triggered={true}
@@ -382,7 +399,7 @@ async function prepareForForegroundRequests() {
   })
 
   registerPortListener(async (session, port) => {
-    if (chatgptWebModelKeys.includes(session.modelName)) {
+    if (isUsingChatgptWebModel(session)) {
       const accessToken = await getChatGptAccessToken()
       await generateAnswersWithChatgptWebApi(port, session.question, session, accessToken)
     }

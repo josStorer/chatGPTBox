@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { t } from 'i18next'
 import { sha3_512 } from 'js-sha3'
 import randomInt from 'random-int'
-import { modelNameToValue } from '../../utils/model-name-convert.mjs'
+import { getModelValue } from '../../utils/model-name-convert.mjs'
 
 async function request(token, method, path, data) {
   const apiUrl = (await getUserConfig()).customChatGptWebApiUrl
@@ -234,7 +234,7 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
     isNeedWebsocket(accessToken).catch(() => undefined),
   ])
   console.debug('models', models)
-  const selectedModel = modelNameToValue(session.modelName)
+  const selectedModel = getModelValue(session)
   const usedModel =
     models && models.includes(selectedModel) ? selectedModel : Models.chatgptFree35.value
   console.debug('usedModel', usedModel)

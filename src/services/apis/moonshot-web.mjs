@@ -2,7 +2,7 @@ import { pushRecord, setAbortController } from './shared.mjs'
 import { setUserConfig } from '../../config/index.mjs'
 import { fetchSSE } from '../../utils/fetch-sse'
 import { isEmpty } from 'lodash-es'
-import { modelNameToValue } from '../../utils/model-name-convert.mjs'
+import { getModelValue } from '../../utils/model-name-convert.mjs'
 
 export class MoonshotWeb {
   /**
@@ -569,18 +569,12 @@ export class Message {
  * @param {string} question
  * @param {Session} session
  * @param {UserConfig} config
- * @param {string} modelName
  */
-export async function generateAnswersWithMoonshotWebApi(
-  port,
-  question,
-  session,
-  config,
-  modelName,
-) {
+export async function generateAnswersWithMoonshotWebApi(port, question, session, config) {
   const bot = new MoonshotWeb({ config })
   await bot.init()
   const { controller, cleanController } = setAbortController(port)
+  const model = getModelValue(session)
 
   let answer = ''
   const progressFunc = ({ completion }) => {
@@ -597,7 +591,7 @@ export async function generateAnswersWithMoonshotWebApi(
   const params = {
     progress: progressFunc,
     done: doneFunc,
-    model: modelNameToValue(modelName),
+    model,
     signal: controller.signal,
   }
 

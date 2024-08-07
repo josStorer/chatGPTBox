@@ -1,7 +1,11 @@
 import { defaults } from 'lodash-es'
 import Browser from 'webextension-polyfill'
 import { isMobile } from '../utils/is-mobile.mjs'
-import { isInApiModeGroup, modelNameToDesc } from '../utils/model-name-convert.mjs'
+import {
+  isInApiModeGroup,
+  isUsingModelName,
+  modelNameToDesc,
+} from '../utils/model-name-convert.mjs'
 import { t } from 'i18next'
 
 export const TriggerMode = {
@@ -526,7 +530,7 @@ export function isUsingCustomModel(configOrSession) {
  * @deprecated
  */
 export function isUsingCustomNameOnlyModel(configOrSession) {
-  return configOrSession.modelName === 'poeAiWebCustom'
+  return isUsingModelName('poeAiWebCustom', configOrSession)
 }
 
 export async function getPreferredLanguageKey() {

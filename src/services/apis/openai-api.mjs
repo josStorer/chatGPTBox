@@ -10,23 +10,17 @@ import {
   pushRecord,
   setAbortController,
 } from './shared.mjs'
-import { modelNameToValue } from '../../utils/model-name-convert.mjs'
+import { getModelValue } from '../../utils/model-name-convert.mjs'
 
 /**
  * @param {Browser.Runtime.Port} port
  * @param {string} question
  * @param {Session} session
  * @param {string} apiKey
- * @param {string} modelName
  */
-export async function generateAnswersWithGptCompletionApi(
-  port,
-  question,
-  session,
-  apiKey,
-  modelName,
-) {
+export async function generateAnswersWithGptCompletionApi(port, question, session, apiKey) {
   const { controller, messageListener, disconnectListener } = setAbortController(port)
+  const model = getModelValue(session)
 
   const config = await getUserConfig()
   const prompt =
@@ -55,7 +49,7 @@ export async function generateAnswersWithGptCompletionApi(
     },
     body: JSON.stringify({
       prompt: prompt,
-      model: modelNameToValue(modelName),
+      model,
       stream: true,
       max_tokens: config.maxResponseTokenLength,
       temperature: config.temperature,
@@ -129,6 +123,7 @@ export async function generateAnswersWithChatgptApiCompat(
   extraBody = {},
 ) {
   const { controller, messageListener, disconnectListener } = setAbortController(port)
+  const model = getModelValue(session)
 
   const config = await getUserConfig()
   const prompt = getConversationPairs(
@@ -155,7 +150,7 @@ export async function generateAnswersWithChatgptApiCompat(
     },
     body: JSON.stringify({
       messages: prompt,
-      model: modelNameToValue(modelName),
+      model,
       stream: true,
       max_tokens: config.maxResponseTokenLength,
       temperature: config.temperature,

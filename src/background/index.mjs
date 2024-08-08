@@ -92,8 +92,10 @@ async function executeApi(session, port, config) {
         port,
         session.question,
         session,
-        session.apiMode.customUrl.trim() || 'http://localhost:8000/v1/chat/completions',
-        session.apiMode.apiKey,
+        session.apiMode.customUrl.trim() ||
+          config.customModelApiUrl.trim() ||
+          'http://localhost:8000/v1/chat/completions',
+        session.apiMode.apiKey.trim() || config.customApiKey,
         session.apiMode.customName,
       )
   } else if (isUsingChatgptWebModel(session)) {

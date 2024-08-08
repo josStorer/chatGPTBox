@@ -397,7 +397,7 @@ export async function generateAnswersWithChatgptWebApi(port, question, session, 
 
   function handleMessage(data) {
     if (data.error) {
-      throw new Error(data.error)
+      throw new Error(JSON.stringify(data.error))
     }
 
     if (data.conversation_id) session.conversationId = data.conversation_id

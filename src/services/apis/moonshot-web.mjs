@@ -405,6 +405,9 @@ export class Conversation {
           console.debug('json error', error)
           return
         }
+        if (parsed.error) {
+          throw new Error(message)
+        }
         if (parsed.event === 'cmpl' && parsed.text) fullResponse += parsed.text
         const PROGRESS_OBJECT = {
           ...parsed,

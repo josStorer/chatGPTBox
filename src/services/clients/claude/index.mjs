@@ -610,6 +610,9 @@ export class Conversation {
             console.debug('json error', error)
             return
           }
+          if (parsed.error) {
+            throw new Error(message)
+          }
           if (parsed.completion) fullResponse += parsed.completion
           const PROGRESS_OBJECT = {
             ...parsed,

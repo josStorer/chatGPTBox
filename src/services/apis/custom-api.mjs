@@ -34,7 +34,6 @@ export async function generateAnswersWithCustomApi(
     session.conversationRecords.slice(-config.maxConversationContextLength),
     false,
   )
-  // prompt.unshift({ role: 'system', content: await getCustomApiPromptBase() })
   prompt.push({ role: 'user', content: question })
 
   let answer = ''

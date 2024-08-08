@@ -4,12 +4,7 @@ import { getUserConfig } from '../../config/index.mjs'
 import { fetchSSE } from '../../utils/fetch-sse.mjs'
 import { getConversationPairs } from '../../utils/get-conversation-pairs.mjs'
 import { isEmpty } from 'lodash-es'
-import {
-  getChatSystemPromptBase,
-  getCompletionPromptBase,
-  pushRecord,
-  setAbortController,
-} from './shared.mjs'
+import { getCompletionPromptBase, pushRecord, setAbortController } from './shared.mjs'
 import { getModelValue } from '../../utils/model-name-convert.mjs'
 
 /**
@@ -127,7 +122,6 @@ export async function generateAnswersWithChatgptApiCompat(
     session.conversationRecords.slice(-config.maxConversationContextLength),
     false,
   )
-  prompt.unshift({ role: 'system', content: await getChatSystemPromptBase() })
   prompt.push({ role: 'user', content: question })
 
   let answer = ''

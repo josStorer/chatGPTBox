@@ -126,71 +126,101 @@ export async function generateAnswersWithChatgptApiCompat(
 
   let answer = ''
   let finished = false
+
+  // 添加保活机制
+  const keepAlive = (() => {
+    let interval
+    return (state) => {
+      if (state && !interval) {
+        interval = setInterval(() => {
+          chrome.runtime.getPlatformInfo(() => {})
+        }, 20000)
+      } else if (!state && interval) {
+        clearInterval(interval)
+        interval = null
+      }
+    }
+  })()
+
   const finish = () => {
     finished = true
     pushRecord(session, question, answer)
     console.debug('conversation history', { content: session.conversationRecords })
     port.postMessage({ answer: null, done: true, session: session })
+    keepAlive(false) // 停止保活
   }
-  await fetchSSE(`${baseUrl}/chat/completions`, {
-    method: 'POST',
-    signal: controller.signal,
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      messages: prompt,
-      model,
-      stream: true,
-      max_tokens: config.maxResponseTokenLength,
-      temperature: config.temperature,
-      ...extraBody,
-    }),
-    onMessage(message) {
-      console.debug('sse message', message)
-      if (finished) return
-      if (message.trim() === '[DONE]') {
-        finish()
-        return
-      }
-      let data
-      try {
-        data = JSON.parse(message)
-      } catch (error) {
-        console.debug('json error', error)
-        return
-      }
 
-      const delta = data.choices[0]?.delta?.content
-      const content = data.choices[0]?.message?.content
-      const text = data.choices[0]?.text
-      if (delta !== undefined) {
-        answer += delta
-      } else if (content) {
-        answer = content
-      } else if (text) {
-        answer += text
-      }
-      port.postMessage({ answer: answer, done: false, session: null })
+  try {
+    keepAlive(true) // 開始保活
 
-      if (data.choices[0]?.finish_reason) {
-        finish()
-        return
-      }
-    },
-    async onStart() {},
-    async onEnd() {
-      port.postMessage({ done: true })
-      port.onMessage.removeListener(messageListener)
-      port.onDisconnect.removeListener(disconnectListener)
-    },
-    async onError(resp) {
-      port.onMessage.removeListener(messageListener)
-      port.onDisconnect.removeListener(disconnectListener)
-      if (resp instanceof Error) throw resp
-      const error = await resp.json().catch(() => ({}))
-      throw new Error(!isEmpty(error) ? JSON.stringify(error) : `${resp.status} ${resp.statusText}`)
-    },
-  })
+    await fetchSSE(`${baseUrl}/chat/completions`, {
+      method: 'POST',
+      signal: controller.signal,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        messages: prompt,
+        model,
+        stream: true,
+        max_tokens: config.maxResponseTokenLength,
+        temperature: config.temperature,
+        ...extraBody,
+      }),
+      onMessage(message) {
+        console.debug('sse message', message)
+        if (finished) return
+        if (message.trim() === '[DONE]') {
+          finish()
+          return
+        }
+        let data
+        try {
+          data = JSON.parse(message)
+        } catch (error) {
+          console.debug('json error', error)
+          return
+        }
+
+        const delta = data.choices[0]?.delta?.content
+        const content = data.choices[0]?.message?.content
+        const text = data.choices[0]?.text
+        if (delta !== undefined) {
+          answer += delta
+        } else if (content) {
+          answer = content
+        } else if (text) {
+          answer += text
+        }
+        port.postMessage({ answer: answer, done: false, session: null })
+
+        if (data.choices[0]?.finish_reason) {
+          finish()
+          return
+        }
+      },
+      async onStart() {},
+      async onEnd() {
+        port.postMessage({ done: true })
+        port.onMessage.removeListener(messageListener)
+        port.onDisconnect.removeListener(disconnectListener)
+        keepAlive(false) // 停止保活
+      },
+      async onError(resp) {
+        port.onMessage.removeListener(messageListener)
+        port.onDisconnect.removeListener(disconnectListener)
+        keepAlive(false) // 停止保活
+        if (resp instanceof Error) throw resp
+        const error = await resp.json().catch(() => ({}))
+        throw new Error(
+          !isEmpty(error) ? JSON.stringify(error) : `${resp.status} ${resp.statusText}`,
+        )
+      },
+    })
+  } catch (error) {
+    console.error('Error in generateAnswersWithChatgptApiCompat:', error)
+    keepAlive(false) // 確保在出錯時也停止保活
+    throw error
+  }
 }

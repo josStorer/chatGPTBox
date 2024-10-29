@@ -31,9 +31,9 @@ const clamp = (v, min, max) => {
 /** this function will crop text by keeping the beginning and end */
 export async function cropText(
   text,
-  maxLength = 4000,
-  startLength = 400,
-  endLength = 300,
+  maxLength = 4096,
+  startLength = 0,
+  endLength = 0,
   tiktoken = true,
 ) {
   const userConfig = await getUserConfig()
@@ -42,12 +42,22 @@ export async function cropText(
     null,
     userConfig.customModelName,
   ).match(/[- (]*([0-9]+)k/)?.[1]
+
+  // for maxlength prefer modelLimit > userLimit > default
   if (k) {
+    // if we have the models exact content limit use that
     maxLength = Number(k) * 1000
-    maxLength -= 100 + clamp(userConfig.maxResponseTokenLength, 1, maxLength - 1000)
+  } else if (userConfig.maxResponseTokenLength) {
+    // if we don't have the models exact content limit use the default
+    maxLength = userConfig.maxResponseTokenLength
   } else {
-    maxLength -= 100 + clamp(userConfig.maxResponseTokenLength, 1, maxLength - 1000)
+    // if we don't have the models exact content limit use the default
   }
+
+  if (userConfig.maxResponseTokenLength) {
+    maxLength = clamp(maxLength, 1, userConfig.maxResponseTokenLength)
+  }
+  maxLength -= 100 // give some buffer
 
   const splits = text.split(/[,，。?？!！;；\n]/).map((s) => s.trim())
   const splitsLength = splits.map((s) => (tiktoken ? encode(s).length : s.length))
@@ -94,8 +104,7 @@ export async function cropText(
   }
   croppedText += splits.slice(endStartIndex).join('\n')
 
-  currentLength = firstHalfTokens + secondHalfTokens + (middleIndex !== endStartIndex ? 9 : 0) // 9 is the length of "\n[cropped]\n"
-  // ... existing code ...
+  currentLength = firstHalfTokens + secondHalfTokens + (middleIndex !== endStartIndex ? 20 : 0) // 20 is approx the length of the disclaimer
 
   console.log(
     `input maxLength: ${maxLength}\n` +

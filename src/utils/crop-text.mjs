@@ -28,6 +28,7 @@ const clamp = (v, min, max) => {
   return Math.min(Math.max(v, min), max)
 }
 
+/** this function will crop text by keeping the beginning and end */
 export async function cropText(
   text,
   maxLength = 4000,
@@ -48,47 +49,53 @@ export async function cropText(
     maxLength -= 100 + clamp(userConfig.maxResponseTokenLength, 1, maxLength - 1000)
   }
 
-  const splits = text.split(/[,，。?？!！;；]/).map((s) => s.trim())
+  const splits = text.split(/[,，。?？!！;；\n]/).map((s) => s.trim())
   const splitsLength = splits.map((s) => (tiktoken ? encode(s).length : s.length))
-  const length = splitsLength.reduce((sum, length) => sum + length, 0)
-
-  const cropLength = length - startLength - endLength
   const cropTargetLength = maxLength - startLength - endLength
-  const cropPercentage = cropTargetLength / cropLength
-  const cropStep = Math.max(0, 1 / cropPercentage - 1)
 
-  if (cropStep === 0) return text
-
+  let firstHalfTokens = 0
+  let secondHalfTokens = 0
+  const halfTargetTokens = Math.floor(cropTargetLength / 2)
+  let middleIndex = -1
+  let endStartIndex = splits.length
+  let totalTokens = splitsLength.reduce((sum, length) => sum + length + 1, 0)
+  let croppedTokens = 0
   let croppedText = ''
   let currentLength = 0
-  let currentIndex = 0
-  let currentStep = 0
 
-  for (; currentIndex < splits.length; currentIndex++) {
-    if (currentLength + splitsLength[currentIndex] + 1 <= startLength) {
-      croppedText += splits[currentIndex] + ','
-      currentLength += splitsLength[currentIndex] + 1
-    } else if (currentLength + splitsLength[currentIndex] + 1 + endLength <= maxLength) {
-      if (currentStep < cropStep) {
-        currentStep++
-      } else {
-        croppedText += splits[currentIndex] + ','
-        currentLength += splitsLength[currentIndex] + 1
-        currentStep = currentStep - cropStep
-      }
+  // First pass: find the middle
+  for (let i = 0; i < splits.length; i++) {
+    if (firstHalfTokens < halfTargetTokens) {
+      firstHalfTokens += splitsLength[i] + 1
     } else {
+      middleIndex = i
       break
     }
   }
 
-  let endPart = ''
-  let endPartLength = 0
-  for (let i = splits.length - 1; endPartLength + splitsLength[i] <= endLength; i--) {
-    endPart = splits[i] + ',' + endPart
-    endPartLength += splitsLength[i] + 1
+  // Second pass: find the start of the end section
+  for (let i = splits.length - 1; i >= middleIndex; i--) {
+    secondHalfTokens += splitsLength[i] + 1
+    if (secondHalfTokens >= halfTargetTokens) {
+      endStartIndex = i
+      break
+    }
   }
-  currentLength += endPartLength
-  croppedText += endPart
+
+  // Calculate cropped tokens
+  croppedTokens = totalTokens - firstHalfTokens - secondHalfTokens
+
+  // Construct the cropped text
+  croppedText = splits.slice(0, middleIndex).join('\n')
+  if (middleIndex !== endStartIndex) {
+    croppedText += `\n\n**Important disclaimer**, this text is incomplete! ${croppedTokens} or ${
+      (croppedTokens / totalTokens).toFixed(2) * 100
+    }% of tokens have been removed from this location in the text due to lack limited model context\n\n`
+  }
+  croppedText += splits.slice(endStartIndex).join('\n')
+
+  currentLength = firstHalfTokens + secondHalfTokens + (middleIndex !== endStartIndex ? 9 : 0) // 9 is the length of "\n[cropped]\n"
+  // ... existing code ...
 
   console.log(
     `input maxLength: ${maxLength}\n` +

@@ -1,7 +1,7 @@
 {
   "name": "ChatGPTBox",
   "description": "Integrating ChatGPT into your browser deeply, everything you need is here",
-  "version": "2.3.0",
+  "version": "2.5.8",
   "manifest_version": 3,
   "icons": {
     "16": "logo.png",
@@ -10,17 +10,24 @@
     "128": "logo.png"
   },
   "host_permissions": [
-    "https://*.openai.com/",
-    "https://*.bing.com/",
-    "https://*.poe.com/"
+    "https://*.chatgpt.com/*",
+    "https://*.openai.com/*",
+    "https://*.bing.com/*",
+    "https://*.poe.com/*",
+    "https://*.google.com/*",
+    "https://claude.ai/*",
+    "https://*.moonshot.cn/*",
+    "<all_urls>"
   ],
   "permissions": [
-    "commands",
     "cookies",
     "storage",
     "contextMenus",
     "unlimitedStorage",
-    "tabs"
+    "tabs",
+    "webRequest",
+    "declarativeNetRequestWithHostAccess",
+    "sidePanel"
   ],
   "optional_permissions": [
     "background"
@@ -30,6 +37,18 @@
   },
   "action": {
     "default_popup": "popup.html"
+  },
+  "side_panel": {
+    "default_path": "IndependentPanel.html"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
   },
   "options_ui": {
     "page": "popup.html",
@@ -85,6 +104,12 @@
     },
     "openConversationWindow": {
       "description": "Open the independent conversation window"
+    },
+    "openSidePanel": {
+      "description": "Open the independent conversation side panel"
+    },
+    "closeAllChats": {
+      "description": "Close all chats in this page"
     }
   }
 }

@@ -9,7 +9,7 @@ import { isEmpty } from 'lodash-es'
  * @param {Session} session
  */
 export async function generateAnswersWithWaylaidwandererApi(port, question, session) {
-  const { controller, messageListener } = setAbortController(port)
+  const { controller, messageListener, disconnectListener } = setAbortController(port)
 
   const config = await getUserConfig()
 
@@ -23,9 +23,9 @@ export async function generateAnswersWithWaylaidwandererApi(port, question, sess
     body: JSON.stringify({
       message: question,
       stream: true,
-      ...(session.bingWeb_conversationSignature && {
+      ...(session.bingWeb_encryptedConversationSignature && {
         conversationId: session.bingWeb_conversationId,
-        conversationSignature: session.bingWeb_conversationSignature,
+        encryptedConversationSignature: session.bingWeb_encryptedConversationSignature,
         clientId: session.bingWeb_clientId,
         invocationId: session.bingWeb_invocationId,
       }),
@@ -36,7 +36,7 @@ export async function generateAnswersWithWaylaidwandererApi(port, question, sess
     }),
     onMessage(message) {
       console.debug('sse message', message)
-      if (message === '[DONE]') {
+      if (message.trim() === '[DONE]') {
         pushRecord(session, question, answer)
         console.debug('conversation history', { content: session.conversationRecords })
         port.postMessage({ answer: null, done: true, session: session })
@@ -51,8 +51,8 @@ export async function generateAnswersWithWaylaidwandererApi(port, question, sess
       }
       if (data.conversationId) session.conversationId = data.conversationId
       if (data.parentMessageId) session.parentMessageId = data.parentMessageId
-      if (data.conversationSignature)
-        session.bingWeb_conversationSignature = data.conversationSignature
+      if (data.encryptedConversationSignature)
+        session.bingWeb_encryptedConversationSignature = data.encryptedConversationSignature
       if (data.conversationId) session.bingWeb_conversationId = data.conversationId
       if (data.clientId) session.bingWeb_clientId = data.clientId
       if (data.invocationId) session.bingWeb_invocationId = data.invocationId
@@ -64,10 +64,13 @@ export async function generateAnswersWithWaylaidwandererApi(port, question, sess
     },
     async onStart() {},
     async onEnd() {
+      port.postMessage({ done: true })
       port.onMessage.removeListener(messageListener)
+      port.onDisconnect.removeListener(disconnectListener)
     },
     async onError(resp) {
       port.onMessage.removeListener(messageListener)
+      port.onDisconnect.removeListener(disconnectListener)
       if (resp instanceof Error) throw resp
       const error = await resp.json().catch(() => ({}))
       throw new Error(!isEmpty(error) ? JSON.stringify(error) : `${resp.status} ${resp.statusText}`)

@@ -1,7 +1,7 @@
 {
   "name": "ChatGPTBox",
   "description": "Integrating ChatGPT into your browser deeply, everything you need is here",
-  "version": "2.3.0",
+  "version": "2.5.8",
   "manifest_version": 2,
   "icons": {
     "16": "logo.png",
@@ -10,24 +10,27 @@
     "128": "logo.png"
   },
   "permissions": [
-    "commands",
     "cookies",
     "storage",
     "contextMenus",
     "unlimitedStorage",
     "tabs",
+    "webRequest",
+    "https://*.chatgpt.com/*",
     "https://*.openai.com/",
     "https://*.bing.com/",
-    "https://*.poe.com/"
-  ],
-  "optional_permissions": [
-    "background"
+    "wss://*.bing.com/*",
+    "https://*.poe.com/",
+    "https://*.google.com/",
+    "https://claude.ai/",
+    "https://*.moonshot.cn/*",
+    "<all_urls>"
   ],
   "background": {
     "scripts": [
       "background.js"
     ],
-    "persistent": false
+    "persistent": true
   },
   "browser_action": {
     "default_popup": "popup.html?popup=true"
@@ -59,7 +62,7 @@
     "newChat": {
       "suggested_key": {
         "default": "Ctrl+B",
-        "mac": "MacCtrl+B"
+        "mac": "MacCtrl+X"
       },
       "description": "Create a new chat"
     },
@@ -79,6 +82,9 @@
     },
     "openConversationWindow": {
       "description": "Open the independent conversation window"
+    },
+    "closeAllChats": {
+      "description": "Close all chats in this page"
     }
   }
 }

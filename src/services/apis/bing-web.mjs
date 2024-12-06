@@ -1,6 +1,7 @@
 import BingAIClient from '../clients/bing/index.mjs'
 import { getUserConfig } from '../../config/index.mjs'
 import { pushRecord, setAbortController } from './shared.mjs'
+import { getModelValue } from '../../utils/model-name-convert.mjs'
 
 /**
  * @param {Runtime.Port} port
@@ -16,10 +17,14 @@ export async function generateAnswersWithBingWebApi(
   accessToken,
   sydneyMode = false,
 ) {
-  const { controller, messageListener } = setAbortController(port)
+  const { controller, messageListener, disconnectListener } = setAbortController(port)
   const config = await getUserConfig()
+  let modelMode = getModelValue(session)
+  if (!modelMode) modelMode = config.modelMode
 
-  const bingAIClient = new BingAIClient({ userToken: accessToken })
+  console.debug('mode', modelMode)
+
+  const bingAIClient = new BingAIClient({ userToken: accessToken, features: { genImage: false } })
   if (session.bingWeb_jailbreakConversationCache)
     bingAIClient.conversationsCache.set(
       session.bingWeb_jailbreakConversationId,
@@ -30,10 +35,10 @@ export async function generateAnswersWithBingWebApi(
   const response = await bingAIClient
     .sendMessage(question, {
       abortController: controller,
-      toneStyle: config.modelMode,
+      toneStyle: modelMode,
       jailbreakConversationId: sydneyMode,
-      onProgress: (token) => {
-        answer += token
+      onProgress: (message) => {
+        answer = message
         // reference markers [^number^]
         answer = answer.replaceAll(/\[\^(\d+)\^\]/g, '<sup>$1</sup>')
         port.postMessage({ answer: answer, done: false, session: null })
@@ -41,7 +46,7 @@ export async function generateAnswersWithBingWebApi(
       ...(session.bingWeb_conversationId
         ? {
             conversationId: session.bingWeb_conversationId,
-            conversationSignature: session.bingWeb_conversationSignature,
+            encryptedConversationSignature: session.bingWeb_encryptedConversationSignature,
             clientId: session.bingWeb_clientId,
             invocationId: session.bingWeb_invocationId,
           }
@@ -54,11 +59,12 @@ export async function generateAnswersWithBingWebApi(
     })
     .catch((err) => {
       port.onMessage.removeListener(messageListener)
+      port.onDisconnect.removeListener(disconnectListener)
       throw err
     })
 
   if (!sydneyMode) {
-    session.bingWeb_conversationSignature = response.conversationSignature
+    session.bingWeb_encryptedConversationSignature = response.encryptedConversationSignature
     session.bingWeb_conversationId = response.conversationId
     session.bingWeb_clientId = response.clientId
     session.bingWeb_invocationId = response.invocationId
@@ -70,7 +76,7 @@ export async function generateAnswersWithBingWebApi(
     )
   }
 
-  if (response.details.sourceAttributions.length > 0) {
+  if (response.details.sourceAttributions && response.details.sourceAttributions.length > 0) {
     const footnotes =
       '\n\\-\n' +
       response.details.sourceAttributions
@@ -82,5 +88,6 @@ export async function generateAnswersWithBingWebApi(
   pushRecord(session, question, answer)
   console.debug('conversation history', { content: session.conversationRecords })
   port.onMessage.removeListener(messageListener)
+  port.onDisconnect.removeListener(disconnectListener)
   port.postMessage({ answer: answer, done: true, session: session })
 }

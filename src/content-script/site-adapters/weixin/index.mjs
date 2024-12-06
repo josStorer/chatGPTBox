@@ -8,7 +8,18 @@ export default {
       if (title && description) {
         const author = document.querySelector('#js_name')?.textContent
 
-        return cropText(
+        const sidebar = document.querySelector('.qr_code_pc')
+        if (sidebar) {
+          sidebar.style.right = '-400px'
+          sidebar.style.width = '400px'
+          sidebar.style.textAlign = 'left'
+          sidebar.style.alignItems = 'center'
+          sidebar.style.display = 'flex'
+          sidebar.style.flexDirection = 'column'
+          sidebar.style.background = 'transparent'
+        }
+
+        return await cropText(
           `以下是一篇文章,标题是:"${title}",文章来源是:"${author}公众号",内容是:\n"${description}".请以如下格式输出你的回答：
           {文章来源和文章摘要}
           ======

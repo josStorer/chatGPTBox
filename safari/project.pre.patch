@@ -7,13 +7,12 @@
    "description": "Integrating ChatGPT into your browser deeply, everything you need is here",
    "version": "0.0.0",
    "manifest_version": 2,
-@@ -17,7 +17,8 @@
-   "background": {
+@@ -28,7 +28,7 @@
      "scripts": [
        "background.js"
--    ]
-+    ],
-+    "persistent": false
+     ],
+-    "persistent": true
++    "persistent": true
    },
    "browser_action": {
-     "default_popup": "popup.html"
+     "default_popup": "popup.html?popup=true"

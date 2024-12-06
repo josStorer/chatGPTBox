@@ -9,6 +9,10 @@ import quora from './quora'
 import stackoverflow from './stackoverflow'
 import juejin from './juejin'
 import weixin from './weixin'
+import followin from './followin'
+import duckduckgo from './duckduckgo'
+import brave from './brave'
+import arxiv from './arxiv'
 
 /**
  * @typedef {object} SiteConfigAction
@@ -46,14 +50,17 @@ export const config = {
       '#main-algo',
       '.searchCenterMiddle',
       '.Contents__inner.Contents__inner--main',
-      '#contents',
+      '#contentsInner',
     ],
   },
   duckduckgo: {
     inputQuery: ["input[name='q']"],
-    sidebarContainerQuery: ['.results--sidebar.js-results-sidebar'],
+    sidebarContainerQuery: ['.js-react-sidebar', '.react-results--sidebar'],
     appendContainerQuery: ['#links_wrapper'],
-    resultsContainerQuery: ['.results'],
+    resultsContainerQuery: ['.react-results--main'],
+    action: {
+      init: duckduckgo.init,
+    },
   },
   startpage: {
     inputQuery: ["input[name='query']"],
@@ -71,8 +78,8 @@ export const config = {
     },
   },
   kagi: {
-    inputQuery: ["input[name='q']"],
-    sidebarContainerQuery: ['.right-content-box._0_right_sidebar'],
+    inputQuery: ["textarea[name='q']"],
+    sidebarContainerQuery: ['.right-content-box'],
     appendContainerQuery: ['#_0_app_content'],
     resultsContainerQuery: ['#main', '#app'],
   },
@@ -90,9 +97,12 @@ export const config = {
   },
   brave: {
     inputQuery: ["input[name='q']"],
-    sidebarContainerQuery: ['#side-right'],
+    sidebarContainerQuery: ['.sidebar'],
     appendContainerQuery: [],
     resultsContainerQuery: ['#results'],
+    action: {
+      init: brave.init,
+    },
   },
   searx: {
     inputQuery: ["input[name='q']"],
@@ -111,6 +121,14 @@ export const config = {
     sidebarContainerQuery: ['.result-group-layout__stickyContainer-iDIO8'],
     appendContainerQuery: ['.search-index__searchHeaderContainer-2JD6q'],
     resultsContainerQuery: ['.result-group-layout__component-1jzTe', '#search'],
+  },
+  presearch: {
+    inputQuery: ["input[name='q']"],
+    sidebarContainerQuery: [
+      'div.w-full.\\32 lg\\:flex.\\32 lg\\:flex-row-reverse.\\32 lg\\:justify-end > div.flex.flex-col > div.z-1',
+    ],
+    appendContainerQuery: [],
+    resultsContainerQuery: ['div.text-gray-300.relative.z-1'],
   },
   bilibili: {
     inputQuery: bilibili.inputQuery,
@@ -136,18 +154,18 @@ export const config = {
   },
   github: {
     inputQuery: github.inputQuery,
-    sidebarContainerQuery: ['#diff', '.commit'],
+    sidebarContainerQuery: ['#diff', '.commit', '.Layout-main'],
     appendContainerQuery: [],
-    resultsContainerQuery: ['#diff', '.commit'],
+    resultsContainerQuery: ['#diff', '.commit', '.Layout-main'],
     action: {
       init: github.init,
     },
   },
   gitlab: {
     inputQuery: gitlab.inputQuery,
-    sidebarContainerQuery: ['.js-commit-box-info'],
+    sidebarContainerQuery: ['.info-well', '.js-commit-box-info'],
     appendContainerQuery: [],
-    resultsContainerQuery: ['.js-commit-box-info'],
+    resultsContainerQuery: ['.info-well', '.js-commit-box-info'],
   },
   zhihu: {
     inputQuery: zhihu.inputQuery,
@@ -157,9 +175,9 @@ export const config = {
   },
   reddit: {
     inputQuery: reddit.inputQuery,
-    sidebarContainerQuery: ['.side div:nth-child(2)'],
+    sidebarContainerQuery: ['aside > div'],
     appendContainerQuery: [],
-    resultsContainerQuery: ['.side div:nth-child(2)'],
+    resultsContainerQuery: ['aside > div'],
   },
   quora: {
     inputQuery: quora.inputQuery,
@@ -181,8 +199,20 @@ export const config = {
   },
   'mp.weixin.qq': {
     inputQuery: weixin.inputQuery,
-    sidebarContainerQuery: [],
+    sidebarContainerQuery: ['.qr_code_pc', '#js_content'],
     appendContainerQuery: [],
     resultsContainerQuery: ['#js_content'],
+  },
+  followin: {
+    inputQuery: followin.inputQuery,
+    sidebarContainerQuery: [],
+    appendContainerQuery: [],
+    resultsContainerQuery: ['#article-content', '#thead-gallery'],
+  },
+  arxiv: {
+    inputQuery: arxiv.inputQuery,
+    sidebarContainerQuery: ['.extra-services'],
+    appendContainerQuery: [],
+    resultsContainerQuery: ['.extra-services'],
   },
 }

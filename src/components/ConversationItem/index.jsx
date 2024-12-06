@@ -1,25 +1,34 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import { ChevronDownIcon, XCircleIcon, SyncIcon } from '@primer/octicons-react'
 import CopyButton from '../CopyButton'
+import ReadButton from '../ReadButton'
 import PropTypes from 'prop-types'
 import MarkdownRender from '../MarkdownRender/markdown.jsx'
 import { useTranslation } from 'react-i18next'
-import { isUsingCustomModel } from '../../config/index.mjs'
-import { useConfig } from '../../hooks/use-config.mjs'
 
-export function ConversationItem({ type, content, session, done, port, onRetry }) {
+function AnswerTitle({ descName }) {
+  const { t } = useTranslation()
+
+  return <p style="white-space: nowrap;">{descName ? `${descName}:` : t('Loading...')}</p>
+}
+
+AnswerTitle.propTypes = {
+  descName: PropTypes.string,
+}
+
+export function ConversationItem({ type, content, descName, onRetry }) {
   const { t } = useTranslation()
   const [collapsed, setCollapsed] = useState(false)
-  const config = useConfig()
 
   switch (type) {
     case 'question':
       return (
-        <div className={type} dir="auto">
+        <div className={'chatgptbox-' + type} dir="auto">
           <div className="gpt-header">
             <p>{t('You')}:</p>
             <div className="gpt-util-group">
               <CopyButton contentFn={() => content.replace(/\n<hr\/>$/, '')} size={14} />
+              <ReadButton contentFn={() => content} size={14} />
               {!collapsed ? (
                 <span
                   title={t('Collapse')}
@@ -44,35 +53,19 @@ export function ConversationItem({ type, content, session, done, port, onRetry }
       )
     case 'answer':
       return (
-        <div className={type} dir="auto">
+        <div className={'chatgptbox-' + type} dir="auto">
           <div className="gpt-header">
-            <p style="white-space: nowrap;">
-              {session && session.aiName
-                ? `${t(session.aiName)}${
-                    isUsingCustomModel(session) ? ' (' + config.customModelName + ')' : ''
-                  }:`
-                : t('Loading...')}
-            </p>
+            <AnswerTitle descName={descName} />
             <div className="gpt-util-group">
-              {!done && (
-                <button
-                  type="button"
-                  className="normal-button"
-                  onClick={() => {
-                    port.postMessage({ stop: true })
-                  }}
-                >
-                  {t('Stop')}
-                </button>
-              )}
               {onRetry && (
                 <span title={t('Retry')} className="gpt-util-icon" onClick={onRetry}>
                   <SyncIcon size={14} />
                 </span>
               )}
-              {session && (
+              {descName && (
                 <CopyButton contentFn={() => content.replace(/\n<hr\/>$/, '')} size={14} />
               )}
+              {descName && <ReadButton contentFn={() => content} size={14} />}
               {!collapsed ? (
                 <span
                   title={t('Collapse')}
@@ -97,7 +90,7 @@ export function ConversationItem({ type, content, session, done, port, onRetry }
       )
     case 'error':
       return (
-        <div className={type} dir="auto">
+        <div className={'chatgptbox-' + type} dir="auto">
           <div className="gpt-header">
             <p>{t('Error')}:</p>
             <div className="gpt-util-group">
@@ -135,10 +128,8 @@ export function ConversationItem({ type, content, session, done, port, onRetry }
 ConversationItem.propTypes = {
   type: PropTypes.oneOf(['question', 'answer', 'error']).isRequired,
   content: PropTypes.string.isRequired,
-  session: PropTypes.object.isRequired,
-  done: PropTypes.bool.isRequired,
-  port: PropTypes.object.isRequired,
+  descName: PropTypes.string,
   onRetry: PropTypes.func,
 }
 
-export default ConversationItem
+export default memo(ConversationItem)

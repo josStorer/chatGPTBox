@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { parseFloatWithClamp, parseIntWithClamp } from '../../utils/index.mjs'
 import PropTypes from 'prop-types'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
+import Browser from 'webextension-polyfill'
 
 ApiParams.propTypes = {
   config: PropTypes.object.isRequired,
@@ -102,6 +103,17 @@ function ApiUrl({ config, updateConfig }) {
           }}
         />
       </label>
+      <label>
+        {t('Custom Claude API Url')}
+        <input
+          type="text"
+          value={config.customClaudeApiUrl}
+          onChange={(e) => {
+            const value = e.target.value
+            updateConfig({ customClaudeApiUrl: value })
+          }}
+        />
+      </label>
     </>
   )
 }
@@ -116,6 +128,34 @@ function Others({ config, updateConfig }) {
 
   return (
     <>
+      <label>
+        <input
+          type="checkbox"
+          checked={config.disableWebModeHistory}
+          onChange={(e) => {
+            const checked = e.target.checked
+            updateConfig({ disableWebModeHistory: checked })
+          }}
+        />
+        {t(
+          'Disable web mode history for better privacy protection, but it will result in unavailable conversations after a period of time',
+        )}
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={config.hideContextMenu}
+          onChange={async (e) => {
+            const checked = e.target.checked
+            await updateConfig({ hideContextMenu: checked })
+            Browser.runtime.sendMessage({
+              type: 'REFRESH_MENU',
+            })
+          }}
+        />
+        {t('Hide context menu of this extension')}
+      </label>
+      <br />
       <label>
         {t('Custom Site Regex')}
         <input

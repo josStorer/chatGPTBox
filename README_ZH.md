@@ -10,10 +10,10 @@
 
 [![license][license-image]][license-url]
 [![release][release-image]][release-url]
-[![size](https://img.shields.io/badge/minified%20size-360%20kB-blue)][release-url]
+[![size](https://img.shields.io/badge/minified%20size-390%20kB-blue)][release-url]
 [![verfiy][verify-image]][verify-url]
 
-[English](README.md) | [Indonesia](README_IN.md) | 简体中文
+[English](README.md) &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md) &nbsp;&nbsp;|&nbsp;&nbsp; 简体中文 &nbsp;&nbsp;|&nbsp;&nbsp; [日本語](README_JA.md) &nbsp;&nbsp;|&nbsp;&nbsp; [Türkçe](README_TR.md)
 
 ### 安装链接
 
@@ -24,11 +24,7 @@
 [![Android][Android-image]][Android-url]
 [![Github][Github-image]][Github-url]
 
-[使用指南](https://github.com/josStorer/chatGPTBox/wiki/Guide) |
-[效果预览](#Preview) |
-[开发&贡献][dev-url] |
-[视频演示](https://www.bilibili.com/video/BV1524y1x7io) |
-[鸣谢](#Credit)
+[使用指南](https://github.com/josStorer/chatGPTBox/wiki/Guide) &nbsp;&nbsp;|&nbsp;&nbsp; [效果预览](#Preview) &nbsp;&nbsp;|&nbsp;&nbsp; [开发&贡献][dev-url] &nbsp;&nbsp;|&nbsp;&nbsp; [视频演示](https://www.bilibili.com/video/BV1524y1x7io) &nbsp;&nbsp;|&nbsp;&nbsp; [鸣谢](#Credit)
 
 [dev-url]: https://github.com/josStorer/chatGPTBox/wiki/Development&Contributing
 
@@ -74,13 +70,13 @@
 
 - 这个扩展程序不收集你的数据, 你可以通过对代码全局搜索 `fetch(` 和 `XMLHttpRequest(` 找到所有的网络请求调用. 代码量不多, 所以很容易验证.
 
-- 你可以通过这个链接获取免费的反向代理, 并在高级设置中填写来绕过cloudflare验证: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
+- 你可以使用像 https://github.com/BerriAI/litellm / https://github.com/songquanpeng/one-api 这样的项目，将各种 大语言模型 API 转换为OpenAI格式，并与ChatGPTBox的`自定义模型`模式结合使用
 
-- 自定义模型, chatGLM-6B, chatRWKV, chatYuan支持, 查看 https://github.com/l15y/wenda, API兼容
+- 对于国内用户, 有GPT, Midjourney, Netflix等账号需求的, 可以考虑此站点购买合租, 此链接购买的订单也会给我带来一定收益, 作为对本项目的支持: https://nf.video/yinhe/web?sharedId=84599
 
-- 三方API服务兼容, 查看 https://api2d.com/r/193934, 该服务并不是由我提供的, 但对于获取账号困难的用户可以考虑, 使用方法: https://github.com/josStorer/chatGPTBox/issues/166#issuecomment-1504704489
+- 三方API服务兼容, 查看 https://api2d.com/r/193934 和 https://openrouter.ai/docs#models, 该服务并不是由我提供的, 但对于获取账号困难的用户可以考虑, 使用方法: [视频](https://www.bilibili.com/video/BV1bo4y1h7Hb/) [图文](https://github.com/josStorer/chatGPTBox/issues/166#issuecomment-1504704489)
 
-- 离线/自托管模型 (llama.cpp, ChatGLM) 现已支持, 查看 https://github.com/josStorer/selfhostedAI
+- 离线/自托管模型 现已支持, 在`自定义模型`模式下使用, 具体查看 [Ollama](https://github.com/josStorer/chatGPTBox/issues/616#issuecomment-1975186467) / [RWKV-Runner](https://github.com/josStorer/RWKV-Runner), 你还可以部署wenda (https://github.com/wenda-LLM/wenda), 配合自定义模型模式使用, 从而调用各类本地模型, 参考 [#397](https://github.com/josStorer/chatGPTBox/issues/397) 修改API URL
 
 ## ✨ Features
 
@@ -88,7 +84,7 @@
 - 📱 支持手机等移动设备
 - 📓 通过右键菜单总结任意页面 (<kbd>Alt</kbd>+<kbd>B</kbd>)
 - 📖 独立对话页面 (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>)
-- 🔗 多种API支持 (免费用户和Plus用户可用Web API, 此外还有GPT-3.5, GPT-4, NewBing, 自托管支持, Azure, Poe等)
+- 🔗 多种API支持 (免费用户和Plus用户可用Web API, 此外还有GPT-3.5, GPT-4, Claude, NewBing, Moonshot, 自托管支持, Azure等)
 - 📦 对各种常用网站的集成适配 (Reddit, Quora, YouTube, GitHub, GitLab, StackOverflow, Zhihu, Bilibili) (受到[wimdenherder](https://github.com/wimdenherder)启发)
 - 🔍 对所有主流搜索引擎的适配, 并支持自定义查询以支持额外的站点
 - 🧰 框选工具与右键菜单, 执行各种你的需求, 如翻译, 总结, 润色, 情感分析, 段落划分, 代码解释, 问询

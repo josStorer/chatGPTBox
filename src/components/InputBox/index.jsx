@@ -1,18 +1,28 @@
 import { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
-import { updateRefHeight } from '../../utils'
+import { isFirefox, isMobile, isSafari, updateRefHeight } from '../../utils'
 import { useTranslation } from 'react-i18next'
+import { getUserConfig } from '../../config/index.mjs'
 
-export function InputBox({ onSubmit, enabled, port, reverseResizeDir }) {
+export function InputBox({ onSubmit, enabled, postMessage, reverseResizeDir }) {
   const { t } = useTranslation()
   const [value, setValue] = useState('')
   const reverseDivRef = useRef(null)
   const inputRef = useRef(null)
   const resizedRef = useRef(false)
-
-  const virtualInputRef = reverseResizeDir ? reverseDivRef : inputRef
+  const [internalReverseResizeDir, setInternalReverseResizeDir] = useState(reverseResizeDir)
 
   useEffect(() => {
+    setInternalReverseResizeDir(
+      !isSafari() && !isFirefox() && !isMobile() ? internalReverseResizeDir : false,
+    )
+  }, [])
+
+  const virtualInputRef = internalReverseResizeDir ? reverseDivRef : inputRef
+
+  useEffect(() => {
+    inputRef.current.focus()
+
     const onResizeY = () => {
       if (virtualInputRef.current.h !== virtualInputRef.current.offsetHeight) {
         virtualInputRef.current.h = virtualInputRef.current.offsetHeight
@@ -28,7 +38,7 @@ export function InputBox({ onSubmit, enabled, port, reverseResizeDir }) {
 
   useEffect(() => {
     if (!resizedRef.current) {
-      if (!reverseResizeDir) {
+      if (!internalReverseResizeDir) {
         updateRefHeight(inputRef)
         virtualInputRef.current.h = virtualInputRef.current.offsetHeight
         virtualInputRef.current.style.maxHeight = '160px'
@@ -37,20 +47,22 @@ export function InputBox({ onSubmit, enabled, port, reverseResizeDir }) {
   })
 
   useEffect(() => {
-    if (enabled) inputRef.current.focus()
+    if (enabled)
+      getUserConfig().then((config) => {
+        if (config.focusAfterAnswer) inputRef.current.focus()
+      })
   }, [enabled])
 
   const handleKeyDownOrClick = (e) => {
     e.stopPropagation()
     if (e.type === 'click' || (e.keyCode === 13 && e.shiftKey === false)) {
+      e.preventDefault()
       if (enabled) {
-        e.preventDefault()
         if (!value) return
         onSubmit(value)
         setValue('')
       } else {
-        e.preventDefault()
-        port.postMessage({ stop: true })
+        postMessage({ stop: true })
       }
     }
   }
@@ -60,7 +72,7 @@ export function InputBox({ onSubmit, enabled, port, reverseResizeDir }) {
       <div
         ref={reverseDivRef}
         style={
-          reverseResizeDir && {
+          internalReverseResizeDir && {
             transform: 'rotateX(180deg)',
             resize: 'vertical',
             overflow: 'hidden',
@@ -74,7 +86,7 @@ export function InputBox({ onSubmit, enabled, port, reverseResizeDir }) {
           disabled={false}
           className="interact-input"
           style={
-            reverseResizeDir
+            internalReverseResizeDir
               ? { transform: 'rotateX(180deg)', resize: 'none' }
               : { resize: 'vertical', minHeight: '70px' }
           }
@@ -105,7 +117,7 @@ InputBox.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   enabled: PropTypes.bool.isRequired,
   reverseResizeDir: PropTypes.bool,
-  port: PropTypes.object.isRequired,
+  postMessage: PropTypes.func.isRequired,
 }
 
 export default InputBox

@@ -14,7 +14,7 @@ export default {
         ) {
           const searchValue = await getInput(config.baidu.inputQuery)
           if (searchValue) {
-            mountComponent(config.baidu, userConfig)
+            mountComponent(config.baidu)
           }
         }
       })
@@ -22,5 +22,6 @@ export default {
     } catch (e) {
       /* empty */
     }
+    return true
   },
 }

@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react'
 
 export function useWindowTheme() {
   const [theme, setTheme] = useState(
-    window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
+    window.matchMedia
+      ? window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light'
       : 'light',
   )
   useEffect(() => {

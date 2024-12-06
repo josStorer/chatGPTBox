@@ -10,10 +10,10 @@ Deep ChatGPT integrations in your browser, completely for free.
 
 [![license][license-image]][license-url]
 [![release][release-image]][release-url]
-[![size](https://img.shields.io/badge/minified%20size-360%20kB-blue)][release-url]
+[![size](https://img.shields.io/badge/minified%20size-390%20kB-blue)][release-url]
 [![verfiy][verify-image]][verify-url]
 
-English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
+English &nbsp;&nbsp;|&nbsp;&nbsp; [Indonesia](README_IN.md) &nbsp;&nbsp;|&nbsp;&nbsp; [简体中文](README_ZH.md) &nbsp;&nbsp;|&nbsp;&nbsp; [日本語](README_JA.md) &nbsp;&nbsp;|&nbsp;&nbsp; [Türkçe](README_TR.md)
 
 ### Install
 
@@ -24,11 +24,7 @@ English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
 [![Android][Android-image]][Android-url]
 [![Github][Github-image]][Github-url]
 
-[Guide](https://github.com/josStorer/chatGPTBox/wiki/Guide) |
-[Preview](#Preview) |
-[Development&Contributing][dev-url] |
-[Video Demonstration](https://www.youtube.com/watch?v=E1smDxJvTRs) |
-[Credit](#Credit)
+[Guide](https://github.com/josStorer/chatGPTBox/wiki/Guide) &nbsp;&nbsp;|&nbsp;&nbsp; [Preview](#Preview) &nbsp;&nbsp;|&nbsp;&nbsp; [Development&Contributing][dev-url] &nbsp;&nbsp;|&nbsp;&nbsp; [Video Demonstration](https://www.youtube.com/watch?v=E1smDxJvTRs) &nbsp;&nbsp;|&nbsp;&nbsp; [Credit](#Credit)
 
 [dev-url]: https://github.com/josStorer/chatGPTBox/wiki/Development&Contributing
 
@@ -74,9 +70,11 @@ English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
 
 - This extension does **not** collect your data. You can verify it by conducting a global search for `fetch(` and `XMLHttpRequest(` in the code to find all network request calls. The amount of code is not much, so it's easy to do that.
 
-- You can set a free reverse proxy in the Advanced setting to bypass cloudflare: https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy
+- This tool will not transmit any data to ChatGPT unless you explicitly ask it to. By default, the extension must be activated manually. It will only send a request to ChatGPT if you specifically click "Ask ChatGPT" or trigger the selection floating tools — and this is applicable only when you're using GPT API modes. (issue #407)
 
-- Offline/Self-hosted model (llama.cpp, ChatGLM...) is now supported, See https://github.com/josStorer/selfhostedAI and https://github.com/l15y/wenda
+- You can use projects like https://github.com/BerriAI/litellm / https://github.com/songquanpeng/one-api to convert LLM APIs into OpenAI format and use them in conjunction with ChatGPTBox's `Custom Model` mode
+
+- You can also use [Ollama](https://github.com/josStorer/chatGPTBox/issues/616#issuecomment-1975186467) / https://openrouter.ai/docs#models with ChatGPTBox's `Custom Model` mode
 
 ## ✨ Features
 
@@ -84,7 +82,7 @@ English | [Indonesia](README_IN.md) | [简体中文](README_ZH.md)
 - 📱 Support for mobile devices.
 - 📓 Summarize any page with right-click menu. (<kbd>Alt</kbd>+<kbd>B</kbd>)
 - 📖 Independent conversation page. (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>)
-- 🔗 Multiple API support (Web API for Free and Plus users, GPT-3.5, GPT-4, New Bing, Self-Hosted, Azure, Poe etc.).
+- 🔗 Multiple API support (Web API for Free and Plus users, GPT-3.5, GPT-4, Claude, New Bing, Moonshot, Self-Hosted, Azure etc.).
 - 📦 Integration for various commonly used websites (Reddit, Quora, YouTube, GitHub, GitLab, StackOverflow, Zhihu, Bilibili). (Inspired by [wimdenherder](https://github.com/wimdenherder))
 - 🔍 Integration to all mainstream search engines, and custom queries to support additional sites.
 - 🧰 Selection tool and right-click menu to perform various tasks, such as translation, summarization, polishing,

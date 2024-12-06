@@ -18,7 +18,7 @@ async function deleteOldDir() {
   await fs.rm(outdir, { recursive: true, force: true })
 }
 
-async function runWebpack(isWithoutKatex, isWithoutTiktoken, callback) {
+async function runWebpack(isWithoutKatex, isWithoutTiktoken, minimal, callback) {
   const shared = [
     'preact',
     'webextension-polyfill',
@@ -70,6 +70,14 @@ async function runWebpack(isWithoutKatex, isWithoutTiktoken, callback) {
       concatenateModules: !isAnalyzing,
     },
     plugins: [
+      minimal
+        ? new webpack.ProvidePlugin({
+            Buffer: ['buffer', 'Buffer'],
+          })
+        : new webpack.ProvidePlugin({
+            process: 'process/browser.js',
+            Buffer: ['buffer', 'Buffer'],
+          }),
       new ProgressBarPlugin({
         format: '  build [:bar] :percent (:elapsed seconds)',
         clear: false,
@@ -97,6 +105,14 @@ async function runWebpack(isWithoutKatex, isWithoutTiktoken, callback) {
       extensions: ['.jsx', '.mjs', '.js'],
       alias: {
         parse5: path.resolve(__dirname, 'node_modules/parse5'),
+        ...(minimal
+          ? { buffer: path.resolve(__dirname, 'node_modules/buffer') }
+          : {
+              util: path.resolve(__dirname, 'node_modules/util'),
+              buffer: path.resolve(__dirname, 'node_modules/buffer'),
+              stream: 'stream-browserify',
+              crypto: 'crypto-browserify',
+            }),
       },
     },
     module: {
@@ -206,7 +222,7 @@ async function runWebpack(isWithoutKatex, isWithoutTiktoken, callback) {
               },
             }
           : {},
-        isWithoutKatex && isWithoutTiktoken
+        minimal
           ? {
               test: /styles\.scss$/,
               loader: 'string-replace-loader',
@@ -215,6 +231,24 @@ async function runWebpack(isWithoutKatex, isWithoutTiktoken, callback) {
                   {
                     search: "@import '../fonts/styles.css';",
                     replace: '',
+                  },
+                ],
+              },
+            }
+          : {},
+        minimal
+          ? {
+              test: /index\.mjs$/,
+              loader: 'string-replace-loader',
+              options: {
+                multiple: [
+                  {
+                    search: 'import { generateAnswersWithChatGLMApi }',
+                    replace: '//',
+                  },
+                  {
+                    search: 'await generateAnswersWithChatGLMApi',
+                    replace: '//',
                   },
                 ],
               },
@@ -249,6 +283,7 @@ async function copyFiles(entryPoints, targetDir) {
 async function finishOutput(outputDirSuffix) {
   const commonFiles = [
     { src: 'src/logo.png', dst: 'logo.png' },
+    { src: 'src/rules.json', dst: 'rules.json' },
 
     { src: 'build/shared.js', dst: 'shared.js' },
     { src: 'build/content-script.css', dst: 'content-script.css' }, // shared
@@ -297,20 +332,22 @@ function generateWebpackCallback(finishOutputFunc) {
 async function build() {
   await deleteOldDir()
   if (isProduction && !isAnalyzing) {
+    // await runWebpack(
+    //   true,
+    //   false,
+    //   generateWebpackCallback(() => finishOutput('-without-katex')),
+    // )
+    // await new Promise((r) => setTimeout(r, 5000))
     await runWebpack(
       true,
-      false,
-      generateWebpackCallback(() => finishOutput('-without-katex')),
-    )
-    await new Promise((r) => setTimeout(r, 5000))
-    await runWebpack(
       true,
       true,
       generateWebpackCallback(() => finishOutput('-without-katex-and-tiktoken')),
     )
-    await new Promise((r) => setTimeout(r, 5000))
+    await new Promise((r) => setTimeout(r, 10000))
   }
   await runWebpack(
+    false,
     false,
     false,
     generateWebpackCallback(() => finishOutput('')),

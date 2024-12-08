@@ -71,7 +71,9 @@ async function runWebpack(isWithoutKatex, isWithoutTiktoken, minimal, callback) 
     },
     plugins: [
       minimal
-        ? undefined
+        ? new webpack.ProvidePlugin({
+            Buffer: ['buffer', 'Buffer'],
+          })
         : new webpack.ProvidePlugin({
             process: 'process/browser.js',
             Buffer: ['buffer', 'Buffer'],
@@ -104,7 +106,7 @@ async function runWebpack(isWithoutKatex, isWithoutTiktoken, minimal, callback) 
       alias: {
         parse5: path.resolve(__dirname, 'node_modules/parse5'),
         ...(minimal
-          ? {}
+          ? { buffer: path.resolve(__dirname, 'node_modules/buffer') }
           : {
               util: path.resolve(__dirname, 'node_modules/util'),
               buffer: path.resolve(__dirname, 'node_modules/buffer'),
@@ -246,14 +248,6 @@ async function runWebpack(isWithoutKatex, isWithoutTiktoken, minimal, callback) 
                   },
                   {
                     search: 'await generateAnswersWithChatGLMApi',
-                    replace: '//',
-                  },
-                  {
-                    search: 'chatglmTurbo',
-                    replace: '//',
-                  },
-                  {
-                    search: "'chatglmTurbo",
                     replace: '//',
                   },
                 ],

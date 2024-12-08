@@ -1,7 +1,8 @@
 import { pushRecord, setAbortController } from './shared.mjs'
-import { Models, setUserConfig } from '../../config/index.mjs'
+import { setUserConfig } from '../../config/index.mjs'
 import { fetchSSE } from '../../utils/fetch-sse'
 import { isEmpty } from 'lodash-es'
+import { getModelValue } from '../../utils/model-name-convert.mjs'
 
 export class MoonshotWeb {
   /**
@@ -315,7 +316,9 @@ export class Conversation {
       throw new Error('moonshot not initialized')
     }
     if (!this.moonshot.refreshToken) {
-      throw new Error('moonshot token required, please login at https://kimi.moonshot.cn first')
+      throw new Error(
+        'moonshot token required, please login at https://kimi.moonshot.cn first, and then click the retry button',
+      )
     }
     if (!this.conversationId) {
       throw new Error('Conversation ID required, are you calling `await moonshot.init()`?')
@@ -401,6 +404,9 @@ export class Conversation {
         } catch (error) {
           console.debug('json error', error)
           return
+        }
+        if (parsed.error) {
+          throw new Error(message)
         }
         if (parsed.event === 'cmpl' && parsed.text) fullResponse += parsed.text
         const PROGRESS_OBJECT = {
@@ -566,18 +572,12 @@ export class Message {
  * @param {string} question
  * @param {Session} session
  * @param {UserConfig} config
- * @param {string} modelName
  */
-export async function generateAnswersWithMoonshotWebApi(
-  port,
-  question,
-  session,
-  config,
-  modelName,
-) {
+export async function generateAnswersWithMoonshotWebApi(port, question, session, config) {
   const bot = new MoonshotWeb({ config })
   await bot.init()
   const { controller, cleanController } = setAbortController(port)
+  const model = getModelValue(session)
 
   let answer = ''
   const progressFunc = ({ completion }) => {
@@ -594,7 +594,7 @@ export async function generateAnswersWithMoonshotWebApi(
   const params = {
     progress: progressFunc,
     done: doneFunc,
-    model: Models[modelName].value,
+    model,
     signal: controller.signal,
   }
 

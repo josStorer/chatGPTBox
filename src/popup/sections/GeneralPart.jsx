@@ -1,29 +1,38 @@
 import { useTranslation } from 'react-i18next'
-import { useState } from 'react'
-import { openUrl } from '../../utils/index.mjs'
+import { useLayoutEffect, useState } from 'react'
+import FileSaver from 'file-saver'
 import {
-  isUsingOpenAiApiKey,
-  isUsingAzureOpenAi,
-  isUsingChatGLMApi,
-  isUsingClaudeApi,
+  openUrl,
+  modelNameToDesc,
+  isApiModeSelected,
+  getApiModesFromConfig,
+  apiModeToModelName,
+} from '../../utils/index.mjs'
+import {
+  isUsingOpenAiApiModel,
+  isUsingAzureOpenAiApiModel,
+  isUsingChatGLMApiModel,
+  isUsingClaudeApiModel,
   isUsingCustomModel,
-  isUsingCustomNameOnlyModel,
-  isUsingGithubThirdPartyApi,
+  isUsingOllamaApiModel,
+  isUsingGithubThirdPartyApiModel,
   isUsingMultiModeModel,
   ModelMode,
-  Models,
   ThemeMode,
   TriggerMode,
-  isUsingMoonshotApi,
+  isUsingMoonshotApiModel,
+  Models,
 } from '../../config/index.mjs'
 import Browser from 'webextension-polyfill'
 import { languageList } from '../../config/language.mjs'
 import PropTypes from 'prop-types'
 import { config as menuConfig } from '../../content-script/menu-tools'
+import { PencilIcon } from '@primer/octicons-react'
 
 GeneralPart.propTypes = {
   config: PropTypes.object.isRequired,
   updateConfig: PropTypes.func.isRequired,
+  setTabIndex: PropTypes.func.isRequired,
 }
 
 function formatDate(date) {
@@ -79,9 +88,23 @@ async function checkBilling(apiKey, apiUrl) {
   }
 }
 
-export function GeneralPart({ config, updateConfig }) {
+function isUsingSpecialCustomModel(configOrSession) {
+  return isUsingCustomModel(configOrSession) && !configOrSession.apiMode
+}
+
+export function GeneralPart({ config, updateConfig, setTabIndex }) {
   const { t, i18n } = useTranslation()
   const [balance, setBalance] = useState(null)
+  const [apiModes, setApiModes] = useState([])
+
+  useLayoutEffect(() => {
+    setApiModes(getApiModesFromConfig(config, true))
+  }, [
+    config.activeApiModes,
+    config.customApiModes,
+    config.azureDeploymentName,
+    config.ollamaModelName,
+  ])
 
   const getBalance = async () => {
     const response = await fetch(`${config.customOpenAiApiUrl}/dashboard/billing/credit_grants`, {
@@ -137,46 +160,54 @@ export function GeneralPart({ config, updateConfig }) {
         </select>
       </label>
       <label>
-        <legend>{t('API Mode')}</legend>
+        <legend style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {t('API Mode')}
+          <div
+            style={{ cursor: 'pointer' }}
+            onClick={(e) => {
+              e.preventDefault()
+              setTabIndex(2)
+            }}
+          >
+            <PencilIcon />
+          </div>
+        </legend>
         <span style="display: flex; gap: 15px;">
           <select
             style={
-              isUsingOpenAiApiKey(config) ||
+              isUsingOpenAiApiModel(config) ||
               isUsingMultiModeModel(config) ||
-              isUsingCustomModel(config) ||
-              isUsingAzureOpenAi(config) ||
-              isUsingClaudeApi(config) ||
-              isUsingCustomNameOnlyModel(config) ||
-              isUsingMoonshotApi(config)
+              isUsingSpecialCustomModel(config) ||
+              isUsingAzureOpenAiApiModel(config) ||
+              isUsingClaudeApiModel(config) ||
+              isUsingMoonshotApiModel(config)
                 ? 'width: 50%;'
                 : undefined
             }
             required
             onChange={(e) => {
-              const modelName = e.target.value
-              updateConfig({ modelName: modelName })
+              if (e.target.value === '-1') {
+                updateConfig({ modelName: 'customModel', apiMode: null })
+                return
+              }
+              const apiMode = apiModes[e.target.value]
+              updateConfig({ apiMode: apiMode })
             }}
           >
-            {config.activeApiModes.map((modelName) => {
-              let desc
-              if (modelName.includes('-')) {
-                const splits = modelName.split('-')
-                if (splits[0] in Models)
-                  desc = `${t(Models[splits[0]].desc)} (${t(ModelMode[splits[1]])})`
-              } else {
-                if (modelName in Models) desc = t(Models[modelName].desc)
-              }
-              if (desc)
+            {apiModes.map((apiMode, index) => {
+              const modelName = apiModeToModelName(apiMode)
+              const desc = modelNameToDesc(modelName, t)
+              if (desc) {
                 return (
-                  <option
-                    value={modelName}
-                    key={modelName}
-                    selected={modelName === config.modelName}
-                  >
+                  <option value={index} key={index} selected={isApiModeSelected(apiMode, config)}>
                     {desc}
                   </option>
                 )
+              }
             })}
+            <option value={-1} selected={!config.apiMode && config.modelName === 'customModel'}>
+              {t(Models.customModel.desc)}
+            </option>
           </select>
           {isUsingMultiModeModel(config) && (
             <select
@@ -196,7 +227,7 @@ export function GeneralPart({ config, updateConfig }) {
               })}
             </select>
           )}
-          {isUsingOpenAiApiKey(config) && (
+          {isUsingOpenAiApiModel(config) && (
             <span style="width: 50%; display: flex; gap: 5px;">
               <input
                 type="password"
@@ -228,7 +259,7 @@ export function GeneralPart({ config, updateConfig }) {
               )}
             </span>
           )}
-          {isUsingCustomModel(config) && (
+          {isUsingSpecialCustomModel(config) && (
             <input
               style="width: 50%;"
               type="text"
@@ -240,19 +271,7 @@ export function GeneralPart({ config, updateConfig }) {
               }}
             />
           )}
-          {isUsingCustomNameOnlyModel(config) && (
-            <input
-              style="width: 50%;"
-              type="text"
-              value={config.poeCustomBotName}
-              placeholder={t('Bot Name')}
-              onChange={(e) => {
-                const customName = e.target.value
-                updateConfig({ poeCustomBotName: customName })
-              }}
-            />
-          )}
-          {isUsingAzureOpenAi(config) && (
+          {isUsingAzureOpenAiApiModel(config) && (
             <input
               type="password"
               style="width: 50%;"
@@ -264,7 +283,7 @@ export function GeneralPart({ config, updateConfig }) {
               }}
             />
           )}
-          {isUsingClaudeApi(config) && (
+          {isUsingClaudeApiModel(config) && (
             <input
               type="password"
               style="width: 50%;"
@@ -276,7 +295,7 @@ export function GeneralPart({ config, updateConfig }) {
               }}
             />
           )}
-          {isUsingChatGLMApi(config) && (
+          {isUsingChatGLMApiModel(config) && (
             <input
               type="password"
               style="width: 50%;"
@@ -288,7 +307,7 @@ export function GeneralPart({ config, updateConfig }) {
               }}
             />
           )}
-          {isUsingMoonshotApi(config) && (
+          {isUsingMoonshotApiModel(config) && (
             <span style="width: 50%; display: flex; gap: 5px;">
               <input
                 type="password"
@@ -313,7 +332,7 @@ export function GeneralPart({ config, updateConfig }) {
             </span>
           )}
         </span>
-        {isUsingCustomModel(config) && (
+        {isUsingSpecialCustomModel(config) && (
           <input
             type="text"
             value={config.customModelApiUrl}
@@ -324,7 +343,7 @@ export function GeneralPart({ config, updateConfig }) {
             }}
           />
         )}
-        {isUsingCustomModel(config) && (
+        {isUsingSpecialCustomModel(config) && (
           <input
             type="password"
             value={config.customApiKey}
@@ -335,7 +354,70 @@ export function GeneralPart({ config, updateConfig }) {
             }}
           />
         )}
-        {isUsingAzureOpenAi(config) && (
+        {isUsingOllamaApiModel(config) && (
+          <div style={{ display: 'flex', gap: '10px' }}>
+            {t('Keep-Alive Time') + ':'}
+            <label>
+              <input
+                type="radio"
+                name="ollamaKeepAliveTime"
+                value="5m"
+                checked={config.ollamaKeepAliveTime === '5m'}
+                onChange={(e) => {
+                  updateConfig({ ollamaKeepAliveTime: e.target.value })
+                }}
+              />
+              {t('5m')}
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="ollamaKeepAliveTime"
+                value="30m"
+                checked={config.ollamaKeepAliveTime === '30m'}
+                onChange={(e) => {
+                  updateConfig({ ollamaKeepAliveTime: e.target.value })
+                }}
+              />
+              {t('30m')}
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="ollamaKeepAliveTime"
+                value="-1"
+                checked={config.ollamaKeepAliveTime === '-1'}
+                onChange={(e) => {
+                  updateConfig({ ollamaKeepAliveTime: e.target.value })
+                }}
+              />
+              {t('Forever')}
+            </label>
+          </div>
+        )}
+        {isUsingOllamaApiModel(config) && (
+          <input
+            type="text"
+            value={config.ollamaEndpoint}
+            placeholder={t('Ollama Endpoint')}
+            onChange={(e) => {
+              const value = e.target.value
+              updateConfig({ ollamaEndpoint: value })
+            }}
+          />
+        )}
+        {isUsingOllamaApiModel(config) && (
+          <input
+            type="password"
+            value={config.ollamaApiKey}
+            placeholder={t('API Key')}
+            onChange={(e) => {
+              const apiKey = e.target.value
+              updateConfig({ ollamaApiKey: apiKey })
+            }}
+          />
+        )}
+        {isUsingAzureOpenAiApiModel(config) && (
           <input
             type="password"
             value={config.azureEndpoint}
@@ -346,18 +428,7 @@ export function GeneralPart({ config, updateConfig }) {
             }}
           />
         )}
-        {isUsingAzureOpenAi(config) && (
-          <input
-            type="text"
-            value={config.azureDeploymentName}
-            placeholder={t('Azure Deployment Name')}
-            onChange={(e) => {
-              const deploymentName = e.target.value
-              updateConfig({ azureDeploymentName: deploymentName })
-            }}
-          />
-        )}
-        {isUsingGithubThirdPartyApi(config) && (
+        {isUsingGithubThirdPartyApiModel(config) && (
           <input
             type="text"
             value={config.githubThirdPartyUrl}
@@ -440,6 +511,28 @@ export function GeneralPart({ config, updateConfig }) {
       <label>
         <input
           type="checkbox"
+          checked={config.alwaysFloatingSidebar}
+          onChange={(e) => {
+            const checked = e.target.checked
+            updateConfig({ alwaysFloatingSidebar: checked })
+          }}
+        />
+        {t('Always display floating window, disable sidebar for all site adapters')}
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={config.allowEscToCloseAll}
+          onChange={(e) => {
+            const checked = e.target.checked
+            updateConfig({ allowEscToCloseAll: checked })
+          }}
+        />
+        {t('Allow ESC to close all floating windows')}
+      </label>
+      <label>
+        <input
+          type="checkbox"
           checked={config.lockWhenAnswer}
           onChange={(e) => {
             const checked = e.target.checked
@@ -493,6 +586,44 @@ export function GeneralPart({ config, updateConfig }) {
         {t('Focus to input box after answering')}
       </label>
       <br />
+      <div style={{ display: 'flex', gap: '10px' }}>
+        <button
+          className="secondary"
+          onClick={async (e) => {
+            e.preventDefault()
+            const file = await new Promise((resolve) => {
+              const input = document.createElement('input')
+              input.type = 'file'
+              input.accept = '.json'
+              input.onchange = (e) => resolve(e.target.files[0])
+              input.click()
+            })
+            if (!file) return
+            const data = await new Promise((resolve) => {
+              const reader = new FileReader()
+              reader.onload = (e) => resolve(JSON.parse(e.target.result))
+              reader.readAsText(file)
+            })
+            await Browser.storage.local.set(data)
+            window.location.reload()
+          }}
+        >
+          {t('Import All Data')}
+        </button>
+        <button
+          className="secondary"
+          onClick={async (e) => {
+            e.preventDefault()
+            const blob = new Blob(
+              [JSON.stringify(await Browser.storage.local.get(null), null, 2)],
+              { type: 'text/json;charset=utf-8' },
+            )
+            FileSaver.saveAs(blob, 'chatgptbox-data.json')
+          }}
+        >
+          {t('Export All Data')}
+        </button>
+      </div>
     </>
   )
 }

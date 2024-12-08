@@ -5,15 +5,8 @@ import { generateAnswersWithChatgptApiCompat } from './openai-api.mjs'
  * @param {string} question
  * @param {Session} session
  * @param {string} apiKey
- * @param {string} modelName
  */
-export async function generateAnswersWithMoonshotCompletionApi(
-  port,
-  question,
-  session,
-  apiKey,
-  modelName,
-) {
-  const baseUrl = 'https://api.moonshot.cn'
-  return generateAnswersWithChatgptApiCompat(baseUrl, port, question, session, apiKey, modelName)
+export async function generateAnswersWithMoonshotCompletionApi(port, question, session, apiKey) {
+  const baseUrl = 'https://api.moonshot.cn/v1'
+  return generateAnswersWithChatgptApiCompat(baseUrl, port, question, session, apiKey)
 }

@@ -9,12 +9,15 @@ import {
   chatgptWebModelKeys,
   getPreferredLanguageKey,
   getUserConfig,
+  isUsingChatgptWebModel,
   setAccessToken,
   setUserConfig,
 } from '../config/index.mjs'
 import {
   createElementAtPosition,
   cropText,
+  endsWithQuestionMark,
+  getApiModesStringArrayFromConfig,
   getClientPosition,
   getPossibleElementByQuerySelector,
 } from '../utils'
@@ -26,35 +29,38 @@ import { changeLanguage } from 'i18next'
 import { initSession } from '../services/init-session.mjs'
 import { getChatGptAccessToken, registerPortListener } from '../services/wrappers.mjs'
 import { generateAnswersWithChatgptWebApi } from '../services/apis/chatgpt-web.mjs'
-import NotificationForChatGPTWeb from '../components/NotificationForChatGPTWeb'
+import WebJumpBackNotification from '../components/WebJumpBackNotification'
 
 /**
  * @param {SiteConfig} siteConfig
- * @param {UserConfig} userConfig
  */
-async function mountComponent(siteConfig, userConfig) {
-  const retry = 10
-  let oldUrl = location.href
-  for (let i = 1; i <= retry; i++) {
-    if (location.href !== oldUrl) {
-      console.log(`SiteAdapters Retry ${i}/${retry}: stop`)
-      return
-    }
-    const e =
-      (siteConfig &&
-        (getPossibleElementByQuerySelector(siteConfig.sidebarContainerQuery) ||
-          getPossibleElementByQuerySelector(siteConfig.appendContainerQuery) ||
-          getPossibleElementByQuerySelector(siteConfig.resultsContainerQuery))) ||
-      getPossibleElementByQuerySelector([userConfig.prependQuery]) ||
-      getPossibleElementByQuerySelector([userConfig.appendQuery])
-    if (e) {
-      console.log(`SiteAdapters Retry ${i}/${retry}: found`)
-      console.log(e)
-      break
-    } else {
-      console.log(`SiteAdapters Retry ${i}/${retry}: not found`)
-      if (i === retry) return
-      else await new Promise((r) => setTimeout(r, 500))
+async function mountComponent(siteConfig) {
+  const userConfig = await getUserConfig()
+
+  if (!userConfig.alwaysFloatingSidebar) {
+    const retry = 10
+    let oldUrl = location.href
+    for (let i = 1; i <= retry; i++) {
+      if (location.href !== oldUrl) {
+        console.log(`SiteAdapters Retry ${i}/${retry}: stop`)
+        return
+      }
+      const e =
+        (siteConfig &&
+          (getPossibleElementByQuerySelector(siteConfig.sidebarContainerQuery) ||
+            getPossibleElementByQuerySelector(siteConfig.appendContainerQuery) ||
+            getPossibleElementByQuerySelector(siteConfig.resultsContainerQuery))) ||
+        getPossibleElementByQuerySelector([userConfig.prependQuery]) ||
+        getPossibleElementByQuerySelector([userConfig.appendQuery])
+      if (e) {
+        console.log(`SiteAdapters Retry ${i}/${retry}: found`)
+        console.log(e)
+        break
+      } else {
+        console.log(`SiteAdapters Retry ${i}/${retry}: not found`)
+        if (i === retry) return
+        else await new Promise((r) => setTimeout(r, 500))
+      }
     }
   }
   document.querySelectorAll('.chatgptbox-container,#chatgptbox-container').forEach((e) => {
@@ -70,11 +76,47 @@ async function mountComponent(siteConfig, userConfig) {
     unmountComponentAtNode(e)
     e.remove()
   })
+
+  if (userConfig.alwaysFloatingSidebar && question) {
+    const position = {
+      x: window.innerWidth - 300 - Math.floor((20 / 100) * window.innerWidth),
+      y: window.innerHeight / 2 - 200,
+    }
+    const toolbarContainer = createElementAtPosition(position.x, position.y)
+    toolbarContainer.className = 'chatgptbox-toolbar-container-not-queryable'
+
+    let triggered = false
+    if (userConfig.triggerMode === 'always') triggered = true
+    else if (userConfig.triggerMode === 'questionMark' && endsWithQuestionMark(question.trim()))
+      triggered = true
+
+    render(
+      <FloatingToolbar
+        session={initSession({
+          modelName: userConfig.modelName,
+          apiMode: userConfig.apiMode,
+          extraCustomModelName: userConfig.customModelName,
+        })}
+        selection=""
+        container={toolbarContainer}
+        triggered={triggered}
+        closeable={true}
+        prompt={question}
+      />,
+      toolbarContainer,
+    )
+    return
+  }
+
   const container = document.createElement('div')
   container.id = 'chatgptbox-container'
   render(
     <DecisionCard
-      session={initSession({ modelName: (await getUserConfig()).modelName })}
+      session={initSession({
+        modelName: userConfig.modelName,
+        apiMode: userConfig.apiMode,
+        extraCustomModelName: userConfig.customModelName,
+      })}
       question={question}
       siteConfig={siteConfig}
       container={container}
@@ -118,9 +160,14 @@ const deleteToolbar = () => {
 
 const createSelectionTools = async (toolbarContainer, selection) => {
   toolbarContainer.className = 'chatgptbox-toolbar-container'
+  const userConfig = await getUserConfig()
   render(
     <FloatingToolbar
-      session={initSession({ modelName: (await getUserConfig()).modelName })}
+      session={initSession({
+        modelName: userConfig.modelName,
+        apiMode: userConfig.apiMode,
+        extraCustomModelName: userConfig.customModelName,
+      })}
       selection={selection}
       container={toolbarContainer}
       dockable={true}
@@ -243,9 +290,14 @@ async function prepareForRightClickMenu() {
         : { x: window.innerWidth / 2 - 300, y: window.innerHeight / 2 - 200 }
       const container = createElementAtPosition(position.x, position.y)
       container.className = 'chatgptbox-toolbar-container-not-queryable'
+      const userConfig = await getUserConfig()
       render(
         <FloatingToolbar
-          session={initSession({ modelName: (await getUserConfig()).modelName })}
+          session={initSession({
+            modelName: userConfig.modelName,
+            apiMode: userConfig.apiMode,
+            extraCustomModelName: userConfig.customModelName,
+          })}
           selection={data.selectionText}
           container={container}
           triggered={true}
@@ -285,7 +337,7 @@ async function prepareForStaticCard() {
       }
     }
 
-    if (initSuccess) mountComponent(siteConfig[siteName], userConfig)
+    if (initSuccess) mountComponent(siteConfig[siteName])
   }
 }
 
@@ -322,17 +374,12 @@ async function prepareForForegroundRequests() {
 
   const userConfig = await getUserConfig()
 
-  if (!chatgptWebModelKeys.some((model) => userConfig.activeApiModes.includes(model))) return
-
-  const url = new URL(window.location.href)
   if (
-    url.searchParams.has('chatgptbox_notification') &&
-    chatgptWebModelKeys.includes(userConfig.modelName)
-  ) {
-    const div = document.createElement('div')
-    document.body.append(div)
-    render(<NotificationForChatGPTWeb container={div} />, div)
-  }
+    !chatgptWebModelKeys.some((model) =>
+      getApiModesStringArrayFromConfig(userConfig, true).includes(model),
+    )
+  )
+    return
 
   if (location.pathname === '/') {
     const input = document.querySelector('#prompt-textarea')
@@ -352,11 +399,76 @@ async function prepareForForegroundRequests() {
   })
 
   registerPortListener(async (session, port) => {
-    if (chatgptWebModelKeys.includes(session.modelName)) {
+    if (isUsingChatgptWebModel(session)) {
       const accessToken = await getChatGptAccessToken()
       await generateAnswersWithChatgptWebApi(port, session.question, session, accessToken)
     }
   })
+}
+
+async function getClaudeSessionKey() {
+  return Browser.runtime.sendMessage({
+    type: 'GET_COOKIE',
+    data: { url: 'https://claude.ai/', name: 'sessionKey' },
+  })
+}
+
+async function prepareForJumpBackNotification() {
+  if (
+    location.hostname === 'chatgpt.com' &&
+    document.querySelector('button[data-testid=login-button]')
+  ) {
+    console.log('chatgpt not logged in')
+    return
+  }
+
+  const url = new URL(window.location.href)
+  if (url.searchParams.has('chatgptbox_notification')) {
+    if (location.hostname === 'claude.ai' && !(await getClaudeSessionKey())) {
+      console.log('claude not logged in')
+
+      await new Promise((resolve) => {
+        const timer = setInterval(async () => {
+          const token = await getClaudeSessionKey()
+          if (token) {
+            clearInterval(timer)
+            resolve()
+          }
+        }, 500)
+      })
+    }
+
+    if (location.hostname === 'kimi.moonshot.cn' && !window.localStorage.refresh_token) {
+      console.log('kimi not logged in')
+      setTimeout(() => {
+        document.querySelectorAll('button').forEach((button) => {
+          if (button.textContent === '立即登录') {
+            button.click()
+          }
+        })
+      }, 1000)
+
+      await new Promise((resolve) => {
+        const timer = setInterval(() => {
+          const token = window.localStorage.refresh_token
+          if (token) {
+            setUserConfig({
+              kimiMoonShotRefreshToken: token,
+            })
+            clearInterval(timer)
+            resolve()
+          }
+        }, 500)
+      })
+    }
+
+    const div = document.createElement('div')
+    document.body.append(div)
+    render(
+      <WebJumpBackNotification container={div} chatgptMode={location.hostname === 'chatgpt.com'} />,
+      div,
+    )
+  }
 }
 
 async function run() {
@@ -377,6 +489,7 @@ async function run() {
   prepareForSelectionToolsTouch()
   prepareForStaticCard()
   prepareForRightClickMenu()
+  prepareForJumpBackNotification()
 }
 
 run()

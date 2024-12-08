@@ -14,7 +14,7 @@ export default {
       const checkUrlChange = async () => {
         if (location.href !== oldUrl) {
           oldUrl = location.href
-          mountComponent(config.youtube, userConfig)
+          mountComponent(config.youtube)
         }
       }
       window.setInterval(checkUrlChange, 500)

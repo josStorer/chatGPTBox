@@ -1,6 +1,12 @@
 import { defaults } from 'lodash-es'
 import Browser from 'webextension-polyfill'
 import { isMobile } from '../utils/is-mobile.mjs'
+import {
+  isInApiModeGroup,
+  isUsingModelName,
+  modelNameToDesc,
+} from '../utils/model-name-convert.mjs'
+import { t } from 'i18next'
 
 export const TriggerMode = {
   always: 'Always',
@@ -24,6 +30,7 @@ export const ModelMode = {
 export const chatgptWebModelKeys = [
   'chatgptFree35',
   'chatgptFree4o',
+  'chatgptFree4oMini',
   'chatgptPlus4',
   'chatgptFree35Mobile',
   'chatgptPlus4Browsing',
@@ -40,6 +47,7 @@ export const chatgptApiModelKeys = [
   'chatgptApi35_1106',
   'chatgptApi35_0125',
   'chatgptApi4o_128k',
+  'chatgptApi4oMini',
   'chatgptApi4_8k',
   'chatgptApi4_8k_0613',
   'chatgptApi4_32k',
@@ -50,17 +58,18 @@ export const chatgptApiModelKeys = [
   'chatgptApi4_128k_0125_preview',
 ]
 export const customApiModelKeys = ['customModel']
+export const ollamaApiModelKeys = ['ollamaModel']
 export const azureOpenAiApiModelKeys = ['azureOpenAi']
 export const claudeApiModelKeys = [
   'claude12Api',
   'claude2Api',
   'claude21Api',
   'claude3HaikuApi',
-  'claude35SonnetApi',
   'claude3SonnetApi',
   'claude3OpusApi',
+  'claude35SonnetApi',
 ]
-export const chatglmApiModelKeys = ['chatglmTurbo']
+export const chatglmApiModelKeys = ['chatglmTurbo', 'chatglm4', 'chatglmEmohaa', 'chatglmCharGLM3']
 export const githubThirdPartyApiModelKeys = ['waylaidwandererApi']
 export const poeWebModelKeys = [
   'poeAiWebSage', //poe.com/Assistant
@@ -79,6 +88,73 @@ export const poeWebModelKeys = [
 ]
 export const moonshotApiModelKeys = ['moonshot_v1_8k', 'moonshot_v1_32k', 'moonshot_v1_128k']
 
+export const AlwaysCustomGroups = [
+  'ollamaApiModelKeys',
+  'customApiModelKeys',
+  'azureOpenAiApiModelKeys',
+]
+export const CustomUrlGroups = ['customApiModelKeys']
+export const CustomApiKeyGroups = ['customApiModelKeys']
+export const ModelGroups = {
+  chatgptWebModelKeys: {
+    value: chatgptWebModelKeys,
+    desc: 'ChatGPT (Web)',
+  },
+  claudeWebModelKeys: {
+    value: claudeWebModelKeys,
+    desc: 'Claude.ai (Web)',
+  },
+  moonshotWebModelKeys: {
+    value: moonshotWebModelKeys,
+    desc: 'Kimi.Moonshot (Web)',
+  },
+  bingWebModelKeys: {
+    value: bingWebModelKeys,
+    desc: 'Bing (Web)',
+  },
+  bardWebModelKeys: {
+    value: bardWebModelKeys,
+    desc: 'Gemini (Web)',
+  },
+
+  chatgptApiModelKeys: {
+    value: chatgptApiModelKeys,
+    desc: 'ChatGPT (API)',
+  },
+  claudeApiModelKeys: {
+    value: claudeApiModelKeys,
+    desc: 'Claude.ai (API)',
+  },
+  moonshotApiModelKeys: {
+    value: moonshotApiModelKeys,
+    desc: 'Kimi.Moonshot (API)',
+  },
+  chatglmApiModelKeys: {
+    value: chatglmApiModelKeys,
+    desc: 'ChatGLM (API)',
+  },
+  ollamaApiModelKeys: {
+    value: ollamaApiModelKeys,
+    desc: 'Ollama (API)',
+  },
+  azureOpenAiApiModelKeys: {
+    value: azureOpenAiApiModelKeys,
+    desc: 'ChatGPT (Azure API)',
+  },
+  gptApiModelKeys: {
+    value: gptApiModelKeys,
+    desc: 'GPT Completion (API)',
+  },
+  githubThirdPartyApiModelKeys: {
+    value: githubThirdPartyApiModelKeys,
+    desc: 'Github Third Party Waylaidwanderer (API)',
+  },
+  customApiModelKeys: {
+    value: customApiModelKeys,
+    desc: 'Custom Model',
+  },
+}
+
 /**
  * @typedef {object} Model
  * @property {string} value
@@ -91,14 +167,16 @@ export const Models = {
   chatgptFree35: { value: 'text-davinci-002-render-sha', desc: 'ChatGPT (Web)' },
 
   chatgptFree4o: { value: 'gpt-4o', desc: 'ChatGPT (Web, GPT-4o)' },
+  chatgptFree4oMini: { value: 'gpt-4o-mini', desc: 'ChatGPT (Web, GPT-4o mini)' },
 
-  chatgptPlus4: { value: 'gpt-4', desc: 'ChatGPT (Web, GPT-4 All in one)' },
-  chatgptPlus4Browsing: { value: 'gpt-4-gizmo', desc: 'ChatGPT (Web, GPT-4)' },
+  chatgptPlus4: { value: 'gpt-4', desc: 'ChatGPT (Web, GPT-4)' },
+  chatgptPlus4Browsing: { value: 'gpt-4', desc: 'ChatGPT (Web, GPT-4)' }, // for compatibility
 
   chatgptApi35: { value: 'gpt-3.5-turbo', desc: 'ChatGPT (GPT-3.5-turbo)' },
   chatgptApi35_16k: { value: 'gpt-3.5-turbo-16k', desc: 'ChatGPT (GPT-3.5-turbo-16k)' },
 
-  chatgptApi4o_128k: { value: 'gpt-4o', desc: 'ChatGPT (GPT-4o)' },
+  chatgptApi4o_128k: { value: 'gpt-4o', desc: 'ChatGPT (GPT-4o, 128k)' },
+  chatgptApi4oMini: { value: 'gpt-4o-mini', desc: 'ChatGPT (GPT-4o mini)' },
   chatgptApi4_8k: { value: 'gpt-4', desc: 'ChatGPT (GPT-4-8k)' },
   chatgptApi4_32k: { value: 'gpt-4-32k', desc: 'ChatGPT (GPT-4-32k)' },
   chatgptApi4_128k: {
@@ -140,7 +218,10 @@ export const Models = {
 
   bardWebFree: { value: '', desc: 'Gemini (Web)' },
 
-  chatglmTurbo: { value: 'chatglm_turbo', desc: 'ChatGLM (ChatGLM-Turbo)' },
+  chatglmTurbo: { value: 'GLM-4-Air', desc: 'ChatGLM (GLM-4-Air, 128k)' },
+  chatglm4: { value: 'GLM-4-0520', desc: 'ChatGLM (GLM-4-0520, 128k)' },
+  chatglmEmohaa: { value: 'Emohaa', desc: 'ChatGLM (Emohaa)' },
+  chatglmCharGLM3: { value: 'CharGLM-3', desc: 'ChatGLM (CharGLM-3)' },
 
   chatgptFree35Mobile: { value: 'text-davinci-002-render-sha-mobile', desc: 'ChatGPT (Mobile)' },
   chatgptPlus4Mobile: { value: 'gpt-4-mobile', desc: 'ChatGPT (Mobile, GPT-4)' },
@@ -154,6 +235,7 @@ export const Models = {
   gptApiDavinci: { value: 'text-davinci-003', desc: 'GPT-3.5' },
 
   customModel: { value: '', desc: 'Custom Model' },
+  ollamaModel: { value: '', desc: 'Ollama API' },
   azureOpenAi: { value: '', desc: 'ChatGPT (Azure)' },
   waylaidwandererApi: { value: '', desc: 'Waylaidwanderer API (Github)' },
 
@@ -173,25 +255,27 @@ export const Models = {
 
   moonshot_v1_8k: {
     value: 'moonshot-v1-8k',
-    desc: 'Moonshot (8k)',
+    desc: 'Kimi.Moonshot (8k)',
   },
   moonshot_v1_32k: {
     value: 'moonshot-v1-32k',
-    desc: 'Moonshot (32k)',
+    desc: 'Kimi.Moonshot (32k)',
   },
   moonshot_v1_128k: {
     value: 'moonshot-v1-128k',
-    desc: 'Moonshot (128k)',
+    desc: 'Kimi.Moonshot (128k)',
   },
 }
 
 for (const modelName in Models) {
   if (isUsingMultiModeModel({ modelName }))
-    for (const mode in ModelMode)
-      Models[`${modelName}-${mode}`] = {
+    for (const mode in ModelMode) {
+      const key = `${modelName}-${mode}`
+      Models[key] = {
         value: mode,
-        desc: `${Models[modelName].desc} (${ModelMode[mode]})`,
+        desc: modelNameToDesc(key, t),
       }
+    }
 }
 
 /**
@@ -205,11 +289,14 @@ export const defaultConfig = {
   /** @type {keyof ThemeMode}*/
   themeMode: 'auto',
   /** @type {keyof Models}*/
-  modelName: 'chatgptFree35',
+  modelName: getNavigatorLanguage() === 'zh' ? 'moonshotWebFree' : 'claude2WebFree',
+  apiMode: null,
 
   preferredLanguage: getNavigatorLanguage(),
   clickIconAction: 'popup',
   insertAtTop: isMobile(),
+  alwaysFloatingSidebar: false,
+  allowEscToCloseAll: false,
   lockWhenAnswer: true,
   answerScrollMargin: 200,
   autoRegenAfterSwitchModel: false,
@@ -238,6 +325,11 @@ export const defaultConfig = {
   customModelName: 'gpt-3.5-turbo',
   githubThirdPartyUrl: 'http://127.0.0.1:3000/conversation',
 
+  ollamaEndpoint: 'http://127.0.0.1:11434',
+  ollamaModelName: 'llama3.1',
+  ollamaApiKey: '',
+  ollamaKeepAliveTime: '5m',
+
   // advanced
 
   maxResponseTokenLength: 1000,
@@ -258,18 +350,34 @@ export const defaultConfig = {
   // others
 
   alwaysCreateNewConversationWindow: false,
+  // The handling of activeApiModes and customApiModes is somewhat complex.
+  // It does not directly convert activeApiModes into customApiModes, which is for compatibility considerations.
+  // It allows the content of activeApiModes to change with version updates when the user has not customized ApiModes.
+  // If it were directly written into customApiModes, the value would become fixed, even if the user has not made any customizations.
   activeApiModes: [
     'chatgptFree35',
     'chatgptFree4o',
-    'chatgptPlus4',
     'chatgptApi35',
     'chatgptApi4o_128k',
     'claude2WebFree',
+    'claude35SonnetApi',
     'bingFree4',
     'moonshotWebFree',
+    'moonshot_v1_8k',
     'chatglmTurbo',
     'customModel',
     'azureOpenAi',
+  ],
+  customApiModes: [
+    {
+      groupName: '',
+      itemName: '',
+      isCustom: false,
+      customName: '',
+      customUrl: '',
+      apiKey: '',
+      active: false,
+    },
   ],
   activeSelectionTools: ['translate', 'summary', 'polish', 'code', 'ask'],
   customSelectionTools: [
@@ -297,7 +405,7 @@ export const defaultConfig = {
   accessToken: '',
   tokenSavedOn: 0,
   bingAccessToken: '',
-  chatgptJumpBackTabId: 0,
+  notificationJumpBackTabId: 0,
   chatgptTabId: 0,
   chatgptArkoseReqUrl: '',
   chatgptArkoseReqForm: '',
@@ -354,47 +462,75 @@ export function getNavigatorLanguage() {
   return navigator.language.substring(0, 2)
 }
 
-export function isUsingOpenAiApiKey(configOrSession) {
-  return (
-    gptApiModelKeys.includes(configOrSession.modelName) ||
-    chatgptApiModelKeys.includes(configOrSession.modelName)
-  )
+export function isUsingChatgptWebModel(configOrSession) {
+  return isInApiModeGroup(chatgptWebModelKeys, configOrSession)
+}
+
+export function isUsingClaudeWebModel(configOrSession) {
+  return isInApiModeGroup(claudeWebModelKeys, configOrSession)
+}
+
+export function isUsingMoonshotWebModel(configOrSession) {
+  return isInApiModeGroup(moonshotWebModelKeys, configOrSession)
+}
+
+export function isUsingBingWebModel(configOrSession) {
+  return isInApiModeGroup(bingWebModelKeys, configOrSession)
 }
 
 export function isUsingMultiModeModel(configOrSession) {
-  return bingWebModelKeys.includes(configOrSession.modelName)
+  return isInApiModeGroup(bingWebModelKeys, configOrSession)
+}
+
+export function isUsingGeminiWebModel(configOrSession) {
+  return isInApiModeGroup(bardWebModelKeys, configOrSession)
+}
+
+export function isUsingChatgptApiModel(configOrSession) {
+  return isInApiModeGroup(chatgptApiModelKeys, configOrSession)
+}
+
+export function isUsingGptCompletionApiModel(configOrSession) {
+  return isInApiModeGroup(gptApiModelKeys, configOrSession)
+}
+
+export function isUsingOpenAiApiModel(configOrSession) {
+  return isUsingChatgptApiModel(configOrSession) || isUsingGptCompletionApiModel(configOrSession)
+}
+
+export function isUsingClaudeApiModel(configOrSession) {
+  return isInApiModeGroup(claudeApiModelKeys, configOrSession)
+}
+
+export function isUsingMoonshotApiModel(configOrSession) {
+  return isInApiModeGroup(moonshotApiModelKeys, configOrSession)
+}
+
+export function isUsingChatGLMApiModel(configOrSession) {
+  return isInApiModeGroup(chatglmApiModelKeys, configOrSession)
+}
+
+export function isUsingOllamaApiModel(configOrSession) {
+  return isInApiModeGroup(ollamaApiModelKeys, configOrSession)
+}
+
+export function isUsingAzureOpenAiApiModel(configOrSession) {
+  return isInApiModeGroup(azureOpenAiApiModelKeys, configOrSession)
+}
+
+export function isUsingGithubThirdPartyApiModel(configOrSession) {
+  return isInApiModeGroup(githubThirdPartyApiModelKeys, configOrSession)
 }
 
 export function isUsingCustomModel(configOrSession) {
-  return customApiModelKeys.includes(configOrSession.modelName)
+  return isInApiModeGroup(customApiModelKeys, configOrSession)
 }
 
-export function isUsingChatGLMApi(configOrSession) {
-  return chatglmApiModelKeys.includes(configOrSession.modelName)
-}
-
-export function isUsingMoonshotApi(configOrSession) {
-  return moonshotApiModelKeys.includes(configOrSession.modelName)
-}
-
+/**
+ * @deprecated
+ */
 export function isUsingCustomNameOnlyModel(configOrSession) {
-  return configOrSession.modelName === 'poeAiWebCustom'
-}
-
-export function isUsingAzureOpenAi(configOrSession) {
-  return azureOpenAiApiModelKeys.includes(configOrSession.modelName)
-}
-
-export function isUsingClaudeApi(configOrSession) {
-  return claudeApiModelKeys.includes(configOrSession.modelName)
-}
-
-export function isUsingMoonshotWeb(configOrSession) {
-  return moonshotWebModelKeys.includes(configOrSession.modelName)
-}
-
-export function isUsingGithubThirdPartyApi(configOrSession) {
-  return githubThirdPartyApiModelKeys.includes(configOrSession.modelName)
+  return isUsingModelName('poeAiWebCustom', configOrSession)
 }
 
 export async function getPreferredLanguageKey() {

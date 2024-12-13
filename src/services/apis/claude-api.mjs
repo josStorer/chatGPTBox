@@ -30,6 +30,7 @@ export async function generateAnswersWithClaudeApi(port, question, session) {
       'Content-Type': 'application/json',
       'anthropic-version': '2023-06-01',
       'x-api-key': config.claudeApiKey,
+      'anthropic-dangerous-direct-browser-access': true,
     },
     body: JSON.stringify({
       model,

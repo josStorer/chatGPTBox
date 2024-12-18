@@ -207,7 +207,7 @@ export const Models = {
   claude3SonnetApi: { value: 'claude-3-sonnet-20240229', desc: 'Claude.ai (API, Claude 3 Sonnet)' },
   claude3OpusApi: { value: 'claude-3-opus-20240229', desc: 'Claude.ai (API, Claude 3 Opus)' },
   claude35SonnetApi: {
-    value: 'claude-3-5-sonnet-20240620',
+    value: 'claude-3-5-sonnet-20241022',
     desc: 'Claude.ai (API, Claude 3.5 Sonnet)',
   },
 

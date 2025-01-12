@@ -69,6 +69,25 @@ function App() {
   }, [config])
 
   useEffect(() => {
+    // Automatically switch to the newest session if it's newer than the current one
+    const checkForNewSessions = async () => {
+      const allSessions = await getSessions()
+      if (allSessions.length > 0) {
+        const latestSession = allSessions[0] // Assuming sessions are ordered with latest first
+        const beforeLatestSession = allSessions[1] // Assuming sessions are ordered with latest first
+        if (beforeLatestSession.sessionId == sessionId) {
+          await setSessionIdSafe(latestSession.sessionId)
+        }
+        setSessions(allSessions)
+      }
+    }
+
+    const interval = setInterval(checkForNewSessions, 500) // Check every 5 seconds; adjust as needed
+
+    return () => clearInterval(interval)
+  }, [sessionId])
+
+  useEffect(() => {
     // eslint-disable-next-line
     ;(async () => {
       if (sessions.length > 0) {
@@ -128,7 +147,7 @@ function App() {
                 <button
                   key={index}
                   className={`normal-button ${sessionId === session.sessionId ? 'active' : ''}`}
-                  style="display: flex; align-items: center; justify-content: space-between;"
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
                   onClick={() => {
                     setSessionIdSafe(session.sessionId)
                   }}
@@ -165,7 +184,7 @@ function App() {
         </div>
         <div className="chat-content">
           {renderContent && currentSession && currentSession.conversationRecords && (
-            <div className="chatgptbox-container" style="height:100%;">
+            <div className="chatgptbox-container" style={{ height: '100%' }}>
               <ConversationCard
                 session={currentSession}
                 notClampSize={true}
@@ -177,6 +196,7 @@ function App() {
                     setCurrentSession(session)
                   }
                 }}
+                toggleSidebar={toggleSidebar}
               />
             </div>
           )}

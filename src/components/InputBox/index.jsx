@@ -76,7 +76,7 @@ export function InputBox({ onSubmit, enabled, postMessage, reverseResizeDir }) {
             transform: 'rotateX(180deg)',
             resize: 'vertical',
             overflow: 'hidden',
-            minHeight: '160px',
+            minHeight: '40px',
           }
         }
       >

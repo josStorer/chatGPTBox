@@ -5,7 +5,7 @@ import { changeChildrenFontSize } from '../../utils'
 
 export function Pre({ className, children }) {
   const preRef = useRef(null)
-  const [fontSize, setFontSize] = useState(14)
+  const [fontSize, setFontSize] = useState(12)
   const sizeList = [10, 12, 14, 16, 18]
 
   useEffect(() => {

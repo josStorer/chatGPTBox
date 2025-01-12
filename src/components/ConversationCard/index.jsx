@@ -346,7 +346,7 @@ function ConversationCard(props) {
         <span
           className="gpt-util-group"
           style={{
-            padding: '15px 0 15px 15px',
+            padding: '0 15px',
             ...(props.notClampSize ? {} : { flexGrow: isSafari() ? 0 : 1 }),
             ...(isSafari() ? { maxWidth: '200px' } : {}),
           }}
@@ -373,7 +373,13 @@ function ConversationCard(props) {
               <Pin size={16} />
             </span>
           ) : (
-            <img src={logo} style="user-select:none;width:20px;height:20px;" />
+            <img
+              src={logo}
+              style="user-select:none;width:20px;height:20px;"
+              onClick={() => {
+                if (props.toggleSidebar) props.toggleSidebar()
+              }}
+            />
           )}
           <select
             style={props.notClampSize ? {} : { width: 0, flexGrow: 1 }}
@@ -423,7 +429,7 @@ function ConversationCard(props) {
         <span
           className="gpt-util-group"
           style={{
-            padding: '15px 15px 15px 0',
+            padding: '0 15px',
             justifyContent: 'flex-end',
             flexGrow: props.draggable && !completeDraggable ? 0 : 1,
           }}
@@ -494,14 +500,13 @@ function ConversationCard(props) {
                   sessionId: uuidv4(),
                 }
                 setSession(newSession)
-                createSession(newSession).then(() =>
-                  Browser.runtime.sendMessage({
-                    type: 'OPEN_URL',
-                    data: {
-                      url: Browser.runtime.getURL('IndependentPanel.html') + '?from=store',
-                    },
-                  }),
-                )
+                createSession(newSession).then(() => {
+                  // Close the Conversation Card after session creation
+                  port.disconnect()
+                  if (props.onClose) {
+                    props.onClose()
+                  }
+                })
               }}
             >
               <ArchiveIcon size={16} />
@@ -546,7 +551,7 @@ function ConversationCard(props) {
         style={
           props.notClampSize
             ? { flexGrow: 1 }
-            : { maxHeight: windowSize[1] * 0.55 + 'px', resize: 'vertical' }
+            : { maxHeight: windowSize[1] * 0.9 + 'px', resize: 'vertical' }
         }
       >
         {conversationItemData.map((data, idx) => (
@@ -622,6 +627,7 @@ ConversationCard.propTypes = {
   notClampSize: PropTypes.bool,
   pageMode: PropTypes.bool,
   waitForTrigger: PropTypes.bool,
+  toggleSidebar: PropTypes.func,
 }
 
 export default memo(ConversationCard)

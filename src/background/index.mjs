@@ -27,6 +27,7 @@ import {
   isUsingOllamaApiModel,
   isUsingAzureOpenAiApiModel,
   isUsingClaudeApiModel,
+  isUsingYouWebModel,
   isUsingChatGLMApiModel,
   isUsingGithubThirdPartyApiModel,
   isUsingGeminiWebModel,
@@ -41,8 +42,10 @@ import {
   getBingAccessToken,
   getChatGptAccessToken,
   getClaudeSessionKey,
+  getYouSessionKey,
   registerPortListener,
 } from '../services/wrappers.mjs'
+import { generateAnswersWithYouWebApi } from '../services/apis/you-web.mjs'
 import { refreshMenu } from './menus.mjs'
 import { registerCommands } from './commands.mjs'
 import { generateAnswersWithBardWebApi } from '../services/apis/bard-web.mjs'
@@ -117,6 +120,9 @@ async function executeApi(session, port, config) {
       await generateAnswersWithChatgptWebApi(port, session.question, session, accessToken)
     }
   } else if (isUsingClaudeWebModel(session)) {
+    } else if (isUsingYouWebModel(session)) {
+      const sessionKey = await getYouSessionKey();
+      await generateAnswersWithYouWebApi(port, session.question, session, sessionKey);
     const sessionKey = await getClaudeSessionKey()
     await generateAnswersWithClaudeWebApi(port, session.question, session, sessionKey)
   } else if (isUsingMoonshotWebModel(session)) {

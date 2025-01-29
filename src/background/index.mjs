@@ -120,11 +120,11 @@ async function executeApi(session, port, config) {
       await generateAnswersWithChatgptWebApi(port, session.question, session, accessToken)
     }
   } else if (isUsingClaudeWebModel(session)) {
-    } else if (isUsingYouWebModel(session)) {
-      const sessionKey = await getYouSessionKey();
-      await generateAnswersWithYouWebApi(port, session.question, session, sessionKey);
     const sessionKey = await getClaudeSessionKey()
     await generateAnswersWithClaudeWebApi(port, session.question, session, sessionKey)
+  } else if (isUsingYouWebModel(session)) {
+    const sessionKey = await getYouSessionKey()
+    await generateAnswersWithYouWebApi(port, session.question, session, sessionKey)
   } else if (isUsingMoonshotWebModel(session)) {
     await generateAnswersWithMoonshotWebApi(port, session.question, session, config)
   } else if (isUsingBingWebModel(session)) {

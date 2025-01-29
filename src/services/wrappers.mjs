@@ -1,5 +1,4 @@
 import {
-import { getYouSessionKey } from "../utils/wrappers.mjs";
   clearOldAccessToken,
   getUserConfig,
   isUsingBingWebModel,
@@ -8,9 +7,7 @@ import { getYouSessionKey } from "../utils/wrappers.mjs";
 } from '../config/index.mjs'
 import Browser from 'webextension-polyfill'
 import { t } from 'i18next'
-import { getYouSessionKey } from "../utils/wrappers.mjs";
 import { apiModeToModelName, modelNameToDesc } from '../utils/model-name-convert.mjs'
-import { getYouSessionKey } from "../utils/wrappers.mjs";
 
 export async function getChatGptAccessToken() {
   await clearOldAccessToken()
@@ -54,6 +51,10 @@ export async function getClaudeSessionKey() {
   return (await Browser.cookies.get({ url: 'https://claude.ai/', name: 'sessionKey' }))?.value
 }
 
+export async function getYouSessionKey() {
+  return (await Browser.cookies.get({ url: 'https://you.com/', name: 'sessionKey' }))?.value
+}
+
 export function handlePortError(session, port, err) {
   console.error(err)
   if (err.message) {
@@ -74,10 +75,6 @@ export function handlePortError(session, port, err) {
         port.postMessage({ error: 'UNAUTHORIZED' })
       else if (
         isUsingClaudeWebModel(session) &&
-        else if (isUsingYouWebModel(session) && ['Invalid sessionKey', 'sessionKey is required'].some((m) => err.message.includes(m)))
-          port.postMessage({
-            error: t('Please login at https://you.com first, and then click the retry button'),
-          })
         ['Invalid authorization', 'Session key required'].some((m) => err.message.includes(m))
       )
         port.postMessage({
@@ -133,8 +130,4 @@ export function registerPortListener(executor) {
     port.onMessage.addListener(onMessage)
     port.onDisconnect.addListener(onDisconnect)
   })
-}
-
-export async function getYouSessionKey() {
-  return (await Browser.cookies.get({ url: 'https://you.com/', name: 'sessionKey' }))?.value;
 }

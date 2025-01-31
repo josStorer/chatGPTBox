@@ -48,7 +48,7 @@ export default {
       let subtitleContent = ''
       while (subtitleData.indexOf('">') !== -1) {
         subtitleData = subtitleData.substring(subtitleData.indexOf('">') + 2)
-        subtitleContent += subtitleData.substring(0, subtitleData.indexOf('<')) + ','
+        subtitleContent += subtitleData.substring(0, subtitleData.indexOf('<')) + '\n'
       }
 
       subtitleContent = replaceHtmlEntities(subtitleContent)

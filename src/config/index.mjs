@@ -69,6 +69,7 @@ export const claudeApiModelKeys = [
   'claude3SonnetApi',
   'claude3OpusApi',
   'claude35SonnetApi',
+  'claude35HaikuApi',
 ]
 export const chatglmApiModelKeys = ['chatglmTurbo', 'chatglm4', 'chatglmEmohaa', 'chatglmCharGLM3']
 export const githubThirdPartyApiModelKeys = ['waylaidwandererApi']
@@ -211,6 +212,10 @@ export const Models = {
   claude35SonnetApi: {
     value: 'claude-3-5-sonnet-20240620',
     desc: 'Claude.ai (API, Claude 3.5 Sonnet)',
+  },
+  claude35HaikuApi: {
+    value: 'claude-3-5-haiku-20241022',
+    desc: 'Claude.ai (API, Claude 3.5 Haiku)',
   },
 
   bingFree4: { value: '', desc: 'Bing (Web, GPT-4)' },
